@@ -74,7 +74,7 @@ Start the game. The widgets appear while the game window is focused.
 
 - **Tray icon:** green means it's capturing, amber means it's waiting for the game, red means an error, grey means stopped.
   Left click opens edit mode. Right click has start/stop, history, reset and more.
-- **Edit mode:** drag widgets to move them (they snap to a grid; hold Shift to place freely).
+- **Edit mode:** drag widgets to move them. They snap to a grid, and pink guides show when a widget lines up with the screen centre or another widget. Hold Shift to place freely.
   It also has settings: which widgets to show, size, opacity, damage or DPS columns, and which target to track.
   Click a player in the meter to see their skills.
 - **App menu:** "AION 2 Meter" starts or stops it.

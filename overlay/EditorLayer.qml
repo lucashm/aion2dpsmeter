@@ -67,10 +67,70 @@ PanelWindow {
     }
 
     // Grid position for a dragged widget; Shift places it freely.
-    function snap(v, modifiers) {
+    function snap(v) {
         const g = settings.gridSize;
-        if (!settings.snapToGrid || (modifiers & Qt.ShiftModifier)) return v;
-        return Math.round(v / g) * g;
+        return settings.snapToGrid ? Math.round(v / g) * g : v;
+    }
+
+    // Alignment guides while dragging, in screen coordinates.
+    property var guidesX: []
+    property var guidesY: []
+
+    // Lines a widget can line up with along one axis: the screen's edges and
+    // centre, and every other widget's edges and centre.
+    function alignLines(w, horizontal) {
+        const lines = horizontal ? [0, width / 2, width] : [0, height / 2, height];
+        for (const o of widgets) {
+            if (o === w || !o.visible) continue;
+            const p = horizontal ? o.posX : o.posY;
+            const s = horizontal ? o.implicitWidth : o.implicitHeight;
+            lines.push(p, p + s / 2, p + s);
+        }
+        return lines;
+    }
+
+    // One axis of a drag: snaps the widget's nearest edge or centre onto a
+    // line within a few pixels, else onto the grid. Returns [position, lines touched].
+    function placeAxis(w, start, horizontal) {
+        const size = horizontal ? w.implicitWidth : w.implicitHeight;
+        const lines = alignLines(w, horizontal);
+        let best = null;
+        for (const edge of [0, size / 2, size])
+            for (const l of lines) {
+                const d = l - (start + edge);
+                if (Math.abs(d) <= 8 && (best === null || Math.abs(d) < Math.abs(best))) best = d;
+            }
+        const pos = best !== null ? start + best : snap(start);
+        const touched = lines.filter(l => [0, size / 2, size].some(e => Math.abs(pos + e - l) < 0.5));
+        return [pos, [...new Set(touched)]];
+    }
+
+    // Shift places freely: no guides, no grid.
+    function place(w, x, y, modifiers) {
+        if (modifiers & Qt.ShiftModifier) {
+            guidesX = [];
+            guidesY = [];
+            return Qt.point(x, y);
+        }
+        const [px, gx] = placeAxis(w, x, true);
+        const [py, gy] = placeAxis(w, y, false);
+        guidesX = gx;
+        guidesY = gy;
+        return Qt.point(px, py);
+    }
+
+    // The screen's centre lines, always shown while editing.
+    Rectangle {
+        x: Math.round(parent.width / 2)
+        width: 1
+        height: parent.height
+        color: Qt.rgba(1, 1, 1, 0.22)
+    }
+    Rectangle {
+        y: Math.round(parent.height / 2)
+        width: parent.width
+        height: 1
+        color: Qt.rgba(1, 1, 1, 0.22)
     }
 
     Repeater {
@@ -122,13 +182,15 @@ PanelWindow {
                 onPositionChanged: mouse => {
                     if (!pressed) return;
                     const p = mapToItem(null, mouse.x, mouse.y);
-                    const nx = editor.snap(p.x - offX, mouse.modifiers), ny = editor.snap(p.y - offY, mouse.modifiers);
-                    if (!moved && Math.abs(nx - handle.w.posX) + Math.abs(ny - handle.w.posY) < 4) return;
+                    const at = editor.place(handle.w, p.x - offX, p.y - offY, mouse.modifiers);
+                    if (!moved && Math.abs(at.x - handle.w.posX) + Math.abs(at.y - handle.w.posY) < 4) return;
                     moved = true;
-                    handle.w.dragX = nx;
-                    handle.w.dragY = ny;
+                    handle.w.dragX = at.x;
+                    handle.w.dragY = at.y;
                 }
                 onReleased: mouse => {
+                    editor.guidesX = [];
+                    editor.guidesY = [];
                     if (moved) {
                         editor.settings.setWidgetPos(handle.w.widgetId, handle.w.posX, handle.w.posY);
                     } else {
@@ -138,6 +200,28 @@ PanelWindow {
                     handle.w.dragY = NaN;
                 }
             }
+        }
+    }
+
+    // Alignment guides for the widget being dragged.
+    Repeater {
+        model: editor.guidesX
+        Rectangle {
+            required property real modelData
+            x: Math.round(modelData)
+            width: 1
+            height: editor.height
+            color: "#FF5FD2"
+        }
+    }
+    Repeater {
+        model: editor.guidesY
+        Rectangle {
+            required property real modelData
+            y: Math.round(modelData)
+            width: editor.width
+            height: 1
+            color: "#FF5FD2"
         }
     }
 

@@ -19,3 +19,4 @@ jobs:
       - run: cargo clippy --no-deps -p aion2-meterd -p aion2-meter-tray -- -D warnings
       - run: cargo test -p aion2-meterd
       - run: for f in scripts/*.sh scripts/aion2-meter; do bash -n "$f"; done
+      - run: node scripts/test-editor-guides.js
