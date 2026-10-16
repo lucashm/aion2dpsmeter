@@ -204,23 +204,6 @@ impl ksni::Tray for MeterTray {
                 ..Default::default()
             }
             .into(),
-            StandardItem {
-                label: if status.widgets_shown {
-                    "✓ Show widgets"
-                } else {
-                    "    Show widgets"
-                }
-                .into(),
-                enabled: status.running,
-                activate: Box::new(|this: &mut Self| {
-                    overlay_ipc("toggle", None);
-                    let mut s = this.status.lock().unwrap();
-                    s.widgets_shown = !s.widgets_shown;
-                    s.hold_until = Some(std::time::Instant::now() + Duration::from_secs(4));
-                }),
-                ..Default::default()
-            }
-            .into(),
             // A tray menu can't ask "are you sure": the submenu item is the confirmation.
             SubMenu {
                 label: "Reset meter".into(),
@@ -239,56 +222,6 @@ impl ksni::Tray for MeterTray {
                 ..Default::default()
             }
             .into(),
-            SubMenu {
-                label: "Monitor".into(),
-                enabled: status.running,
-                submenu: std::iter::once(("Follow game".to_string(), String::new()))
-                    .chain(status.monitors.iter().map(|m| (m.clone(), m.clone())))
-                    .map(|(label, name)| {
-                        let mark = if name == status.pinned {
-                            "✓ "
-                        } else {
-                            "    "
-                        };
-                        StandardItem {
-                            label: format!("{mark}{label}"),
-                            activate: Box::new(move |this: &mut Self| {
-                                // The overlay owns its settings; "follow" means unpinned.
-                                overlay_ipc(
-                                    "monitor",
-                                    Some(if name.is_empty() { "follow" } else { &name }),
-                                );
-                                let mut s = this.status.lock().unwrap();
-                                s.pinned = name.clone();
-                                s.hold_until =
-                                    Some(std::time::Instant::now() + Duration::from_secs(4));
-                            }),
-                            ..Default::default()
-                        }
-                        .into()
-                    })
-                    .collect(),
-                ..Default::default()
-            }
-            .into(),
-            MenuItem::Separator,
-            StandardItem {
-                // DMS draws no checkmarks: a ✓ in the label shows it is on.
-                label: if status.autostart {
-                    "✓ Start at login"
-                } else {
-                    "    Start at login"
-                }
-                .into(),
-                activate: Box::new(|this: &mut Self| {
-                    let mut s = this.status.lock().unwrap();
-                    systemctl(if s.autostart { "disable" } else { "enable" });
-                    s.autostart = !s.autostart;
-                    s.hold_until = Some(std::time::Instant::now() + Duration::from_secs(4));
-                }),
-                ..Default::default()
-            }
-            .into(),
             StandardItem {
                 label: "Restart meter".into(),
                 icon_name: "view-refresh".into(),
@@ -304,6 +237,41 @@ impl ksni::Tray for MeterTray {
                     let dir = data_home().join("fights");
                     let _ = std::fs::create_dir_all(&dir);
                     run("xdg-open", &[&dir.to_string_lossy()]);
+                }),
+                ..Default::default()
+            }
+            .into(),
+            MenuItem::Separator,
+            StandardItem {
+                label: if status.widgets_shown {
+                    "✓ Show widgets"
+                } else {
+                    "    Show widgets"
+                }
+                .into(),
+                enabled: status.running,
+                activate: Box::new(|this: &mut Self| {
+                    overlay_ipc("toggle", None);
+                    let mut s = this.status.lock().unwrap();
+                    s.widgets_shown = !s.widgets_shown;
+                    s.hold_until = Some(std::time::Instant::now() + Duration::from_secs(4));
+                }),
+                ..Default::default()
+            }
+            .into(),
+            StandardItem {
+                // DMS draws no checkmarks: a ✓ in the label shows it is on.
+                label: if status.autostart {
+                    "✓ Start at login"
+                } else {
+                    "    Start at login"
+                }
+                .into(),
+                activate: Box::new(|this: &mut Self| {
+                    let mut s = this.status.lock().unwrap();
+                    systemctl(if s.autostart { "disable" } else { "enable" });
+                    s.autostart = !s.autostart;
+                    s.hold_until = Some(std::time::Instant::now() + Duration::from_secs(4));
                 }),
                 ..Default::default()
             }
