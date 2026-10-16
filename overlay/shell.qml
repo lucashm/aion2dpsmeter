@@ -213,15 +213,34 @@ ShellRoot {
         ? [[settings.shortcutEdit, "edit"], [settings.shortcutHide, "hide"]]
             .filter(k => /^[A-Za-z0-9_]+( \+ [A-Za-z0-9_]+)*$/.test(k[0]))
             // ` is a dead key on some layouts: bind both of its names.
-            .flatMap(k => k[0].endsWith(" + grave") ? [k, [k[0].replace(/grave$/, "dead_grave"), k[1]]] : [k])
+            .reduce((all, k) => all.concat(k[0].endsWith(" + grave") ? [k, [k[0].replace(/grave$/, "dead_grave"), k[1]]] : [k]), [])
         : []
     onShortcutKeysChanged: applyShortcuts()
     Component.onDestruction: if (boundKeys.length) Quickshell.execDetached(["hyprctl", "eval", boundKeys.map(k => `hl.unbind("${k}")`).join("\n")])
     function applyShortcuts() {
         const lua = boundKeys.map(k => `hl.unbind("${k}")`)
-            .concat(shortcutKeys.map(k => `hl.bind("${k[0]}", hl.dsp.global("aion2meter:${k[1]}"))`));
+            .concat(shortcutKeys.map(k => `hl.bind("${k[0]}", hl.dsp.global("aion2meter:${k[1]}"), { description = "aion2meter:${k[1]}" })`));
         boundKeys = shortcutKeys.map(k => k[0]);
         if (lua.length) Quickshell.execDetached(["hyprctl", "eval", lua.join("\n")]);
+    }
+
+    // Binds left by an overlay stopped before it could unbind them (a killed
+    // process runs no onDestruction), found by their description.
+    Process {
+        running: root.onHyprland
+        command: ["hyprctl", "binds", "-j"]
+        stdout: StdioCollector {
+            onStreamFinished: {
+                try {
+                    const mods = [[64, "SUPER"], [4, "CTRL"], [8, "ALT"], [1, "SHIFT"]];
+                    const stale = JSON.parse(text)
+                        .filter(b => (b.description || "").startsWith("aion2meter:") && b.key)
+                        .map(b => mods.filter(m => b.modmask & m[0]).map(m => m[1]).concat([b.key]).join(" + "));
+                    root.boundKeys = root.boundKeys.concat(stale.filter(k => !root.boundKeys.includes(k)));
+                    root.applyShortcuts();
+                } catch (e) {}
+            }
+        }
     }
 
     function focusNextPlayer() {
