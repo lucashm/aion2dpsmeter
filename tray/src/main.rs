@@ -1,5 +1,5 @@
-//! aion2-meter-tray: a system tray icon for the AION 2 meter. Left click opens
-//! edit mode (or starts the meter); right click has the controls. It runs
+//! aion2-meter-tray: a system tray icon for the AION 2 meter. Left click shows
+//! or hides the widgets (or starts the meter); right click has the controls. It runs
 //! without any special permission and stays in the tray while the meter is
 //! stopped, so the meter can be started from it.
 
@@ -130,8 +130,8 @@ impl ksni::Tray for MeterTray {
             ICON_ELYOS
         }
         .to_vec();
-        if !status.running {
-            // Stopped: greyed out.
+        if !status.running || !status.widgets_shown {
+            // Stopped or widgets hidden: greyed out.
             for px in data.as_chunks_mut::<4>().0 {
                 let grey =
                     ((px[1] as u32 * 30 + px[2] as u32 * 59 + px[3] as u32 * 11) / 100) as u8;
@@ -156,7 +156,10 @@ impl ksni::Tray for MeterTray {
 
     fn activate(&mut self, _x: i32, _y: i32) {
         if self.status().running {
-            overlay_ipc("edit", None);
+            overlay_ipc("toggle", None);
+            let mut s = self.status.lock().unwrap();
+            s.widgets_shown = !s.widgets_shown;
+            s.hold_until = Some(std::time::Instant::now() + Duration::from_secs(4));
         } else {
             systemctl("start");
         }
@@ -174,33 +177,6 @@ impl ksni::Tray for MeterTray {
             }
             .into(),
             MenuItem::Separator,
-            // DMS draws no checkmarks: the label says what a click does, and
-            // the state flips at once so the rest of the menu follows.
-            StandardItem {
-                label: if status.running {
-                    "Stop meter"
-                } else {
-                    "Start meter"
-                }
-                .into(),
-                icon_name: if status.running {
-                    "media-playback-stop"
-                } else {
-                    "media-playback-start"
-                }
-                .into(),
-                activate: Box::new(|this: &mut Self| {
-                    let mut s = this.status.lock().unwrap();
-                    systemctl(if s.running { "stop" } else { "start" });
-                    s.running = !s.running;
-                    s.hold_until = Some(std::time::Instant::now() + Duration::from_secs(4));
-                    if !s.running {
-                        s.capture = None;
-                    }
-                }),
-                ..Default::default()
-            }
-            .into(),
             StandardItem {
                 label: "Edit layout".into(),
                 icon_name: "view-grid-symbolic".into(),
