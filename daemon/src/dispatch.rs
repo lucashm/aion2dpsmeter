@@ -40,9 +40,6 @@ type ConnKey = (u16, u16);
 pub struct CaptureStatus {
     pub game_running: bool,
     pub locked: bool,
-    pub server: Option<String>,
-    pub last_parsed_ms: i64,
-    pub bytes_parsed: u64,
     /// Why capture is not running, for the overlay to show.
     pub error: Option<String>,
 }
@@ -62,6 +59,9 @@ pub struct Dispatcher {
     last_host: Option<IpAddr>,
     /// Replaying a file: the parser's clock follows the capture's.
     pub replay: bool,
+    /// Capture time of the last chunk that parsed (kept out of `status`, which
+    /// the overlay is only re-sent when it changes).
+    pub last_parsed_ms: i64,
     pub status: CaptureStatus,
 }
 
@@ -86,6 +86,7 @@ impl Dispatcher {
             locked: None,
             last_host: None,
             replay: false,
+            last_parsed_ms: 0,
             status: CaptureStatus::default(),
         }
     }
@@ -114,7 +115,7 @@ impl Dispatcher {
     }
 
     pub fn tick(&mut self, now_ms: i64) {
-        if self.locked.is_some() && self.status.last_parsed_ms > 0 && now_ms - self.status.last_parsed_ms > STALE_CONNECTION_MS {
+        if self.locked.is_some() && self.last_parsed_ms > 0 && now_ms - self.last_parsed_ms > STALE_CONNECTION_MS {
             info!("Nothing parsed for {} s; releasing the lock", STALE_CONNECTION_MS / 1000);
             self.unlock();
         }
@@ -123,7 +124,6 @@ impl Dispatcher {
     fn unlock(&mut self) {
         self.locked = None;
         self.status.locked = false;
-        self.status.server = None;
         self.streams.clear();
         self.sig_hits.clear();
         self.ping.reset();
@@ -191,7 +191,6 @@ impl Dispatcher {
             if self.last_host != Some(server.0) {
                 self.last_host = Some(server.0);
                 self.storage.set_game_host(v4(server.0));
-                self.status.server = Some(format!("{}:{}", server.0, server.1));
             }
             self.parse(key, &chunk, chunk.captured_at_ms);
             return;
@@ -247,8 +246,7 @@ impl Dispatcher {
             a2tools::clock::set_override(Some(now));
         }
         if assembler.process_chunk(&chunk.data, processor) {
-            self.status.last_parsed_ms = now;
-            self.status.bytes_parsed += chunk.data.len() as u64;
+            self.last_parsed_ms = now;
         }
     }
 }

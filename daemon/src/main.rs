@@ -204,7 +204,7 @@ fn main() -> Result<()> {
             let mut reasm = tcp::Reassembler::default();
             let mut chunks = Vec::new();
             // A replayed capture is the game's by definition.
-            let mut game = if replay { replay_game_state() } else { game::scan() };
+            let mut game = if replay { game::GameState { pids: vec![0], local_ports: HashSet::new() } } else { game::scan() };
             dispatcher.on_game_state(&game);
             let mut last_scan = Instant::now();
             loop {
@@ -239,7 +239,7 @@ fn main() -> Result<()> {
                         dispatcher.on_chunk(&game, chunk);
                     }
                 }
-                dispatcher.tick(if replay { dispatcher.status.last_parsed_ms } else { now_ms() });
+                dispatcher.tick(if replay { dispatcher.last_parsed_ms } else { now_ms() });
                 let mut s = status.lock();
                 let error = s.error.take();
                 *s = dispatcher.status.clone();
@@ -251,7 +251,6 @@ fn main() -> Result<()> {
 
     // ── meter: state to the overlay, fights to disk ────────────────────────
     let mut last_sent: Option<meter::OverlayState> = None;
-    let mut last_sent_at = Instant::now();
     let mut last_save = Instant::now();
     loop {
         std::thread::sleep(Duration::from_millis(200));
@@ -262,14 +261,13 @@ fn main() -> Result<()> {
         let capture = status.lock().clone();
         let state = meter.lock().state(capture);
         let forced = force_send.swap(false, std::sync::atomic::Ordering::Relaxed);
-        if forced || last_sent.as_ref() != Some(&state) || last_sent_at.elapsed() >= Duration::from_secs(2) {
+        if forced || last_sent.as_ref() != Some(&state) {
             let line = serde_json::to_string(&state)?;
             if args.print {
                 println!("{line}");
             }
             clients.broadcast(&line);
             last_sent = Some(state);
-            last_sent_at = Instant::now();
         }
         if last_save.elapsed() >= Duration::from_secs(5) {
             last_save = Instant::now();
@@ -287,10 +285,6 @@ fn main() -> Result<()> {
             return Ok(());
         }
     }
-}
-
-fn replay_game_state() -> game::GameState {
-    game::GameState { pids: vec![0], local_ports: HashSet::new() }
 }
 
 /// A2Tools masks every name but yours in a saved fight ("Ka****A"); put the

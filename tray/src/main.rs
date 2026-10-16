@@ -33,7 +33,6 @@ struct Capture {
     locked: bool,
     error: Option<String>,
     ping_ms: Option<i64>,
-    players: usize,
 }
 
 impl Status {
@@ -335,7 +334,6 @@ fn watch_socket(
                     locked: c["locked"].as_bool().unwrap_or(false),
                     error: c["error"].as_str().map(str::to_string),
                     ping_ms: v["pingMs"].as_i64(),
-                    players: v["players"].as_array().map_or(0, Vec::len),
                 };
                 let changed = {
                     let mut s = status.lock().unwrap();

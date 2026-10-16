@@ -41,7 +41,6 @@ pub struct SkillRow {
     pub dps: f64,
     pub crit_rate: f64,
     pub back_rate: f64,
-    pub max_hit: i32,
     pub is_dot: bool,
 }
 
@@ -67,12 +66,10 @@ pub struct OverlayState {
     pub target_mode: String,
     pub target: Option<Target>,
     pub battle_time_ms: i64,
-    pub local_id: Option<i64>,
     pub players: Vec<PlayerRow>,
     /// Whose skills `skills` lists: the focused player, else you.
     pub skills_of: Option<i32>,
     pub skills: Vec<SkillRow>,
-    pub dungeon_id: i32,
 }
 
 pub struct Meter {
@@ -152,11 +149,9 @@ impl Meter {
             target_mode: dps.target_mode.clone(),
             target,
             battle_time_ms: dps.battle_time,
-            local_id: dps.local_player_id,
             players,
             skills_of,
             skills: self.skills.clone(),
-            dungeon_id: dps.dungeon_id,
         }
     }
 
@@ -188,7 +183,6 @@ impl Meter {
                         dps: 0.0,
                         crit_rate: 0.0,
                         back_rate: 0.0,
-                        max_hit: 0,
                         is_dot: s.is_dot,
                     });
                     row.damage += s.dmg as i64;
@@ -196,7 +190,6 @@ impl Meter {
                     // Rates are summed as counts here and divided below.
                     row.crit_rate += s.crit as f64;
                     row.back_rate += s.back as f64;
-                    row.max_hit = row.max_hit.max(s.max_dmg);
                 }
             }
         }

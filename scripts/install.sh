@@ -29,7 +29,7 @@ fi
 step "Fetching the A2Tools parser (submodule)"
 git -C "$repo" submodule update --init --recursive
 
-step "Building the daemon"
+step "Building the daemon and tray"
 cargo build --release --manifest-path "$repo/Cargo.toml" -p aion2-meterd -p aion2-meter-tray
 
 step "Installing the daemon to $bin_dir"
