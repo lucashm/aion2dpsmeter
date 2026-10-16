@@ -1,0 +1,21 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - run: sudo apt-get update && sudo apt-get install -y libpcap-dev
+      - run: rustup update stable && rustup default stable && rustup component add rustfmt clippy
+      - run: cargo fmt --check -p aion2-meterd -p aion2-meter-tray
+      # --no-deps: lint our crates only, not the A2Tools parser.
+      - run: cargo clippy --no-deps -p aion2-meterd -p aion2-meter-tray -- -D warnings
+      - run: cargo test -p aion2-meterd
+      - run: for f in scripts/*.sh scripts/aion2-meter; do bash -n "$f"; done
