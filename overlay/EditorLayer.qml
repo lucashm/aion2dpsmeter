@@ -499,6 +499,13 @@ PanelWindow {
                     onToggled: editor.settings.setAlwaysShow(!checked)
                 }
 
+                Item { implicitWidth: 1 }
+                Toggle {
+                    label: "Drag widgets in game (Alt frees the cursor; blocks clicks under them)"
+                    checked: editor.settings.moveInGame
+                    onToggled: editor.settings.setMoveInGame(!checked)
+                }
+
                 Section { text: "METER" }
 
                 Label { text: "Target" }

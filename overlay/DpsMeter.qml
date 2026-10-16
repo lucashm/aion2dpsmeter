@@ -14,7 +14,7 @@ OverlayWidget {
     readonly property real topDamage: rows.length ? rows[0].damage : 1
     readonly property var localRow: client.players.find(p => p.isLocal)
 
-    // A click on a row (edit mode) shows that player's skills.
+    // A click on a row (edit mode, or in game with "Drag widgets in game") shows that player's skills.
     onTapped: (x, y) => {
         const i = Math.floor((y - list.y - Theme.pad) / (Theme.rowHeight + list.spacing));
         if (i >= 0 && i < rows.length) client.focus(rows[i].isLocal ? null : rows[i].id);

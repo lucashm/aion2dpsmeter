@@ -51,7 +51,10 @@ PanelWindow {
     WlrLayershell.namespace: "aion2-meter-" + widgetId
     WlrLayershell.keyboardFocus: WlrKeyboardFocus.None
 
-    mask: Region { item: win.interactive && !win.editMode ? body : null }
+    // Dragged by itself, outside edit mode, when the setting allows it.
+    readonly property bool movable: settings.moveInGame && !editMode && !interactive
+
+    mask: Region { item: (win.interactive && !win.editMode) || win.movable ? body : null }
 
     function clampX(x) {
         return Math.max(0, Math.min(x, (screen ? screen.width : 4000) - implicitWidth));
@@ -64,6 +67,44 @@ PanelWindow {
         id: body
         implicitWidth: childrenRect.width
         implicitHeight: childrenRect.height
+    }
+
+    // shortcut: the pointer is in this surface's coordinates, and the surface
+    // moves a frame behind the drag, so it wobbles while moving and settles
+    // where it should. A smooth drag needs a full-screen surface, as edit mode has.
+    MouseArea {
+        anchors.fill: body
+        enabled: win.movable
+        hoverEnabled: true
+        cursorShape: pressed ? Qt.ClosedHandCursor : Qt.OpenHandCursor
+        property real offX: 0
+        property real offY: 0
+        property bool moved: false
+        function snap(v) {
+            const g = win.settings.gridSize;
+            return win.settings.snapToGrid ? Math.round(v / g) * g : v;
+        }
+        onPressed: mouse => {
+            offX = mouse.x;
+            offY = mouse.y;
+            moved = false;
+        }
+        onPositionChanged: mouse => {
+            if (!pressed) return;
+            if (!moved && Math.abs(mouse.x - offX) + Math.abs(mouse.y - offY) < 4) return;
+            moved = true;
+            const free = mouse.modifiers & Qt.ShiftModifier;
+            const x = win.posX + mouse.x - offX;
+            const y = win.posY + mouse.y - offY;
+            win.dragX = free ? x : snap(x);
+            win.dragY = free ? y : snap(y);
+        }
+        onReleased: mouse => {
+            if (moved) win.settings.setWidgetPos(win.widgetId, win.posX, win.posY);
+            else win.tapped(mouse.x, mouse.y);
+            win.dragX = NaN;
+            win.dragY = NaN;
+        }
     }
 
     Rectangle {

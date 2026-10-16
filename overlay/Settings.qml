@@ -13,6 +13,9 @@ Item {
     readonly property real uiScale: adapter.scale
     readonly property real uiOpacity: adapter.opacity
     readonly property bool alwaysShow: adapter.alwaysShow
+    // Widgets take the pointer outside edit mode, to be dragged while the
+    // game's cursor is free (Alt). Off: they would block clicks to the game.
+    readonly property bool moveInGame: adapter.moveInGame
     readonly property int maxRows: adapter.maxRows
     readonly property int skillRows: adapter.skillRows
     readonly property string gameMonitor: adapter.gameMonitor
@@ -55,6 +58,7 @@ Item {
     function setScale(s) { adapter.scale = Math.round(Math.max(0.6, Math.min(2.0, s)) * 10) / 10; }
     function setOpacity(o) { adapter.opacity = Math.round(Math.max(0.2, Math.min(1.0, o)) * 10) / 10; }
     function setAlwaysShow(on) { adapter.alwaysShow = on; }
+    function setMoveInGame(on) { adapter.moveInGame = on; }
     function setSnapToGrid(on) { adapter.snapToGrid = on; }
     function setGridSize(px) { adapter.gridSize = Math.max(4, Math.min(64, px)); }
     function setMeterMetric(m) { adapter.meterMetric = m; }
@@ -80,6 +84,7 @@ Item {
             property real scale: 1.0
             property real opacity: 0.85
             property bool alwaysShow: false
+            property bool moveInGame: false
             property int maxRows: 8
             property int skillRows: 10
             // The monitor the game was last seen on.
