@@ -28,6 +28,8 @@ struct Status {
     /// Connected monitors, and the one the widgets are pinned to ("" = follow the game).
     monitors: Vec<String>,
     pinned: String,
+    /// The overlay's "show widgets" setting.
+    widgets_shown: bool,
 }
 
 #[derive(Debug, Clone, Default, PartialEq)]
@@ -203,9 +205,19 @@ impl ksni::Tray for MeterTray {
             }
             .into(),
             StandardItem {
-                label: "Show / hide widgets".into(),
+                label: if status.widgets_shown {
+                    "✓ Show widgets"
+                } else {
+                    "    Show widgets"
+                }
+                .into(),
                 enabled: status.running,
-                activate: Box::new(|_| overlay_ipc("toggle", None)),
+                activate: Box::new(|this: &mut Self| {
+                    overlay_ipc("toggle", None);
+                    let mut s = this.status.lock().unwrap();
+                    s.widgets_shown = !s.widgets_shown;
+                    s.hold_until = Some(std::time::Instant::now() + Duration::from_secs(4));
+                }),
                 ..Default::default()
             }
             .into(),
@@ -379,8 +391,9 @@ fn connected_monitors() -> Vec<String> {
     names
 }
 
-/// The monitor the overlay's settings pin the widgets to; "" when following the game.
-fn pinned_monitor() -> String {
+/// From the overlay's settings: the pinned monitor ("" = follow the game) and
+/// whether widgets are shown.
+fn overlay_settings() -> (String, bool) {
     let path = std::env::var_os("AION2_METER_CONFIG")
         .map(PathBuf::from)
         .unwrap_or_else(|| {
@@ -391,11 +404,14 @@ fn pinned_monitor() -> String {
                 })
                 .join("aion2-meter/overlay.json")
         });
-    std::fs::read(path)
+    let v = std::fs::read(path)
         .ok()
         .and_then(|b| serde_json::from_slice::<serde_json::Value>(&b).ok())
-        .and_then(|v| v["pinnedMonitor"].as_str().map(str::to_string))
-        .unwrap_or_default()
+        .unwrap_or_default();
+    (
+        v["pinnedMonitor"].as_str().unwrap_or_default().to_string(),
+        !v["hideWidgets"].as_bool().unwrap_or(false),
+    )
 }
 
 /// The app icon as 64x64 ARGB32, made from desktop/aion2-meter.png by
@@ -479,7 +495,7 @@ fn main() {
         let running = is_active(&["--user", "is-active", "--quiet", UNITS[0]]);
         let autostart = is_active(&["--user", "is-enabled", "--quiet", UNITS[0]]);
         let monitors = connected_monitors();
-        let pinned = pinned_monitor();
+        let (pinned, widgets_shown) = overlay_settings();
         let changed = {
             let mut s = status.lock().unwrap();
             if s.hold_until.is_some_and(|t| std::time::Instant::now() < t) {
@@ -488,11 +504,13 @@ fn main() {
                 let changed = s.running != running
                     || s.autostart != autostart
                     || s.monitors != monitors
-                    || s.pinned != pinned;
+                    || s.pinned != pinned
+                    || s.widgets_shown != widgets_shown;
                 s.running = running;
                 s.autostart = autostart;
                 s.monitors = monitors;
                 s.pinned = pinned;
+                s.widgets_shown = widgets_shown;
                 changed
             }
         };

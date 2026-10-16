@@ -18,6 +18,8 @@ Item {
     readonly property string gameMonitor: adapter.gameMonitor
     // A monitor picked in edit mode; empty = follow the game.
     readonly property string pinnedMonitor: adapter.pinnedMonitor
+    // Widgets hidden with the hide key or the tray (kept across restarts).
+    readonly property bool hideWidgets: adapter.hideWidgets
     readonly property var widgets: adapter.widgets
     // What the meter and the history show per player: "both", "damage" or "dps".
     readonly property string meterMetric: adapter.meterMetric
@@ -57,6 +59,7 @@ Item {
     function setGridSize(px) { adapter.gridSize = Math.max(4, Math.min(64, px)); }
     function setMeterMetric(m) { adapter.meterMetric = m; }
     function setHistoryMetric(m) { adapter.historyMetric = m; }
+    function setHideWidgets(on) { adapter.hideWidgets = on; }
     function setPinnedMonitor(name) { adapter.pinnedMonitor = name; }
     function setGameMonitor(name) {
         if (name && name !== adapter.gameMonitor) adapter.gameMonitor = name;
@@ -82,6 +85,7 @@ Item {
             // The monitor the game was last seen on.
             property string gameMonitor: ""
             property string pinnedMonitor: ""
+            property bool hideWidgets: false
             property string meterMetric: "both"
             property string historyMetric: "both"
             property bool snapToGrid: true

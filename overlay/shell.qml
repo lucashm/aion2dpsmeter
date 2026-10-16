@@ -14,8 +14,6 @@ ShellRoot {
 
     property bool editMode: false
     property bool gameFocused: false
-    // Hidden with the toggle key, until pressed again.
-    property bool hidden: false
     // The game's window class under Proton is steam_app_<appid>; its title
     // starts with AION2.
     readonly property var gamePattern: /^(steam_app_3393110|aion2(\.exe)?)$/i
@@ -31,7 +29,7 @@ ShellRoot {
         interval: 2000
         onTriggered: root.windowListSettled = true
     }
-    readonly property bool showWidgets: editMode || (!hidden && (gameFocused || !canDetectFocus || settings.alwaysShow))
+    readonly property bool showWidgets: editMode || (!settings.hideWidgets && (gameFocused || !canDetectFocus || settings.alwaysShow))
 
     // The screen the game is on: where it was last focused, else the
     // focused one.
@@ -189,7 +187,7 @@ ShellRoot {
                 appid: "aion2meter"
                 name: "hide"
                 description: "Hide or show the widgets"
-                onPressed: root.hidden = !root.hidden
+                onPressed: settings.setHideWidgets(!settings.hideWidgets)
             }
             GlobalShortcut {
                 appid: "aion2meter"
@@ -215,7 +213,7 @@ ShellRoot {
         function edit(): void { root.editMode = !root.editMode; }
         function history(): void { historyWidget.open = !historyWidget.open; }
         function reset(): void { client.reset(); }
-        function toggle(): void { root.hidden = !root.hidden; }
+        function toggle(): void { settings.setHideWidgets(!settings.hideWidgets); }
         function nextPlayer(): void { root.focusNextPlayer(); }
         function mode(name: string): void { client.setTargetMode(name); }
         // A monitor name to pin the widgets there, or "follow" to follow the game.
