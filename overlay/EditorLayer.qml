@@ -175,6 +175,25 @@ PanelWindow {
                 font.family: Theme.fontFamily
             }
 
+            RowLayout {
+                spacing: Theme.pad / 2
+                Text { text: "Monitor"; color: Theme.dim; font.pixelSize: Theme.fontSmall; font.family: Theme.fontFamily }
+                Chip {
+                    label: "Follow game"
+                    checked: !editor.settings.pinnedMonitor
+                    onClicked: editor.settings.setPinnedMonitor("")
+                }
+                Repeater {
+                    model: Quickshell.screens
+                    Chip {
+                        required property var modelData
+                        label: modelData.name
+                        checked: editor.settings.pinnedMonitor === modelData.name
+                        onClicked: editor.settings.setPinnedMonitor(modelData.name)
+                    }
+                }
+            }
+
             Flow {
                 Layout.preferredWidth: Math.round(560 * Theme.scale)
                 spacing: Theme.pad / 2
@@ -205,25 +224,6 @@ PanelWindow {
                         label: modelData.label
                         checked: editor.client.state && editor.client.state.targetMode === modelData.id
                         onClicked: editor.client.setTargetMode(modelData.id)
-                    }
-                }
-            }
-
-            RowLayout {
-                spacing: Theme.pad / 2
-                Text { text: "Monitor"; color: Theme.dim; font.pixelSize: Theme.fontSmall; font.family: Theme.fontFamily }
-                Chip {
-                    label: "Follow game"
-                    checked: !editor.settings.pinnedMonitor
-                    onClicked: editor.settings.setPinnedMonitor("")
-                }
-                Repeater {
-                    model: Quickshell.screens
-                    Chip {
-                        required property var modelData
-                        label: modelData.name
-                        checked: editor.settings.pinnedMonitor === modelData.name
-                        onClicked: editor.settings.setPinnedMonitor(modelData.name)
                     }
                 }
             }
