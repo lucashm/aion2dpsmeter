@@ -24,6 +24,8 @@ Item {
     // Widgets hidden with the hide key or the tray (kept across restarts).
     readonly property bool hideWidgets: adapter.hideWidgets
     readonly property var widgets: adapter.widgets
+    // Three saved layouts: each a copy of `widgets`, or null.
+    readonly property var layouts: adapter.layouts
     // What the meter and the history show per player: "both", "damage" or "dps".
     readonly property string meterMetric: adapter.meterMetric
     readonly property string historyMetric: adapter.historyMetric
@@ -48,6 +50,15 @@ Item {
     }
     function setWidgetPos(id, x, y) { updateWidget(id, { x: x, y: y }); }
     function setWidgetVisible(id, visible) { updateWidget(id, { visible: visible }); }
+    function saveLayout(i) {
+        const all = [0, 1, 2].map(n => adapter.layouts[n] || null);
+        all[i] = JSON.parse(JSON.stringify(adapter.widgets));
+        adapter.layouts = all;
+    }
+    function loadLayout(i) {
+        const l = adapter.layouts[i];
+        if (l) adapter.widgets = JSON.parse(JSON.stringify(l));
+    }
     function resetLayout() {
         const all = {};
         for (const id in adapter.widgets) {
@@ -97,6 +108,7 @@ Item {
             property int gridSize: 32
             // id -> { x, y, visible }
             property var widgets: ({})
+            property var layouts: []
         }
     }
 }

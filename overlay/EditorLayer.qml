@@ -389,6 +389,58 @@ PanelWindow {
         }
     }
 
+    // A saved layout: load it, or save the current one over it.
+    component LayoutSlot: Rectangle {
+        id: slot
+        // Given by the Repeater.
+        required property int index
+        readonly property var saved: editor.settings.layouts[index] || null
+        // What is on screen now is this layout.
+        readonly property bool current: saved !== null
+            && JSON.stringify(saved) === JSON.stringify(editor.settings.widgets)
+        implicitWidth: slotRow.implicitWidth + 4
+        implicitHeight: slotRow.implicitHeight + 4
+        radius: Theme.radius
+        color: Qt.rgba(1, 1, 1, 0.06)
+        border.color: Theme.panelEdge
+        Row {
+            id: slotRow
+            anchors.centerIn: parent
+            Repeater {
+                model: ["load", "save"]
+                Rectangle {
+                    required property string modelData
+                    readonly property bool isLoad: modelData === "load"
+                    readonly property bool usable: !isLoad || slot.saved !== null
+                    width: slotText.implicitWidth + Theme.pad * 2
+                    height: slotText.implicitHeight + Theme.pad * 0.75
+                    radius: Theme.radius - 2
+                    color: isLoad && slot.current ? Theme.accent
+                         : usable && slotArea.containsMouse ? Qt.rgba(1, 1, 1, 0.1) : "transparent"
+                    Text {
+                        id: slotText
+                        anchors.centerIn: parent
+                        text: parent.isLoad ? "Layout " + (slot.index + 1) : "Save"
+                        color: parent.isLoad && slot.current ? "#1b1b1b"
+                             : parent.isLoad ? (parent.usable ? Theme.text : Theme.faint) : Theme.dim
+                        font.pixelSize: Theme.fontSmall
+                        font.family: Theme.fontFamily
+                        font.bold: parent.isLoad && slot.current
+                    }
+                    MouseArea {
+                        id: slotArea
+                        anchors.fill: parent
+                        enabled: parent.usable
+                        hoverEnabled: true
+                        cursorShape: Qt.PointingHandCursor
+                        onClicked: parent.isLoad ? editor.settings.loadLayout(slot.index)
+                                                 : editor.settings.saveLayout(slot.index)
+                    }
+                }
+            }
+        }
+    }
+
     // A plain button: quiet unless primary.
     component Button: Rectangle {
         id: btn
@@ -484,6 +536,15 @@ PanelWindow {
                     }
                 }
 
+                Label { text: "Layouts" }
+                Row {
+                    spacing: Theme.pad / 2
+                    Repeater {
+                        model: 3
+                        LayoutSlot {}
+                    }
+                }
+
                 Label { text: "Monitor" }
                 Segmented {
                     options: [{ value: "", label: "Follow game" }].concat(
@@ -501,7 +562,7 @@ PanelWindow {
 
                 Item { implicitWidth: 1 }
                 Toggle {
-                    label: "Drag widgets in game (Alt frees the cursor; blocks clicks under them)"
+                    label: "Drag widgets in game (hold Alt)"
                     checked: editor.settings.moveInGame
                     onToggled: editor.settings.setMoveInGame(!checked)
                 }
