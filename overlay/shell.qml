@@ -3,9 +3,12 @@ import QtQuick
 import Quickshell
 import Quickshell.Io
 import Quickshell.Hyprland
+import Quickshell.Wayland
 
-// AION 2 meter overlay for Hyprland. Run with: qs -p <this directory>
-// (scripts/install.sh links it as `qs -c aion2-meter`).
+// AION 2 meter overlay for Wayland desktops with layer-shell. Run with:
+// qs -p <this directory> (scripts/install.sh installs it as `qs -c aion2-meter`).
+// On Hyprland it uses Hyprland's own events and keybinds; elsewhere the
+// standard window list, and keybinds go through `aion2-meter <command>`.
 ShellRoot {
     id: root
 
@@ -17,7 +20,18 @@ ShellRoot {
     // starts with AION2.
     readonly property var gamePattern: /^(steam_app_3393110|aion2(\.exe)?)$/i
 
-    readonly property bool showWidgets: editMode || (!hidden && (gameFocused || settings.alwaysShow))
+    readonly property bool onHyprland: !!Quickshell.env("HYPRLAND_INSTANCE_SIGNATURE")
+    // Without a window list (KDE), the game can't be told apart: widgets stay
+    // up, and the toggle command hides them. The list fills in just after
+    // start-up, so it is only judged empty after a moment.
+    property bool windowListSettled: false
+    readonly property bool canDetectFocus: onHyprland || !windowListSettled || ToplevelManager.toplevels.values.length > 0
+    Timer {
+        running: !root.onHyprland
+        interval: 2000
+        onTriggered: root.windowListSettled = true
+    }
+    readonly property bool showWidgets: editMode || (!hidden && (gameFocused || !canDetectFocus || settings.alwaysShow))
 
     // The screen the game is on: where it was last focused, else the
     // focused one.
@@ -26,7 +40,7 @@ ShellRoot {
         const screens = Quickshell.screens;
         const found = screens.find(s => s.name === name);
         if (found) return found;
-        const focused = Hyprland.focusedMonitor ? screens.find(s => s.name === Hyprland.focusedMonitor.name) : null;
+        const focused = root.onHyprland && Hyprland.focusedMonitor ? screens.find(s => s.name === Hyprland.focusedMonitor.name) : null;
         return focused || screens[0];
     }
 
@@ -36,14 +50,17 @@ ShellRoot {
     Binding { target: Theme; property: "scale"; value: settings.uiScale }
     Binding { target: Theme; property: "opacity"; value: settings.uiOpacity }
 
-    function onActiveWindow(cls, title) {
+    // `monitor` is given off Hyprland; on Hyprland it is the focused monitor.
+    function onActiveWindow(cls, title, monitor) {
         const isGame = root.gamePattern.test(cls) || /^AION2\b/.test(title);
         root.gameFocused = isGame;
-        if (isGame && Hyprland.focusedMonitor) settings.setGameMonitor(Hyprland.focusedMonitor.name);
+        if (!isGame) return;
+        if (monitor !== undefined) settings.setGameMonitor(monitor);
+        else if (Hyprland.focusedMonitor) settings.setGameMonitor(Hyprland.focusedMonitor.name);
     }
 
     Connections {
-        target: Hyprland
+        target: root.onHyprland ? Hyprland : null
         function onRawEvent(event) {
             if (event.name === "activewindow") {
                 const comma = event.data.indexOf(",");
@@ -56,7 +73,7 @@ ShellRoot {
 
     // The focused window at start-up.
     Process {
-        running: true
+        running: root.onHyprland
         command: ["hyprctl", "activewindow", "-j"]
         stdout: StdioCollector {
             onStreamFinished: {
@@ -67,6 +84,25 @@ ShellRoot {
             }
         }
     }
+
+    // Elsewhere: the standard window list (Sway, niri, river, Wayfire, labwc).
+    function onToplevelFocus() {
+        const t = ToplevelManager.activeToplevel;
+        if (!t) {
+            root.gameFocused = false;
+            return;
+        }
+        root.onActiveWindow(t.appId, t.title, t.screens.length ? t.screens[0].name : "");
+    }
+    Connections {
+        target: root.onHyprland ? null : ToplevelManager
+        function onActiveToplevelChanged() { root.onToplevelFocus(); }
+    }
+    Connections {
+        target: root.onHyprland ? null : ToplevelManager.activeToplevel
+        function onTitleChanged() { root.onToplevelFocus(); }
+    }
+    Component.onCompleted: if (!onHyprland) onToplevelFocus()
 
     // ── widgets ─────────────────────────────────────────────────────────
     DpsMeter {
@@ -125,36 +161,42 @@ ShellRoot {
     }
 
     // ── controls ────────────────────────────────────────────────────────
-    // Bind these in Hyprland, e.g. hl.bind("SUPER + SHIFT + D", hl.dsp.global("aion2meter:edit"))
-    GlobalShortcut {
-        appid: "aion2meter"
-        name: "edit"
-        description: "Toggle the meter's edit mode"
-        onPressed: root.editMode = !root.editMode
-    }
-    GlobalShortcut {
-        appid: "aion2meter"
-        name: "history"
-        description: "Open or close the fight history"
-        onPressed: historyWidget.open = !historyWidget.open
-    }
-    GlobalShortcut {
-        appid: "aion2meter"
-        name: "reset"
-        description: "Save and reset the meter"
-        onPressed: client.reset()
-    }
-    GlobalShortcut {
-        appid: "aion2meter"
-        name: "toggle"
-        description: "Hide or show the widgets"
-        onPressed: root.hidden = !root.hidden
-    }
-    GlobalShortcut {
-        appid: "aion2meter"
-        name: "next-player"
-        description: "Show the next player's skills"
-        onPressed: root.focusNextPlayer()
+    // Hyprland's global shortcuts, e.g. hl.bind("SUPER + SHIFT + D", hl.dsp.global("aion2meter:edit")).
+    // Elsewhere, bind `aion2-meter <command>` in the desktop's own settings.
+    LazyLoader {
+        active: root.onHyprland
+        Scope {
+            GlobalShortcut {
+                appid: "aion2meter"
+                name: "edit"
+                description: "Toggle the meter's edit mode"
+                onPressed: root.editMode = !root.editMode
+            }
+            GlobalShortcut {
+                appid: "aion2meter"
+                name: "history"
+                description: "Open or close the fight history"
+                onPressed: historyWidget.open = !historyWidget.open
+            }
+            GlobalShortcut {
+                appid: "aion2meter"
+                name: "reset"
+                description: "Save and reset the meter"
+                onPressed: client.reset()
+            }
+            GlobalShortcut {
+                appid: "aion2meter"
+                name: "toggle"
+                description: "Hide or show the widgets"
+                onPressed: root.hidden = !root.hidden
+            }
+            GlobalShortcut {
+                appid: "aion2meter"
+                name: "next-player"
+                description: "Show the next player's skills"
+                onPressed: root.focusNextPlayer()
+            }
+        }
     }
 
     function focusNextPlayer() {

@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # Start, stop or toggle the AION 2 meter (capture daemon + overlay).
-#   aion2-meter [toggle|start|stop|restart|status|edit|history]
+#   aion2-meter [toggle|start|stop|restart|status]
+#   aion2-meter [edit|history|reset|hide|next-player]   (bind these to keys)
 set -u
 
 units=(aion2-meterd aion2-meter-overlay)
@@ -24,19 +25,21 @@ case "${1:-toggle}" in
     status)
         systemctl --user --no-pager status "${units[@]}"
         ;;
-    edit | history)
+    edit | history | reset | hide | next-player)
+        # Overlay IPC names: "hide" is its toggle, "next-player" is nextPlayer.
+        case "$1" in hide) call=toggle ;; next-player) call=nextPlayer ;; *) call=$1 ;; esac
         # A no-op for units already running; brings back a dead overlay too.
         systemctl --user start "${units[@]}"
         # A just-started overlay takes a moment to answer.
         for _ in {1..20}; do
-            qs -c aion2-meter ipc call meter "$1" 2>/dev/null && exit 0
+            qs -c aion2-meter ipc call meter "$call" 2>/dev/null && exit 0
             sleep 0.25
         done
         notify "The overlay did not respond"
         exit 1
         ;;
     *)
-        echo "usage: aion2-meter [toggle|start|stop|restart|status|edit|history]" >&2
+        echo "usage: aion2-meter [toggle|start|stop|restart|status|edit|history|reset|hide|next-player]" >&2
         exit 2
         ;;
 esac
