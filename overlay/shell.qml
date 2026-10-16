@@ -36,7 +36,7 @@ ShellRoot {
     // The screen the game is on: where it was last focused, else the
     // focused one.
     readonly property var gameScreen: {
-        const name = settings.gameMonitor;
+        const name = settings.pinnedMonitor || settings.gameMonitor;
         const screens = Quickshell.screens;
         const found = screens.find(s => s.name === name);
         if (found) return found;

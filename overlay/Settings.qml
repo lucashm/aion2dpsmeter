@@ -16,6 +16,8 @@ Item {
     readonly property int maxRows: adapter.maxRows
     readonly property int skillRows: adapter.skillRows
     readonly property string gameMonitor: adapter.gameMonitor
+    // A monitor picked in edit mode; empty = follow the game.
+    readonly property string pinnedMonitor: adapter.pinnedMonitor
     readonly property var widgets: adapter.widgets
     // What the meter and the history show per player: "both", "damage" or "dps".
     readonly property string meterMetric: adapter.meterMetric
@@ -55,6 +57,7 @@ Item {
     function setGridSize(px) { adapter.gridSize = Math.max(4, Math.min(64, px)); }
     function setMeterMetric(m) { adapter.meterMetric = m; }
     function setHistoryMetric(m) { adapter.historyMetric = m; }
+    function setPinnedMonitor(name) { adapter.pinnedMonitor = name; }
     function setGameMonitor(name) {
         if (name && name !== adapter.gameMonitor) adapter.gameMonitor = name;
     }
@@ -78,6 +81,7 @@ Item {
             property int skillRows: 10
             // The monitor the game was last seen on.
             property string gameMonitor: ""
+            property string pinnedMonitor: ""
             property string meterMetric: "both"
             property string historyMetric: "both"
             property bool snapToGrid: true

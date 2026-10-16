@@ -211,6 +211,25 @@ PanelWindow {
 
             RowLayout {
                 spacing: Theme.pad / 2
+                Text { text: "Monitor"; color: Theme.dim; font.pixelSize: Theme.fontSmall; font.family: Theme.fontFamily }
+                Chip {
+                    label: "Follow game"
+                    checked: !editor.settings.pinnedMonitor
+                    onClicked: editor.settings.setPinnedMonitor("")
+                }
+                Repeater {
+                    model: Quickshell.screens
+                    Chip {
+                        required property var modelData
+                        label: modelData.name
+                        checked: editor.settings.pinnedMonitor === modelData.name
+                        onClicked: editor.settings.setPinnedMonitor(modelData.name)
+                    }
+                }
+            }
+
+            RowLayout {
+                spacing: Theme.pad / 2
                 Text { text: "Meter shows"; color: Theme.dim; font.pixelSize: Theme.fontSmall; font.family: Theme.fontFamily }
                 MetricSwitch {
                     value: editor.settings.meterMetric

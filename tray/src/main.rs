@@ -255,9 +255,15 @@ impl ksni::Tray for MeterTray {
             .into(),
             MenuItem::Separator,
             StandardItem {
-                label: "Quit tray icon".into(),
+                label: "Quit".into(),
                 icon_name: "application-exit".into(),
-                activate: Box::new(|_| std::process::exit(0)),
+                // Waited for: once the tray exits, systemd ends what it started.
+                activate: Box::new(|_| {
+                    let mut args = vec!["--user", "stop"];
+                    args.extend(UNITS);
+                    let _ = Command::new("systemctl").args(&args).status();
+                    std::process::exit(0)
+                }),
                 ..Default::default()
             }
             .into(),

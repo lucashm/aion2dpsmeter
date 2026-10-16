@@ -11,7 +11,8 @@ running() { systemctl --user is-active --quiet aion2-meterd; }
 
 case "${1:-toggle}" in
     start)
-        systemctl --user start "${units[@]}" && notify "Started"
+        # The tray too: its Quit closes it along with the meter.
+        systemctl --user start "${units[@]}" aion2-meter-tray && notify "Started"
         ;;
     stop)
         systemctl --user stop "${units[@]}" && notify "Stopped"
