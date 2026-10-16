@@ -426,7 +426,7 @@ fn save_faction(faction: &str) {
     let icon = dir.join(format!("icons/{faction}.png"));
     let Some(apps) = dir
         .parent()
-        .map(|d| d.join("applications/aion2-meter.desktop"))
+        .map(|d| d.join("applications/aion2meter.desktop"))
     else {
         return;
     };
@@ -579,7 +579,7 @@ mod tests {
         std::fs::create_dir_all(dir.join("applications")).unwrap();
         std::fs::create_dir_all(dir.join("aion2-meter/icons")).unwrap();
         std::fs::write(dir.join("aion2-meter/icons/asmodian.png"), b"png").unwrap();
-        let entry = dir.join("applications/aion2-meter.desktop");
+        let entry = dir.join("applications/aion2meter.desktop");
         std::fs::write(
             &entry,
             "[Desktop Entry]\nName=AION 2 Meter\nIcon=/old/elyos.png\nExec=x\n",

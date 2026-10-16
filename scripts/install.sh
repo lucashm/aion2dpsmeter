@@ -79,9 +79,9 @@ faction="$(cat "$share/aion2-meter/faction" 2>/dev/null || true)"
 # Full paths: launchers may not have ~/.local/bin on PATH, and an icon given
 # by file can't be mixed up with an older one cached under the same name.
 sed -e "s|Exec=aion2-meter|Exec=$bin_dir/aion2-meter|" -e "s|^Icon=.*|Icon=$share/aion2-meter/icons/$faction.png|" \
-    "$root/desktop/aion2-meter.desktop" > "$share/applications/aion2-meter.desktop"
-# Icons from older versions.
-rm -f "$share/icons/hicolor/scalable/apps/aion2-meter.svg" "$share/icons/hicolor/256x256/apps/aion2-meter.png"
+    "$root/desktop/aion2meter.desktop" > "$share/applications/aion2meter.desktop"
+# Icons and the app menu entry from older versions.
+rm -f "$share/icons/hicolor/scalable/apps/aion2-meter.svg" "$share/icons/hicolor/256x256/apps/aion2-meter.png" "$share/applications/aion2-meter.desktop"
 update-desktop-database "$share/applications" 2>/dev/null || true
 
 step "Starting the services (and at every login)"

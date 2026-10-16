@@ -7,7 +7,7 @@ set -u
 units=(aion2-meterd aion2-meter-overlay)
 
 # The app menu entry's icon: the tray keeps it on the current faction's picture.
-icon="$(sed -n 's/^Icon=//p' "${XDG_DATA_HOME:-$HOME/.local/share}/applications/aion2-meter.desktop" 2>/dev/null)"
+icon="$(sed -n 's/^Icon=//p' "${XDG_DATA_HOME:-$HOME/.local/share}/applications/aion2meter.desktop" 2>/dev/null)"
 notify() { command -v notify-send >/dev/null && notify-send -a "AION 2 Meter" -i "$icon" "AION 2 Meter" "$1"; }
 running() { systemctl --user is-active --quiet aion2-meterd; }
 
