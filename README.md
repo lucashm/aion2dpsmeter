@@ -82,7 +82,7 @@ Start the game. The widgets appear while the game window is focused.
 
 ### Keybinds
 
-On Hyprland, **Alt+Z** opens Customize and **Alt+X** hides or shows the widgets, while the game has focus. Change or clear them in Customize → Shortcuts.
+On Hyprland, **Ctrl+`** opens Customize and **Alt+`** hides or shows the widgets, while the game has focus. Change or clear them in Customize → Shortcuts.
 
 For the other commands, or keys that work outside the game:
 

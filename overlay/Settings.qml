@@ -16,7 +16,7 @@ Item {
     // Widgets take the pointer outside edit mode, to be dragged while the
     // game's cursor is free (Alt). Off: they would block clicks to the game.
     readonly property bool moveInGame: adapter.moveInGame
-    // In-game shortcuts, as Hyprland key combos ("ALT + Z"); empty = none.
+    // In-game shortcuts, as Hyprland key combos ("CTRL + grave"); empty = none.
     readonly property string shortcutEdit: adapter.shortcutEdit
     readonly property string shortcutHide: adapter.shortcutHide
     readonly property int maxRows: adapter.maxRows
@@ -106,9 +106,9 @@ Item {
             property real opacity: 0.85
             property bool alwaysShow: false
             property bool moveInGame: false
-            // Alt already frees the game's cursor; Ctrl combos would take undo/cut from its chat.
-            property string shortcutEdit: "ALT + Z"
-            property string shortcutHide: "ALT + X"
+            // The key above Tab: by the left hand and unbound in the game (Alt+letters open its tabs).
+            property string shortcutEdit: "CTRL + grave"
+            property string shortcutHide: "ALT + grave"
             property int maxRows: 8
             property int skillRows: 10
             // The monitor the game was last seen on.

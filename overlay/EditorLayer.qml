@@ -40,6 +40,7 @@ PanelWindow {
         let key = "";
         if (k >= Qt.Key_A && k <= Qt.Key_Z || k >= Qt.Key_0 && k <= Qt.Key_9) key = String.fromCharCode(k);
         else if (k >= Qt.Key_F1 && k <= Qt.Key_F12) key = "F" + (k - Qt.Key_F1 + 1);
+        else if (k === Qt.Key_QuoteLeft || k === Qt.Key_Dead_Grave) key = "grave";
         if (!key) return "";
         const m = event.modifiers;
         const mods = [];
@@ -47,12 +48,13 @@ PanelWindow {
         if (m & Qt.AltModifier) mods.push("ALT");
         if (m & Qt.ShiftModifier) mods.push("SHIFT");
         if (m & Qt.MetaModifier) mods.push("SUPER");
-        if (key.length === 1 && !mods.some(x => x !== "SHIFT")) return "";
+        // F-keys may stand alone; anything else needs Ctrl, Alt or Super.
+        if (!/^F[0-9]+$/.test(key) && !mods.some(x => x !== "SHIFT")) return "";
         return mods.concat([key]).join(" + ");
     }
-    // "ALT + Z" -> "Alt + Z"
+    // "CTRL + grave" -> "Ctrl + `"
     function prettyCombo(c) {
-        return c.split(" + ").map(p => p.length > 1 && p[0] !== "F" ? p[0] + p.slice(1).toLowerCase() : p).join(" + ");
+        return c.split(" + ").map(p => p === "grave" ? "`" : p.length > 1 && p[0] !== "F" ? p[0] + p.slice(1).toLowerCase() : p).join(" + ");
     }
 
     Item {

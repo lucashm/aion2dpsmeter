@@ -210,7 +210,10 @@ ShellRoot {
     // shortcut: hl.unbind drops any bind on the combo, the user's own too.
     property var boundKeys: []
     readonly property var shortcutKeys: onHyprland && gameFocused && !editor.recordingKeys
-        ? [[settings.shortcutEdit, "edit"], [settings.shortcutHide, "hide"]].filter(k => /^[A-Z0-9]+( \+ [A-Z0-9]+)*$/.test(k[0]))
+        ? [[settings.shortcutEdit, "edit"], [settings.shortcutHide, "hide"]]
+            .filter(k => /^[A-Za-z0-9_]+( \+ [A-Za-z0-9_]+)*$/.test(k[0]))
+            // ` is a dead key on some layouts: bind both of its names.
+            .flatMap(k => k[0].endsWith(" + grave") ? [k, [k[0].replace(/grave$/, "dead_grave"), k[1]]] : [k])
         : []
     onShortcutKeysChanged: applyShortcuts()
     Component.onDestruction: if (boundKeys.length) Quickshell.execDetached(["hyprctl", "eval", boundKeys.map(k => `hl.unbind("${k}")`).join("\n")])
