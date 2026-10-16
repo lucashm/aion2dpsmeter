@@ -19,7 +19,7 @@ Name=Stop
 Exec=aion2-meter stop
 
 [Desktop Action edit]
-Name=Edit layout
+Name=Customize
 Exec=aion2-meter edit
 
 [Desktop Action history]

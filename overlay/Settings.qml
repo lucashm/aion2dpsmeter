@@ -16,6 +16,9 @@ Item {
     // Widgets take the pointer outside edit mode, to be dragged while the
     // game's cursor is free (Alt). Off: they would block clicks to the game.
     readonly property bool moveInGame: adapter.moveInGame
+    // In-game shortcuts, as Hyprland key combos ("ALT + Z"); empty = none.
+    readonly property string shortcutEdit: adapter.shortcutEdit
+    readonly property string shortcutHide: adapter.shortcutHide
     readonly property int maxRows: adapter.maxRows
     readonly property int skillRows: adapter.skillRows
     readonly property string gameMonitor: adapter.gameMonitor
@@ -70,6 +73,13 @@ Item {
     function setOpacity(o) { adapter.opacity = Math.round(Math.max(0.2, Math.min(1.0, o)) * 10) / 10; }
     function setAlwaysShow(on) { adapter.alwaysShow = on; }
     function setMoveInGame(on) { adapter.moveInGame = on; }
+    // One combo per shortcut: giving a combo to one takes it from the other.
+    function setShortcut(name, combo) {
+        if (combo && name !== "edit" && adapter.shortcutEdit === combo) adapter.shortcutEdit = "";
+        if (combo && name !== "hide" && adapter.shortcutHide === combo) adapter.shortcutHide = "";
+        if (name === "edit") adapter.shortcutEdit = combo;
+        else if (name === "hide") adapter.shortcutHide = combo;
+    }
     function setSnapToGrid(on) { adapter.snapToGrid = on; }
     function setGridSize(px) { adapter.gridSize = Math.max(4, Math.min(64, px)); }
     function setMeterMetric(m) { adapter.meterMetric = m; }
@@ -96,6 +106,9 @@ Item {
             property real opacity: 0.85
             property bool alwaysShow: false
             property bool moveInGame: false
+            // Alt already frees the game's cursor; Ctrl combos would take undo/cut from its chat.
+            property string shortcutEdit: "ALT + Z"
+            property string shortcutHide: "ALT + X"
             property int maxRows: 8
             property int skillRows: 10
             // The monitor the game was last seen on.

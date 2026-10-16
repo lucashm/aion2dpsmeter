@@ -29,12 +29,55 @@ PanelWindow {
     WlrLayershell.namespace: "aion2-meter-editor"
     WlrLayershell.keyboardFocus: WlrKeyboardFocus.OnDemand
 
+    // The shortcut being recorded ("edit", "hide"), or "".
+    property string recording: ""
+    readonly property bool recordingKeys: recording !== ""
+
+    // A key press as a Hyprland combo ("ALT + Z"), or "" if it can't be one
+    // yet: a lone modifier, or a letter or digit without Ctrl, Alt or Super.
+    function comboOf(event) {
+        const k = event.key;
+        let key = "";
+        if (k >= Qt.Key_A && k <= Qt.Key_Z || k >= Qt.Key_0 && k <= Qt.Key_9) key = String.fromCharCode(k);
+        else if (k >= Qt.Key_F1 && k <= Qt.Key_F12) key = "F" + (k - Qt.Key_F1 + 1);
+        if (!key) return "";
+        const m = event.modifiers;
+        const mods = [];
+        if (m & Qt.ControlModifier) mods.push("CTRL");
+        if (m & Qt.AltModifier) mods.push("ALT");
+        if (m & Qt.ShiftModifier) mods.push("SHIFT");
+        if (m & Qt.MetaModifier) mods.push("SUPER");
+        if (key.length === 1 && !mods.some(x => x !== "SHIFT")) return "";
+        return mods.concat([key]).join(" + ");
+    }
+    // "ALT + Z" -> "Alt + Z"
+    function prettyCombo(c) {
+        return c.split(" + ").map(p => p.length > 1 && p[0] !== "F" ? p[0] + p.slice(1).toLowerCase() : p).join(" + ");
+    }
+
     Item {
+        id: keyCatcher
         anchors.fill: parent
         focus: true
-        Keys.onEscapePressed: {
-            if (editor.confirmingReset) editor.confirmingReset = false;
-            else editor.done();
+        Keys.onPressed: event => {
+            if (!editor.recordingKeys) {
+                if (event.key !== Qt.Key_Escape) return;
+                event.accepted = true;
+                if (editor.confirmingReset) editor.confirmingReset = false;
+                else editor.done();
+                return;
+            }
+            event.accepted = true;
+            if (event.key === Qt.Key_Escape) editor.recording = "";
+            else if (event.key === Qt.Key_Backspace || event.key === Qt.Key_Delete) {
+                editor.settings.setShortcut(editor.recording, "");
+                editor.recording = "";
+            } else {
+                const combo = editor.comboOf(event);
+                if (!combo) return;
+                editor.settings.setShortcut(editor.recording, combo);
+                editor.recording = "";
+            }
         }
     }
 
@@ -441,6 +484,38 @@ PanelWindow {
         }
     }
 
+    // A shortcut's key combo: click, then press the keys.
+    component KeyField: Rectangle {
+        id: kf
+        property string name
+        property string combo
+        readonly property bool listening: editor.recording === name
+        implicitWidth: Math.max(kfText.implicitWidth + Theme.pad * 2, Math.round(110 * Theme.scale))
+        implicitHeight: kfText.implicitHeight + Theme.pad * 0.75 + 4
+        radius: Theme.radius
+        color: listening ? Qt.rgba(0.95, 0.76, 0.35, 0.15) : kfArea.containsMouse ? Qt.rgba(1, 1, 1, 0.1) : Qt.rgba(1, 1, 1, 0.06)
+        border.color: listening ? Theme.accent : Theme.panelEdge
+        Text {
+            id: kfText
+            anchors.centerIn: parent
+            text: kf.listening ? "Press keys…" : kf.combo ? editor.prettyCombo(kf.combo) : "None"
+            color: kf.listening ? Theme.accent : kf.combo ? Theme.text : Theme.faint
+            font.pixelSize: Theme.fontSmall
+            font.family: Theme.fontFamily
+            font.bold: !!kf.combo && !kf.listening
+        }
+        MouseArea {
+            id: kfArea
+            anchors.fill: parent
+            hoverEnabled: true
+            cursorShape: Qt.PointingHandCursor
+            onClicked: {
+                editor.recording = kf.listening ? "" : kf.name;
+                keyCatcher.forceActiveFocus();
+            }
+        }
+    }
+
     // A plain button: quiet unless primary.
     component Button: Rectangle {
         id: btn
@@ -493,7 +568,7 @@ PanelWindow {
             ColumnLayout {
                 spacing: 2
                 Text {
-                    text: "Edit layout"
+                    text: "Customize"
                     color: Theme.text
                     font.pixelSize: Theme.fontLarge
                     font.family: Theme.fontFamily
@@ -593,6 +668,23 @@ PanelWindow {
                     onPicked: v => editor.settings.setMeterMetric(v)
                 }
 
+                Section { text: "SHORTCUTS" }
+
+                Label { text: "Customize" }
+                RowLayout {
+                    spacing: Theme.pad
+                    KeyField { name: "edit"; combo: editor.settings.shortcutEdit }
+                    Text {
+                        text: editor.recordingKeys ? "Esc cancels · Backspace clears" : "Only while the game has focus"
+                        color: Theme.faint
+                        font.pixelSize: Theme.fontSmall
+                        font.family: Theme.fontFamily
+                    }
+                }
+
+                Label { text: "Hide / show" }
+                KeyField { name: "hide"; combo: editor.settings.shortcutHide }
+
                 Section { text: "APPEARANCE" }
 
                 Label { text: "Size" }
@@ -643,7 +735,10 @@ PanelWindow {
 
     // ── reset confirmation ──────────────────────────────────────────────
     property bool confirmingReset: false
-    onActiveChanged: confirmingReset = false
+    onActiveChanged: {
+        confirmingReset = false;
+        recording = "";
+    }
 
     Rectangle {
         visible: editor.confirmingReset

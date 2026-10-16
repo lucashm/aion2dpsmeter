@@ -65,6 +65,10 @@ ShellRoot {
                 root.onActiveWindow(event.data.slice(0, comma), event.data.slice(comma + 1));
             } else if (event.name === "focusedmon" && root.gameFocused) {
                 settings.setGameMonitor(event.data.split(",")[0]);
+            } else if (event.name === "configreloaded") {
+                // A reload drops binds made at runtime.
+                root.boundKeys = [];
+                root.applyShortcuts();
             }
         }
     }
@@ -198,6 +202,23 @@ ShellRoot {
                 onPressed: root.focusNextPlayer()
             }
         }
+    }
+
+    // The shortcuts set in edit mode, bound only while the game has focus:
+    // Ctrl/Alt combos would otherwise be taken from every other app. Not
+    // while one is being recorded, so the editor gets the keys.
+    // shortcut: hl.unbind drops any bind on the combo, the user's own too.
+    property var boundKeys: []
+    readonly property var shortcutKeys: onHyprland && gameFocused && !editor.recordingKeys
+        ? [[settings.shortcutEdit, "edit"], [settings.shortcutHide, "hide"]].filter(k => /^[A-Z0-9]+( \+ [A-Z0-9]+)*$/.test(k[0]))
+        : []
+    onShortcutKeysChanged: applyShortcuts()
+    Component.onDestruction: if (boundKeys.length) Quickshell.execDetached(["hyprctl", "eval", boundKeys.map(k => `hl.unbind("${k}")`).join("\n")])
+    function applyShortcuts() {
+        const lua = boundKeys.map(k => `hl.unbind("${k}")`)
+            .concat(shortcutKeys.map(k => `hl.bind("${k[0]}", hl.dsp.global("aion2meter:${k[1]}"))`));
+        boundKeys = shortcutKeys.map(k => k[0]);
+        if (lua.length) Quickshell.execDetached(["hyprctl", "eval", lua.join("\n")]);
     }
 
     function focusNextPlayer() {

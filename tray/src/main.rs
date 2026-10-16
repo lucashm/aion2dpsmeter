@@ -178,7 +178,7 @@ impl ksni::Tray for MeterTray {
             .into(),
             MenuItem::Separator,
             StandardItem {
-                label: "Edit layout".into(),
+                label: "Customize".into(),
                 icon_name: "view-grid-symbolic".into(),
                 enabled: status.running,
                 activate: Box::new(|_| overlay_ipc("edit", None)),
