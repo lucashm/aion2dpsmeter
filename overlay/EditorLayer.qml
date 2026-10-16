@@ -32,7 +32,10 @@ PanelWindow {
     Item {
         anchors.fill: parent
         focus: true
-        Keys.onEscapePressed: editor.done()
+        Keys.onEscapePressed: {
+            if (editor.confirmingReset) editor.confirmingReset = false;
+            else editor.done();
+        }
     }
 
     // The snap grid: faint lines, every fourth one a little brighter.
@@ -356,10 +359,70 @@ PanelWindow {
 
             RowLayout {
                 spacing: Theme.pad / 2
-                Chip { label: "Reset meter"; onClicked: editor.client.reset() }
+                Chip { label: "Reset meter"; onClicked: editor.confirmingReset = true }
                 Chip { label: "Reset layout"; onClicked: editor.settings.resetLayout() }
                 Item { Layout.fillWidth: true }
                 Chip { label: "Done"; checked: true; onClicked: editor.done() }
+            }
+        }
+    }
+
+    // ── reset confirmation ──────────────────────────────────────────────
+    property bool confirmingReset: false
+    onActiveChanged: confirmingReset = false
+
+    Rectangle {
+        visible: editor.confirmingReset
+        anchors.fill: parent
+        color: Qt.rgba(0, 0, 0, 0.45)
+
+        // Clicking outside the box cancels.
+        MouseArea {
+            anchors.fill: parent
+            onClicked: editor.confirmingReset = false
+        }
+
+        Rectangle {
+            anchors.centerIn: parent
+            width: box.implicitWidth + Theme.pad * 4
+            height: box.implicitHeight + Theme.pad * 4
+            radius: Theme.radius * 1.5
+            color: Qt.rgba(0.06, 0.07, 0.10, 0.97)
+            border.color: Theme.panelEdge
+
+            MouseArea { anchors.fill: parent }
+
+            ColumnLayout {
+                id: box
+                anchors.centerIn: parent
+                spacing: Theme.pad
+
+                Text {
+                    text: "Reset the meter?"
+                    color: Theme.text
+                    font.pixelSize: Theme.fontLarge
+                    font.family: Theme.fontFamily
+                    font.bold: true
+                }
+                Text {
+                    text: "Boss fights on it are saved to history first. Other damage is lost."
+                    color: Theme.dim
+                    font.pixelSize: Theme.fontSmall
+                    font.family: Theme.fontFamily
+                }
+                RowLayout {
+                    Layout.alignment: Qt.AlignRight
+                    spacing: Theme.pad / 2
+                    Chip { label: "Cancel"; onClicked: editor.confirmingReset = false }
+                    Chip {
+                        label: "Reset"
+                        checked: true
+                        onClicked: {
+                            editor.client.reset();
+                            editor.confirmingReset = false;
+                        }
+                    }
+                }
             }
         }
     }

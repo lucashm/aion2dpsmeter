@@ -209,13 +209,21 @@ impl ksni::Tray for MeterTray {
                 ..Default::default()
             }
             .into(),
-            StandardItem {
+            // A tray menu can't ask "are you sure": the submenu item is the confirmation.
+            SubMenu {
                 label: "Reset meter".into(),
                 icon_name: "edit-clear".into(),
                 enabled: live,
-                activate: Box::new(|this: &mut Self| {
-                    this.send(serde_json::json!({ "cmd": "reset" }))
-                }),
+                submenu: vec![
+                    StandardItem {
+                        label: "Save the fight and reset".into(),
+                        activate: Box::new(|this: &mut Self| {
+                            this.send(serde_json::json!({ "cmd": "reset" }))
+                        }),
+                        ..Default::default()
+                    }
+                    .into(),
+                ],
                 ..Default::default()
             }
             .into(),
