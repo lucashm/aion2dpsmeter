@@ -89,12 +89,16 @@ impl MeterTray {
 
 /// Runs a command without waiting for it, so the tray stays responsive.
 fn run(program: &str, args: &[&str]) {
-    let _ = Command::new(program)
+    let child = Command::new(program)
         .args(args)
         .stdin(Stdio::null())
         .stdout(Stdio::null())
         .stderr(Stdio::null())
         .spawn();
+    // Wait on a side thread so the finished child doesn't stay a zombie.
+    if let Ok(mut child) = child {
+        std::thread::spawn(move || child.wait());
+    }
 }
 
 fn systemctl(action: &str) {
