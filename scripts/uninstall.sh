@@ -12,7 +12,7 @@ for u in "${units[@]}"; do rm -f "$config/systemd/user/$u.service"; done
 systemctl --user daemon-reload
 
 rm -f "$HOME/.local/bin/aion2-meterd" "$HOME/.local/bin/aion2-meter-tray" "$HOME/.local/bin/aion2-meter"
-rm -rf "$config/quickshell/aion2-meter" "$share/aion2-meter/data"
+rm -rf "$config/quickshell/aion2-meter" "$share/aion2-meter/data" "$share/aion2-meter/icons"
 rm -f "$share/applications/aion2-meter.desktop" "$share/icons/hicolor/256x256/apps/aion2-meter.png" "$share/icons/hicolor/scalable/apps/aion2-meter.svg"
 update-desktop-database "$share/applications" 2>/dev/null
 

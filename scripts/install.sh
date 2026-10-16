@@ -72,13 +72,16 @@ cp -r "$root/overlay" "$config/quickshell/aion2-meter"
 
 step "Adding the app menu entry"
 mkdir -p "$share/applications"
-icon="$share/icons/hicolor/256x256/apps/aion2-meter.png"
-install -Dm644 "$root/desktop/aion2-meter.png" "$icon"
+# One icon per faction; the tray switches to the last logged-in character's.
+for f in elyos asmodian; do install -Dm644 "$root/desktop/aion2-meter-$f.png" "$share/aion2-meter/icons/$f.png"; done
+faction="$(cat "$share/aion2-meter/faction" 2>/dev/null || true)"
+[[ "$faction" == asmodian ]] || faction=elyos
 # Full paths: launchers may not have ~/.local/bin on PATH, and an icon given
 # by file can't be mixed up with an older one cached under the same name.
-sed -e "s|Exec=aion2-meter|Exec=$bin_dir/aion2-meter|" -e "s|^Icon=.*|Icon=$icon|" \
+sed -e "s|Exec=aion2-meter|Exec=$bin_dir/aion2-meter|" -e "s|^Icon=.*|Icon=$share/aion2-meter/icons/$faction.png|" \
     "$root/desktop/aion2-meter.desktop" > "$share/applications/aion2-meter.desktop"
-rm -f "$share/icons/hicolor/scalable/apps/aion2-meter.svg"  # the old icon would shadow it
+# Icons from older versions.
+rm -f "$share/icons/hicolor/scalable/apps/aion2-meter.svg" "$share/icons/hicolor/256x256/apps/aion2-meter.png"
 update-desktop-database "$share/applications" 2>/dev/null || true
 
 step "Starting the services (and at every login)"

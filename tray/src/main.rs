@@ -30,6 +30,8 @@ struct Status {
     pinned: String,
     /// The overlay's "show widgets" setting.
     widgets_shown: bool,
+    /// The last logged-in character's faction, "elyos" or "asmodian": picks the icon.
+    faction: String,
 }
 
 #[derive(Debug, Clone, Default, PartialEq)]
@@ -117,8 +119,14 @@ impl ksni::Tray for MeterTray {
     }
 
     fn icon_pixmap(&self) -> Vec<Icon> {
-        let mut data = ICON.to_vec();
-        if !self.status().running {
+        let status = self.status();
+        let mut data = if status.faction == "asmodian" {
+            ICON_ASMODIAN
+        } else {
+            ICON_ELYOS
+        }
+        .to_vec();
+        if !status.running {
             // Stopped: greyed out.
             for px in data.as_chunks_mut::<4>().0 {
                 let grey =
@@ -156,6 +164,7 @@ impl ksni::Tray for MeterTray {
         vec![
             StandardItem {
                 label: status.summary(),
+                icon_name: "dialog-information".into(),
                 enabled: false,
                 ..Default::default()
             }
@@ -190,7 +199,7 @@ impl ksni::Tray for MeterTray {
             .into(),
             StandardItem {
                 label: "Edit layout".into(),
-                icon_name: "transform-move".into(),
+                icon_name: "view-grid-symbolic".into(),
                 enabled: status.running,
                 activate: Box::new(|_| overlay_ipc("edit", None)),
                 ..Default::default()
@@ -198,7 +207,7 @@ impl ksni::Tray for MeterTray {
             .into(),
             StandardItem {
                 label: "Fight history".into(),
-                icon_name: "view-history".into(),
+                icon_name: "document-open-recent".into(),
                 enabled: status.running,
                 activate: Box::new(|_| overlay_ipc("history", None)),
                 ..Default::default()
@@ -212,6 +221,7 @@ impl ksni::Tray for MeterTray {
                 submenu: vec![
                     StandardItem {
                         label: "Save the fight and reset".into(),
+                        icon_name: "edit-clear".into(),
                         activate: Box::new(|this: &mut Self| {
                             this.send(serde_json::json!({ "cmd": "reset" }))
                         }),
@@ -243,10 +253,17 @@ impl ksni::Tray for MeterTray {
             .into(),
             MenuItem::Separator,
             StandardItem {
+                // DMS draws no checkmarks: a ✓ after the label shows it is on.
                 label: if status.widgets_shown {
-                    "✓ Show widgets"
+                    "Show widgets ✓"
                 } else {
-                    "    Show widgets"
+                    "Show widgets"
+                }
+                .into(),
+                icon_name: if status.widgets_shown {
+                    "view-reveal-symbolic"
+                } else {
+                    "view-conceal-symbolic"
                 }
                 .into(),
                 enabled: status.running,
@@ -260,13 +277,13 @@ impl ksni::Tray for MeterTray {
             }
             .into(),
             StandardItem {
-                // DMS draws no checkmarks: a ✓ in the label shows it is on.
                 label: if status.autostart {
-                    "✓ Start at login"
+                    "Start at login ✓"
                 } else {
-                    "    Start at login"
+                    "Start at login"
                 }
                 .into(),
+                icon_name: "system-run".into(),
                 activate: Box::new(|this: &mut Self| {
                     let mut s = this.status.lock().unwrap();
                     systemctl(if s.autostart { "disable" } else { "enable" });
@@ -286,6 +303,7 @@ impl ksni::Tray for MeterTray {
                         status.pinned.as_str()
                     }
                 ),
+                icon_name: "video-display".into(),
                 enabled: status.running,
                 submenu: std::iter::once(("Follow game".to_string(), String::new()))
                     .chain(status.monitors.iter().map(|m| (m.clone(), m.clone())))
@@ -390,9 +408,45 @@ fn overlay_settings() -> (String, bool) {
     )
 }
 
-/// The app icon as 64x64 ARGB32, made from desktop/aion2-meter.png by
-/// scripts/tray-icon.py.
-const ICON: &[u8; 64 * 64 * 4] = include_bytes!("../icon-64.argb");
+/// The app icon per faction as 64x64 ARGB32, made by scripts/make-icons.py.
+const ICON_ELYOS: &[u8; 64 * 64 * 4] = include_bytes!("../icon-elyos-64.argb");
+const ICON_ASMODIAN: &[u8; 64 * 64 * 4] = include_bytes!("../icon-asmodian-64.argb");
+
+/// Makes `faction` the icon everywhere: saved so the last logged-in character
+/// keeps deciding it, and the app menu entry (whose icon notifications use
+/// too) pointed at that faction's picture.
+fn save_faction(faction: &str) {
+    let dir = data_home();
+    let _ = std::fs::create_dir_all(&dir);
+    let _ = std::fs::write(dir.join("faction"), faction);
+    let icon = dir.join(format!("icons/{faction}.png"));
+    let Some(apps) = dir
+        .parent()
+        .map(|d| d.join("applications/aion2-meter.desktop"))
+    else {
+        return;
+    };
+    let Ok(entry) = std::fs::read_to_string(&apps) else {
+        return;
+    };
+    if !icon.exists() {
+        return;
+    }
+    let updated: String = entry
+        .lines()
+        .map(|l| {
+            if l.starts_with("Icon=") {
+                format!("Icon={}\n", icon.display())
+            } else {
+                format!("{l}\n")
+            }
+        })
+        .collect();
+    let tmp = apps.with_extension("desktop.tmp");
+    if std::fs::write(&tmp, updated).is_ok() {
+        let _ = std::fs::rename(tmp, apps);
+    }
+}
 
 fn is_active(args: &[&str]) -> bool {
     Command::new("systemctl")
@@ -420,6 +474,18 @@ fn watch_socket(
                 if v["type"] != "state" {
                     continue;
                 }
+                if let Some(f) = v["faction"]
+                    .as_str()
+                    .filter(|f| ["elyos", "asmodian"].contains(f))
+                {
+                    let mut s = status.lock().unwrap();
+                    if s.faction != f {
+                        s.faction = f.to_string();
+                        drop(s);
+                        save_faction(f);
+                        handle.update(|_| {});
+                    }
+                }
                 let c = &v["capture"];
                 let capture = Capture {
                     game_running: c["gameRunning"].as_bool().unwrap_or(false),
@@ -446,7 +512,11 @@ fn watch_socket(
 }
 
 fn main() {
-    let status = Arc::new(Mutex::new(Status::default()));
+    let faction = std::fs::read_to_string(data_home().join("faction")).unwrap_or_default();
+    let status = Arc::new(Mutex::new(Status {
+        faction: faction.trim().to_string(),
+        ..Default::default()
+    }));
     let socket = Arc::new(Mutex::new(None));
     let tray = MeterTray {
         status: status.clone(),
@@ -494,5 +564,40 @@ fn main() {
             handle.update(|_| {});
         }
         std::thread::sleep(Duration::from_secs(2));
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    #[test]
+    fn saving_a_faction_repoints_the_app_menu_icon() {
+        let dir = std::env::temp_dir().join(format!("aion2-tray-test-{}", std::process::id()));
+        std::fs::create_dir_all(dir.join("applications")).unwrap();
+        std::fs::create_dir_all(dir.join("aion2-meter/icons")).unwrap();
+        std::fs::write(dir.join("aion2-meter/icons/asmodian.png"), b"png").unwrap();
+        let entry = dir.join("applications/aion2-meter.desktop");
+        std::fs::write(
+            &entry,
+            "[Desktop Entry]\nName=AION 2 Meter\nIcon=/old/elyos.png\nExec=x\n",
+        )
+        .unwrap();
+        // SAFETY: this crate's only test that touches the environment.
+        unsafe { std::env::set_var("XDG_DATA_HOME", &dir) };
+
+        super::save_faction("asmodian");
+
+        let icon = dir.join("aion2-meter/icons/asmodian.png");
+        assert_eq!(
+            std::fs::read_to_string(&entry).unwrap(),
+            format!(
+                "[Desktop Entry]\nName=AION 2 Meter\nIcon={}\nExec=x\n",
+                icon.display()
+            )
+        );
+        assert_eq!(
+            std::fs::read_to_string(dir.join("aion2-meter/faction")).unwrap(),
+            "asmodian"
+        );
+        std::fs::remove_dir_all(dir).unwrap();
     }
 }

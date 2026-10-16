@@ -17,6 +17,6 @@ jobs:
       - run: cargo fmt --check -p aion2-meterd -p aion2-meter-tray
       # --no-deps: lint our crates only, not the A2Tools parser.
       - run: cargo clippy --no-deps -p aion2-meterd -p aion2-meter-tray -- -D warnings
-      - run: cargo test -p aion2-meterd
+      - run: cargo test -p aion2-meterd -p aion2-meter-tray
       - run: for f in scripts/*.sh scripts/aion2-meter; do bash -n "$f"; done
       - run: node scripts/test-editor-guides.js

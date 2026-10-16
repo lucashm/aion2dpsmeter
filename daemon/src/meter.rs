@@ -70,6 +70,8 @@ pub struct OverlayState {
     /// Whose skills `skills` lists: the focused player, else you.
     pub skills_of: Option<i32>,
     pub skills: Vec<SkillRow>,
+    /// "elyos" or "asmodian", from your server; None until the game says.
+    pub faction: Option<&'static str>,
 }
 
 pub struct Meter {
@@ -159,6 +161,7 @@ impl Meter {
             players,
             skills_of,
             skills: self.skills.clone(),
+            faction: faction_of(self.storage.fight_server_id()),
         }
     }
 
@@ -252,5 +255,26 @@ pub fn job_names(job: &str) -> (&'static str, &'static str) {
         "호법성" | "Chanter" => ("CHANTER", "Chanter"),
         "권성" | "Brawler" | "Fighter" => ("FIGHTER", "Brawler"),
         _ => ("", ""),
+    }
+}
+
+/// A server's faction: its id is 1xxx for Elyos, 2xxx for Asmodian.
+pub fn faction_of(server_id: u16) -> Option<&'static str> {
+    match server_id {
+        1000..=1999 => Some("elyos"),
+        2000..=2999 => Some("asmodian"),
+        _ => None,
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::faction_of;
+
+    #[test]
+    fn a_server_id_names_its_faction() {
+        assert_eq!(faction_of(1304), Some("elyos"));
+        assert_eq!(faction_of(2014), Some("asmodian"));
+        assert_eq!(faction_of(0), None);
     }
 }
