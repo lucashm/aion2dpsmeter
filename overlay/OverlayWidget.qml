@@ -17,6 +17,10 @@ PanelWindow {
     property bool interactive: false
     property bool wanted: true
     property point defaultPos: Qt.point(40, 40)
+    // Default layouts are drawn on a 2560x1440 screen. The game's HUD scales
+    // with the screen's height, so offsets from the centre and top scale by
+    // this; offsets from the left and right edges stay in pixels.
+    readonly property real hud: (screen ? screen.height : 1440) / 1440
     property string title: widgetId
 
     // A click on the widget in edit mode, in widget coordinates.

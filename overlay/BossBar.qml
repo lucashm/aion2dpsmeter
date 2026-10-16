@@ -8,7 +8,8 @@ OverlayWidget {
     required property var client
     title: "Boss HP"
     readonly property int width_: Math.round(460 * Theme.scale)
-    defaultPos: Qt.point(Math.round(((screen ? screen.width : 2560) - width_) / 2), Math.round(64 * Theme.scale))
+    // Centred a third of the way across a 16:9 screen; on wider ones it stays put relative to the centre.
+    defaultPos: Qt.point(Math.round((screen ? screen.width : 2560) / 2 - 426 * hud - width_ / 2), Math.round(272 * hud))
 
     readonly property var target: client.target
     readonly property bool hasHp: target !== null && target.maxHp > 0

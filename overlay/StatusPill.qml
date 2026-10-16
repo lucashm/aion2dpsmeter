@@ -7,7 +7,7 @@ OverlayWidget {
 
     required property var client
     title: "Ping"
-    defaultPos: Qt.point(Math.round((screen ? screen.width : 2560) - 200 * Theme.scale), Math.round(12 * Theme.scale))
+    defaultPos: Qt.point((screen ? screen.width : 2560) - 96, Math.round(80 * hud))
 
     readonly property var capture: client.capture
     readonly property var ping: client.state ? client.state.pingMs : null

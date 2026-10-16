@@ -117,6 +117,8 @@ ShellRoot {
         widgetId: "skills"
         client: client
         settings: settings
+        // Right under the meter, by pixels: scaling the gap would overlap them on small screens.
+        defaultPos: Qt.point(24, meterWidget.defaultPos.y + 256)
         screen: root.gameScreen
         editMode: root.editMode
         wanted: root.showWidgets

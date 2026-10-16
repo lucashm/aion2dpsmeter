@@ -6,7 +6,8 @@ OverlayWidget {
 
     required property var client
     title: "DPS meter"
-    defaultPos: Qt.point(24, Math.round((screen ? screen.height : 1200) * 0.30))
+    // Lifted on short screens so the skills widget still fits under it (556 = gap + its height).
+    defaultPos: Qt.point(24, Math.min(Math.round(544 * hud), (screen ? screen.height : 1440) - 556))
 
     readonly property int width_: Math.round(390 * Theme.scale)
     readonly property var rows: client.players.slice(0, settings.maxRows)

@@ -7,7 +7,6 @@ OverlayWidget {
 
     required property var client
     title: "Skills"
-    defaultPos: Qt.point(24, Math.round((screen ? screen.height : 1200) * 0.30) + Math.round(290 * Theme.scale))
 
     readonly property int width_: Math.round(360 * Theme.scale)
     readonly property var rows: client.skills.slice(0, settings.skillRows)
