@@ -186,7 +186,7 @@ ShellRoot {
             }
             GlobalShortcut {
                 appid: "aion2meter"
-                name: "toggle"
+                name: "hide"
                 description: "Hide or show the widgets"
                 onPressed: root.hidden = !root.hidden
             }
