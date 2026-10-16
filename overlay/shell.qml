@@ -217,5 +217,7 @@ ShellRoot {
         function toggle(): void { root.hidden = !root.hidden; }
         function nextPlayer(): void { root.focusNextPlayer(); }
         function mode(name: string): void { client.setTargetMode(name); }
+        // A monitor name to pin the widgets there, or "follow" to follow the game.
+        function monitor(name: string): void { settings.setPinnedMonitor(name === "follow" ? "" : name); }
     }
 }

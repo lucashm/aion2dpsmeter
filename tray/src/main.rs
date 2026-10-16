@@ -11,7 +11,7 @@ use std::sync::{Arc, Mutex};
 use std::time::Duration;
 
 use ksni::blocking::TrayMethods;
-use ksni::menu::StandardItem;
+use ksni::menu::{StandardItem, SubMenu};
 use ksni::{Icon, MenuItem, ToolTip};
 
 const UNITS: [&str; 2] = ["aion2-meterd", "aion2-meter-overlay"];
@@ -25,6 +25,9 @@ struct Status {
     hold_until: Option<std::time::Instant>,
     /// From the daemon's socket; None while not connected.
     capture: Option<Capture>,
+    /// Connected monitors, and the one the widgets are pinned to ("" = follow the game).
+    monitors: Vec<String>,
+    pinned: String,
 }
 
 #[derive(Debug, Clone, Default, PartialEq)]
@@ -216,6 +219,38 @@ impl ksni::Tray for MeterTray {
                 ..Default::default()
             }
             .into(),
+            SubMenu {
+                label: "Monitor".into(),
+                enabled: status.running,
+                submenu: std::iter::once(("Follow game".to_string(), String::new()))
+                    .chain(status.monitors.iter().map(|m| (m.clone(), m.clone())))
+                    .map(|(label, name)| {
+                        let mark = if name == status.pinned {
+                            "✓ "
+                        } else {
+                            "    "
+                        };
+                        StandardItem {
+                            label: format!("{mark}{label}"),
+                            activate: Box::new(move |this: &mut Self| {
+                                // The overlay owns its settings; "follow" means unpinned.
+                                overlay_ipc(
+                                    "monitor",
+                                    Some(if name.is_empty() { "follow" } else { &name }),
+                                );
+                                let mut s = this.status.lock().unwrap();
+                                s.pinned = name.clone();
+                                s.hold_until =
+                                    Some(std::time::Instant::now() + Duration::from_secs(4));
+                            }),
+                            ..Default::default()
+                        }
+                        .into()
+                    })
+                    .collect(),
+                ..Default::default()
+            }
+            .into(),
             MenuItem::Separator,
             StandardItem {
                 // DMS draws no checkmarks: a ✓ in the label shows it is on.
@@ -253,6 +288,38 @@ impl ksni::Tray for MeterTray {
                 ..Default::default()
             }
             .into(),
+            SubMenu {
+                label: "Monitor".into(),
+                enabled: status.running,
+                submenu: std::iter::once(("Follow game".to_string(), String::new()))
+                    .chain(status.monitors.iter().map(|m| (m.clone(), m.clone())))
+                    .map(|(label, name)| {
+                        let mark = if name == status.pinned {
+                            "✓ "
+                        } else {
+                            "    "
+                        };
+                        StandardItem {
+                            label: format!("{mark}{label}"),
+                            activate: Box::new(move |this: &mut Self| {
+                                // The overlay owns its settings; "follow" means unpinned.
+                                overlay_ipc(
+                                    "monitor",
+                                    Some(if name.is_empty() { "follow" } else { &name }),
+                                );
+                                let mut s = this.status.lock().unwrap();
+                                s.pinned = name.clone();
+                                s.hold_until =
+                                    Some(std::time::Instant::now() + Duration::from_secs(4));
+                            }),
+                            ..Default::default()
+                        }
+                        .into()
+                    })
+                    .collect(),
+                ..Default::default()
+            }
+            .into(),
             MenuItem::Separator,
             StandardItem {
                 label: "Quit".into(),
@@ -285,6 +352,42 @@ fn socket_path() -> PathBuf {
         .map(PathBuf::from)
         .unwrap_or_else(std::env::temp_dir)
         .join("aion2-meter.sock")
+}
+
+/// Connected monitors by connector name (DP-2, HDMI-A-1…), which is how
+/// Wayland compositors name their outputs too.
+fn connected_monitors() -> Vec<String> {
+    let mut names: Vec<String> = std::fs::read_dir("/sys/class/drm")
+        .into_iter()
+        .flatten()
+        .flatten()
+        .filter(|e| {
+            std::fs::read_to_string(e.path().join("status")).is_ok_and(|s| s.trim() == "connected")
+        })
+        // card1-DP-2 -> DP-2
+        .filter_map(|e| Some(e.file_name().to_str()?.split_once('-')?.1.to_string()))
+        .collect();
+    names.sort();
+    names
+}
+
+/// The monitor the overlay's settings pin the widgets to; "" when following the game.
+fn pinned_monitor() -> String {
+    let path = std::env::var_os("AION2_METER_CONFIG")
+        .map(PathBuf::from)
+        .unwrap_or_else(|| {
+            std::env::var_os("XDG_CONFIG_HOME")
+                .map(PathBuf::from)
+                .unwrap_or_else(|| {
+                    PathBuf::from(std::env::var_os("HOME").unwrap_or_default()).join(".config")
+                })
+                .join("aion2-meter/overlay.json")
+        });
+    std::fs::read(path)
+        .ok()
+        .and_then(|b| serde_json::from_slice::<serde_json::Value>(&b).ok())
+        .and_then(|v| v["pinnedMonitor"].as_str().map(str::to_string))
+        .unwrap_or_default()
 }
 
 /// The app icon as 64x64 ARGB32, made from desktop/aion2-meter.png by
@@ -367,14 +470,21 @@ fn main() {
     loop {
         let running = is_active(&["--user", "is-active", "--quiet", UNITS[0]]);
         let autostart = is_active(&["--user", "is-enabled", "--quiet", UNITS[0]]);
+        let monitors = connected_monitors();
+        let pinned = pinned_monitor();
         let changed = {
             let mut s = status.lock().unwrap();
             if s.hold_until.is_some_and(|t| std::time::Instant::now() < t) {
                 false
             } else {
-                let changed = s.running != running || s.autostart != autostart;
+                let changed = s.running != running
+                    || s.autostart != autostart
+                    || s.monitors != monitors
+                    || s.pinned != pinned;
                 s.running = running;
                 s.autostart = autostart;
+                s.monitors = monitors;
+                s.pinned = pinned;
                 changed
             }
         };
