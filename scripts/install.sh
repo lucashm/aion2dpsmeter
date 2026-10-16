@@ -74,7 +74,8 @@ step "Adding the app menu entry"
 mkdir -p "$share/applications"
 # App launchers may not have ~/.local/bin on PATH: use the full path.
 sed "s|Exec=aion2-meter|Exec=$bin_dir/aion2-meter|" "$root/desktop/aion2-meter.desktop" > "$share/applications/aion2-meter.desktop"
-install -Dm644 "$root/desktop/aion2-meter.svg" "$share/icons/hicolor/scalable/apps/aion2-meter.svg"
+install -Dm644 "$root/desktop/aion2-meter.png" "$share/icons/hicolor/256x256/apps/aion2-meter.png"
+rm -f "$share/icons/hicolor/scalable/apps/aion2-meter.svg"  # the old icon would shadow it
 update-desktop-database "$share/applications" 2>/dev/null || true
 
 step "Starting the services (and at every login)"

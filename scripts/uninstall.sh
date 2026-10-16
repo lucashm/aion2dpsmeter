@@ -13,7 +13,7 @@ systemctl --user daemon-reload
 
 rm -f "$HOME/.local/bin/aion2-meterd" "$HOME/.local/bin/aion2-meter-tray" "$HOME/.local/bin/aion2-meter"
 rm -rf "$config/quickshell/aion2-meter" "$share/aion2-meter/data"
-rm -f "$share/applications/aion2-meter.desktop" "$share/icons/hicolor/scalable/apps/aion2-meter.svg"
+rm -f "$share/applications/aion2-meter.desktop" "$share/icons/hicolor/256x256/apps/aion2-meter.png" "$share/icons/hicolor/scalable/apps/aion2-meter.svg"
 update-desktop-database "$share/applications" 2>/dev/null
 
 if [[ "${1:-}" == "--purge" ]]; then

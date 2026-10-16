@@ -154,7 +154,7 @@ That file contains your IP address and the names of players around you, so only 
 
 ## Credits and license
 
-The game protocol parser is [A2Tools DPS Meter](https://github.com/taengu/A2Tools-DPS-Meter) by taengu, used as a library (`third_party/a2tools`).
+App icon by lucashm. The game protocol parser is [A2Tools DPS Meter](https://github.com/taengu/A2Tools-DPS-Meter) by taengu, used as a library (`third_party/a2tools`).
 
 Copyright (C) 2026 lucashm. Licensed under the [GNU GPL v3.0](LICENSE), because A2Tools is GPL-3.0.
 
