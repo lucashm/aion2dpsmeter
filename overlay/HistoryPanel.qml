@@ -19,7 +19,8 @@ OverlayWidget {
 
     title: "History"
     interactive: open
-    wanted: open
+    // Only when opened: not part of edit mode's layout.
+    visible: open
     readonly property int width_: Math.round(440 * Theme.scale)
     defaultPos: Qt.point(Math.round(((screen ? screen.width : 2560) - width_) / 2), Math.round((screen ? screen.height : 1440) * 0.22))
 

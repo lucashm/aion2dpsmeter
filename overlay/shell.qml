@@ -156,7 +156,8 @@ ShellRoot {
         client: client
         screen: root.gameScreen
         active: root.editMode
-        widgets: [meterWidget, skillsWidget, bossWidget, statusWidget, historyWidget]
+        // History isn't laid out: it opens on demand, centred.
+        widgets: [meterWidget, skillsWidget, bossWidget, statusWidget]
         onDone: root.editMode = false
     }
 
