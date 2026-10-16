@@ -85,7 +85,7 @@ Item {
             property string meterMetric: "both"
             property string historyMetric: "both"
             property bool snapToGrid: true
-            property int gridSize: 16
+            property int gridSize: 32
             // id -> { x, y, visible }
             property var widgets: ({})
         }
