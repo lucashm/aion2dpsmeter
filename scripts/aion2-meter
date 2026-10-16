@@ -6,7 +6,8 @@ set -u
 
 units=(aion2-meterd aion2-meter-overlay)
 
-notify() { command -v notify-send >/dev/null && notify-send -a "AION 2 Meter" -i aion2-meter "AION 2 Meter" "$1"; }
+icon="${XDG_DATA_HOME:-$HOME/.local/share}/icons/hicolor/256x256/apps/aion2-meter.png"
+notify() { command -v notify-send >/dev/null && notify-send -a "AION 2 Meter" -i "$icon" "AION 2 Meter" "$1"; }
 running() { systemctl --user is-active --quiet aion2-meterd; }
 
 case "${1:-toggle}" in

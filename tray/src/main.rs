@@ -61,16 +61,6 @@ impl Status {
             None => "Capturing".into(),
         }
     }
-
-    /// green = capturing, amber = running but not capturing, red = error, grey = stopped
-    fn color(&self) -> [u8; 3] {
-        match &self.capture {
-            _ if !self.running => [0x80, 0x88, 0x99],
-            Some(c) if c.error.is_some() => [0xF0, 0x60, 0x5D],
-            Some(c) if c.locked => [0x5B, 0xD6, 0x8A],
-            _ => [0xF2, 0xC1, 0x5A],
-        }
-    }
 }
 
 struct MeterTray {
@@ -122,11 +112,21 @@ impl ksni::Tray for MeterTray {
     }
 
     fn icon_pixmap(&self) -> Vec<Icon> {
-        let color = self.status().color();
-        [22, 32, 48, 64]
-            .into_iter()
-            .map(|size| bars_icon(size, color))
-            .collect()
+        let mut data = ICON.to_vec();
+        if !self.status().running {
+            // Stopped: greyed out.
+            for px in data.as_chunks_mut::<4>().0 {
+                let grey =
+                    ((px[1] as u32 * 30 + px[2] as u32 * 59 + px[3] as u32 * 11) / 100) as u8;
+                px[0] /= 2;
+                px[1..].fill(grey);
+            }
+        }
+        vec![Icon {
+            width: 64,
+            height: 64,
+            data,
+        }]
     }
 
     fn tool_tip(&self) -> ToolTip {
@@ -287,26 +287,9 @@ fn socket_path() -> PathBuf {
         .join("aion2-meter.sock")
 }
 
-/// Three rounded bars, like a meter, in `color`. ARGB32, big-endian.
-fn bars_icon(size: i32, [r, g, b]: [u8; 3]) -> Icon {
-    let s = size as f32;
-    let bars = [(0.18, 0.86), (0.42, 0.68), (0.66, 0.48)]; // (top as fraction, right edge as fraction)
-    let mut data = Vec::with_capacity((size * size * 4) as usize);
-    for y in 0..size {
-        for x in 0..size {
-            let (fx, fy) = ((x as f32 + 0.5) / s, (y as f32 + 0.5) / s);
-            let on = bars
-                .iter()
-                .any(|&(top, right)| fy >= top && fy < top + 0.16 && fx >= 0.12 && fx < right);
-            data.extend_from_slice(&if on { [0xFF, r, g, b] } else { [0, 0, 0, 0] });
-        }
-    }
-    Icon {
-        width: size,
-        height: size,
-        data,
-    }
-}
+/// The app icon as 64x64 ARGB32, made from desktop/aion2-meter.png by
+/// scripts/tray-icon.py.
+const ICON: &[u8; 64 * 64 * 4] = include_bytes!("../icon-64.argb");
 
 fn is_active(args: &[&str]) -> bool {
     Command::new("systemctl")
