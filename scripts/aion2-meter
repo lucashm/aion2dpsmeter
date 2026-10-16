@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+# Start, stop or toggle the AION 2 meter (capture daemon + overlay).
+#   aion2-meter [toggle|start|stop|restart|status|edit|history]
+set -u
+
+units=(aion2-meterd aion2-meter-overlay)
+
+notify() { command -v notify-send >/dev/null && notify-send -a "AION 2 Meter" -i aion2-meter "AION 2 Meter" "$1"; }
+running() { systemctl --user is-active --quiet aion2-meterd; }
+
+case "${1:-toggle}" in
+    start)
+        systemctl --user start "${units[@]}" && notify "Started"
+        ;;
+    stop)
+        systemctl --user stop "${units[@]}" && notify "Stopped"
+        ;;
+    restart)
+        systemctl --user restart "${units[@]}" && notify "Restarted"
+        ;;
+    toggle)
+        if running; then "$0" stop; else "$0" start; fi
+        ;;
+    status)
+        systemctl --user --no-pager status "${units[@]}"
+        ;;
+    edit | history)
+        running || "$0" start
+        qs -c aion2-meter ipc call meter "$1"
+        ;;
+    *)
+        echo "usage: aion2-meter [toggle|start|stop|restart|status|edit|history]" >&2
+        exit 2
+        ;;
+esac

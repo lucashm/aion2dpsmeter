@@ -1,0 +1,13 @@
+[Unit]
+Description=AION 2 meter overlay (Quickshell)
+PartOf=graphical-session.target
+After=graphical-session.target aion2-meterd.service
+Wants=aion2-meterd.service
+
+[Service]
+ExecStart=/usr/bin/qs -c aion2-meter
+Restart=on-failure
+RestartSec=3
+
+[Install]
+WantedBy=graphical-session.target

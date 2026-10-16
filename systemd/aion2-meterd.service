@@ -1,0 +1,16 @@
+[Unit]
+Description=AION 2 meter capture daemon
+Documentation=file://%h/Documents/repos/aion2dpsmeter/README.md
+PartOf=graphical-session.target
+After=graphical-session.target network-online.target
+
+[Service]
+# The binary carries cap_net_raw itself (scripts/install.sh); nothing here may
+# set NoNewPrivileges, or the kernel ignores that capability.
+ExecStart=%h/.local/bin/aion2-meterd
+Restart=on-failure
+RestartSec=3
+Nice=5
+
+[Install]
+WantedBy=graphical-session.target

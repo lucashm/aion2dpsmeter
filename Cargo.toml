@@ -1,0 +1,7 @@
+[workspace]
+resolver = "3"
+members = ["daemon", "tray"]
+
+[profile.release]
+lto = "thin"
+codegen-units = 4

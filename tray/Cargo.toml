@@ -1,0 +1,10 @@
+[package]
+name = "aion2-meter-tray"
+version = "0.1.0"
+edition = "2024"
+license = "GPL-3.0-only"
+description = "System tray controls for the AION 2 meter"
+
+[dependencies]
+ksni = { version = "0.3", default-features = false, features = ["blocking", "async-io"] }
+serde_json = "1"

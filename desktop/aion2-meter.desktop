@@ -1,0 +1,27 @@
+[Desktop Entry]
+Type=Application
+Name=AION 2 Meter
+GenericName=DPS Meter
+Comment=Start or stop the AION 2 DPS meter overlay
+Exec=aion2-meter toggle
+Icon=aion2-meter
+Terminal=false
+Categories=Game;
+Keywords=aion;dps;meter;overlay;combat;
+Actions=start;stop;edit;history;
+
+[Desktop Action start]
+Name=Start
+Exec=aion2-meter start
+
+[Desktop Action stop]
+Name=Stop
+Exec=aion2-meter stop
+
+[Desktop Action edit]
+Name=Edit layout
+Exec=aion2-meter edit
+
+[Desktop Action history]
+Name=Fight history
+Exec=aion2-meter history
