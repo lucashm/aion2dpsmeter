@@ -39,19 +39,20 @@ PanelWindow {
 
     visible: enabledInSettings && (wanted || editMode)
     color: "transparent"
-    // While dragged in game the surface covers the screen and the body moves
-    // inside it: a surface moving under the pointer would chase its own coordinates.
-    property bool grabbed: false
-    // The compositor has made the surface full-screen; until then, pointer
-    // coordinates are still relative to where the widget was.
-    readonly property bool fullScreen: grabbed && screen && width >= screen.width && height >= screen.height
+    // To be dragged in game the surface covers the screen for as long as the
+    // setting is on, and the body moves inside it: a surface moving under the
+    // pointer chases its own coordinates, and one resized at the grab shows a
+    // frame at the screen's edge.
+    readonly property bool roomy: settings.moveInGame && !interactive
+    // The compositor has made the surface full-screen.
+    readonly property bool fullScreen: roomy && screen && width >= screen.width && height >= screen.height
 
     anchors.top: true
     anchors.left: true
-    anchors.right: grabbed
-    anchors.bottom: grabbed
-    margins.left: grabbed ? 0 : posX
-    margins.top: grabbed ? 0 : posY
+    anchors.right: roomy
+    anchors.bottom: roomy
+    margins.left: roomy ? 0 : posX
+    margins.top: roomy ? 0 : posY
     exclusionMode: ExclusionMode.Ignore
     implicitWidth: Math.max(1, body.implicitWidth)
     implicitHeight: Math.max(1, body.implicitHeight)
@@ -63,7 +64,7 @@ PanelWindow {
     // Dragged by itself, outside edit mode, when the setting allows it.
     readonly property bool movable: settings.moveInGame && !editMode && !interactive
 
-    mask: Region { item: win.grabbed ? whole : (win.interactive && !win.editMode) || win.movable ? body : null }
+    mask: Region { item: (win.interactive && !win.editMode) || win.movable ? body : null }
 
     function clampX(x) {
         return Math.max(0, Math.min(x, (screen ? screen.width : 4000) - implicitWidth));
@@ -87,11 +88,9 @@ PanelWindow {
         enabled: win.movable
         hoverEnabled: true
         cursorShape: pressed ? Qt.ClosedHandCursor : Qt.OpenHandCursor
-        // The pointer's place in the widget, and where the widget was, at the press.
+        // The pointer's place in the widget at the press.
         property real offX: 0
         property real offY: 0
-        property real fromX: 0
-        property real fromY: 0
         property bool moved: false
         function snap(v) {
             const g = win.settings.gridSize;
@@ -100,19 +99,16 @@ PanelWindow {
         onPressed: mouse => {
             offX = mouse.x;
             offY = mouse.y;
-            fromX = win.posX;
-            fromY = win.posY;
             moved = false;
-            win.grabbed = true;
         }
         onPositionChanged: mouse => {
             if (!pressed) return;
             if (!moved && Math.abs(mouse.x - offX) + Math.abs(mouse.y - offY) < 4) return;
             moved = true;
-            // The pointer on the screen: the surface is either full-screen or still at fromX/fromY.
+            // The pointer on the screen; the surface is still at the widget until it turns full-screen.
             const p = mapToItem(whole, mouse.x, mouse.y);
-            const x = p.x - offX + (win.fullScreen ? 0 : fromX);
-            const y = p.y - offY + (win.fullScreen ? 0 : fromY);
+            const x = p.x - offX + (win.fullScreen ? 0 : win.posX);
+            const y = p.y - offY + (win.fullScreen ? 0 : win.posY);
             const free = mouse.modifiers & Qt.ShiftModifier;
             win.dragX = free ? x : snap(x);
             win.dragY = free ? y : snap(y);
@@ -120,12 +116,10 @@ PanelWindow {
         onReleased: mouse => {
             if (moved) win.settings.setWidgetPos(win.widgetId, win.posX, win.posY);
             else win.tapped(mouse.x, mouse.y);
-            win.grabbed = false;
             win.dragX = NaN;
             win.dragY = NaN;
         }
         onCanceled: {
-            win.grabbed = false;
             win.dragX = NaN;
             win.dragY = NaN;
         }
