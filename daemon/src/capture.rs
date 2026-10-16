@@ -82,6 +82,8 @@ fn pump<T: pcap::Activated + ?Sized>(
         };
         if let Some(s) = saver.as_mut() {
             s.write(&packet);
+            // The daemon is stopped by a signal, which skips the buffer's flush.
+            let _ = s.flush();
         }
         let ts = packet.header.ts;
         let ms = ts.tv_sec as i64 * 1000 + ts.tv_usec as i64 / 1000;
@@ -126,6 +128,9 @@ fn decode(link: Linktype, frame: &[u8], captured_at_ms: i64) -> Option<Segment> 
     let (src_ip, dst_ip, tcp) = match ip.first()? >> 4 {
         4 => {
             let ihl = ((ip[0] & 0x0F) as usize) * 4;
+            if ihl < 20 {
+                return None;
+            }
             if *ip.get(9)? != 6 {
                 return None;
             }

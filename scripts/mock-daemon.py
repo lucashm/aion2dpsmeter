@@ -50,13 +50,13 @@ def state():
     wsum = sum(weights)
     skills = [{"code": 1000 + i, "name": n, "damage": int(me["damage"] * w / wsum), "hits": int(t * w * 3) + 1,
                "share": w / wsum, "dps": me["dps"] * w / wsum, "critRate": 0.3 + (i % 3) * 0.1,
-               "backRate": 0.15 * (i % 2), "maxHit": 90_000, "isDot": n == "Erosion"} for i, (n, w) in enumerate(zip(SKILLS, weights))]
+               "backRate": 0.15 * (i % 2), "isDot": n == "Erosion"} for i, (n, w) in enumerate(zip(SKILLS, weights))]
     hp = max(0, MAX_HP - total)
     return {"type": "state",
-            "capture": {"gameRunning": True, "locked": True, "server": "193.202.112.172:13328", "lastParsedMs": 0, "bytesParsed": 0, "error": None},
+            "capture": {"gameRunning": True, "locked": True, "error": None},
             "pingMs": int(48 + 10 * math.sin(t)), "targetMode": "bossTargets",
             "target": {"id": 9001, "name": "Guardian General Kromede", "isBoss": True, "maxHp": MAX_HP, "currentHp": int(hp), "damageTaken": int(total)},
-            "battleTimeMs": elapsed_ms, "localId": LOCAL, "players": players, "skillsOf": who, "skills": skills, "dungeonId": 0}
+            "battleTimeMs": elapsed_ms, "players": players, "skillsOf": who, "skills": skills}
 
 
 def send_all(msg):

@@ -106,6 +106,12 @@ impl Dispatcher {
             info!("Game exited");
             self.unlock();
         }
+        if !game.local_ports.is_empty() {
+            // A port the game let go of may come back as a new connection:
+            // forget what was decided about the old one (TLS or not).
+            self.seen.retain(|k| game.local_ports.contains(&k.0));
+            self.tls.retain(|k| game.local_ports.contains(&k.0));
+        }
         if let Some((client, _)) = self.locked {
             if !game.local_ports.is_empty() && !game.local_ports.contains(&client) {
                 info!("Game closed its connection on port {client}; looking for the next one");
@@ -124,6 +130,7 @@ impl Dispatcher {
     fn unlock(&mut self) {
         self.locked = None;
         self.status.locked = false;
+        self.last_parsed_ms = 0;
         self.streams.clear();
         self.sig_hits.clear();
         self.ping.reset();
@@ -215,8 +222,9 @@ impl Dispatcher {
         }
     }
 
-    /// Counts a signature-bearing chunk against its connection, in a sliding
-    /// window; returns the count so far.
+    /// Counts a signature-bearing chunk against its connection within a window
+    /// of SIGNATURE_WINDOW_MS from the window's first hit; returns the count.
+    /// A slow trickle of look-alike bytes never reaches the threshold.
     fn count_signature(&mut self, key: ConnKey, chunk: &Chunk) -> u32 {
         if !contains_any(&chunk.data, &COMBAT_SIGNATURES) {
             return self.sig_hits.get(&key).map_or(0, |s| s.0);
@@ -224,10 +232,9 @@ impl Dispatcher {
         let now = chunk.captured_at_ms;
         let slot = self.sig_hits.entry(key).or_insert((0, now));
         if now - slot.1 > SIGNATURE_WINDOW_MS {
-            slot.0 = 0;
+            *slot = (0, now);
         }
         slot.0 += 1;
-        slot.1 = now;
         slot.0
     }
 
@@ -273,6 +280,34 @@ fn contains_any(data: &[u8], needles: &[&[u8]]) -> bool {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn only_a_burst_of_signatures_counts_towards_the_lock() {
+        use a2tools::combat::data_storage::DataStorage;
+        let mut d = Dispatcher::new(
+            Arc::new(DataStorage::new()),
+            Arc::new(SkillLookup::new()),
+            Arc::new(NpcLookup::new()),
+            Arc::new(PingTracker::new()),
+            HashSet::new(),
+        );
+        let ip = IpAddr::from([1, 1, 1, 1]);
+        let chunk = |at| Chunk {
+            src: (ip, 13328),
+            dst: (ip, 5000),
+            data: vec![0x0E, 0x00, 0x36],
+            captured_at_ms: at,
+            seq: 0,
+            ack: 0,
+            after_gap: false,
+        };
+        // One every 2.5 s, for a minute: never a burst.
+        let trickle = (0..24).map(|i| d.count_signature((5000, 13328), &chunk(i * 2500))).max();
+        assert!(trickle < Some(SIGNATURE_LOCK_THRESHOLD), "{trickle:?}");
+        // The live game's rate: 12 within a second.
+        let burst = (0..12).map(|i| d.count_signature((5001, 13328), &chunk(100_000 + i * 80))).last();
+        assert_eq!(burst, Some(SIGNATURE_LOCK_THRESHOLD));
+    }
 
     #[test]
     fn tells_tls_from_game_frames() {

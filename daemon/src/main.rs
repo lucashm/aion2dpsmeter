@@ -211,7 +211,14 @@ fn main() -> Result<()> {
                 let seg = match seg_rx.recv_timeout(Duration::from_millis(500)) {
                     Ok(seg) => Some(seg),
                     Err(mpsc::RecvTimeoutError::Timeout) => None,
-                    Err(mpsc::RecvTimeoutError::Disconnected) if replay => break,
+                    Err(mpsc::RecvTimeoutError::Disconnected) if replay => {
+                        // The capture's end: what waited behind a hole goes too.
+                        reasm.flush(None, &mut chunks);
+                        for chunk in chunks.drain(..) {
+                            dispatcher.on_chunk(&game, chunk);
+                        }
+                        break;
+                    }
                     // Live capture failed: keep reporting the game's state
                     // (and the error) to the overlay.
                     Err(mpsc::RecvTimeoutError::Disconnected) => {
@@ -226,18 +233,21 @@ fn main() -> Result<()> {
                 }
                 if let Some(seg) = seg {
                     reasm.push(seg, &mut chunks);
-                    for chunk in chunks.drain(..) {
-                        // A connection the game opened since the last scan.
-                        if !replay
-                            && Dispatcher::is_foreign(&game, &chunk)
-                            && last_scan.elapsed() >= Duration::from_millis(250)
-                        {
-                            game = game::scan();
-                            dispatcher.on_game_state(&game);
-                            last_scan = Instant::now();
-                        }
-                        dispatcher.on_chunk(&game, chunk);
+                }
+                if !replay {
+                    reasm.flush(Some(now_ms()), &mut chunks);
+                }
+                for chunk in chunks.drain(..) {
+                    // A connection the game opened since the last scan.
+                    if !replay
+                        && Dispatcher::is_foreign(&game, &chunk)
+                        && last_scan.elapsed() >= Duration::from_millis(250)
+                    {
+                        game = game::scan();
+                        dispatcher.on_game_state(&game);
+                        last_scan = Instant::now();
                     }
+                    dispatcher.on_chunk(&game, chunk);
                 }
                 dispatcher.tick(if replay { dispatcher.last_parsed_ms } else { now_ms() });
                 let mut s = status.lock();

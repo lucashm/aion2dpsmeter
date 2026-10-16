@@ -37,6 +37,9 @@ impl Clients {
             let ok = c.write_all(line.as_bytes()).and_then(|_| c.write_all(b"\n")).is_ok();
             if !ok {
                 debug!("Overlay client dropped");
+                // Its reader thread holds a clone: without this the client
+                // never sees EOF, so it never reconnects.
+                let _ = c.shutdown(std::net::Shutdown::Both);
             }
             ok
         });
