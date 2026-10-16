@@ -33,22 +33,28 @@ fn is_game(pid: u32) -> bool {
 
 pub fn scan() -> GameState {
     let mut state = GameState::default();
-    let Ok(entries) = fs::read_dir("/proc") else { return state };
+    let Ok(entries) = fs::read_dir("/proc") else {
+        return state;
+    };
     let mut inodes = HashSet::new();
     for e in entries.flatten() {
-        let Some(pid) = e.file_name().to_str().and_then(|s| s.parse::<u32>().ok()) else { continue };
+        let Some(pid) = e.file_name().to_str().and_then(|s| s.parse::<u32>().ok()) else {
+            continue;
+        };
         if !is_game(pid) {
             continue;
         }
         state.pids.push(pid);
-        let Ok(fds) = fs::read_dir(format!("/proc/{pid}/fd")) else { continue };
+        let Ok(fds) = fs::read_dir(format!("/proc/{pid}/fd")) else {
+            continue;
+        };
         for fd in fds.flatten() {
             if let Ok(target) = fs::read_link(fd.path()) {
                 let t = target.to_string_lossy();
-                if let Some(inode) = t.strip_prefix("socket:[").and_then(|s| s.strip_suffix(']')) {
-                    if let Ok(n) = inode.parse::<u64>() {
-                        inodes.insert(n);
-                    }
+                if let Some(inode) = t.strip_prefix("socket:[").and_then(|s| s.strip_suffix(']'))
+                    && let Ok(n) = inode.parse::<u64>()
+                {
+                    inodes.insert(n);
                 }
             }
         }
@@ -58,19 +64,31 @@ pub fn scan() -> GameState {
     }
     // The game's process may share its netns with ours or not; its own view
     // of the tables is the one that matches its sockets.
-    let netns_root = state.pids.first().map(|p| format!("/proc/{p}/net")).unwrap_or_else(|| "/proc/net".into());
+    let netns_root = state
+        .pids
+        .first()
+        .map(|p| format!("/proc/{p}/net"))
+        .unwrap_or_else(|| "/proc/net".into());
     for table in ["tcp", "tcp6"] {
-        let Ok(text) = fs::read_to_string(format!("{netns_root}/{table}")) else { continue };
+        let Ok(text) = fs::read_to_string(format!("{netns_root}/{table}")) else {
+            continue;
+        };
         for line in text.lines().skip(1) {
             let f: Vec<&str> = line.split_whitespace().collect();
             if f.len() < 10 {
                 continue;
             }
-            let Ok(inode) = f[9].parse::<u64>() else { continue };
+            let Ok(inode) = f[9].parse::<u64>() else {
+                continue;
+            };
             if !inodes.contains(&inode) {
                 continue;
             }
-            if let Some(port) = f[1].rsplit(':').next().and_then(|p| u16::from_str_radix(p, 16).ok()) {
+            if let Some(port) = f[1]
+                .rsplit(':')
+                .next()
+                .and_then(|p| u16::from_str_radix(p, 16).ok())
+            {
                 state.local_ports.insert(port);
             }
         }

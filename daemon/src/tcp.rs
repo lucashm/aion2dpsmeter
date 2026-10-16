@@ -56,15 +56,18 @@ impl Reassembler {
     pub fn push(&mut self, seg: Segment, out: &mut Vec<Chunk>) {
         let now = seg.captured_at_ms;
         if now - self.last_gc_ms > 30_000 {
-            self.flows.retain(|_, d| now - d.last_seen_ms < IDLE_FLOW_MS);
+            self.flows
+                .retain(|_, d| now - d.last_seen_ms < IDLE_FLOW_MS);
             self.last_gc_ms = now;
         }
         let key = (seg.src, seg.dst);
         if seg.syn {
             // A new connection on a reused 4-tuple starts over.
-            let mut d = Direction::default();
-            d.next_seq = Some(seg.seq.wrapping_add(1));
-            d.last_seen_ms = now;
+            let d = Direction {
+                next_seq: Some(seg.seq.wrapping_add(1)),
+                last_seen_ms: now,
+                ..Default::default()
+            };
             self.flows.insert(key, d);
             return;
         }
@@ -99,7 +102,8 @@ impl Reassembler {
             // Ahead of a hole.
             if !d.pending.contains_key(&seg.seq) {
                 d.pending_bytes += seg.payload.len();
-                d.pending.insert(seg.seq, (seg.payload.clone(), now, seg.ack));
+                d.pending
+                    .insert(seg.seq, (seg.payload.clone(), now, seg.ack));
             }
             let started = *d.gap_since_ms.get_or_insert(now);
             if now - started > GAP_TIMEOUT_MS || d.pending_bytes > MAX_PENDING_BYTES {
@@ -132,16 +136,29 @@ impl Reassembler {
 /// Gives up on the hole: jumps to the earliest buffered segment.
 fn skip_hole(d: &mut Direction, key: (Endpoint, Endpoint), now: i64, out: &mut Vec<Chunk>) {
     let next = d.next_seq.expect("a hole has a position");
-    let earliest = d.pending.keys().copied().min_by_key(|s| dist(next, *s)).expect("pending is not empty");
+    let earliest = d
+        .pending
+        .keys()
+        .copied()
+        .min_by_key(|s| dist(next, *s))
+        .expect("pending is not empty");
     d.next_seq = Some(earliest);
     drain(d, key, now, out, true);
 }
 
 /// Emits buffered segments that now continue the stream.
-fn drain(d: &mut Direction, (src, dst): (Endpoint, Endpoint), now: i64, out: &mut Vec<Chunk>, mut after_gap: bool) {
+fn drain(
+    d: &mut Direction,
+    (src, dst): (Endpoint, Endpoint),
+    now: i64,
+    out: &mut Vec<Chunk>,
+    mut after_gap: bool,
+) {
     loop {
         let next = d.next_seq.expect("set before draining");
-        let Some(&s) = d.pending.keys().find(|s| dist(next, **s) <= 0) else { break };
+        let Some(&s) = d.pending.keys().find(|s| dist(next, **s) <= 0) else {
+            break;
+        };
         let (data, at, ack) = d.pending.remove(&s).expect("key just found");
         d.pending_bytes -= data.len();
         let skip = (-dist(next, s)) as usize;
@@ -206,7 +223,11 @@ mod tests {
     fn reorders_dedupes_and_trims() {
         let mut r = Reassembler::default();
         assert_eq!(feed(&mut r, seg(100, b"abc", 0)), b"abc");
-        assert_eq!(feed(&mut r, seg(106, b"ghi", 1)), b"", "held behind the hole");
+        assert_eq!(
+            feed(&mut r, seg(106, b"ghi", 1)),
+            b"",
+            "held behind the hole"
+        );
         assert_eq!(feed(&mut r, seg(103, b"def", 2)), b"defghi");
         assert_eq!(feed(&mut r, seg(103, b"def", 3)), b"", "retransmission");
         assert_eq!(feed(&mut r, seg(107, b"hijk", 4)), b"jk", "overlap trimmed");
@@ -228,13 +249,19 @@ mod tests {
         r.flush(Some(10 + GAP_TIMEOUT_MS / 2), &mut out);
         assert!(out.is_empty(), "not yet");
         r.flush(Some(10 + GAP_TIMEOUT_MS + 1), &mut out);
-        assert_eq!(out.into_iter().flat_map(|c| c.data).collect::<Vec<_>>(), b"xx");
+        assert_eq!(
+            out.into_iter().flat_map(|c| c.data).collect::<Vec<_>>(),
+            b"xx"
+        );
         // End of a replay: every hole goes.
         feed(&mut r, seg(20, b"yy", 20));
         feed(&mut r, seg(30, b"zz", 20));
         let mut out = Vec::new();
         r.flush(None, &mut out);
-        assert_eq!(out.into_iter().flat_map(|c| c.data).collect::<Vec<_>>(), b"yyzz");
+        assert_eq!(
+            out.into_iter().flat_map(|c| c.data).collect::<Vec<_>>(),
+            b"yyzz"
+        );
     }
 
     #[test]
@@ -245,6 +272,9 @@ mod tests {
         let mut out = Vec::new();
         r.push(seg(12, b"yy", 10 + GAP_TIMEOUT_MS + 1), &mut out);
         assert!(out[0].after_gap);
-        assert_eq!(out.into_iter().flat_map(|c| c.data).collect::<Vec<_>>(), b"xxyy");
+        assert_eq!(
+            out.into_iter().flat_map(|c| c.data).collect::<Vec<_>>(),
+            b"xxyy"
+        );
     }
 }

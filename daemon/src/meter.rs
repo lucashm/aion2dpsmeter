@@ -108,7 +108,10 @@ impl Meter {
         // Per-skill details are heavier than the totals: redone only when
         // there was new damage, or the focus or target changed.
         let generation = self.storage.damage_generation();
-        if generation != self.details_gen || skills_of != self.details_focus || dps.target_id != self.details_target {
+        if generation != self.details_gen
+            || skills_of != self.details_focus
+            || dps.target_id != self.details_target
+        {
             self.details_gen = generation;
             self.details_focus = skills_of;
             self.details_target = dps.target_id;
@@ -121,7 +124,11 @@ impl Meter {
             .filter(|(_, p)| p.amount > 0.0)
             .map(|(&id, p)| PlayerRow {
                 id,
-                name: if p.nickname.is_empty() { format!("#{id}") } else { p.nickname.clone() },
+                name: if p.nickname.is_empty() {
+                    format!("#{id}")
+                } else {
+                    p.nickname.clone()
+                },
                 job: job_names(&p.job).1.to_string(),
                 job_key: job_names(&p.job).0.to_string(),
                 dps: p.dps,
@@ -157,7 +164,10 @@ impl Meter {
 
     fn refresh_details(&mut self, dps: &DpsData, skills_of: Option<i32>, seconds: f64) {
         let targets: Vec<i32> = if dps.detail_target_ids.is_empty() {
-            (dps.target_id != 0).then_some(dps.target_id).into_iter().collect()
+            (dps.target_id != 0)
+                .then_some(dps.target_id)
+                .into_iter()
+                .collect()
         } else {
             dps.detail_target_ids.clone()
         };
@@ -174,17 +184,19 @@ impl Meter {
                     e.1 += s.time as i64;
                 }
                 if Some(owner) == skills_of {
-                    let row = skills.entry((s.code, s.is_dot)).or_insert_with(|| SkillRow {
-                        code: s.code,
-                        name: s.name.clone(),
-                        damage: 0,
-                        hits: 0,
-                        share: 0.0,
-                        dps: 0.0,
-                        crit_rate: 0.0,
-                        back_rate: 0.0,
-                        is_dot: s.is_dot,
-                    });
+                    let row = skills
+                        .entry((s.code, s.is_dot))
+                        .or_insert_with(|| SkillRow {
+                            code: s.code,
+                            name: s.name.clone(),
+                            damage: 0,
+                            hits: 0,
+                            share: 0.0,
+                            dps: 0.0,
+                            crit_rate: 0.0,
+                            back_rate: 0.0,
+                            is_dot: s.is_dot,
+                        });
                     row.damage += s.dmg as i64;
                     row.hits += s.time;
                     // Rates are summed as counts here and divided below.
@@ -195,7 +207,16 @@ impl Meter {
         }
         self.crit_by_actor = hits
             .into_iter()
-            .map(|(id, (crit, total))| (id, if total > 0 { crit as f64 / total as f64 } else { 0.0 }))
+            .map(|(id, (crit, total))| {
+                (
+                    id,
+                    if total > 0 {
+                        crit as f64 / total as f64
+                    } else {
+                        0.0
+                    },
+                )
+            })
             .collect();
         let total: i64 = skills.values().map(|s| s.damage).sum();
         let mut rows: Vec<SkillRow> = skills
@@ -204,7 +225,11 @@ impl Meter {
                 let n = s.hits.max(1) as f64;
                 s.crit_rate = if s.is_dot { 0.0 } else { s.crit_rate / n };
                 s.back_rate = if s.is_dot { 0.0 } else { s.back_rate / n };
-                s.share = if total > 0 { s.damage as f64 / total as f64 } else { 0.0 };
+                s.share = if total > 0 {
+                    s.damage as f64 / total as f64
+                } else {
+                    0.0
+                };
                 s.dps = s.damage as f64 / seconds;
                 s
             })

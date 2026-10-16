@@ -1,6 +1,6 @@
 [Unit]
 Description=AION 2 meter capture daemon
-Documentation=file://%h/Documents/repos/aion2dpsmeter/README.md
+Documentation=https://github.com/lucashm/aion2dpsmeter
 PartOf=graphical-session.target
 After=graphical-session.target network-online.target
 

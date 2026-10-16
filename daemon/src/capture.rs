@@ -51,7 +51,8 @@ pub fn run(source: Source, record: Option<PathBuf>, tx: SyncSender<Segment>) -> 
             pump(cap, record, tx, false)
         }
         Source::File { path, realtime } => {
-            let cap = Capture::from_file(&path).with_context(|| format!("cannot open {}", path.display()))?;
+            let cap = Capture::from_file(&path)
+                .with_context(|| format!("cannot open {}", path.display()))?;
             info!("Replaying {}", path.display());
             pump(cap, record, tx, realtime)
         }
@@ -86,7 +87,7 @@ fn pump<T: pcap::Activated + ?Sized>(
             let _ = s.flush();
         }
         let ts = packet.header.ts;
-        let ms = ts.tv_sec as i64 * 1000 + ts.tv_usec as i64 / 1000;
+        let ms = ts.tv_sec * 1000 + ts.tv_usec / 1000;
         if realtime {
             let (t0, wall0) = *first.get_or_insert((ms, std::time::Instant::now()));
             let due = std::time::Duration::from_millis((ms - t0).max(0) as u64);
@@ -94,10 +95,10 @@ fn pump<T: pcap::Activated + ?Sized>(
                 std::thread::sleep(wait);
             }
         }
-        if let Some(seg) = decode(link, packet.data, ms) {
-            if tx.send(seg).is_err() {
-                return Ok(());
-            }
+        if let Some(seg) = decode(link, packet.data, ms)
+            && tx.send(seg).is_err()
+        {
+            return Ok(());
         }
     }
 }
@@ -143,7 +144,11 @@ fn decode(link: Linktype, frame: &[u8], captured_at_ms: i64) -> Option<Segment> 
             let src: [u8; 4] = ip.get(12..16)?.try_into().ok()?;
             let dst: [u8; 4] = ip.get(16..20)?.try_into().ok()?;
             // `total` can be 0 with TSO/GRO; trust the captured length then.
-            let end = if total >= ihl && total <= ip.len() { total } else { ip.len() };
+            let end = if total >= ihl && total <= ip.len() {
+                total
+            } else {
+                ip.len()
+            };
             (IpAddr::from(src), IpAddr::from(dst), ip.get(ihl..end)?)
         }
         6 => {
@@ -153,7 +158,11 @@ fn decode(link: Linktype, frame: &[u8], captured_at_ms: i64) -> Option<Segment> 
             let src: [u8; 16] = ip.get(8..24)?.try_into().ok()?;
             let dst: [u8; 16] = ip.get(24..40)?.try_into().ok()?;
             let plen = u16::from_be_bytes([ip[4], ip[5]]) as usize;
-            let end = if plen > 0 && 40 + plen <= ip.len() { 40 + plen } else { ip.len() };
+            let end = if plen > 0 && 40 + plen <= ip.len() {
+                40 + plen
+            } else {
+                ip.len()
+            };
             (IpAddr::from(src), IpAddr::from(dst), ip.get(40..end)?)
         }
         _ => return None,
@@ -181,7 +190,8 @@ pub fn default_route_iface() -> Option<String> {
         .filter_map(|l| {
             let f: Vec<&str> = l.split_whitespace().collect();
             // Destination 00000000 = default; lowest metric wins.
-            (f.len() > 6 && f[1] == "00000000").then(|| (f[6].parse::<u32>().unwrap_or(u32::MAX), f[0].to_string()))
+            (f.len() > 6 && f[1] == "00000000")
+                .then(|| (f[6].parse::<u32>().unwrap_or(u32::MAX), f[0].to_string()))
         })
         .min()
         .map(|(_, iface)| iface)
@@ -195,8 +205,12 @@ mod tests {
     fn decodes_an_ethernet_ipv4_tcp_frame() {
         let mut f = vec![0u8; 14];
         f[12] = 0x08; // IPv4
-        let mut ip = vec![0x45, 0, 0, 0, 0, 0, 0x40, 0, 64, 6, 0, 0, 193, 202, 112, 172, 192, 168, 1, 14];
-        let tcp = [0x34, 0x10, 0x84, 0x26, 0, 0, 0, 1, 0, 0, 0, 2, 0x50, 0x18, 0, 0, 0, 0, 0, 0];
+        let mut ip = vec![
+            0x45, 0, 0, 0, 0, 0, 0x40, 0, 64, 6, 0, 0, 193, 202, 112, 172, 192, 168, 1, 14,
+        ];
+        let tcp = [
+            0x34, 0x10, 0x84, 0x26, 0, 0, 0, 1, 0, 0, 0, 2, 0x50, 0x18, 0, 0, 0, 0, 0, 0,
+        ];
         let total = (ip.len() + tcp.len() + 3) as u16;
         ip[2..4].copy_from_slice(&total.to_be_bytes());
         f.extend(ip);

@@ -44,13 +44,18 @@ impl History {
 
     fn path(&self, id: &str) -> Option<PathBuf> {
         // Ids come from the overlay too; keep them to a plain file name.
-        let ok = !id.is_empty() && id.chars().all(|c| c.is_ascii_alphanumeric() || c == '-' || c == '_');
+        let ok = !id.is_empty()
+            && id
+                .chars()
+                .all(|c| c.is_ascii_alphanumeric() || c == '-' || c == '_');
         ok.then(|| self.dir.join(format!("{id}.json")))
     }
 
     /// Saves (or re-saves, when a fight went on) a fight.
     pub fn save(&self, record: &FightRecord) -> Result<()> {
-        let Some(path) = self.path(&record.id) else { anyhow::bail!("unsafe fight id {:?}", record.id) };
+        let Some(path) = self.path(&record.id) else {
+            anyhow::bail!("unsafe fight id {:?}", record.id)
+        };
         let tmp = path.with_extension("json.tmp");
         fs::write(&tmp, serde_json::to_vec(record)?)?;
         fs::rename(tmp, path)?;
@@ -71,14 +76,14 @@ impl History {
             .filter(|e| e.path().extension().is_some_and(|x| x == "json"))
             .filter_map(|e| Some((e.metadata().ok()?.modified().ok()?, e.path())))
             .collect();
-        files.sort_by(|a, b| b.0.cmp(&a.0));
+        files.sort_by_key(|f| std::cmp::Reverse(f.0));
         let mut out: Vec<FightSummary> = files
             .into_iter()
             .take(limit)
             .filter_map(|(_, p)| serde_json::from_slice::<FightRecord>(&fs::read(p).ok()?).ok())
             .map(|r| summarize(&r))
             .collect();
-        out.sort_by(|a, b| b.start_time_ms.cmp(&a.start_time_ms));
+        out.sort_by_key(|f| std::cmp::Reverse(f.start_time_ms));
         out
     }
 }
@@ -89,10 +94,20 @@ pub fn summarize(r: &FightRecord) -> FightSummary {
         .actors
         .iter()
         .map(|a| {
-            let damage: i64 = r.details.skills.iter().filter(|s| s.actor_id == a.actor_id).map(|s| s.dmg as i64).sum();
+            let damage: i64 = r
+                .details
+                .skills
+                .iter()
+                .filter(|s| s.actor_id == a.actor_id)
+                .map(|s| s.dmg as i64)
+                .sum();
             FightPlayer {
                 id: a.actor_id,
-                name: if a.nickname.is_empty() { format!("#{}", a.actor_id) } else { a.nickname.clone() },
+                name: if a.nickname.is_empty() {
+                    format!("#{}", a.actor_id)
+                } else {
+                    a.nickname.clone()
+                },
                 job: crate::meter::job_names(&a.job).1.to_string(),
                 job_key: crate::meter::job_names(&a.job).0.to_string(),
                 damage,
@@ -101,7 +116,7 @@ pub fn summarize(r: &FightRecord) -> FightSummary {
         })
         .filter(|p| p.damage > 0)
         .collect();
-    players.sort_by(|a, b| b.damage.cmp(&a.damage));
+    players.sort_by_key(|p| std::cmp::Reverse(p.damage));
     FightSummary {
         id: r.id.clone(),
         boss_name: r.boss_name.clone(),

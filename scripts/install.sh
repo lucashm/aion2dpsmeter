@@ -33,7 +33,7 @@ step "Building the daemon and tray"
 cargo build --release --manifest-path "$repo/Cargo.toml" -p aion2-meterd -p aion2-meter-tray
 
 step "Installing the daemon to $bin_dir"
-install -Dm755 "$repo/target/release/aion2-meterd" "$bin_dir/aion2-meterd"
+install -Dm700 "$repo/target/release/aion2-meterd" "$bin_dir/aion2-meterd"
 
 step "Granting packet-capture permission (sudo setcap)"
 echo "Only this one binary gets cap_net_raw/cap_net_admin; the overlay runs unprivileged."

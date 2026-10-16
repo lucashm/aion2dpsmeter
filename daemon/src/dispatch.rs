@@ -112,17 +112,24 @@ impl Dispatcher {
             self.seen.retain(|k| game.local_ports.contains(&k.0));
             self.tls.retain(|k| game.local_ports.contains(&k.0));
         }
-        if let Some((client, _)) = self.locked {
-            if !game.local_ports.is_empty() && !game.local_ports.contains(&client) {
-                info!("Game closed its connection on port {client}; looking for the next one");
-                self.unlock();
-            }
+        if let Some((client, _)) = self.locked
+            && !game.local_ports.is_empty()
+            && !game.local_ports.contains(&client)
+        {
+            info!("Game closed its connection on port {client}; looking for the next one");
+            self.unlock();
         }
     }
 
     pub fn tick(&mut self, now_ms: i64) {
-        if self.locked.is_some() && self.last_parsed_ms > 0 && now_ms - self.last_parsed_ms > STALE_CONNECTION_MS {
-            info!("Nothing parsed for {} s; releasing the lock", STALE_CONNECTION_MS / 1000);
+        if self.locked.is_some()
+            && self.last_parsed_ms > 0
+            && now_ms - self.last_parsed_ms > STALE_CONNECTION_MS
+        {
+            info!(
+                "Nothing parsed for {} s; releasing the lock",
+                STALE_CONNECTION_MS / 1000
+            );
             self.unlock();
         }
     }
@@ -147,14 +154,21 @@ impl Dispatcher {
         } else {
             chunk.src.1 > chunk.dst.1
         };
-        let (client, server) = if client_is_src { (chunk.src, chunk.dst) } else { (chunk.dst, chunk.src) };
+        let (client, server) = if client_is_src {
+            (chunk.src, chunk.dst)
+        } else {
+            (chunk.dst, chunk.src)
+        };
         let key: ConnKey = (client.1, server.1);
         let from_server = !client_is_src;
 
         // The game server also speaks TLS from its port on a second
         // connection: decided once, on the connection's first data.
         if self.seen.insert(key) && is_tls_record(&chunk.data) {
-            info!("Connection {} <-> {} carries TLS: not the game", client.1, server.1);
+            info!(
+                "Connection {} <-> {} carries TLS: not the game",
+                client.1, server.1
+            );
             self.tls.insert(key);
         }
         if self.tls.contains(&key) {
@@ -187,7 +201,10 @@ impl Dispatcher {
                 // parsed alongside, and it takes the lock once it carries the
                 // game's traffic at the game's rate.
                 if self.count_signature(key, &chunk) >= SIGNATURE_LOCK_THRESHOLD {
-                    info!("Game connection moved: client port {} -> {}", locked.0, key.0);
+                    info!(
+                        "Game connection moved: client port {} -> {}",
+                        locked.0, key.0
+                    );
                     self.locked = Some(key);
                     self.streams.retain(|k, _| *k == key);
                     self.sig_hits.clear();
@@ -214,7 +231,10 @@ impl Dispatcher {
         // Spawns and names parsed before the lock still identify mobs later.
         self.parse(key, &chunk, now);
         if hits >= SIGNATURE_LOCK_THRESHOLD {
-            info!("Locked on the game connection {} <-> {}:{}", client.1, server.0, server.1);
+            info!(
+                "Locked on the game connection {} <-> {}:{}",
+                client.1, server.0, server.1
+            );
             self.locked = Some(key);
             self.status.locked = true;
             self.streams.retain(|k, _| *k == key);
@@ -240,7 +260,8 @@ impl Dispatcher {
 
     fn parse(&mut self, key: ConnKey, chunk: &Chunk, now: i64) {
         let (assembler, processor) = self.streams.entry(key).or_insert_with(|| {
-            let mut p = StreamProcessor::new(self.storage.clone(), self.skills.clone(), self.npcs.clone());
+            let mut p =
+                StreamProcessor::new(self.storage.clone(), self.skills.clone(), self.npcs.clone());
             p.set_dot_skill_ids(self.dot_skill_ids.clone());
             (StreamAssembler::new(), p)
         });
@@ -270,11 +291,16 @@ fn is_tls_record(data: &[u8]) -> bool {
         return false;
     }
     let len = u16::from_be_bytes([data[3], data[4]]) as usize;
-    (0x14..=0x17).contains(&data[0]) && data[1] == 0x03 && data[2] <= 0x04 && (1..=16_384 + 256).contains(&len)
+    (0x14..=0x17).contains(&data[0])
+        && data[1] == 0x03
+        && data[2] <= 0x04
+        && (1..=16_384 + 256).contains(&len)
 }
 
 fn contains_any(data: &[u8], needles: &[&[u8]]) -> bool {
-    needles.iter().any(|n| data.windows(n.len()).any(|w| w == *n))
+    needles
+        .iter()
+        .any(|n| data.windows(n.len()).any(|w| w == *n))
 }
 
 #[cfg(test)]
@@ -302,10 +328,14 @@ mod tests {
             after_gap: false,
         };
         // One every 2.5 s, for a minute: never a burst.
-        let trickle = (0..24).map(|i| d.count_signature((5000, 13328), &chunk(i * 2500))).max();
+        let trickle = (0..24)
+            .map(|i| d.count_signature((5000, 13328), &chunk(i * 2500)))
+            .max();
         assert!(trickle < Some(SIGNATURE_LOCK_THRESHOLD), "{trickle:?}");
         // The live game's rate: 12 within a second.
-        let burst = (0..12).map(|i| d.count_signature((5001, 13328), &chunk(100_000 + i * 80))).last();
+        let burst = (0..12)
+            .map(|i| d.count_signature((5001, 13328), &chunk(100_000 + i * 80)))
+            .last();
         assert_eq!(burst, Some(SIGNATURE_LOCK_THRESHOLD));
     }
 

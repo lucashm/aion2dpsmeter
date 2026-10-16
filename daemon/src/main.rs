@@ -12,8 +12,8 @@ mod tcp;
 
 use std::collections::HashSet;
 use std::path::{Path, PathBuf};
-use std::sync::mpsc;
 use std::sync::Arc;
+use std::sync::mpsc;
 use std::time::{Duration, Instant};
 
 use a2tools::combat::data_storage::DataStorage;
@@ -91,13 +91,17 @@ fn parse_args() -> Result<Args> {
 fn data_home() -> PathBuf {
     std::env::var_os("XDG_DATA_HOME")
         .map(PathBuf::from)
-        .unwrap_or_else(|| PathBuf::from(std::env::var_os("HOME").unwrap_or_default()).join(".local/share"))
+        .unwrap_or_else(|| {
+            PathBuf::from(std::env::var_os("HOME").unwrap_or_default()).join(".local/share")
+        })
         .join("aion2-meter")
 }
 
 /// Where A2Tools' data files are: given, installed, or the source checkout.
 fn find_data_dir(given: Option<PathBuf>) -> Option<PathBuf> {
-    let exe_dir = std::env::current_exe().ok().and_then(|p| p.parent().map(Path::to_path_buf));
+    let exe_dir = std::env::current_exe()
+        .ok()
+        .and_then(|p| p.parent().map(Path::to_path_buf));
     let mut candidates: Vec<PathBuf> = given.into_iter().collect();
     candidates.push(data_home().join("data"));
     candidates.push("/usr/share/aion2-meter/data".into());
@@ -106,11 +110,16 @@ fn find_data_dir(given: Option<PathBuf>) -> Option<PathBuf> {
         candidates.push(d.join("../../third_party/a2tools/src/data"));
     }
     candidates.push("third_party/a2tools/src/data".into());
-    candidates.into_iter().find(|d| d.join("i18n/skills").is_dir())
+    candidates
+        .into_iter()
+        .find(|d| d.join("i18n/skills").is_dir())
 }
 
 fn now_ms() -> i64 {
-    std::time::SystemTime::now().duration_since(std::time::UNIX_EPOCH).unwrap_or_default().as_millis() as i64
+    std::time::SystemTime::now()
+        .duration_since(std::time::UNIX_EPOCH)
+        .unwrap_or_default()
+        .as_millis() as i64
 }
 
 fn main() -> Result<()> {
@@ -139,7 +148,9 @@ fn main() -> Result<()> {
                 storage.set_abnormal_stack_limits(a2tools::capture::abnormal::stack_limits(&text));
             }
         }
-        None => warn!("A2Tools data directory not found: skills and NPCs will show as numbers (see --data)"),
+        None => warn!(
+            "A2Tools data directory not found: skills and NPCs will show as numbers (see --data)"
+        ),
     }
     let skills = Arc::new(skills);
     let npcs = Arc::new(npcs);
@@ -152,7 +163,12 @@ fn main() -> Result<()> {
 
     // Fights are saved before the game's zone changes clear them.
     {
-        let (meter, history, clients, names) = (meter.clone(), history.clone(), clients.clone(), storage.clone());
+        let (meter, history, clients, names) = (
+            meter.clone(),
+            history.clone(),
+            clients.clone(),
+            storage.clone(),
+        );
         storage.set_before_reset(move || {
             let records = meter.lock().calc.snapshot_boss_fights_force();
             save_fights(&history, &clients, &names, records);
@@ -173,24 +189,31 @@ fn main() -> Result<()> {
     let (seg_tx, seg_rx) = mpsc::sync_channel(16_384);
     let replay = args.pcap.is_some();
     let source = match &args.pcap {
-        Some(path) => capture::Source::File { path: path.clone(), realtime: args.realtime },
+        Some(path) => capture::Source::File {
+            path: path.clone(),
+            realtime: args.realtime,
+        },
         None => {
-            let iface = args.iface.clone().or_else(capture::default_route_iface).unwrap_or_else(|| "any".into());
+            let iface = args
+                .iface
+                .clone()
+                .or_else(capture::default_route_iface)
+                .unwrap_or_else(|| "any".into());
             capture::Source::Live { iface }
         }
     };
     {
         let status = status.clone();
         let record = args.record.clone();
-        std::thread::Builder::new().name("capture".into()).spawn(move || {
-            match capture::run(source, record, seg_tx) {
+        std::thread::Builder::new()
+            .name("capture".into())
+            .spawn(move || match capture::run(source, record, seg_tx) {
                 Ok(()) => info!("Capture finished"),
                 Err(e) => {
                     error!("Capture stopped: {e:#}");
                     status.lock().error = Some(format!("{e:#}"));
                 }
-            }
-        })?;
+            })?;
     }
 
     // ── parse: segments -> streams -> A2Tools ──────────────────────────────
@@ -200,63 +223,76 @@ fn main() -> Result<()> {
         let parse_done = parse_done.clone();
         let mut dispatcher = Dispatcher::new(storage.clone(), skills, npcs, ping, dot_ids);
         dispatcher.replay = replay;
-        std::thread::Builder::new().name("parse".into()).spawn(move || {
-            let mut reasm = tcp::Reassembler::default();
-            let mut chunks = Vec::new();
-            // A replayed capture is the game's by definition.
-            let mut game = if replay { game::GameState { pids: vec![0], local_ports: HashSet::new() } } else { game::scan() };
-            dispatcher.on_game_state(&game);
-            let mut last_scan = Instant::now();
-            loop {
-                let seg = match seg_rx.recv_timeout(Duration::from_millis(500)) {
-                    Ok(seg) => Some(seg),
-                    Err(mpsc::RecvTimeoutError::Timeout) => None,
-                    Err(mpsc::RecvTimeoutError::Disconnected) if replay => {
-                        // The capture's end: what waited behind a hole goes too.
-                        reasm.flush(None, &mut chunks);
-                        for chunk in chunks.drain(..) {
-                            dispatcher.on_chunk(&game, chunk);
-                        }
-                        break;
+        std::thread::Builder::new()
+            .name("parse".into())
+            .spawn(move || {
+                let mut reasm = tcp::Reassembler::default();
+                let mut chunks = Vec::new();
+                // A replayed capture is the game's by definition.
+                let mut game = if replay {
+                    game::GameState {
+                        pids: vec![0],
+                        local_ports: HashSet::new(),
                     }
-                    // Live capture failed: keep reporting the game's state
-                    // (and the error) to the overlay.
-                    Err(mpsc::RecvTimeoutError::Disconnected) => {
-                        std::thread::sleep(Duration::from_millis(500));
-                        None
-                    }
+                } else {
+                    game::scan()
                 };
-                if !replay && last_scan.elapsed() >= Duration::from_secs(2) {
-                    game = game::scan();
-                    dispatcher.on_game_state(&game);
-                    last_scan = Instant::now();
-                }
-                if let Some(seg) = seg {
-                    reasm.push(seg, &mut chunks);
-                }
-                if !replay {
-                    reasm.flush(Some(now_ms()), &mut chunks);
-                }
-                for chunk in chunks.drain(..) {
-                    // A connection the game opened since the last scan.
-                    if !replay
-                        && Dispatcher::is_foreign(&game, &chunk)
-                        && last_scan.elapsed() >= Duration::from_millis(250)
-                    {
+                dispatcher.on_game_state(&game);
+                let mut last_scan = Instant::now();
+                loop {
+                    let seg = match seg_rx.recv_timeout(Duration::from_millis(500)) {
+                        Ok(seg) => Some(seg),
+                        Err(mpsc::RecvTimeoutError::Timeout) => None,
+                        Err(mpsc::RecvTimeoutError::Disconnected) if replay => {
+                            // The capture's end: what waited behind a hole goes too.
+                            reasm.flush(None, &mut chunks);
+                            for chunk in chunks.drain(..) {
+                                dispatcher.on_chunk(&game, chunk);
+                            }
+                            break;
+                        }
+                        // Live capture failed: keep reporting the game's state
+                        // (and the error) to the overlay.
+                        Err(mpsc::RecvTimeoutError::Disconnected) => {
+                            std::thread::sleep(Duration::from_millis(500));
+                            None
+                        }
+                    };
+                    if !replay && last_scan.elapsed() >= Duration::from_secs(2) {
                         game = game::scan();
                         dispatcher.on_game_state(&game);
                         last_scan = Instant::now();
                     }
-                    dispatcher.on_chunk(&game, chunk);
+                    if let Some(seg) = seg {
+                        reasm.push(seg, &mut chunks);
+                    }
+                    if !replay {
+                        reasm.flush(Some(now_ms()), &mut chunks);
+                    }
+                    for chunk in chunks.drain(..) {
+                        // A connection the game opened since the last scan.
+                        if !replay
+                            && Dispatcher::is_foreign(&game, &chunk)
+                            && last_scan.elapsed() >= Duration::from_millis(250)
+                        {
+                            game = game::scan();
+                            dispatcher.on_game_state(&game);
+                            last_scan = Instant::now();
+                        }
+                        dispatcher.on_chunk(&game, chunk);
+                    }
+                    dispatcher.tick(if replay {
+                        dispatcher.last_parsed_ms
+                    } else {
+                        now_ms()
+                    });
+                    let mut s = status.lock();
+                    let error = s.error.take();
+                    *s = dispatcher.status.clone();
+                    s.error = error;
                 }
-                dispatcher.tick(if replay { dispatcher.last_parsed_ms } else { now_ms() });
-                let mut s = status.lock();
-                let error = s.error.take();
-                *s = dispatcher.status.clone();
-                s.error = error;
-            }
-            parse_done.store(true, std::sync::atomic::Ordering::Relaxed);
-        })?;
+                parse_done.store(true, std::sync::atomic::Ordering::Relaxed);
+            })?;
     }
 
     // ── meter: state to the overlay, fights to disk ────────────────────────
@@ -304,7 +340,11 @@ fn unmask_names(record: &mut a2tools::entity::fight_record::FightRecord, storage
     let summons = storage.get_summon_data();
     for actor in &mut record.actors {
         let owner = a2tools::entity::summon_resolver::resolve(actor.actor_id, &summons);
-        if let Some(name) = names.get(&actor.actor_id).or_else(|| names.get(&owner)).filter(|n| !n.is_empty()) {
+        if let Some(name) = names
+            .get(&actor.actor_id)
+            .or_else(|| names.get(&owner))
+            .filter(|n| !n.is_empty())
+        {
             actor.nickname = name.clone();
         }
     }
@@ -329,7 +369,13 @@ fn save_fights(
     }
 }
 
-fn handle_command(cmd: Command, meter: &Mutex<Meter>, history: &History, clients: &Clients, storage: &DataStorage) {
+fn handle_command(
+    cmd: Command,
+    meter: &Mutex<Meter>,
+    history: &History,
+    clients: &Clients,
+    storage: &DataStorage,
+) {
     match cmd {
         Command::Reset => {
             let records = meter.lock().calc.snapshot_boss_fights_force();
@@ -341,18 +387,23 @@ fn handle_command(cmd: Command, meter: &Mutex<Meter>, history: &History, clients
         Command::Focus { id } => meter.lock().focus = id,
         Command::History { limit } => {
             let fights = history.list(limit.unwrap_or(30).min(200));
-            clients.broadcast(&serde_json::json!({ "type": "history", "fights": fights }).to_string());
+            clients
+                .broadcast(&serde_json::json!({ "type": "history", "fights": fights }).to_string());
         }
         Command::Fight { id } => {
-            let Some(record) = history.load(&id) else { return };
+            let Some(record) = history.load(&id) else {
+                return;
+            };
             let skills: Vec<_> = record
                 .details
                 .skills
                 .iter()
-                .map(|s| serde_json::json!({
-                    "actorId": s.actor_id, "code": s.code, "name": s.name, "damage": s.dmg,
-                    "hits": s.time, "crit": s.crit, "back": s.back, "isDot": s.is_dot,
-                }))
+                .map(|s| {
+                    serde_json::json!({
+                        "actorId": s.actor_id, "code": s.code, "name": s.name, "damage": s.dmg,
+                        "hits": s.time, "crit": s.crit, "back": s.back, "isDot": s.is_dot,
+                    })
+                })
                 .collect();
             let msg = serde_json::json!({ "type": "fight", "summary": history::summarize(&record), "skills": skills });
             clients.broadcast(&msg.to_string());

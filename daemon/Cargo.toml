@@ -3,6 +3,8 @@ name = "aion2-meterd"
 version = "0.1.0"
 edition = "2024"
 license = "GPL-3.0-only"
+repository = "https://github.com/lucashm/aion2dpsmeter"
+homepage = "https://github.com/lucashm/aion2dpsmeter"
 description = "Aion 2 combat capture daemon for Linux: sniffs the game's traffic and serves live DPS state to the overlay"
 
 [dependencies]

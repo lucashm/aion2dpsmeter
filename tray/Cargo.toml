@@ -3,6 +3,8 @@ name = "aion2-meter-tray"
 version = "0.1.0"
 edition = "2024"
 license = "GPL-3.0-only"
+repository = "https://github.com/lucashm/aion2dpsmeter"
+homepage = "https://github.com/lucashm/aion2dpsmeter"
 description = "System tray controls for the AION 2 meter"
 
 [dependencies]

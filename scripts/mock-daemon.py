@@ -14,8 +14,8 @@ import time
 PATH = sys.argv[1] if len(sys.argv) > 1 else os.path.join(os.environ.get("XDG_RUNTIME_DIR", "/tmp"), "aion2-meter.sock")
 
 PLAYERS = [
-    (101, "Gran", "SORCERER", "Sorcerer", 1.00),
-    (102, "Edmundo", "GLADIATOR", "Gladiator", 0.92),
+    (101, "Asmo", "SORCERER", "Sorcerer", 1.00),
+    (102, "Valiant", "GLADIATOR", "Gladiator", 0.92),
     (103, "Kaisinel", "ASSASSIN", "Assassin", 0.88),
     (104, "Lumiel", "RANGER", "Ranger", 0.80),
     (105, "Yustiel", "CHANTER", "Chanter", 0.45),
