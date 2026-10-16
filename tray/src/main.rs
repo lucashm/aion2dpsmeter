@@ -206,7 +206,7 @@ impl ksni::Tray for MeterTray {
             .into(),
             // A tray menu can't ask "are you sure": the submenu item is the confirmation.
             SubMenu {
-                label: "Reset meter".into(),
+                label: "Reset meter ▸".into(),
                 icon_name: "edit-clear".into(),
                 enabled: live,
                 submenu: vec![
@@ -277,7 +277,15 @@ impl ksni::Tray for MeterTray {
             }
             .into(),
             SubMenu {
-                label: "Monitor".into(),
+                // DMS draws no submenu arrow: the label carries one.
+                label: format!(
+                    "Monitor: {} ▸",
+                    if status.pinned.is_empty() {
+                        "Follow game"
+                    } else {
+                        status.pinned.as_str()
+                    }
+                ),
                 enabled: status.running,
                 submenu: std::iter::once(("Follow game".to_string(), String::new()))
                     .chain(status.monitors.iter().map(|m| (m.clone(), m.clone())))
