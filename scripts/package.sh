@@ -22,7 +22,7 @@ mkdir -p "$out/bin" "$out/data/i18n"
 cp target/musl/release/aion2-meterd target/musl/release/aion2-meter-tray scripts/aion2-meter "$out/bin/"
 src=third_party/a2tools/src/data
 cp -r "$src/i18n/skills" "$src/i18n/npcs" "$out/data/i18n/"
-cp "$src/dot_skill_ids.json" "$src/abnormals.json" "$out/data/"
+cp "$src/dot_skill_ids.json" "$src/skill_icons.json" "$src/abnormals.json" "$out/data/"
 cp -r overlay systemd desktop "$out/"
 cp scripts/install.sh scripts/uninstall.sh LICENSE README.md CHANGELOG.md "$out/"
 

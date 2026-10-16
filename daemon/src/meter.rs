@@ -42,6 +42,8 @@ pub struct SkillRow {
     pub crit_rate: f64,
     pub back_rate: f64,
     pub is_dot: bool,
+    /// Icon URL on the game's CDN; None for basic attacks.
+    pub icon: Option<String>,
 }
 
 #[derive(Debug, Clone, Serialize, PartialEq)]
@@ -199,6 +201,7 @@ impl Meter {
                             crit_rate: 0.0,
                             back_rate: 0.0,
                             is_dot: s.is_dot,
+                            icon: crate::icons::icon_url(s.code),
                         });
                     row.damage += s.dmg as i64;
                     row.hits += s.time;

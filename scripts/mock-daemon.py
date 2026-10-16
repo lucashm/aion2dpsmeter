@@ -11,6 +11,7 @@ import sys
 import threading
 import time
 
+ICON_BASE = "https://assets.playnccdn.com/static-aion2-gamedata/resources"
 PATH = sys.argv[1] if len(sys.argv) > 1 else os.path.join(os.environ.get("XDG_RUNTIME_DIR", "/tmp"), "aion2-meter.sock")
 
 PLAYERS = [
@@ -50,7 +51,9 @@ def state():
     wsum = sum(weights)
     skills = [{"code": 1000 + i, "name": n, "damage": int(me["damage"] * w / wsum), "hits": int(t * w * 3) + 1,
                "share": w / wsum, "dps": me["dps"] * w / wsum, "critRate": 0.3 + (i % 3) * 0.1,
-               "backRate": 0.15 * (i % 2), "isDot": n == "Erosion"} for i, (n, w) in enumerate(zip(SKILLS, weights))]
+               "backRate": 0.15 * (i % 2), "isDot": n == "Erosion",
+               # The first row stands in for a basic attack, which has no icon.
+               "icon": f"{ICON_BASE}/ICON_TE_SKILL_{i + 2:03}.png" if i else None} for i, (n, w) in enumerate(zip(SKILLS, weights))]
     hp = max(0, MAX_HP - total)
     return {"type": "state",
             "capture": {"gameRunning": True, "locked": True, "error": None},

@@ -73,11 +73,27 @@ OverlayWidget {
                     color: Qt.alpha(skills.owner ? Theme.jobColor(skills.owner.jobKey) : Theme.accent, row.modelData.isDot ? 0.22 : 0.34)
                     Behavior on width { NumberAnimation { duration: 180; easing.type: Easing.OutCubic } }
                 }
-                Text {
+                // The slot stays when there's no icon (basic attacks) so names line up.
+                Image {
+                    id: icon
                     anchors.left: parent.left
-                    anchors.leftMargin: Math.round(6 * Theme.scale)
+                    anchors.leftMargin: Math.round(3 * Theme.scale)
                     anchors.verticalCenter: parent.verticalCenter
-                    width: parent.width - stats.width - Math.round(14 * Theme.scale)
+                    width: parent.height - Math.round(4 * Theme.scale)
+                    height: width
+                    source: row.modelData.icon || ""
+                    sourceSize: Qt.size(width * 2, height * 2)
+                    asynchronous: true
+                    smooth: true
+                    mipmap: true
+                    opacity: status === Image.Ready ? 1 : 0
+                    Behavior on opacity { NumberAnimation { duration: 150 } }
+                }
+                Text {
+                    anchors.left: icon.right
+                    anchors.leftMargin: Math.round(5 * Theme.scale)
+                    anchors.verticalCenter: parent.verticalCenter
+                    width: parent.width - icon.width - stats.width - Math.round(16 * Theme.scale)
                     elide: Text.ElideRight
                     text: (row.modelData.name || ("#" + row.modelData.code)) + (row.modelData.isDot ? " (DoT)" : "")
                         + "  " + Theme.percent(row.modelData.share, 0)

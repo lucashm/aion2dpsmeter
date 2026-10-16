@@ -63,7 +63,7 @@ step "Installing game data"
 mkdir -p "$share/aion2-meter/data/i18n"
 rm -rf "$share/aion2-meter/data/i18n/skills" "$share/aion2-meter/data/i18n/npcs"
 cp -r "$data_src/i18n/skills" "$data_src/i18n/npcs" "$share/aion2-meter/data/i18n/"
-cp "$data_src/dot_skill_ids.json" "$data_src/abnormals.json" "$share/aion2-meter/data/"
+cp "$data_src/dot_skill_ids.json" "$data_src/skill_icons.json" "$data_src/abnormals.json" "$share/aion2-meter/data/"
 
 step "Installing the overlay"
 mkdir -p "$config/quickshell" "$config/aion2-meter"

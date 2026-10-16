@@ -6,6 +6,7 @@ mod capture;
 mod dispatch;
 mod game;
 mod history;
+mod icons;
 mod ipc;
 mod meter;
 mod tcp;
@@ -143,6 +144,9 @@ fn main() -> Result<()> {
             lookup::load_language(&skills, &npcs, &dir, &args.lang);
             if let Ok(text) = std::fs::read_to_string(dir.join("dot_skill_ids.json")) {
                 dot_ids.extend(serde_json::from_str::<Vec<i32>>(&text).unwrap_or_default());
+            }
+            if let Ok(text) = std::fs::read_to_string(dir.join("skill_icons.json")) {
+                icons::load(&text);
             }
             if let Ok(text) = std::fs::read_to_string(dir.join("abnormals.json")) {
                 storage.set_abnormal_stack_limits(a2tools::capture::abnormal::stack_limits(&text));
