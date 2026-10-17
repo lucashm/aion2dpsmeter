@@ -59,9 +59,15 @@ mod tests {
     #[test]
     fn resolves_like_a2tools() {
         load(r#"{"1201": "ICON_TE_SKILL_005"}"#);
-        assert_eq!(icon_url(12010000).unwrap(), format!("{BASE_URL}/ICON_TE_SKILL_005.png"));
+        assert_eq!(
+            icon_url(12010000).unwrap(),
+            format!("{BASE_URL}/ICON_TE_SKILL_005.png")
+        );
         // Not in the table: built from class and sub code.
-        assert_eq!(icon_url(12070230).unwrap(), format!("{BASE_URL}/ICON_TE_SKILL_007.png"));
+        assert_eq!(
+            icon_url(12070230).unwrap(),
+            format!("{BASE_URL}/ICON_TE_SKILL_007.png")
+        );
         // Basic attack.
         assert_eq!(icon_url(12000001), None);
         // Theostone: icon number 10 -> hex 00a.

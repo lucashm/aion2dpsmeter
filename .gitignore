@@ -2,3 +2,4 @@
 *.pcap
 *.pcapng
 /dist
+__pycache__/
