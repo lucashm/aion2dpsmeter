@@ -37,13 +37,17 @@ PanelWindow {
     readonly property real posY: Math.round(clampY(!isNaN(dragY) ? dragY : (saved ? saved.y : defaultPos.y)))
     readonly property bool enabledInSettings: settings.widgetVisible(widgetId)
 
-    visible: enabledInSettings && (wanted || editMode)
+    visible: enabledInSettings && (wanted || editMode) && !remap.running
     color: "transparent"
     // To be dragged in game the surface covers the screen for as long as the
     // setting is on, and the body moves inside it: a surface moving under the
     // pointer chases its own coordinates, and one resized at the grab shows a
     // frame at the screen's edge.
     readonly property bool roomy: settings.moveInGame && !interactive
+    // Turning roomy resizes a live surface, and the compositor stretches the
+    // old frame across the new size for a moment: hide it across the change.
+    onRoomyChanged: remap.restart()
+    Timer { id: remap; interval: 50 }
     // The compositor has made the surface full-screen.
     readonly property bool fullScreen: roomy && screen && width >= screen.width && height >= screen.height
 
