@@ -44,12 +44,24 @@ Item {
             font.features: { "tnum": 1 }
             width: Math.round(12 * Theme.scale)
         }
-        Rectangle {
+        Image {
+            id: classIcon
             anchors.verticalCenter: parent.verticalCenter
-            width: Math.round(4 * Theme.scale)
-            height: Math.round(12 * Theme.scale)
-            radius: 2
-            color: row.jobColor
+            width: Math.round(16 * Theme.scale)
+            height: width
+            fillMode: Image.PreserveAspectFit
+            smooth: true
+            mipmap: true
+            source: row.player && row.player.jobKey ? Qt.resolvedUrl("icons/" + row.player.jobKey + ".png") : ""
+            // Unknown class: the old colour stripe.
+            Rectangle {
+                visible: classIcon.status !== Image.Ready
+                anchors.centerIn: parent
+                width: Math.round(4 * Theme.scale)
+                height: Math.round(12 * Theme.scale)
+                radius: 2
+                color: row.jobColor
+            }
         }
         Text {
             text: row.player ? row.player.name : ""
@@ -58,7 +70,7 @@ Item {
             font.family: Theme.fontFamily
             font.bold: row.player && row.player.isLocal
             elide: Text.ElideRight
-            width: row.width - stats.width - Math.round(48 * Theme.scale)
+            width: row.width - stats.width - Math.round(60 * Theme.scale)
         }
     }
 
