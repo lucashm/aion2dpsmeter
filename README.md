@@ -24,11 +24,11 @@ It never touches the game's memory or files.
 | --- | --- |
 | Hyprland | Works, tested |
 | Sway, niri, river, Wayfire, labwc | Should work, not tested yet |
-| KDE Plasma 6 | Works, but widgets can't hide on their own when you leave the game (use the hide key) |
+| KDE Plasma 6 | Works, but widgets can't hide on their own when you leave the game (use Alt+` or the tray icon) |
 | GNOME | Not supported (GNOME doesn't allow overlays like this) |
 | X11 sessions | Not supported |
 
-Only x86_64 Linux. Running the game inside gamescope is not supported, because nothing can draw on top of it.
+It needs a Wayland session with layer-shell (what panels and docks use), on x86_64. Running the game inside gamescope is not supported, because nothing can draw on top of it.
 
 ## Install
 
@@ -53,8 +53,8 @@ tar xzf aion2-meter-*-x86_64-linux.tar.gz
 cd aion2-meter-*-x86_64-linux && ./install.sh
 ```
 
-The installer asks for your password once, to let the meter capture network traffic.
-Then it starts the meter, now and at every login.
+The installer asks for your password once, for `setcap`: it lets the capture daemon read network traffic without running as root.
+Everything installs into your home directory (`~/.local/bin`, `~/.config`, `~/.local/share`) and runs as systemd user services, started now and at every login.
 
 ### From source
 
@@ -80,36 +80,35 @@ Start the game. The widgets appear while the game window is focused.
   Click a player in the meter to see their skills.
 - **Layouts:** three slots in Customize. Save stores where the widgets are and which are shown; Layout 1–3 puts them back, and the one on screen is highlighted. Reset layout goes back to the default, which fits any 16:9 or 21:9 screen.
 - **Drag widgets in game:** an option in Customize, off by default. With it on, hold Alt (the game's free cursor) and drag a widget to move it, or click a player in the meter for their skills. It's off by default because the widgets then take clicks meant for the game under them, which gets in the way if you play with a free mouse.
-- **App menu:** "AION 2 Meter" starts or stops it.
+- **App menu:** "AION 2 Meter" starts or stops it. So does `aion2-meter toggle`.
 
-### Keybinds
+### Shortcuts
 
-On Hyprland, **Ctrl+`** opens Customize and **Alt+`** hides or shows the widgets, while the game has focus. Change or clear them in Customize → Shortcuts.
+| Keys | What it does |
+| --- | --- |
+| **Ctrl+`** | Open Customize |
+| **Alt+`** | Hide or show the widgets |
 
-For the other commands, or keys that work outside the game:
+**On Hyprland** the meter sets these up by itself, only while the game has focus, so the keys stay free in your other apps. Change or clear them in Customize → Shortcuts.
 
-**Hyprland:** add to your config, using keys you don't use already:
+**On other desktops**, add them in your desktop's keyboard settings with the commands below (`Ctrl+grave` → `aion2-meter edit`, `Alt+grave` → `aion2-meter hide`). Those work in every app, so pick other keys if you need these ones elsewhere.
 
-```lua
-hl.bind("SUPER + SHIFT + D", hl.dsp.global("aion2meter:edit"))
-hl.bind("SUPER + SHIFT + H", hl.dsp.global("aion2meter:history"))
-hl.bind("SUPER + SHIFT + R", hl.dsp.global("aion2meter:reset"))
-hl.bind("SUPER + SHIFT + O", hl.dsp.global("aion2meter:hide"))
-hl.bind("SUPER + SHIFT + K", hl.dsp.global("aion2meter:next-player"))
-```
+### Commands
 
-With the older `hyprland.conf`, the first line looks like `bind = SUPER SHIFT, D, global, aion2meter:edit`.
-
-**Other desktops:** bind a key to one of these commands in your desktop's keyboard settings:
+Everything the meter does is also an `aion2-meter` command. Run it from a terminal, or bind it to a key in your desktop's keyboard settings (KDE: System Settings → Keyboard → Shortcuts; Sway: `bindsym Ctrl+grave exec ~/.local/bin/aion2-meter edit`).
 
 | Command | What it does |
 | --- | --- |
-| `aion2-meter edit` | Customize (move widgets, settings) |
+| `aion2-meter edit` | Open Customize (move widgets, settings) |
+| `aion2-meter hide` | Hide or show the widgets |
 | `aion2-meter history` | Open or close the fight history |
 | `aion2-meter reset` | Save the current fight and clear the meter |
-| `aion2-meter hide` | Hide or show the widgets |
 | `aion2-meter next-player` | Show the next player's skills |
-| `aion2-meter toggle` | Start or stop the meter |
+| `aion2-meter start`, `stop`, `restart` | Start, stop or restart the meter |
+| `aion2-meter toggle` | Start it if it's stopped, stop it if it's running |
+| `aion2-meter status` | Show the state of its services |
+
+It's installed in `~/.local/bin`. If a launcher or shortcut can't find it, use the full path, `~/.local/bin/aion2-meter`.
 
 ## Update
 
@@ -133,7 +132,7 @@ Add `--purge` to delete those too.
 | --- | --- |
 | Tray icon red, "no capture permission" | Run the installer again. |
 | Stays on "finding game traffic" | If you use a VPN, capture on its network interface (find its name with `ip link`): run `systemctl --user edit aion2-meterd`, add the two lines below, save, then `systemctl --user restart aion2-meterd`. |
-| Widgets never show | Check the tray icon is green while you play. On KDE, widgets don't follow the game window: use the hide key. |
+| Widgets never show | Check the tray icon is green while you play, and that the services run: `aion2-meter status`. On KDE, widgets don't follow the game window: use Alt+`. |
 
 The two lines for a VPN (put your interface name instead of `wg0`):
 
@@ -143,7 +142,7 @@ ExecStart=
 ExecStart=%h/.local/bin/aion2-meterd --iface wg0
 ```
 
-See what the meter is doing:
+See what the meter is doing (the overlay's log is `aion2-meter-overlay`, the tray's `aion2-meter-tray`):
 
 ```bash
 journalctl --user -u aion2-meterd -f
@@ -156,7 +155,8 @@ That file contains your IP address and the names of players around you, so only 
 ## How it works
 
 - **`aion2-meterd`** captures the game's traffic (it is the only part with the capture permission), parses it, and keeps the combat numbers.
-- **The overlay** (Quickshell) and **the tray icon** read those numbers through a local socket and run with no special permissions.
+- **The overlay** (Quickshell, on the layer-shell overlay layer) and **the tray icon** (StatusNotifierItem) read those numbers through a local Unix socket and run with no special permissions.
+- All three are systemd user services: `aion2-meterd`, `aion2-meter-overlay` and `aion2-meter-tray`.
 - Saved fights are in `~/.local/share/aion2-meter/fights`, and widget settings are in `~/.config/aion2-meter/overlay.json`.
 
 ## Credits and license
