@@ -165,3 +165,5 @@ Copyright (C) 2026 lucashm. Licensed under the [GNU GPL v3.0](LICENSE), because 
 
 This is an unofficial fan project, not affiliated with NCSOFT. Like every AION 2 meter, it reads your own network traffic and doesn't change the game.
 Whether third-party meters are allowed is up to NCSOFT's terms; use it at your own discretion.
+
+AION 2 and its game data and art are © NCSOFT. The class icons come from A2Tools; skill icons are loaded from NCSOFT's CDN while the meter runs.
