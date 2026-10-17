@@ -73,11 +73,13 @@ cd aion2dpsmeter && ./scripts/install.sh
 Start the game. The widgets appear while the game window is focused.
 
 - **Tray icon:** green means it's capturing, amber means it's waiting for the game, red means an error, grey means the widgets are hidden (or the meter is stopped).
-  Left click shows or hides the widgets. Right click has edit mode, history, reset and more.
+  Left click shows or hides the widgets. Right click has Customize, history, reset and more.
   The icon follows your character's faction (Elyos or Asmodian), from the last character you logged in with.
-- **Edit mode:** drag widgets to move them. They snap to a grid, and pink guides show when a widget lines up with the screen centre or another widget. Hold Shift to place freely.
-  It also has settings: which widgets to show, size, opacity, damage or DPS columns, and which target to track.
+- **Customize** (tray menu or Ctrl+`): drag widgets to move them. They snap to a grid, and pink guides show when a widget lines up with the screen centre or another widget. Hold Shift to place freely. Esc or Done to finish.
+  It also has settings: which widgets to show, which monitor, which target to track, damage or DPS columns, shortcuts, size and opacity.
   Click a player in the meter to see their skills.
+- **Layouts:** three slots in Customize. Save stores where the widgets are and which are shown; Layout 1–3 puts them back, and the one on screen is highlighted. Reset layout goes back to the default, which fits any 16:9 or 21:9 screen.
+- **Drag widgets in game:** an option in Customize, off by default. With it on, hold Alt (the game's free cursor) and drag a widget to move it, or click a player in the meter for their skills. It's off by default because the widgets then take clicks meant for the game under them, which gets in the way if you play with a free mouse.
 - **App menu:** "AION 2 Meter" starts or stops it.
 
 ### Keybinds
@@ -102,7 +104,7 @@ With the older `hyprland.conf`, the first line looks like `bind = SUPER SHIFT, D
 
 | Command | What it does |
 | --- | --- |
-| `aion2-meter edit` | Edit mode (move widgets, settings) |
+| `aion2-meter edit` | Customize (move widgets, settings) |
 | `aion2-meter history` | Open or close the fight history |
 | `aion2-meter reset` | Save the current fight and clear the meter |
 | `aion2-meter hide` | Hide or show the widgets |
