@@ -163,7 +163,7 @@ That file contains your IP address and the names of players around you, so only 
 
 App icon by lucashm. The game protocol parser is [A2Tools DPS Meter](https://github.com/taengu/A2Tools-DPS-Meter) by taengu, used as a library (`third_party/a2tools`).
 
-Copyright (C) 2026 lucashm. Licensed under the [GNU GPL v3.0](LICENSE), because A2Tools is GPL-3.0.
+Copyright (C) 2026 lucashm. Licensed under the [GNU GPL v3.0](LICENSE).
 
 This is an unofficial fan project, not affiliated with NCSOFT. Like every AION 2 meter, it reads your own network traffic and doesn't change the game.
 Whether third-party meters are allowed is up to NCSOFT's terms; use it at your own discretion.
