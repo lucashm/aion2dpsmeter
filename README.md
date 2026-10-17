@@ -25,7 +25,7 @@ It never touches the game's memory or files.
 | Hyprland | Works, tested |
 | Sway, niri, river, Wayfire, labwc | Should work, not tested yet |
 | KDE Plasma 6 | Works, but widgets can't hide on their own when you leave the game (use Alt+` or the tray icon) |
-| GNOME | Not supported (GNOME doesn't allow overlays like this) |
+| GNOME | Not supported: GNOME doesn't implement layer-shell, which the widgets need. Feel free to try, and [let us know how it goes](https://github.com/lucashm/aion2dpsmeter/issues) |
 | X11 sessions | Not supported |
 
 It needs a Wayland session with layer-shell (what panels and docks use), on x86_64. Running the game inside gamescope is not supported, because nothing can draw on top of it.
