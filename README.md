@@ -32,18 +32,18 @@ It needs a Wayland session with layer-shell (what panels and docks use), on x86_
 
 ## Install
 
-You need **Quickshell** (it draws the widgets) and **setcap**:
-
-| Distribution | Command |
-| --- | --- |
-| Arch, CachyOS, Manjaro | `sudo pacman -S quickshell libcap` |
-| Fedora | `sudo dnf copr enable errornointernet/quickshell && sudo dnf install quickshell libcap` |
-| Others | Quickshell: see [quickshell.org](https://quickshell.org). setcap is in `libcap2-bin` (Debian/Ubuntu) or `libcap` |
-
 ### From a release (easiest)
 
-1. Download `aion2-meter-…-x86_64-linux.tar.gz` from the [Releases page](https://github.com/lucashm/aion2dpsmeter/releases).
-2. Extract it and run the installer:
+1. Install **Quickshell** (it draws the widgets) and **setcap**:
+
+   | Distribution | Command |
+   | --- | --- |
+   | Arch, CachyOS, Manjaro | `sudo pacman -S quickshell libcap` |
+   | Fedora | `sudo dnf copr enable errornointernet/quickshell && sudo dnf install quickshell libcap` |
+   | Others | Quickshell: see [quickshell.org](https://quickshell.org). setcap is in `libcap2-bin` (Debian/Ubuntu) or `libcap` |
+
+2. Download `aion2-meter-…-x86_64-linux.tar.gz` from the [Releases page](https://github.com/lucashm/aion2dpsmeter/releases).
+3. Extract it and run the installer:
 
 ```bash
 tar xzf aion2-meter-*-x86_64-linux.tar.gz
@@ -58,7 +58,7 @@ Everything installs into your home directory (`~/.local/bin`, `~/.config`, `~/.l
 
 ### From source
 
-You also need Rust, git, pkg-config and libpcap headers (`libpcap` on Arch, `libpcap-devel` on Fedora, `libpcap-dev` on Debian/Ubuntu).
+You need Quickshell and setcap as above, plus Rust, git, pkg-config and libpcap headers (`libpcap` on Arch, `libpcap-devel` on Fedora, `libpcap-dev` on Debian/Ubuntu).
 
 ```bash
 git clone --recursive https://github.com/lucashm/aion2dpsmeter
