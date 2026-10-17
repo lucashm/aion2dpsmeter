@@ -406,6 +406,7 @@ fn handle_command(
                     serde_json::json!({
                         "actorId": s.actor_id, "code": s.code, "name": s.name, "damage": s.dmg,
                         "hits": s.time, "crit": s.crit, "back": s.back, "isDot": s.is_dot,
+                        "icon": icons::icon_url(s.code),
                     })
                 })
                 .collect();
