@@ -74,6 +74,8 @@ pub struct OverlayState {
     pub skills: Vec<SkillRow>,
     /// "elyos" or "asmodian", from your server; None until the game says.
     pub faction: Option<&'static str>,
+    /// The character you're playing; None until the game says.
+    pub character: Option<String>,
 }
 
 pub struct Meter {
@@ -164,6 +166,7 @@ impl Meter {
             skills_of,
             skills: self.skills.clone(),
             faction: faction_of(self.storage.fight_server_id()),
+            character: self.storage.local_character_name(),
         }
     }
 

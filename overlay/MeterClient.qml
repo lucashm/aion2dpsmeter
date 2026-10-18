@@ -14,6 +14,8 @@ Item {
     property var state: null
     property var history: []
     property var fight: null
+    // Pet levels, soul points and the pet being farmed (daemon/src/pets.rs).
+    property var pets: null
 
     readonly property var players: state ? state.players : []
     readonly property var skills: state ? state.skills : []
@@ -42,7 +44,7 @@ Item {
     function reset() { send({ cmd: "reset" }); }
     function setTargetMode(mode) { send({ cmd: "targetMode", mode: mode }); }
     function focus(id) { send({ cmd: "focus", id: id }); }
-    function requestHistory() { send({ cmd: "history", limit: 30 }); }
+    function requestHistory() { send({ cmd: "history", limit: 200 }); }
     function requestFight(id) { send({ cmd: "fight", id: id }); }
 
     function handle(line) {
@@ -62,6 +64,9 @@ Item {
             break;
         case "fight":
             client.fight = msg;
+            break;
+        case "pets":
+            client.pets = msg;
             break;
         case "fightSaved":
             client.fightSaved(msg.fight);

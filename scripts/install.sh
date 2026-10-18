@@ -31,16 +31,83 @@ else
 fi
 
 step "Checking dependencies"
+# What's missing, by what it is: quickshell, setcap, webp (Qt's image formats
+# plugin, for the app's map and pet portraits), curl, and for a source build
+# rust, libpcap, pkg-config.
+has_webp() { ls /usr/lib*/qt6/plugins/imageformats/libqwebp.so /usr/lib/*/qt6/plugins/imageformats/libqwebp.so >/dev/null 2>&1; }
 missing=()
 command -v qs >/dev/null || missing+=(quickshell)
 command -v setcap >/dev/null || missing+=(setcap)
+has_webp || missing+=(webp)
+command -v curl >/dev/null || missing+=(curl)
 if [[ "$built" == "$root/target/release" ]]; then
     command -v cargo >/dev/null || missing+=(rust)
+    command -v pkg-config >/dev/null || missing+=(pkg-config)
     pkg-config --exists libpcap 2>/dev/null || missing+=(libpcap)
 fi
+
+# Each one's package for this system's package manager; empty when it has none.
+pm=""
+for p in pacman dnf zypper apt-get; do command -v "$p" >/dev/null && { pm=$p; break; }; done
+package() {
+    case "$pm:$1" in
+        pacman:quickshell | dnf:quickshell) echo quickshell ;;
+        pacman:setcap | dnf:setcap) echo libcap ;;
+        zypper:setcap) echo libcap-progs ;;
+        apt-get:setcap) echo libcap2-bin ;;
+        pacman:webp) echo qt6-imageformats ;;
+        dnf:webp) echo qt6-qtimageformats ;;
+        zypper:webp) echo qt6-imageformats ;;
+        apt-get:webp) echo qt6-image-formats-plugins ;;
+        *:curl) [[ -n $pm ]] && echo curl ;;
+        pacman:rust | zypper:rust) echo rust ;;
+        dnf:rust) echo cargo ;;
+        apt-get:rust) echo cargo ;;
+        pacman:pkg-config) echo pkgconf ;;
+        dnf:pkg-config | zypper:pkg-config | apt-get:pkg-config) echo pkgconf ;;
+        pacman:libpcap) echo libpcap ;;
+        dnf:libpcap | zypper:libpcap) echo libpcap-devel ;;
+        apt-get:libpcap) echo libpcap-dev ;;
+    esac
+}
 if ((${#missing[@]})); then
-    echo "Missing: ${missing[*]}. Install them with your package manager (see README) and run this again."
-    exit 1
+    packages=() unknown=()
+    for m in "${missing[@]}"; do
+        p=$(package "$m")
+        if [[ -n $p ]]; then packages+=("$p"); else unknown+=("$m"); fi
+    done
+    cmd=()
+    case $pm in
+        pacman) cmd=(sudo pacman -S --needed "${packages[@]}") ;;
+        dnf) cmd=(sudo dnf install -y "${packages[@]}") ;;
+        zypper) cmd=(sudo zypper install -y "${packages[@]}") ;;
+        apt-get) cmd=(sudo apt-get install -y "${packages[@]}") ;;
+    esac
+    echo "Missing: ${missing[*]}"
+    if ((${#packages[@]})) && ((${#cmd[@]})); then
+        # Fedora's Quickshell is in a COPR repository.
+        [[ $pm == dnf && " ${missing[*]} " == *" quickshell "* ]] && cmd=(sh -c "sudo dnf copr enable -y errornointernet/quickshell && ${cmd[*]}")
+        echo "This installs them: ${cmd[*]}"
+        read -rp "Run it now? [Y/n] " answer || answer=n
+        if [[ ${answer:-y} =~ ^[Yy] ]]; then
+            "${cmd[@]}" || echo "That didn't install everything; see what's still missing below."
+        fi
+    fi
+    # Whatever is still missing: Quickshell and setcap are needed to run at
+    # all; the rest only cost a feature.
+    still=()
+    command -v qs >/dev/null || still+=("Quickshell (quickshell.org)")
+    command -v setcap >/dev/null || still+=(setcap)
+    if [[ "$built" == "$root/target/release" ]]; then
+        command -v cargo >/dev/null || still+=(rust)
+        pkg-config --exists libpcap 2>/dev/null || still+=(libpcap)
+    fi
+    if ((${#still[@]})); then
+        echo "Still missing: ${still[*]}. Install them (see README) and run this again."
+        exit 1
+    fi
+    has_webp || echo "Without Qt's image formats plugin the app's map and pet portraits won't show."
+    command -v curl >/dev/null || echo "Without curl the app can't download the pet map."
 fi
 
 if [[ "$built" == "$root/target/release" ]]; then

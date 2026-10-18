@@ -9,6 +9,7 @@ mod history;
 mod icons;
 mod ipc;
 mod meter;
+mod pets;
 mod tcp;
 
 use std::collections::HashSet;
@@ -29,6 +30,7 @@ use crate::dispatch::{CaptureStatus, Dispatcher};
 use crate::history::History;
 use crate::ipc::{Clients, Command};
 use crate::meter::Meter;
+use crate::pets::Pets;
 
 const USAGE: &str = "\
 aion2-meterd — AION 2 combat capture daemon
@@ -164,6 +166,14 @@ fn main() -> Result<()> {
     let history = Arc::new(History::new(data_home().join("fights"))?);
     let status = Arc::new(Mutex::new(CaptureStatus::default()));
     let clients = Clients::default();
+    let pets = Arc::new(Mutex::new(Pets::load(data_home().join("pets.json"))));
+    {
+        let pets = pets.clone();
+        // shortcut: stamped with the wall clock, so a replayed capture's farming rate is off; fine for live use.
+        a2tools::capture::frame_tap::set(Some(Arc::new(move |packet: &[u8]| {
+            pets.lock().frame(packet, now_ms())
+        })));
+    }
 
     // Fights are saved before the game's zone changes clear them.
     {
@@ -319,8 +329,17 @@ fn main() -> Result<()> {
             clients.broadcast(&line);
             last_sent = Some(state);
         }
+        {
+            let mut p = pets.lock();
+            p.set_server(storage.fight_server_id(), now_ms());
+            if forced || p.changed {
+                p.changed = false;
+                clients.broadcast(&serde_json::to_string(&p.message())?);
+            }
+        }
         if last_save.elapsed() >= Duration::from_secs(5) {
             last_save = Instant::now();
+            pets.lock().save();
             let records = meter.lock().calc.snapshot_boss_fights();
             save_fights(&history, &clients, &storage, records);
         }

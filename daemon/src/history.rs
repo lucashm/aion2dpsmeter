@@ -30,6 +30,14 @@ pub struct FightPlayer {
     pub job_key: String,
     pub damage: i64,
     pub dps: f64,
+    /// Over non-DoT hits.
+    pub crit_rate: f64,
+    pub back_rate: f64,
+    pub heal: i64,
+    pub damage_taken: i64,
+    pub deaths: i32,
+    pub gear_score: i32,
+    pub combat_power: i64,
 }
 
 pub struct History {
@@ -94,13 +102,21 @@ pub fn summarize(r: &FightRecord) -> FightSummary {
         .actors
         .iter()
         .map(|a| {
-            let damage: i64 = r
-                .details
-                .skills
-                .iter()
-                .filter(|s| s.actor_id == a.actor_id)
-                .map(|s| s.dmg as i64)
-                .sum();
+            let skills = || r.details.skills.iter().filter(|s| s.actor_id == a.actor_id);
+            let damage: i64 = skills().map(|s| s.dmg as i64).sum();
+            let (mut hits, mut crit, mut back) = (0i64, 0i64, 0i64);
+            for s in skills().filter(|s| !s.is_dot) {
+                hits += s.time as i64;
+                crit += s.crit as i64;
+                back += s.back as i64;
+            }
+            let rate = |n: i64| {
+                if hits > 0 {
+                    n as f64 / hits as f64
+                } else {
+                    0.0
+                }
+            };
             FightPlayer {
                 id: a.actor_id,
                 name: if a.nickname.is_empty() {
@@ -112,6 +128,25 @@ pub fn summarize(r: &FightRecord) -> FightSummary {
                 job_key: crate::meter::job_names(&a.job).0.to_string(),
                 damage,
                 dps: damage as f64 / seconds,
+                crit_rate: rate(crit),
+                back_rate: rate(back),
+                heal: r
+                    .details
+                    .heal_skills
+                    .iter()
+                    .filter(|s| s.actor_id == a.actor_id)
+                    .map(|s| s.dmg as i64)
+                    .sum(),
+                damage_taken: a.damage_received,
+                deaths: r
+                    .details
+                    .deaths
+                    .iter()
+                    .flatten()
+                    .filter(|d| d.actor_id == a.actor_id)
+                    .count() as i32,
+                gear_score: a.gear_score,
+                combat_power: a.combat_power,
             }
         })
         .filter(|p| p.damage > 0)
@@ -125,5 +160,52 @@ pub fn summarize(r: &FightRecord) -> FightSummary {
         total_damage: r.total_damage as i64,
         killed: r.details.max_hp > 0 && r.total_damage as i64 >= r.details.max_hp as i64,
         players,
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    fn skill(
+        actor: i32,
+        dmg: i32,
+        hits: i32,
+        crit: i32,
+        back: i32,
+        dot: bool,
+    ) -> serde_json::Value {
+        serde_json::json!({"actorId": actor, "code": 1, "name": "s", "time": hits, "dmg": dmg,
+            "multiHitCount": 0, "multiHitDamage": 0, "crit": crit, "parry": 0, "back": back,
+            "perfect": 0, "double": 0, "regen": 0, "isDot": dot})
+    }
+
+    #[test]
+    fn summary_has_each_players_rates_heals_and_deaths() {
+        let record: FightRecord = serde_json::from_value(serde_json::json!({
+            "id": "auto_1_2", "bossName": "Boss", "targetId": 1, "startTimeMs": 0,
+            "durationMs": 10_000, "totalDamage": 1300, "jobs": [],
+            "details": {"targetId": 1, "maxHp": 1000, "totalTargetDamage": 1300, "battleTime": 10_000,
+                "skills": [skill(7, 1000, 10, 4, 2, false), skill(7, 200, 30, 30, 30, true), skill(8, 100, 5, 0, 5, false)],
+                "healSkills": [skill(8, 300, 3, 0, 0, false), skill(8, 50, 1, 0, 0, true)],
+                "deaths": [{"actorId": 7, "tsMs": 1000}, {"actorId": 7, "tsMs": 5000}]},
+            "actors": [
+                {"actorId": 7, "nickname": "A", "damageReceived": 900, "gearScore": 1700, "combatPower": 80000},
+                {"actorId": 8, "nickname": "B"}
+            ]
+        }))
+        .unwrap();
+        let s = summarize(&record);
+        assert!(s.killed);
+        let a = &s.players[0];
+        assert_eq!(
+            (a.name.as_str(), a.damage, a.deaths, a.damage_taken, a.heal),
+            ("A", 1200, 2, 900, 0)
+        );
+        // The DoT's hits don't count toward the rates.
+        assert_eq!((a.crit_rate, a.back_rate), (0.4, 0.2));
+        assert_eq!((a.gear_score, a.combat_power), (1700, 80000));
+        let b = &s.players[1];
+        assert_eq!((b.heal, b.deaths, b.back_rate), (350, 0, 1.0));
     }
 }

@@ -1,0 +1,9988 @@
+{
+ "pets": {
+  "1001": {
+   "chests": [],
+   "drops": [],
+   "genus": "special",
+   "name": "Black Dragon",
+   "unreleased": false
+  },
+  "1002": {
+   "chests": [
+    {
+     "chance": "2.44%",
+     "name": "Pet Soul Chest: Cogni (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 106,
+      "name": "Collapsed Pillar",
+      "teleport": 19
+     },
+     "level": 21,
+     "npc": "Krall Armed Soldier",
+     "region": "Verteron",
+     "spawns": 27,
+     "zones": [
+      "Verteron Fortress Ruins"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 85,
+      "name": "Verteron Fortress Valley",
+      "teleport": 21
+     },
+     "level": 21,
+     "npc": "Krall Sentinel",
+     "region": "Verteron",
+     "spawns": 19,
+     "zones": [
+      "Destroyed Abyss Gate"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 326,
+      "name": "Nahid Disposal Plant",
+      "teleport": 57
+     },
+     "level": 41,
+     "npc": "Mutated Krall Laborer",
+     "region": "Verteron",
+     "spawns": 11,
+     "zones": [
+      "Scarlet Forest"
+     ]
+    }
+   ],
+   "genus": "cogni",
+   "name": "Krall Laborer",
+   "unreleased": false
+  },
+  "1003": {
+   "chests": [
+    {
+     "chance": "2.08%",
+     "name": "Pet Soul Chest: Natura (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 120,
+      "name": "Canyon Campsite",
+      "teleport": 38
+     },
+     "level": 33,
+     "npc": "Canyon Vine Spirit",
+     "region": "Verteron",
+     "spawns": 23,
+     "zones": [
+      "Altamia Canyon"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 205,
+      "name": "Garden of the Illusion God West Observatory",
+      "teleport": 59
+     },
+     "level": 44,
+     "npc": "Tainted Vine Specter",
+     "region": "Verteron",
+     "spawns": 23,
+     "zones": [
+      "Garden of the Illusion God"
+     ]
+    }
+   ],
+   "genus": "natura",
+   "name": "Forest Specter",
+   "unreleased": false
+  },
+  "1004": {
+   "chests": [
+    {
+     "chance": "1.54%",
+     "name": "Pet Soul Chestt: Fera (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 131,
+      "name": "Tolbas Forest Outskirts",
+      "teleport": 30
+     },
+     "level": 25,
+     "npc": "Patrolling Fossa",
+     "region": "Verteron",
+     "spawns": 18,
+     "zones": [
+      "Southern Tolbas Forest"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 173,
+      "name": "Minushan Site",
+      "teleport": 26
+     },
+     "level": 24,
+     "npc": "Daeva Renegade Fossa",
+     "region": "Altgard",
+     "spawns": 9,
+     "zones": [
+      "Uruthumheim"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 151,
+      "name": "Graverobber Campsite",
+      "teleport": 40
+     },
+     "level": 34,
+     "npc": "Tamed Beast",
+     "region": "Altgard",
+     "spawns": 35,
+     "zones": [
+      "Basfelt Ruins"
+     ]
+    }
+   ],
+   "genus": "fera",
+   "name": "Fossa",
+   "unreleased": false
+  },
+  "1005": {
+   "chests": [
+    {
+     "chance": "2.44%",
+     "name": "Pet Soul Chest: Cogni (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 84,
+      "name": "Verteron Fortress Valley",
+      "teleport": 21
+     },
+     "level": 19,
+     "npc": "Wandering Klaw",
+     "region": "Verteron",
+     "spawns": 28,
+     "zones": [
+      "Destroyed Abyss Gate"
+     ]
+    },
+    {
+     "bySide": {
+      "asmodian": {
+       "m": 1026,
+       "name": "Latesran Eastern Root",
+       "teleport": 1
+      },
+      "elyos": {
+       "m": 727,
+       "name": "Latesran Western Root",
+       "teleport": 1
+      }
+     },
+     "chance": "100%",
+     "kibelisk": {
+      "m": 727,
+      "name": "Latesran Western Root",
+      "teleport": 1
+     },
+     "level": 46,
+     "npc": "Abyss Klaw Mutant",
+     "region": "Chaotic Lower Reshanta",
+     "spawns": 50,
+     "zones": [
+      "Sulfur Tree Island - Branding Island",
+      "Sulfur Tree Island - River of Rotten Sap",
+      "Sulfur Tree Island - Sulfur Swamp"
+     ]
+    }
+   ],
+   "genus": "cogni",
+   "name": "Klaw",
+   "unreleased": false
+  },
+  "1006": {
+   "chests": [
+    {
+     "chance": "1.54%",
+     "name": "Pet Soul Chestt: Fera (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 185,
+      "name": "Hideout in Front of the Ruins",
+      "teleport": 14
+     },
+     "level": 18,
+     "npc": "Wild Sparkie",
+     "region": "Verteron",
+     "spawns": 10,
+     "zones": [
+      "Ellun River Midstream"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 153,
+      "name": "Illusion Cavaliers' Campsite",
+      "teleport": 13
+     },
+     "level": 18,
+     "npc": "Meadow Sparkie",
+     "region": "Verteron",
+     "spawns": 75,
+     "zones": [
+      "Ellun River Meadow",
+      "Ellun River Midstream"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 132,
+      "name": "Beast Hunter Campsite",
+      "teleport": 45
+     },
+     "level": 33,
+     "npc": "Highland Odyle Sparkie",
+     "region": "Verteron",
+     "spawns": 74,
+     "zones": [
+      "Southern Altamia Highland"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 179,
+      "name": "Rock Hill Outpost",
+      "teleport": 37
+     },
+     "level": 32,
+     "npc": "Highland Odyle Sparkie",
+     "region": "Verteron",
+     "spawns": 72,
+     "zones": [
+      "Western Altamia Highland"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 60,
+      "name": "Abandoned Wind Breeze Office",
+      "teleport": 32
+     },
+     "level": 27,
+     "npc": "Aullaeu Forest Sparkie",
+     "region": "Verteron",
+     "spawns": 38,
+     "zones": [
+      "Aullaeu Village",
+      "Forest of Exiles"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 56,
+      "name": "Aullaeu Village Sky Island",
+      "teleport": 35
+     },
+     "level": 30,
+     "npc": "Highland Sparkie",
+     "region": "Verteron",
+     "spawns": 28,
+     "zones": [
+      "Aullaeu Village"
+     ]
+    }
+   ],
+   "genus": "fera",
+   "name": "Sparkie",
+   "unreleased": false
+  },
+  "1007": {
+   "chests": [
+    {
+     "chance": "1.54%",
+     "name": "Pet Soul Chestt: Fera (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 28,
+      "name": "Collapsed Verteron Barrier Tower",
+      "teleport": 10
+     },
+     "level": 14,
+     "npc": "Marsh Moss Potcrab",
+     "region": "Verteron",
+     "spawns": 36,
+     "zones": [
+      "Ellun River Marsh",
+      "Collapsed Verteron Barrier Tower",
+      "Contaminated Marsh"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 119,
+      "name": "Canyon Campsite",
+      "teleport": 38
+     },
+     "level": 33,
+     "npc": "Flat Potcrab",
+     "region": "Verteron",
+     "spawns": 14,
+     "zones": [
+      "Altamia Canyon"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 1877,
+      "name": "Aullaeu Village Sky Island",
+      "teleport": 35
+     },
+     "level": 49,
+     "npc": "Eternal Moss Crab",
+     "region": "Verteron",
+     "spawns": 30,
+     "zones": [
+      "Eternal Isle"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 442,
+      "name": "Hidden Cave",
+      "teleport": 36
+     },
+     "level": 32,
+     "npc": "Moss Crab",
+     "region": "Altgard",
+     "spawns": 26,
+     "zones": [
+      "Dranactus"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 161,
+      "name": "Guide's Dwelling",
+      "teleport": 61
+     },
+     "level": 46,
+     "npc": "Coastal Moss Crab",
+     "region": "Altgard",
+     "spawns": 4,
+     "zones": [
+      "Spirit Isle"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 1700,
+      "name": "Remote Island",
+      "teleport": 15
+     },
+     "level": 49,
+     "npc": "Coastal Moss Crab",
+     "region": "Altgard",
+     "spawns": 26,
+     "zones": [
+      "Immortal Isle"
+     ]
+    }
+   ],
+   "genus": "fera",
+   "name": "Potcrab",
+   "unreleased": false
+  },
+  "1008": {
+   "chests": [
+    {
+     "chance": "1.54%",
+     "name": "Pet Soul Chestt: Fera (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 143,
+      "name": "Spirit's Rest",
+      "teleport": 11
+     },
+     "level": 16,
+     "npc": "Coastal Odyle Spider",
+     "region": "Verteron",
+     "spawns": 8,
+     "zones": [
+      "Spirit's Rest",
+      "Ellun River Marsh"
+     ]
+    }
+   ],
+   "genus": "fera",
+   "name": "Baby Odyle Spider",
+   "unreleased": false
+  },
+  "1009": {
+   "chests": [
+    {
+     "chance": "1.54%",
+     "name": "Pet Soul Chestt: Fera (Bound)"
+    }
+   ],
+   "drops": [],
+   "genus": "fera",
+   "name": "Kernon",
+   "unreleased": false
+  },
+  "1010": {
+   "chests": [
+    {
+     "chance": "2.44%",
+     "name": "Pet Soul Chest: Cogni (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 241,
+      "name": "Crimson Isle Outpost",
+      "teleport": 61
+     },
+     "level": 48,
+     "npc": "Crimson Manduri Fighter",
+     "region": "Verteron",
+     "spawns": 24,
+     "zones": [
+      "Crimson Isle"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 166,
+      "name": "Kumrica's Cellar",
+      "teleport": 57
+     },
+     "level": 42,
+     "npc": "Black Claw Manduri Combatant",
+     "region": "Altgard",
+     "spawns": 38,
+     "zones": [
+      "Black Claw Village"
+     ]
+    }
+   ],
+   "genus": "cogni",
+   "name": "Manduri Fighter",
+   "unreleased": false
+  },
+  "1011": {
+   "chests": [
+    {
+     "chance": "1.54%",
+     "name": "Pet Soul Chestt: Fera (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 38,
+      "name": "Spirit's Rest",
+      "teleport": 11
+     },
+     "level": 16,
+     "npc": "Small Forest Skyray",
+     "region": "Verteron",
+     "spawns": 11,
+     "zones": [
+      "Spirit's Rest"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 136,
+      "name": "Eastern Shugo Station",
+      "teleport": 28
+     },
+     "level": 18,
+     "npc": "Ellun River Falls Skyray",
+     "region": "Verteron",
+     "spawns": 11,
+     "zones": [
+      "Ellun River Midstream"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 118,
+      "name": "Aullaeu Village Border",
+      "teleport": 29
+     },
+     "level": 25,
+     "npc": "Tolbas Forest Lake Skyray",
+     "region": "Verteron",
+     "spawns": 18,
+     "zones": [
+      "Eastern Tolbas Forest"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 321,
+      "name": "Rock Hill Outpost",
+      "teleport": 37
+     },
+     "level": 27,
+     "npc": "Ridge Skyray",
+     "region": "Verteron",
+     "spawns": 20,
+     "zones": [
+      "Pilgrim's Ridge"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 185,
+      "name": "Canyon Campsite",
+      "teleport": 38
+     },
+     "level": 33,
+     "npc": "Canyon Skyray",
+     "region": "Verteron",
+     "spawns": 5,
+     "zones": [
+      "Altamia Canyon"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 146,
+      "name": "Scar of the Wind",
+      "teleport": 40
+     },
+     "level": 33,
+     "npc": "Canyon Lake Skyray",
+     "region": "Verteron",
+     "spawns": 8,
+     "zones": [
+      "Altamia Canyon"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 235,
+      "name": "Notos Legion Outpost",
+      "teleport": 52
+     },
+     "level": 39,
+     "npc": "Pond Skyray",
+     "region": "Verteron",
+     "spawns": 17,
+     "zones": [
+      "Kraka Footpath"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 89,
+      "name": "Hideout in Front of the Ruins",
+      "teleport": 14
+     },
+     "level": 18,
+     "npc": "Ellun River Lake Skyray",
+     "region": "Verteron",
+     "spawns": 7,
+     "zones": [
+      "Ellun River Midstream"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 198,
+      "name": "Eastern Cantas Valley Campsite",
+      "teleport": 5
+     },
+     "level": 10,
+     "npc": "Cantas Valley Skyray",
+     "region": "Verteron",
+     "spawns": 14,
+     "zones": [
+      "Western Cantas Valley"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 142,
+      "name": "Scar of the Wind",
+      "teleport": 40
+     },
+     "level": 33,
+     "npc": "Lake Skyray",
+     "region": "Verteron",
+     "spawns": 13,
+     "zones": [
+      "Southern Altamia Highland"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 195,
+      "name": "Watcher's Tent",
+      "teleport": 16
+     },
+     "level": 20,
+     "npc": "Tranein Skyray",
+     "region": "Altgard",
+     "spawns": 13,
+     "zones": [
+      "Tranein Pond"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 140,
+      "name": "Eastern Gribade Highland Cliff",
+      "teleport": 52
+     },
+     "level": 40,
+     "npc": "Lake Skyray",
+     "region": "Altgard",
+     "spawns": 13,
+     "zones": [
+      "Idun's Lake"
+     ]
+    }
+   ],
+   "genus": "fera",
+   "name": "Skyray",
+   "unreleased": false
+  },
+  "1012": {
+   "chests": [
+    {
+     "chance": "2.08%",
+     "name": "Pet Soul Chest: Natura (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 79,
+      "name": "Eastern Cantas Valley Campsite",
+      "teleport": 5
+     },
+     "level": 12,
+     "npc": "Red Cap Fungie",
+     "region": "Verteron",
+     "spawns": 32,
+     "zones": [
+      "Eastern Cantas Valley"
+     ]
+    }
+   ],
+   "genus": "natura",
+   "name": "Fungie",
+   "unreleased": false
+  },
+  "1013": {
+   "chests": [
+    {
+     "chance": "2.17%",
+     "name": "Pet Soul Chest: Varian (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 80,
+      "name": "Mire Campsite",
+      "teleport": 9
+     },
+     "level": 11,
+     "npc": "Contaminated Swarm",
+     "region": "Altgard",
+     "spawns": 8,
+     "zones": [
+      "Calderon Canyon"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 232,
+      "name": "Steel Hammer Workcamp",
+      "teleport": 48
+     },
+     "level": 35,
+     "npc": "Giant Ore Insectoid",
+     "region": "Altgard",
+     "spawns": 115,
+     "zones": [
+      "Fafnite Deposit"
+     ]
+    },
+    {
+     "bySide": {
+      "asmodian": {
+       "m": 1112,
+       "name": "Latesran Eastern Root",
+       "teleport": 1
+      },
+      "elyos": {
+       "m": 415,
+       "name": "Latesran Western Root",
+       "teleport": 1
+      }
+     },
+     "chance": "100%",
+     "kibelisk": {
+      "m": 415,
+      "name": "Latesran Western Root",
+      "teleport": 1
+     },
+     "level": 45,
+     "npc": "Abyss Swarm",
+     "region": "Chaotic Lower Reshanta",
+     "spawns": 63,
+     "zones": [
+      "Devastated Remnants - Dusk Battlefield",
+      "Devastated Remnants - Shade Island",
+      "Devastated Remnants - Weathered Outcrop"
+     ]
+    },
+    {
+     "bySide": {
+      "asmodian": {
+       "m": 393,
+       "name": "Latesran Eastern Root",
+       "teleport": 1
+      },
+      "elyos": {
+       "m": 1134,
+       "name": "Latesran Western Root",
+       "teleport": 1
+      }
+     },
+     "chance": "100%",
+     "kibelisk": {
+      "m": 393,
+      "name": "Latesran Eastern Root",
+      "teleport": 1
+     },
+     "level": 45,
+     "npc": "Abyss Aberrant Swarn",
+     "region": "Chaotic Lower Reshanta",
+     "spawns": 63,
+     "zones": [
+      "Black Fragments Area - Kration Conflict Zone",
+      "Black Fragments Area - Lonely Island",
+      "Black Fragments Area - Kibelium Fragment"
+     ]
+    },
+    {
+     "bySide": {
+      "asmodian": {
+       "m": 899,
+       "name": "Latesran Eastern Root",
+       "teleport": 1
+      },
+      "elyos": {
+       "m": 836,
+       "name": "Latesran Western Root",
+       "teleport": 1
+      }
+     },
+     "chance": "100%",
+     "kibelisk": {
+      "m": 836,
+      "name": "Latesran Western Root",
+      "teleport": 1
+     },
+     "level": 46,
+     "npc": "Abyss Swarm Mutant",
+     "region": "Chaotic Lower Reshanta",
+     "spawns": 83,
+     "zones": [
+      "Sulfur Tree Island - Branding Island",
+      "Sulfur Tree Island - River of Rotten Sap",
+      "Sulfur Tree Island - Sulfur Swamp"
+     ]
+    }
+   ],
+   "genus": "varian",
+   "name": "Swarm",
+   "unreleased": false
+  },
+  "1014": {
+   "chests": [
+    {
+     "chance": "1.54%",
+     "name": "Pet Soul Chestt: Fera (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 139,
+      "name": "Nahid Disposal Plant",
+      "teleport": 57
+     },
+     "level": 43,
+     "npc": "Drakan Guard Dog",
+     "region": "Verteron",
+     "spawns": 20,
+     "zones": [
+      "Nahid Brigade Fortress"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 303,
+      "name": "Nahid Disposal Plant",
+      "teleport": 57
+     },
+     "level": 45,
+     "npc": "Nahid Drakan Guard Dog",
+     "region": "Verteron",
+     "spawns": 16,
+     "zones": [
+      "Nahid Brigade Fortress"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 161,
+      "name": "Hidden Cave",
+      "teleport": 36
+     },
+     "level": 32,
+     "npc": "Drakan Guard Dog",
+     "region": "Altgard",
+     "spawns": 6,
+     "zones": [
+      "Dranactus"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 178,
+      "name": "Amunta's Hideout",
+      "teleport": 50
+     },
+     "level": 40,
+     "npc": "Drakan Patrol Armed Beast",
+     "region": "Altgard",
+     "spawns": 14,
+     "zones": [
+      "Eastern Gribade Highland"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 911,
+      "name": "Kumrica's Cellar",
+      "teleport": 57
+     },
+     "level": 43,
+     "npc": "Lagta Brigade Guard Dog",
+     "region": "Altgard",
+     "spawns": 9,
+     "zones": [
+      "Altgard"
+     ]
+    },
+    {
+     "bySide": {
+      "asmodian": {
+       "m": 985,
+       "name": "Latesran Eastern Root",
+       "teleport": 1
+      },
+      "elyos": {
+       "m": 737,
+       "name": "Latesran Western Root",
+       "teleport": 1
+      }
+     },
+     "chance": "100%",
+     "kibelisk": {
+      "m": 737,
+      "name": "Latesran Western Root",
+      "teleport": 1
+     },
+     "level": 47,
+     "npc": "Abyss Drakan Scout Beast",
+     "region": "Chaotic Lower Reshanta",
+     "spawns": 44,
+     "zones": [
+      "Archipelago of Siel's Wings - Siel's Left Wing"
+     ]
+    }
+   ],
+   "genus": "fera",
+   "name": "Drakan Guard Dog",
+   "unreleased": false
+  },
+  "1015": {
+   "chests": [
+    {
+     "chance": "1.54%",
+     "name": "Pet Soul Chestt: Fera (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 105,
+      "name": "Hideout in Front of the Ruins",
+      "teleport": 14
+     },
+     "level": 18,
+     "npc": "Ellun River Kailin",
+     "region": "Verteron",
+     "spawns": 62,
+     "zones": [
+      "Ellun River Midstream"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 196,
+      "name": "Guide's Dwelling",
+      "teleport": 61
+     },
+     "level": 46,
+     "npc": "Unstable Kailin",
+     "region": "Altgard",
+     "spawns": 16,
+     "zones": [
+      "Spirit Isle"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 170,
+      "name": "Watcher's Tent",
+      "teleport": 16
+     },
+     "level": 20,
+     "npc": "Kailin",
+     "region": "Altgard",
+     "spawns": 96,
+     "zones": [
+      "Tranein Highland",
+      "Sanctum Outpost",
+      "Tranein Pond"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 312,
+      "name": "Briskwind Shelter",
+      "teleport": 35
+     },
+     "level": 32,
+     "npc": "Kailin",
+     "region": "Altgard",
+     "spawns": 56,
+     "zones": [
+      "Battlescar Mound",
+      "Purifying Forest"
+     ]
+    }
+   ],
+   "genus": "fera",
+   "name": "Kailin",
+   "unreleased": false
+  },
+  "1016": {
+   "chests": [
+    {
+     "chance": "1.54%",
+     "name": "Pet Soul Chestt: Fera (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 151,
+      "name": "Tolbas Forest Outskirts",
+      "teleport": 30
+     },
+     "level": 25,
+     "npc": "Tolbas Slink",
+     "region": "Verteron",
+     "spawns": 44,
+     "zones": [
+      "Southern Tolbas Forest"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 120,
+      "name": "Ruin Exploration Campsite",
+      "teleport": 16
+     },
+     "level": 18,
+     "npc": "Wetland Slink",
+     "region": "Verteron",
+     "spawns": 54,
+     "zones": [
+      "Ellun River Midstream"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 1677,
+      "name": "Aullaeu Village Sky Island",
+      "teleport": 35
+     },
+     "level": 49,
+     "npc": "Eternal Slink",
+     "region": "Verteron",
+     "spawns": 24,
+     "zones": [
+      "Eternal Isle"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 268,
+      "name": "Abandoned Campsite",
+      "teleport": 49
+     },
+     "level": 37,
+     "npc": "Coastal Slink",
+     "region": "Altgard",
+     "spawns": 19,
+     "zones": [
+      "Western Gribade Highland"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 1241,
+      "name": "Remote Island",
+      "teleport": 15
+     },
+     "level": 49,
+     "npc": "Coastal Slink",
+     "region": "Altgard",
+     "spawns": 26,
+     "zones": [
+      "Immortal Isle"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 214,
+      "name": "Watcher's Tent",
+      "teleport": 16
+     },
+     "level": 20,
+     "npc": "Slink",
+     "region": "Altgard",
+     "spawns": 21,
+     "zones": [
+      "Tranein Pond",
+      "Tranein Highland"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 146,
+      "name": "Idun's Lake",
+      "teleport": 54
+     },
+     "level": 40,
+     "npc": "Slink",
+     "region": "Altgard",
+     "spawns": 18,
+     "zones": [
+      "Southern Gribade Highland",
+      "Idun's Lake"
+     ]
+    },
+    {
+     "bySide": {
+      "asmodian": {
+       "m": 920,
+       "name": "Latesran Eastern Root",
+       "teleport": 1
+      },
+      "elyos": {
+       "m": 812,
+       "name": "Latesran Western Root",
+       "teleport": 1
+      }
+     },
+     "chance": "100%",
+     "kibelisk": {
+      "m": 812,
+      "name": "Latesran Western Root",
+      "teleport": 1
+     },
+     "level": 47,
+     "npc": "Abyss Slink",
+     "region": "Chaotic Lower Reshanta",
+     "spawns": 38,
+     "zones": [
+      "Archipelago of Siel's Wings - Siel's Left Wing",
+      "Archipelago of Siel's Wings - Siel's Right Wing"
+     ]
+    }
+   ],
+   "genus": "fera",
+   "name": "Slink",
+   "unreleased": false
+  },
+  "1017": {
+   "chests": [
+    {
+     "chance": "2.44%",
+     "name": "Pet Soul Chest: Cogni (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 129,
+      "name": "Collapsed Pillar",
+      "teleport": 19
+     },
+     "level": 21,
+     "npc": "Krall Warshaman",
+     "region": "Verteron",
+     "spawns": 10,
+     "zones": [
+      "Verteron Fortress Ruins",
+      "Krall Command Post"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 173,
+      "name": "Drana Transport Hub",
+      "teleport": 54
+     },
+     "level": 41,
+     "npc": "Modified Krall Healer",
+     "region": "Verteron",
+     "spawns": 32,
+     "zones": [
+      "Drana Processing Area"
+     ]
+    }
+   ],
+   "genus": "cogni",
+   "name": "Krall Warshaman",
+   "unreleased": false
+  },
+  "1018": {
+   "chests": [
+    {
+     "chance": "2.44%",
+     "name": "Pet Soul Chest: Cogni (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 155,
+      "name": "Hidden Cave",
+      "teleport": 36
+     },
+     "level": 32,
+     "npc": "Varg Berserker",
+     "region": "Altgard",
+     "spawns": 21,
+     "zones": [
+      "Dranactus"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 146,
+      "name": "Kumrica's Cellar",
+      "teleport": 57
+     },
+     "level": 42,
+     "npc": "Chief's Bodyguard",
+     "region": "Altgard",
+     "spawns": 26,
+     "zones": [
+      "Black Claw Village"
+     ]
+    }
+   ],
+   "genus": "cogni",
+   "name": "Varg Berserker",
+   "unreleased": false
+  },
+  "1021": {
+   "chests": [
+    {
+     "chance": "1.54%",
+     "name": "Pet Soul Chestt: Fera (Bound)"
+    }
+   ],
+   "drops": [],
+   "genus": "fera",
+   "name": "Aberrant Odyle Spider",
+   "unreleased": false
+  },
+  "1022": {
+   "chests": [
+    {
+     "chance": "1.54%",
+     "name": "Pet Soul Chestt: Fera (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 155,
+      "name": "Eastern Shugo Station",
+      "teleport": 28
+     },
+     "level": 18,
+     "npc": "Aquascale Crasaur",
+     "region": "Verteron",
+     "spawns": 15,
+     "zones": [
+      "Ellun River Midstream"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 156,
+      "name": "Canyon Campsite",
+      "teleport": 38
+     },
+     "level": 33,
+     "npc": "Docile Crasaur",
+     "region": "Verteron",
+     "spawns": 5,
+     "zones": [
+      "Altamia Canyon"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 1701,
+      "name": "Aullaeu Village Sky Island",
+      "teleport": 35
+     },
+     "level": 49,
+     "npc": "Eternal Crasaur",
+     "region": "Verteron",
+     "spawns": 26,
+     "zones": [
+      "Eternal Isle"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 185,
+      "name": "Healing Spring",
+      "teleport": 32
+     },
+     "level": 29,
+     "npc": "Sensitive Crasaur",
+     "region": "Altgard",
+     "spawns": 25,
+     "zones": [
+      "Purifying Forest"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 1240,
+      "name": "Remote Island",
+      "teleport": 15
+     },
+     "level": 49,
+     "npc": "Crasaur",
+     "region": "Altgard",
+     "spawns": 17,
+     "zones": [
+      "Immortal Isle"
+     ]
+    }
+   ],
+   "genus": "fera",
+   "name": "Crasaur",
+   "unreleased": false
+  },
+  "1025": {
+   "chests": [
+    {
+     "chance": "1.54%",
+     "name": "Pet Soul Chestt: Fera (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 127,
+      "name": "Kraka Footpath Wastewater Downstream",
+      "teleport": 50
+     },
+     "level": 15,
+     "npc": "Marsh Odyle Spider",
+     "region": "Verteron",
+     "spawns": 34,
+     "zones": [
+      "Contaminated Marsh"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 49,
+      "name": "Pilgrim's Rest",
+      "teleport": 58
+     },
+     "level": 44,
+     "npc": "Garden Spider",
+     "region": "Verteron",
+     "spawns": 9,
+     "zones": [
+      "Garden of the Illusion God",
+      "Pilgrim's Rest"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 421,
+      "name": "Canyon Sky Island",
+      "teleport": 39
+     },
+     "level": 35,
+     "npc": "Highland Odyle Spider",
+     "region": "Verteron",
+     "spawns": 10,
+     "zones": [
+      "Eastern Altamia Highland"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 196,
+      "name": "Guide's Dwelling",
+      "teleport": 61
+     },
+     "level": 48,
+     "npc": "Unstable Ashen Spider",
+     "region": "Altgard",
+     "spawns": 32,
+     "zones": [
+      "Spirit Isle"
+     ]
+    }
+   ],
+   "genus": "fera",
+   "name": "Mutated Aberrant Odyle Spider",
+   "unreleased": false
+  },
+  "1026": {
+   "chests": [
+    {
+     "chance": "2.44%",
+     "name": "Pet Soul Chest: Cogni (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 119,
+      "name": "Collapsed Pillar",
+      "teleport": 19
+     },
+     "level": 21,
+     "npc": "Krall Assault Trooper",
+     "region": "Verteron",
+     "spawns": 12,
+     "zones": [
+      "Verteron Fortress Ruins",
+      "Krall Command Post"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 312,
+      "name": "Scarlet Forest Observation Site",
+      "teleport": 55
+     },
+     "level": 41,
+     "npc": "Modified Krall Warrior",
+     "region": "Verteron",
+     "spawns": 22,
+     "zones": [
+      "Scarlet Forest"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 231,
+      "name": "Nahid Disposal Plant",
+      "teleport": 57
+     },
+     "level": 43,
+     "npc": "Krall Test Subject",
+     "region": "Verteron",
+     "spawns": 18,
+     "zones": [
+      "Nahid Brigade Fortress"
+     ]
+    }
+   ],
+   "genus": "cogni",
+   "name": "Krall Warrior",
+   "unreleased": false
+  },
+  "1027": {
+   "chests": [
+    {
+     "chance": "2.08%",
+     "name": "Pet Soul Chest: Natura (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 67,
+      "name": "Scar of the Wind",
+      "teleport": 40
+     },
+     "level": 33,
+     "npc": "Withered Canyon Agrint",
+     "region": "Verteron",
+     "spawns": 6,
+     "zones": [
+      "Altamia Canyon"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 129,
+      "name": "Pilgrim's Rest",
+      "teleport": 58
+     },
+     "level": 44,
+     "npc": "Thin Agrint",
+     "region": "Verteron",
+     "spawns": 30,
+     "zones": [
+      "Garden of the Illusion God"
+     ]
+    },
+    {
+     "bySide": {
+      "asmodian": {
+       "m": 773,
+       "name": "Latesran Eastern Root",
+       "teleport": 1
+      },
+      "elyos": {
+       "m": 942,
+       "name": "Latesran Western Root",
+       "teleport": 1
+      }
+     },
+     "chance": "100%",
+     "kibelisk": {
+      "m": 773,
+      "name": "Latesran Eastern Root",
+      "teleport": 1
+     },
+     "level": 46,
+     "npc": "Withered Sulfur Agrint",
+     "region": "Chaotic Lower Reshanta",
+     "spawns": 27,
+     "zones": [
+      "Sulfur Tree Island - Branding Island",
+      "Sulfur Tree Island - Sulfur Swamp"
+     ]
+    }
+   ],
+   "genus": "natura",
+   "name": "Withered Agrint",
+   "unreleased": false
+  },
+  "1028": {
+   "chests": [
+    {
+     "chance": "2.17%",
+     "name": "Pet Soul Chest: Varian (Bound)"
+    }
+   ],
+   "drops": [],
+   "genus": "varian",
+   "name": "Krao Mutant",
+   "unreleased": false
+  },
+  "1029": {
+   "chests": [
+    {
+     "chance": "2.44%",
+     "name": "Pet Soul Chest: Cogni (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 262,
+      "name": "Faded Stump",
+      "teleport": 31
+     },
+     "level": 30,
+     "npc": "Consumed Klaw",
+     "region": "Altgard",
+     "spawns": 36,
+     "zones": [
+      "Purifying Forest"
+     ]
+    },
+    {
+     "bySide": {
+      "asmodian": {
+       "m": 1100,
+       "name": "Latesran Eastern Root",
+       "teleport": 1
+      },
+      "elyos": {
+       "m": 428,
+       "name": "Latesran Western Root",
+       "teleport": 1
+      }
+     },
+     "chance": "100%",
+     "kibelisk": {
+      "m": 428,
+      "name": "Latesran Western Root",
+      "teleport": 1
+     },
+     "level": 45,
+     "npc": "Abyss Klaw",
+     "region": "Chaotic Lower Reshanta",
+     "spawns": 28,
+     "zones": [
+      "Devastated Remnants - Dusk Battlefield",
+      "Devastated Remnants - Exile Island"
+     ]
+    },
+    {
+     "bySide": {
+      "asmodian": {
+       "m": 442,
+       "name": "Latesran Eastern Root",
+       "teleport": 1
+      },
+      "elyos": {
+       "m": 1086,
+       "name": "Latesran Western Root",
+       "teleport": 1
+      }
+     },
+     "chance": "100%",
+     "kibelisk": {
+      "m": 442,
+      "name": "Latesran Eastern Root",
+      "teleport": 1
+     },
+     "level": 45,
+     "npc": "Abyss Aberrant Klaw",
+     "region": "Chaotic Lower Reshanta",
+     "spawns": 28,
+     "zones": [
+      "Black Fragments Area - Kration Conflict Zone",
+      "Black Fragments Area - Abandoned Island"
+     ]
+    }
+   ],
+   "genus": "cogni",
+   "name": "Klaw Scout",
+   "unreleased": false
+  },
+  "1030": {
+   "chests": [
+    {
+     "chance": "2.44%",
+     "name": "Pet Soul Chest: Cogni (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "bySide": {
+      "asmodian": {
+       "m": 910,
+       "name": "Latesran Eastern Root",
+       "teleport": 1
+      },
+      "elyos": {
+       "m": 952,
+       "name": "Latesran Western Root",
+       "teleport": 1
+      }
+     },
+     "chance": "100%",
+     "kibelisk": {
+      "m": 910,
+      "name": "Latesran Eastern Root",
+      "teleport": 1
+     },
+     "level": 48,
+     "npc": "Abyss Nagarant Brawler",
+     "region": "Chaotic Lower Reshanta",
+     "spawns": 9,
+     "zones": [
+      "Sulfur Tree Island - Sulfur Swamp"
+     ]
+    },
+    {
+     "bySide": {
+      "asmodian": {
+       "m": 1203,
+       "name": "Latesran Eastern Root",
+       "teleport": 1
+      },
+      "elyos": {
+       "m": 720,
+       "name": "Latesran Western Root",
+       "teleport": 1
+      }
+     },
+     "chance": "100%",
+     "kibelisk": {
+      "m": 720,
+      "name": "Latesran Western Root",
+      "teleport": 1
+     },
+     "level": 48,
+     "npc": "Abyss Nagarant Warrior",
+     "region": "Chaotic Lower Reshanta",
+     "spawns": 5,
+     "zones": [
+      "Sulfur Tree Island - River of Rotten Sap"
+     ]
+    }
+   ],
+   "genus": "cogni",
+   "name": "Nagarant Guardian Warrior",
+   "unreleased": false
+  },
+  "1031": {
+   "chests": [
+    {
+     "chance": "2.08%",
+     "name": "Pet Soul Chest: Natura (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 185,
+      "name": "Southern Shugo Station",
+      "teleport": 26
+     },
+     "level": 24,
+     "npc": "Tolbas Konutin Worker",
+     "region": "Verteron",
+     "spawns": 30,
+     "zones": [
+      "Northern Tolbas Forest"
+     ]
+    }
+   ],
+   "genus": "natura",
+   "name": "Konutin Worker",
+   "unreleased": false
+  },
+  "1032": {
+   "chests": [
+    {
+     "chance": "1.54%",
+     "name": "Pet Soul Chestt: Fera (Bound)"
+    }
+   ],
+   "drops": [],
+   "genus": "fera",
+   "name": "Elite Keneire",
+   "unreleased": false
+  },
+  "1033": {
+   "chests": [
+    {
+     "chance": "2.44%",
+     "name": "Pet Soul Chest: Cogni (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 188,
+      "name": "Dawn Legion Temporary Outpost",
+      "teleport": 22
+     },
+     "level": 27,
+     "npc": "Wandering Manduri Fighter",
+     "region": "Verteron",
+     "spawns": 27,
+     "zones": [
+      "Pilgrim's Ridge"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 184,
+      "name": "Dawn Legion Temporary Outpost",
+      "teleport": 22
+     },
+     "level": 27,
+     "npc": "Wandering Manduri Fighter",
+     "region": "Verteron",
+     "spawns": 11,
+     "zones": [
+      "Pilgrim's Ridge"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 161,
+      "name": "Secret Rendezvous Point",
+      "teleport": 56
+     },
+     "level": 41,
+     "npc": "Black Claw Manduri Fighter",
+     "region": "Altgard",
+     "spawns": 37,
+     "zones": [
+      "Black Claw Village"
+     ]
+    }
+   ],
+   "genus": "cogni",
+   "name": "Elite Manduri Fighter",
+   "unreleased": false
+  },
+  "1034": {
+   "chests": [
+    {
+     "chance": "1.54%",
+     "name": "Pet Soul Chestt: Fera (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 166,
+      "name": "Cantas Valley Mushroom Tree Peak",
+      "teleport": 7
+     },
+     "level": 13,
+     "npc": "Splendent Hill Sparkie",
+     "region": "Verteron",
+     "spawns": 70,
+     "zones": [
+      "Eastern Cantas Valley"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 78,
+      "name": "Beast Hunter Campsite",
+      "teleport": 45
+     },
+     "level": 33,
+     "npc": "Highland Giant Odyle Sparkie",
+     "region": "Verteron",
+     "spawns": 22,
+     "zones": [
+      "Southern Altamia Highland"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 72,
+      "name": "Abandoned Wind Breeze Office",
+      "teleport": 32
+     },
+     "level": 27,
+     "npc": "Aullaeu Forest Giant Sparkie",
+     "region": "Verteron",
+     "spawns": 82,
+     "zones": [
+      "Aullaeu Village",
+      "Forest of Exiles"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 47,
+      "name": "Aullaeu Village Sky Island",
+      "teleport": 35
+     },
+     "level": 30,
+     "npc": "Highland Giant Sparkie",
+     "region": "Verteron",
+     "spawns": 18,
+     "zones": [
+      "Aullaeu Village"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 111,
+      "name": "Faded Stump",
+      "teleport": 31
+     },
+     "level": 30,
+     "npc": "Withered Branch Odyle Sparkie",
+     "region": "Altgard",
+     "spawns": 32,
+     "zones": [
+      "Purifying Forest"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 206,
+      "name": "Steel Hammer Workcamp",
+      "teleport": 48
+     },
+     "level": 35,
+     "npc": "Fafnite Luminous Sparkie",
+     "region": "Altgard",
+     "spawns": 22,
+     "zones": [
+      "Fafnite Deposit"
+     ]
+    }
+   ],
+   "genus": "fera",
+   "name": "Giant Sparkie",
+   "unreleased": false
+  },
+  "1035": {
+   "chests": [
+    {
+     "chance": "1.54%",
+     "name": "Pet Soul Chestt: Fera (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 195,
+      "name": "Collapsed Verteron Barrier Tower",
+      "teleport": 10
+     },
+     "level": 14,
+     "npc": "Foul Skama",
+     "region": "Verteron",
+     "spawns": 25,
+     "zones": [
+      "Contaminated Marsh"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 165,
+      "name": "Illusion Cavaliers' Campsite",
+      "teleport": 13
+     },
+     "level": 18,
+     "npc": "Lake Skama",
+     "region": "Verteron",
+     "spawns": 16,
+     "zones": [
+      "Ellun River Midstream"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 238,
+      "name": "Red Maple Forest",
+      "teleport": 56
+     },
+     "level": 41,
+     "npc": "Drana Mutated Skama",
+     "region": "Verteron",
+     "spawns": 8,
+     "zones": [
+      "Scarlet Forest"
+     ]
+    }
+   ],
+   "genus": "fera",
+   "name": "Skama",
+   "unreleased": false
+  },
+  "1036": {
+   "chests": [
+    {
+     "chance": "1.54%",
+     "name": "Pet Soul Chestt: Fera (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 195,
+      "name": "Altamia Highland Ruins",
+      "teleport": 43
+     },
+     "level": 34,
+     "npc": "Tail Feather Lupyllini",
+     "region": "Verteron",
+     "spawns": 31,
+     "zones": [
+      "Eastern Altamia Highland",
+      "Contaminated Sanctum"
+     ]
+    }
+   ],
+   "genus": "fera",
+   "name": "Lupyllini",
+   "unreleased": false
+  },
+  "1037": {
+   "chests": [
+    {
+     "chance": "1.54%",
+     "name": "Pet Soul Chestt: Fera (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 138,
+      "name": "Pamos Farm",
+      "teleport": 15
+     },
+     "level": 18,
+     "npc": "Ellun River Crestlich Male",
+     "region": "Verteron",
+     "spawns": 18,
+     "zones": [
+      "Ellun River Midstream"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 107,
+      "name": "Highland's End Campsite",
+      "teleport": 46
+     },
+     "level": 33,
+     "npc": "Highland Crestlich Male",
+     "region": "Verteron",
+     "spawns": 11,
+     "zones": [
+      "Southern Altamia Highland"
+     ]
+    }
+   ],
+   "genus": "fera",
+   "name": "Male Crestlich",
+   "unreleased": false
+  },
+  "1038": {
+   "chests": [
+    {
+     "chance": "1.54%",
+     "name": "Pet Soul Chestt: Fera (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 68,
+      "name": "Ellun River Midstream Pond",
+      "teleport": 18
+     },
+     "level": 18,
+     "npc": "Smallbeak Airon",
+     "region": "Verteron",
+     "spawns": 4,
+     "zones": [
+      "Ellun River Midstream"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 176,
+      "name": "Eastern Shugo Station",
+      "teleport": 28
+     },
+     "level": 18,
+     "npc": "Pointbeak Airon",
+     "region": "Verteron",
+     "spawns": 14,
+     "zones": [
+      "Ellun River Midstream"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 119,
+      "name": "Canyon Campsite",
+      "teleport": 38
+     },
+     "level": 33,
+     "npc": "Hardbeak Airon",
+     "region": "Verteron",
+     "spawns": 6,
+     "zones": [
+      "Altamia Canyon"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 256,
+      "name": "Rock Hill Outpost",
+      "teleport": 37
+     },
+     "level": 34,
+     "npc": "Longbeak Highland Airon",
+     "region": "Verteron",
+     "spawns": 7,
+     "zones": [
+      "Western Altamia Highland"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 191,
+      "name": "Gribade Highland Crossroad",
+      "teleport": 47
+     },
+     "level": 40,
+     "npc": "Canyon Airon",
+     "region": "Altgard",
+     "spawns": 19,
+     "zones": [
+      "Eastern Gribade Highland",
+      "Mahindel River"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 242,
+      "name": "Amunta's Hideout",
+      "teleport": 50
+     },
+     "level": 40,
+     "npc": "Baby Canyon Airon",
+     "region": "Altgard",
+     "spawns": 35,
+     "zones": [
+      "Eastern Gribade Highland",
+      "Mahindel River"
+     ]
+    }
+   ],
+   "genus": "fera",
+   "name": "Airon",
+   "unreleased": false
+  },
+  "1039": {
+   "chests": [
+    {
+     "chance": "1.54%",
+     "name": "Pet Soul Chestt: Fera (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 86,
+      "name": "Coastal Camp",
+      "teleport": 4
+     },
+     "level": 11,
+     "npc": "Stonebeak Crestlich",
+     "region": "Verteron",
+     "spawns": 53,
+     "zones": [
+      "Western Cantas Valley"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 165,
+      "name": "Hideout in Front of the Ruins",
+      "teleport": 14
+     },
+     "level": 18,
+     "npc": "Ellun River Crestlich Female",
+     "region": "Verteron",
+     "spawns": 35,
+     "zones": [
+      "Ellun River Midstream"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 136,
+      "name": "Highland's End Campsite",
+      "teleport": 46
+     },
+     "level": 33,
+     "npc": "Highland Crestlich Female",
+     "region": "Verteron",
+     "spawns": 41,
+     "zones": [
+      "Southern Altamia Highland"
+     ]
+    }
+   ],
+   "genus": "fera",
+   "name": "Crestlich",
+   "unreleased": false
+  },
+  "1040": {
+   "chests": [
+    {
+     "chance": "2.44%",
+     "name": "Pet Soul Chest: Cogni (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 213,
+      "name": "Astin Mercenaries Base",
+      "teleport": 27
+     },
+     "level": 27,
+     "npc": "Aullaeu Apprentice Shaman",
+     "region": "Verteron",
+     "spawns": 15,
+     "zones": [
+      "Aullaeu Village"
+     ]
+    }
+   ],
+   "genus": "cogni",
+   "name": "Aullaeu Shaman",
+   "unreleased": false
+  },
+  "1041": {
+   "chests": [
+    {
+     "chance": "1.54%",
+     "name": "Pet Soul Chestt: Fera (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 150,
+      "name": "Scarlet Forest Observation Site",
+      "teleport": 55
+     },
+     "level": 41,
+     "npc": "Drana Mutated Bat",
+     "region": "Verteron",
+     "spawns": 11,
+     "zones": [
+      "Scarlet Forest"
+     ]
+    }
+   ],
+   "genus": "fera",
+   "name": "Cave Bat",
+   "unreleased": false
+  },
+  "1042": {
+   "chests": [
+    {
+     "chance": "1.54%",
+     "name": "Pet Soul Chestt: Fera (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 134,
+      "name": "Astin Mercenaries Base",
+      "teleport": 27
+     },
+     "level": 25,
+     "npc": "Hardhorn Ursus",
+     "region": "Verteron",
+     "spawns": 52,
+     "zones": [
+      "Southern Tolbas Forest"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 233,
+      "name": "Zumion Statue",
+      "teleport": 24
+     },
+     "level": 27,
+     "npc": "Ridge Ursus",
+     "region": "Verteron",
+     "spawns": 12,
+     "zones": [
+      "Pilgrim's Ridge"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 220,
+      "name": "Verteron Fortress Valley",
+      "teleport": 21
+     },
+     "level": 27,
+     "npc": "Ridge Violent Ursus",
+     "region": "Verteron",
+     "spawns": 10,
+     "zones": [
+      "Pilgrim's Ridge"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 191,
+      "name": "Pilgrim's Rest",
+      "teleport": 58
+     },
+     "level": 45,
+     "npc": "Confused Ursus",
+     "region": "Verteron",
+     "spawns": 20,
+     "zones": [
+      "Garden of the Illusion God"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 201,
+      "name": "Kraka Uphill Path",
+      "teleport": 49
+     },
+     "level": 39,
+     "npc": "Hill Ursus",
+     "region": "Verteron",
+     "spawns": 50,
+     "zones": [
+      "Kraka Footpath"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 181,
+      "name": "Briskwind Shelter",
+      "teleport": 35
+     },
+     "level": 32,
+     "npc": "Ursus",
+     "region": "Altgard",
+     "spawns": 12,
+     "zones": [
+      "Battlescar Mound"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 114,
+      "name": "Gravekeeper Camp",
+      "teleport": 7
+     },
+     "level": 17,
+     "npc": "Ursus",
+     "region": "Altgard",
+     "spawns": 24,
+     "zones": [
+      "Silent Hill"
+     ]
+    }
+   ],
+   "genus": "fera",
+   "name": "Ursus",
+   "unreleased": false
+  },
+  "1043": {
+   "chests": [
+    {
+     "chance": "1.54%",
+     "name": "Pet Soul Chestt: Fera (Bound)"
+    }
+   ],
+   "drops": [],
+   "genus": "fera",
+   "name": "Elite Ursus",
+   "unreleased": false
+  },
+  "1044": {
+   "chests": [
+    {
+     "chance": "2.44%",
+     "name": "Pet Soul Chest: Cogni (Bound)"
+    }
+   ],
+   "drops": [],
+   "genus": "cogni",
+   "name": "Aultross's Doppelganger",
+   "unreleased": false
+  },
+  "1045": {
+   "chests": [
+    {
+     "chance": "1.54%",
+     "name": "Pet Soul Chestt: Fera (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 57,
+      "name": "Cantas Valley Sky Island",
+      "teleport": 8
+     },
+     "level": 13,
+     "npc": "Highland Sylphen",
+     "region": "Verteron",
+     "spawns": 9,
+     "zones": [
+      "Verteron"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 192,
+      "name": "Marsh Outpost",
+      "teleport": 9
+     },
+     "level": 14,
+     "npc": "Ellun River Sylphen",
+     "region": "Verteron",
+     "spawns": 10,
+     "zones": [
+      "Contaminated Marsh",
+      "Ellun River Marsh"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 93,
+      "name": "Hideout in Front of the Ruins",
+      "teleport": 14
+     },
+     "level": 18,
+     "npc": "Ellun River Sylphen",
+     "region": "Verteron",
+     "spawns": 71,
+     "zones": [
+      "Ellun River Midstream",
+      "Dundu's Rest"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 97,
+      "name": "Eastern Shugo Station",
+      "teleport": 28
+     },
+     "level": 26,
+     "npc": "Aberrant Sylphen",
+     "region": "Verteron",
+     "spawns": 14,
+     "zones": [
+      "Eastern Tolbas Forest"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 177,
+      "name": "Dawn Legion Temporary Outpost",
+      "teleport": 22
+     },
+     "level": 27,
+     "npc": "Ridge Sylphen",
+     "region": "Verteron",
+     "spawns": 28,
+     "zones": [
+      "Pilgrim's Ridge",
+      "Deserter Encampment"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 307,
+      "name": "Zumion Village",
+      "teleport": 36
+     },
+     "level": 32,
+     "npc": "Highland Sylphen",
+     "region": "Verteron",
+     "spawns": 92,
+     "zones": [
+      "Eastern Altamia Highland",
+      "Western Altamia Highland"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 260,
+      "name": "Battlescar Mound Clifftop",
+      "teleport": 38
+     },
+     "level": 32,
+     "npc": "Sylphen",
+     "region": "Altgard",
+     "spawns": 39,
+     "zones": [
+      "Battlescar Mound"
+     ]
+    }
+   ],
+   "genus": "fera",
+   "name": "Sylphen",
+   "unreleased": false
+  },
+  "1046": {
+   "chests": [
+    {
+     "chance": "1.54%",
+     "name": "Pet Soul Chestt: Fera (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 183,
+      "name": "Temporary Investigation Base",
+      "teleport": 4
+     },
+     "level": 10,
+     "npc": "Red Shell Mole",
+     "region": "Altgard",
+     "spawns": 132,
+     "zones": [
+      "Dredgion Crash Site"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 337,
+      "name": "Moslan Forest Cliff",
+      "teleport": 23
+     },
+     "level": 21,
+     "npc": "Withered Armadon",
+     "region": "Altgard",
+     "spawns": 17,
+     "zones": [
+      "Moslan Forest"
+     ]
+    }
+   ],
+   "genus": "fera",
+   "name": "Armadon",
+   "unreleased": false
+  },
+  "1047": {
+   "chests": [
+    {
+     "chance": "1.54%",
+     "name": "Pet Soul Chestt: Fera (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 117,
+      "name": "Cantas Valley Mushroom Tree Peak",
+      "teleport": 6
+     },
+     "level": 12,
+     "npc": "Splendent Armadon",
+     "region": "Verteron",
+     "spawns": 62,
+     "zones": [
+      "Eastern Cantas Valley"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 61,
+      "name": "Beast Hunter Campsite",
+      "teleport": 45
+     },
+     "level": 33,
+     "npc": "Highland Wild Armadon",
+     "region": "Verteron",
+     "spawns": 38,
+     "zones": [
+      "Southern Altamia Highland"
+     ]
+    }
+   ],
+   "genus": "fera",
+   "name": "Aberrant Armadon",
+   "unreleased": false
+  },
+  "1048": {
+   "chests": [
+    {
+     "chance": "2.08%",
+     "name": "Pet Soul Chest: Natura (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 189,
+      "name": "Collapsed Verteron Barrier Tower",
+      "teleport": 10
+     },
+     "level": 13,
+     "npc": "Marsh Vine Spirit",
+     "region": "Verteron",
+     "spawns": 25,
+     "zones": [
+      "Ellun River Marsh"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 236,
+      "name": "Illusion Oratory Entrance",
+      "teleport": 20
+     },
+     "level": 18,
+     "npc": "Contaminated Vine Spirit",
+     "region": "Verteron",
+     "spawns": 20,
+     "zones": [
+      "Ellun River Midstream"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 285,
+      "name": "Illusion Oratory Entrance",
+      "teleport": 20
+     },
+     "level": 27,
+     "npc": "Ridge Forest Spirit",
+     "region": "Verteron",
+     "spawns": 14,
+     "zones": [
+      "Pilgrim's Ridge"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 69,
+      "name": "Scar of the Wind",
+      "teleport": 40
+     },
+     "level": 33,
+     "npc": "Deep Canyon Forest Spirit",
+     "region": "Verteron",
+     "spawns": 15,
+     "zones": [
+      "Altamia Canyon"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 126,
+      "name": "Guide Rest Stop",
+      "teleport": 30
+     },
+     "level": 26,
+     "npc": "Forest Spirit",
+     "region": "Altgard",
+     "spawns": 26,
+     "zones": [
+      "Purifying Forest"
+     ]
+    }
+   ],
+   "genus": "natura",
+   "name": "Forest Spirit",
+   "unreleased": false
+  },
+  "1049": {
+   "chests": [
+    {
+     "chance": "2.08%",
+     "name": "Pet Soul Chest: Natura (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 111,
+      "name": "Hill of Purification",
+      "teleport": 42
+     },
+     "level": 36,
+     "npc": "Mutated Vine Bundle",
+     "region": "Verteron",
+     "spawns": 29,
+     "zones": [
+      "Contaminated Sanctum"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 139,
+      "name": "Altamia Highland Ruins",
+      "teleport": 43
+     },
+     "level": 37,
+     "npc": "Contaminated Vine Bundle",
+     "region": "Verteron",
+     "spawns": 30,
+     "zones": [
+      "Contaminated Sanctum"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 108,
+      "name": "Neglected Crematorium",
+      "teleport": 8
+     },
+     "level": 14,
+     "npc": "Condensed Specter",
+     "region": "Altgard",
+     "spawns": 25,
+     "zones": [
+      "Nameless Cemetery"
+     ]
+    }
+   ],
+   "genus": "natura",
+   "name": "Mutated Forest Spirit",
+   "unreleased": false
+  },
+  "1050": {
+   "chests": [
+    {
+     "chance": "2.08%",
+     "name": "Pet Soul Chest: Natura (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 190,
+      "name": "Pilgrim's Rest",
+      "teleport": 58
+     },
+     "level": 44,
+     "npc": "Red Stalk Gravi",
+     "region": "Verteron",
+     "spawns": 10,
+     "zones": [
+      "Garden of the Illusion God"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 206,
+      "name": "Wind Breeze Merchants HQ",
+      "teleport": 25
+     },
+     "level": 24,
+     "npc": "Tolbas Gravi",
+     "region": "Verteron",
+     "spawns": 16,
+     "zones": [
+      "Northern Tolbas Forest"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 167,
+      "name": "Faded Stump",
+      "teleport": 31
+     },
+     "level": 28,
+     "npc": "Pink Gravi",
+     "region": "Altgard",
+     "spawns": 77,
+     "zones": [
+      "Purifying Forest"
+     ]
+    }
+   ],
+   "genus": "natura",
+   "name": "Gravi",
+   "unreleased": false
+  },
+  "1051": {
+   "chests": [
+    {
+     "chance": "2.08%",
+     "name": "Pet Soul Chest: Natura (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 195,
+      "name": "Garden of the Illusion God West Observatory",
+      "teleport": 59
+     },
+     "level": 44,
+     "npc": "Illusion Magic Gravi",
+     "region": "Verteron",
+     "spawns": 10,
+     "zones": [
+      "Garden of the Illusion God"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 203,
+      "name": "Wind Breeze Merchants HQ",
+      "teleport": 25
+     },
+     "level": 24,
+     "npc": "Tolbas Magic Gravi",
+     "region": "Verteron",
+     "spawns": 16,
+     "zones": [
+      "Northern Tolbas Forest"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 142,
+      "name": "Healing Spring",
+      "teleport": 32
+     },
+     "level": 29,
+     "npc": "Purifying Forest Magic Gravi",
+     "region": "Altgard",
+     "spawns": 95,
+     "zones": [
+      "Purifying Forest"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 135,
+      "name": "Guide's Dwelling",
+      "teleport": 61
+     },
+     "level": 46,
+     "npc": "Unstable Gravi",
+     "region": "Altgard",
+     "spawns": 21,
+     "zones": [
+      "Spirit Isle"
+     ]
+    }
+   ],
+   "genus": "natura",
+   "name": "Magic Gravi",
+   "unreleased": false
+  },
+  "1052": {
+   "chests": [
+    {
+     "chance": "2.08%",
+     "name": "Pet Soul Chest: Natura (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 164,
+      "name": "Hideout in Front of the Ruins",
+      "teleport": 14
+     },
+     "level": 18,
+     "npc": "Ellun River Hill Gravi",
+     "region": "Verteron",
+     "spawns": 18,
+     "zones": [
+      "Ellun River Midstream"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 201,
+      "name": "Pilgrim's Rest",
+      "teleport": 58
+     },
+     "level": 44,
+     "npc": "Large Leaf Gravi",
+     "region": "Verteron",
+     "spawns": 10,
+     "zones": [
+      "Garden of the Illusion God"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 202,
+      "name": "Healing Spring",
+      "teleport": 32
+     },
+     "level": 30,
+     "npc": "Large Leaf Gravi",
+     "region": "Altgard",
+     "spawns": 30,
+     "zones": [
+      "Purifying Forest"
+     ]
+    }
+   ],
+   "genus": "natura",
+   "name": "Large Leaf Gravi",
+   "unreleased": false
+  },
+  "1053": {
+   "chests": [
+    {
+     "chance": "1.54%",
+     "name": "Pet Soul Chestt: Fera (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 215,
+      "name": "Scarlet Forest Observation Site",
+      "teleport": 55
+     },
+     "level": 41,
+     "npc": "Drana Mutated Potcrab",
+     "region": "Verteron",
+     "spawns": 26,
+     "zones": [
+      "Scarlet Forest"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 44,
+      "name": "Crimson Isle Outpost",
+      "teleport": 61
+     },
+     "level": 46,
+     "npc": "Eternal Moss Crab",
+     "region": "Verteron",
+     "spawns": 7,
+     "zones": [
+      "Crimson Isle"
+     ]
+    }
+   ],
+   "genus": "fera",
+   "name": "Aberrant Potcrab",
+   "unreleased": false
+  },
+  "1054": {
+   "chests": [
+    {
+     "chance": "2.44%",
+     "name": "Pet Soul Chest: Cogni (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 312,
+      "name": "Battlescar Mound Clifftop",
+      "teleport": 38
+     },
+     "level": 32,
+     "npc": "Mumu Watcher",
+     "region": "Altgard",
+     "spawns": 61,
+     "zones": [
+      "Dranactus"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 273,
+      "name": "Steel Hammer Merchants HQ",
+      "teleport": 46
+     },
+     "level": 40,
+     "npc": "Gribade Mumu Warrior",
+     "region": "Altgard",
+     "spawns": 22,
+     "zones": [
+      "Eastern Gribade Highland"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 251,
+      "name": "Kumrica's Cellar",
+      "teleport": 57
+     },
+     "level": 41,
+     "npc": "Mumu Watcher",
+     "region": "Altgard",
+     "spawns": 70,
+     "zones": [
+      "Black Claw Village"
+     ]
+    }
+   ],
+   "genus": "cogni",
+   "name": "Mumu Warrior",
+   "unreleased": false
+  },
+  "1055": {
+   "chests": [
+    {
+     "chance": "1.54%",
+     "name": "Pet Soul Chestt: Fera (Bound)"
+    }
+   ],
+   "drops": [],
+   "genus": "fera",
+   "name": "Grave Rat",
+   "unreleased": false
+  },
+  "1056": {
+   "chests": [
+    {
+     "chance": "2.17%",
+     "name": "Pet Soul Chest: Varian (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 189,
+      "name": "Drana Transport Hub",
+      "teleport": 54
+     },
+     "level": 41,
+     "npc": "Drana Processing Maintenance Machine",
+     "region": "Verteron",
+     "spawns": 31,
+     "zones": [
+      "Drana Processing Area"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 399,
+      "name": "Nahid Disposal Plant",
+      "teleport": 57
+     },
+     "level": 45,
+     "npc": "Intruder Seeker",
+     "region": "Verteron",
+     "spawns": 11,
+     "zones": [
+      "Nahid Brigade Fortress"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 145,
+      "name": "Temporary Retreat",
+      "teleport": 13
+     },
+     "level": 19,
+     "npc": "Outpost Probe",
+     "region": "Altgard",
+     "spawns": 26,
+     "zones": [
+      "Sanctum Outpost"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 157,
+      "name": "Watcher's Tent",
+      "teleport": 16
+     },
+     "level": 20,
+     "npc": "Drakan Probe",
+     "region": "Altgard",
+     "spawns": 24,
+     "zones": [
+      "Tranein Pond",
+      "Tranein Highland"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 352,
+      "name": "Battlescar Mound Clifftop",
+      "teleport": 38
+     },
+     "level": 32,
+     "npc": "Drana Processing Maintenance Machine",
+     "region": "Altgard",
+     "spawns": 15,
+     "zones": [
+      "Dranactus"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 915,
+      "name": "Kumrica's Cellar",
+      "teleport": 57
+     },
+     "level": 43,
+     "npc": "Lagta Brigade Seeker",
+     "region": "Altgard",
+     "spawns": 8,
+     "zones": [
+      "Altgard"
+     ]
+    }
+   ],
+   "genus": "varian",
+   "name": "Drakan Probe",
+   "unreleased": false
+  },
+  "1057": {
+   "chests": [
+    {
+     "chance": "1.54%",
+     "name": "Pet Soul Chestt: Fera (Bound)"
+    }
+   ],
+   "drops": [],
+   "genus": "fera",
+   "name": "Coradon",
+   "unreleased": false
+  },
+  "1058": {
+   "chests": [
+    {
+     "chance": "2.08%",
+     "name": "Pet Soul Chest: Natura (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "level": 63,
+     "npc": "Black Smoke Murute",
+     "region": "Fire Temple",
+     "spawns": 1,
+     "zones": [
+      "Burning Temple"
+     ]
+    },
+    {
+     "chance": "100%",
+     "level": 37,
+     "npc": "Black Smoke Murute",
+     "region": "Fire Temple",
+     "spawns": 1,
+     "zones": [
+      "Burning Temple"
+     ]
+    },
+    {
+     "chance": "100%",
+     "level": 74,
+     "npc": "Black Smoke Murute",
+     "region": "Fire Temple",
+     "spawns": 1,
+     "zones": [
+      "Burning Temple"
+     ]
+    }
+   ],
+   "genus": "natura",
+   "name": "Black Smoke Murute",
+   "unreleased": false
+  },
+  "1059": {
+   "chests": [
+    {
+     "chance": "1.54%",
+     "name": "Pet Soul Chestt: Fera (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 231,
+      "name": "Zumion Statue",
+      "teleport": 24
+     },
+     "level": 27,
+     "npc": "Giant Stripe Bee",
+     "region": "Verteron",
+     "spawns": 14,
+     "zones": [
+      "Pilgrim's Ridge"
+     ]
+    }
+   ],
+   "genus": "fera",
+   "name": "Giant Bee",
+   "unreleased": false
+  },
+  "1060": {
+   "chests": [
+    {
+     "chance": "1.54%",
+     "name": "Pet Soul Chestt: Fera (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 100,
+      "name": "Collapsed Verteron Barrier Tower",
+      "teleport": 10
+     },
+     "level": 14,
+     "npc": "Coastal Starturtle",
+     "region": "Verteron",
+     "spawns": 29,
+     "zones": [
+      "Ellun River Marsh",
+      "Collapsed Verteron Barrier Tower"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 193,
+      "name": "Kraka Footpath Campsite",
+      "teleport": 48
+     },
+     "level": 39,
+     "npc": "Pond Starturtle",
+     "region": "Verteron",
+     "spawns": 33,
+     "zones": [
+      "Kraka Footpath"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 1929,
+      "name": "Aullaeu Village Sky Island",
+      "teleport": 35
+     },
+     "level": 49,
+     "npc": "Eternal Starturtle",
+     "region": "Verteron",
+     "spawns": 28,
+     "zones": [
+      "Eternal Isle"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 429,
+      "name": "Hidden Cave",
+      "teleport": 36
+     },
+     "level": 32,
+     "npc": "Beach Starturtle",
+     "region": "Altgard",
+     "spawns": 9,
+     "zones": [
+      "Dranactus"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 238,
+      "name": "Abandoned Campsite",
+      "teleport": 49
+     },
+     "level": 37,
+     "npc": "Starturtle",
+     "region": "Altgard",
+     "spawns": 23,
+     "zones": [
+      "Western Gribade Highland"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 1690,
+      "name": "Remote Island",
+      "teleport": 15
+     },
+     "level": 49,
+     "npc": "Starturtle",
+     "region": "Altgard",
+     "spawns": 25,
+     "zones": [
+      "Immortal Isle"
+     ]
+    }
+   ],
+   "genus": "fera",
+   "name": "Starturtle",
+   "unreleased": false
+  },
+  "1061": {
+   "chests": [
+    {
+     "chance": "2.17%",
+     "name": "Pet Soul Chest: Varian (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 164,
+      "name": "Healing Spring",
+      "teleport": 32
+     },
+     "level": 29,
+     "npc": "Unruly Slime",
+     "region": "Altgard",
+     "spawns": 10,
+     "zones": [
+      "Purifying Forest"
+     ]
+    }
+   ],
+   "genus": "varian",
+   "name": "Slime",
+   "unreleased": false
+  },
+  "1062": {
+   "chests": [
+    {
+     "chance": "2.17%",
+     "name": "Pet Soul Chest: Varian (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 125,
+      "name": "Marsh Outpost",
+      "teleport": 9
+     },
+     "level": 13,
+     "npc": "Marsh Slime",
+     "region": "Verteron",
+     "spawns": 80,
+     "zones": [
+      "Ellun River Marsh"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 155,
+      "name": "Altamia Highland Ruins",
+      "teleport": 43
+     },
+     "level": 36,
+     "npc": "Contaminated Poison Slime",
+     "region": "Verteron",
+     "spawns": 17,
+     "zones": [
+      "Contaminated Sanctum"
+     ]
+    },
+    {
+     "bySide": {
+      "asmodian": {
+       "m": 919,
+       "name": "Latesran Eastern Root",
+       "teleport": 1
+      },
+      "elyos": {
+       "m": 831,
+       "name": "Latesran Western Root",
+       "teleport": 1
+      }
+     },
+     "chance": "100%",
+     "kibelisk": {
+      "m": 831,
+      "name": "Latesran Western Root",
+      "teleport": 1
+     },
+     "level": 46,
+     "npc": "Abyss Sulfur Slime",
+     "region": "Chaotic Lower Reshanta",
+     "spawns": 69,
+     "zones": [
+      "Sulfur Tree Island - Branding Island",
+      "Sulfur Tree Island - River of Rotten Sap",
+      "Sulfur Tree Island - Sulfur Swamp"
+     ]
+    }
+   ],
+   "genus": "varian",
+   "name": "Contaminated Slime",
+   "unreleased": false
+  },
+  "1063": {
+   "chests": [
+    {
+     "chance": "2.17%",
+     "name": "Pet Soul Chest: Varian (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 235,
+      "name": "Briskwind Shelter",
+      "teleport": 35
+     },
+     "level": 32,
+     "npc": "Vigilant Oculazen",
+     "region": "Altgard",
+     "spawns": 19,
+     "zones": [
+      "Dranactus"
+     ]
+    }
+   ],
+   "genus": "varian",
+   "name": "Vigilant Oculazen",
+   "unreleased": false
+  },
+  "1064": {
+   "chests": [
+    {
+     "chance": "2.17%",
+     "name": "Pet Soul Chest: Varian (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 200,
+      "name": "Laborer's Rest Stop",
+      "teleport": 53
+     },
+     "level": 40,
+     "npc": "Labor Manager Oculazen",
+     "region": "Verteron",
+     "spawns": 47,
+     "zones": [
+      "Drana Cultivation Area",
+      "Drana Processing Area"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 213,
+      "name": "Collapsed Hall of Fame",
+      "teleport": 58
+     },
+     "level": 44,
+     "npc": "Oculazen",
+     "region": "Altgard",
+     "spawns": 16,
+     "zones": [
+      "Impetusium Square"
+     ]
+    }
+   ],
+   "genus": "varian",
+   "name": "Oculazen",
+   "unreleased": false
+  },
+  "1065": {
+   "chests": [
+    {
+     "chance": "2.44%",
+     "name": "Pet Soul Chest: Cogni (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 119,
+      "name": "Eastern Shugo Station",
+      "teleport": 28
+     },
+     "level": 26,
+     "npc": "Biruta Wanderer",
+     "region": "Verteron",
+     "spawns": 9,
+     "zones": [
+      "Eastern Tolbas Forest"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 128,
+      "name": "Gravekeeper Camp",
+      "teleport": 7
+     },
+     "level": 17,
+     "npc": "Biruta Wanderer",
+     "region": "Altgard",
+     "spawns": 4,
+     "zones": [
+      "Nameless Cemetery"
+     ]
+    }
+   ],
+   "genus": "cogni",
+   "name": "Biruta",
+   "unreleased": false
+  },
+  "1066": {
+   "chests": [
+    {
+     "chance": "1.54%",
+     "name": "Pet Soul Chestt: Fera (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 220,
+      "name": "Fang Hideout",
+      "teleport": 10
+     },
+     "level": 17,
+     "npc": "Faded Papis",
+     "region": "Altgard",
+     "spawns": 41,
+     "zones": [
+      "Silent Hill",
+      "Nameless Cemetery",
+      "Sanctum Outpost"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 113,
+      "name": "Forest Hideout",
+      "teleport": 21
+     },
+     "level": 21,
+     "npc": "Faded Papis",
+     "region": "Altgard",
+     "spawns": 23,
+     "zones": [
+      "Moslan Forest"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 133,
+      "name": "Uruthumheim Cliff",
+      "teleport": 28
+     },
+     "level": 24,
+     "npc": "Faded Papis",
+     "region": "Altgard",
+     "spawns": 18,
+     "zones": [
+      "Uruthumheim"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 246,
+      "name": "Watcher's Tent",
+      "teleport": 16
+     },
+     "level": 19,
+     "npc": "Faded Papis",
+     "region": "Altgard",
+     "spawns": 98,
+     "zones": [
+      "Tranein Highland",
+      "Sanctum Outpost",
+      "Tranein Pond",
+      "Munin's Bridge"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 42,
+      "name": "Purifying Forest Sunny Hill",
+      "teleport": 33
+     },
+     "level": 33,
+     "npc": "Faded Papis",
+     "region": "Altgard",
+     "spawns": 16,
+     "zones": [
+      "Basfelt Ruins",
+      "Flauke Legion Outpost"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 96,
+      "name": "Coastal Camp",
+      "teleport": 4
+     },
+     "level": 10,
+     "npc": "Gentle Papis",
+     "region": "Verteron",
+     "spawns": 117,
+     "zones": [
+      "Western Cantas Valley",
+      "Eastern Cantas Valley"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 99,
+      "name": "Pamos Farm",
+      "teleport": 15
+     },
+     "level": 18,
+     "npc": "Ellun River Papis",
+     "region": "Verteron",
+     "spawns": 86,
+     "zones": [
+      "Ellun River Midstream",
+      "Miros Post",
+      "Anguish Hill"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 190,
+      "name": "Garden of the Illusion God West Observatory",
+      "teleport": 59
+     },
+     "level": 44,
+     "npc": "Garden Papis",
+     "region": "Verteron",
+     "spawns": 28,
+     "zones": [
+      "Garden of the Illusion God"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 62,
+      "name": "Amunta's Hideout",
+      "teleport": 50
+     },
+     "level": 40,
+     "npc": "Faded Papis",
+     "region": "Altgard",
+     "spawns": 33,
+     "zones": [
+      "Eastern Gribade Highland"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 253,
+      "name": "Safe Haven",
+      "teleport": 1
+     },
+     "level": 11,
+     "npc": "Faded Papis",
+     "region": "Altgard",
+     "spawns": 74,
+     "zones": [
+      "Safe Haven",
+      "Nameless Cemetery"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 157,
+      "name": "Fang Hideout",
+      "teleport": 10
+     },
+     "level": 18,
+     "npc": "Faded Papis",
+     "region": "Altgard",
+     "spawns": 13,
+     "zones": [
+      "Sanctum Outpost",
+      "Tranein Highland"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 132,
+      "name": "Idun's Lake",
+      "teleport": 54
+     },
+     "level": 40,
+     "npc": "Faded Papis",
+     "region": "Altgard",
+     "spawns": 56,
+     "zones": [
+      "Southern Gribade Highland",
+      "Western Gribade Highland"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 113,
+      "name": "Gribade Highland Crossroad",
+      "teleport": 47
+     },
+     "level": 34,
+     "npc": "Faded Papis",
+     "region": "Altgard",
+     "spawns": 24,
+     "zones": [
+      "Mahindel River",
+      "Mahindel Cliff"
+     ]
+    }
+   ],
+   "genus": "fera",
+   "name": "Papis",
+   "unreleased": false
+  },
+  "1067": {
+   "chests": [
+    {
+     "chance": "1.54%",
+     "name": "Pet Soul Chestt: Fera (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 145,
+      "name": "Hill of Purification",
+      "teleport": 42
+     },
+     "level": 36,
+     "npc": "Contaminated Scorpion",
+     "region": "Verteron",
+     "spawns": 46,
+     "zones": [
+      "Contaminated Sanctum"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 189,
+      "name": "Gribade Highland Crossroad",
+      "teleport": 47
+     },
+     "level": 35,
+     "npc": "Ore Scorpion",
+     "region": "Altgard",
+     "spawns": 19,
+     "zones": [
+      "Fafnite Deposit"
+     ]
+    }
+   ],
+   "genus": "fera",
+   "name": "Scorpion",
+   "unreleased": false
+  },
+  "1068": {
+   "chests": [
+    {
+     "chance": "2.17%",
+     "name": "Pet Soul Chest: Varian (Bound)"
+    }
+   ],
+   "drops": [],
+   "genus": "varian",
+   "name": "Krao Test Subject",
+   "unreleased": false
+  },
+  "1069": {
+   "chests": [
+    {
+     "chance": "2.08%",
+     "name": "Pet Soul Chest: Natura (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 289,
+      "name": "Nahid Brigade Fortress Hill",
+      "teleport": 51
+     },
+     "level": 40,
+     "npc": "Hill Stone Spirit",
+     "region": "Verteron",
+     "spawns": 38,
+     "zones": [
+      "Kraka Footpath"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 161,
+      "name": "Guide Rest Stop",
+      "teleport": 30
+     },
+     "level": 26,
+     "npc": "Faded Stone Spirit",
+     "region": "Altgard",
+     "spawns": 5,
+     "zones": [
+      "Purifying Forest"
+     ]
+    },
+    {
+     "bySide": {
+      "asmodian": {
+       "m": 717,
+       "name": "Latesran Eastern Root",
+       "teleport": 1
+      },
+      "elyos": {
+       "m": 1002,
+       "name": "Latesran Western Root",
+       "teleport": 1
+      }
+     },
+     "chance": "100%",
+     "kibelisk": {
+      "m": 717,
+      "name": "Latesran Eastern Root",
+      "teleport": 1
+     },
+     "level": 48,
+     "npc": "Abyss Rock Spirit",
+     "region": "Chaotic Lower Reshanta",
+     "spawns": 10,
+     "zones": [
+      "Archipelago of Siel's Wings - Grave of Steel"
+     ]
+    }
+   ],
+   "genus": "natura",
+   "name": "Stone Spirit",
+   "unreleased": false
+  },
+  "1071": {
+   "chests": [
+    {
+     "chance": "1.54%",
+     "name": "Pet Soul Chestt: Fera (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 122,
+      "name": "Creion Campsite",
+      "teleport": 5
+     },
+     "level": 12,
+     "npc": "Drana Cadaver Insectoid",
+     "region": "Altgard",
+     "spawns": 16,
+     "zones": [
+      "Dredgion Crash Site"
+     ]
+    }
+   ],
+   "genus": "fera",
+   "name": "Cadaver Insectoid",
+   "unreleased": false
+  },
+  "1072": {
+   "chests": [
+    {
+     "chance": "1.54%",
+     "name": "Pet Soul Chestt: Fera (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 244,
+      "name": "Silent Hill Mushroom Rock",
+      "teleport": 11
+     },
+     "level": 18,
+     "npc": "Tog",
+     "region": "Altgard",
+     "spawns": 30,
+     "zones": [
+      "Silent Hill",
+      "Sanctum Outpost",
+      "Sanctum Outskirts Watch"
+     ]
+    }
+   ],
+   "genus": "fera",
+   "name": "Tog",
+   "unreleased": false
+  },
+  "1073": {
+   "chests": [
+    {
+     "chance": "2.08%",
+     "name": "Pet Soul Chest: Natura (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 215,
+      "name": "Wind Breeze Merchants HQ",
+      "teleport": 25
+     },
+     "level": 24,
+     "npc": "Tolbas Nepenthes",
+     "region": "Verteron",
+     "spawns": 18,
+     "zones": [
+      "Northern Tolbas Forest"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 435,
+      "name": "Canyon Sky Island",
+      "teleport": 39
+     },
+     "level": 35,
+     "npc": "Scarlet Highland Nepenthes",
+     "region": "Verteron",
+     "spawns": 5,
+     "zones": [
+      "Eastern Altamia Highland"
+     ]
+    },
+    {
+     "bySide": {
+      "asmodian": {
+       "m": 907,
+       "name": "Latesran Eastern Root",
+       "teleport": 1
+      },
+      "elyos": {
+       "m": 908,
+       "name": "Latesran Western Root",
+       "teleport": 1
+      }
+     },
+     "chance": "100%",
+     "kibelisk": {
+      "m": 907,
+      "name": "Latesran Eastern Root",
+      "teleport": 1
+     },
+     "level": 46,
+     "npc": "Abyss Nasty Nepenthes",
+     "region": "Chaotic Lower Reshanta",
+     "spawns": 67,
+     "zones": [
+      "Archipelago of Siel's Wings - Siel's Left Wing",
+      "Archipelago of Siel's Wings - Siel's Right Wing"
+     ]
+    }
+   ],
+   "genus": "natura",
+   "name": "Nepenthes",
+   "unreleased": false
+  },
+  "1074": {
+   "chests": [
+    {
+     "chance": "2.44%",
+     "name": "Pet Soul Chest: Cogni (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 95,
+      "name": "Aullaeu Village Border",
+      "teleport": 29
+     },
+     "level": 26,
+     "npc": "Tolbas Kuru Worker",
+     "region": "Verteron",
+     "spawns": 45,
+     "zones": [
+      "Eastern Tolbas Forest"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 156,
+      "name": "Abandoned Wind Breeze Office",
+      "teleport": 32
+     },
+     "level": 28,
+     "npc": "Harsh Kuru Tinkerer",
+     "region": "Verteron",
+     "spawns": 18,
+     "zones": [
+      "Forest of Exiles"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 1687,
+      "name": "Aullaeu Village Sky Island",
+      "teleport": 35
+     },
+     "level": 50,
+     "npc": "Eternal Kuru Worker",
+     "region": "Verteron",
+     "spawns": 20,
+     "zones": [
+      "Eternal Isle"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 1660,
+      "name": "Aullaeu Village Sky Island",
+      "teleport": 35
+     },
+     "level": 50,
+     "npc": "Eternal Kuru Worker",
+     "region": "Verteron",
+     "spawns": 93,
+     "zones": [
+      "Eternal Isle"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 1268,
+      "name": "Remote Island",
+      "teleport": 15
+     },
+     "level": 50,
+     "npc": "Kuru Worker",
+     "region": "Altgard",
+     "spawns": 93,
+     "zones": [
+      "Immortal Isle"
+     ]
+    }
+   ],
+   "genus": "cogni",
+   "name": "Kuru Worker",
+   "unreleased": false
+  },
+  "1075": {
+   "chests": [
+    {
+     "chance": "2.44%",
+     "name": "Pet Soul Chest: Cogni (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 109,
+      "name": "Aullaeu Village Border",
+      "teleport": 29
+     },
+     "level": 26,
+     "npc": "Tolbas Kuru Tinkerer",
+     "region": "Verteron",
+     "spawns": 40,
+     "zones": [
+      "Eastern Tolbas Forest"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 1620,
+      "name": "Aullaeu Village Sky Island",
+      "teleport": 35
+     },
+     "level": 50,
+     "npc": "Eternal Kuru Tinkerer",
+     "region": "Verteron",
+     "spawns": 23,
+     "zones": [
+      "Eternal Isle"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 1660,
+      "name": "Aullaeu Village Sky Island",
+      "teleport": 35
+     },
+     "level": 50,
+     "npc": "Eternal Kuru Tinkerer",
+     "region": "Verteron",
+     "spawns": 93,
+     "zones": [
+      "Eternal Isle"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 1262,
+      "name": "Remote Island",
+      "teleport": 15
+     },
+     "level": 50,
+     "npc": "Kuru Tinkerer",
+     "region": "Altgard",
+     "spawns": 28,
+     "zones": [
+      "Immortal Isle"
+     ]
+    }
+   ],
+   "genus": "cogni",
+   "name": "Kuru Tinkerer",
+   "unreleased": false
+  },
+  "1077": {
+   "chests": [
+    {
+     "chance": "2.17%",
+     "name": "Pet Soul Chest: Varian (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "level": 45,
+     "npc": "Enhanced Harcon",
+     "region": "Krao Cave",
+     "spawns": 1,
+     "zones": [
+      "Red Cavity"
+     ]
+    },
+    {
+     "chance": "100%",
+     "level": 22,
+     "npc": "Enhanced Harcon",
+     "region": "Krao Cave",
+     "spawns": 1,
+     "zones": [
+      "Red Cavity"
+     ]
+    },
+    {
+     "chance": "100%",
+     "level": 70,
+     "npc": "Enhanced Harcon",
+     "region": "Krao Cave",
+     "spawns": 1,
+     "zones": [
+      "Red Cavity"
+     ]
+    }
+   ],
+   "genus": "varian",
+   "name": "Harcon",
+   "unreleased": false
+  },
+  "1078": {
+   "chests": [
+    {
+     "chance": "2.44%",
+     "name": "Pet Soul Chest: Cogni (Bound)"
+    }
+   ],
+   "drops": [],
+   "genus": "cogni",
+   "name": "Urugugu Brawler",
+   "unreleased": false
+  },
+  "1079": {
+   "chests": [
+    {
+     "chance": "2.08%",
+     "name": "Pet Soul Chest: Natura (Bound)"
+    }
+   ],
+   "drops": [],
+   "genus": "natura",
+   "name": "Ultimate Wind Spirit",
+   "unreleased": false
+  },
+  "1080": {
+   "chests": [
+    {
+     "chance": "2.44%",
+     "name": "Pet Soul Chest: Cogni (Bound)"
+    }
+   ],
+   "drops": [],
+   "genus": "cogni",
+   "name": "Sentinel K'nash",
+   "unreleased": false
+  },
+  "1081": {
+   "chests": [
+    {
+     "chance": "2.08%",
+     "name": "Pet Soul Chest: Natura (Bound)"
+    }
+   ],
+   "drops": [],
+   "genus": "natura",
+   "name": "Dionae",
+   "unreleased": false
+  },
+  "1082": {
+   "chests": [
+    {
+     "chance": "2.08%",
+     "name": "Pet Soul Chest: Natura (Bound)"
+    }
+   ],
+   "drops": [],
+   "genus": "natura",
+   "name": "Ultimate Fire Spirit",
+   "unreleased": false
+  },
+  "1083": {
+   "chests": [
+    {
+     "chance": "1.54%",
+     "name": "Pet Soul Chestt: Fera (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "bySide": {
+      "asmodian": {
+       "m": 915,
+       "name": "Latesran Eastern Root",
+       "teleport": 1
+      },
+      "elyos": {
+       "m": 906,
+       "name": "Latesran Western Root",
+       "teleport": 1
+      }
+     },
+     "chance": "100%",
+     "kibelisk": {
+      "m": 906,
+      "name": "Latesran Western Root",
+      "teleport": 1
+     },
+     "level": 46,
+     "npc": "Abyss Odyle Mutated Insectoid",
+     "region": "Chaotic Lower Reshanta",
+     "spawns": 111,
+     "zones": [
+      "Archipelago of Siel's Wings - Siel's Left Wing",
+      "Archipelago of Siel's Wings - Siel's Right Wing"
+     ]
+    }
+   ],
+   "genus": "fera",
+   "name": "Spider",
+   "unreleased": false
+  },
+  "1084": {
+   "chests": [
+    {
+     "chance": "2.17%",
+     "name": "Pet Soul Chest: Varian (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 114,
+      "name": "Western Cantas Valley Camp",
+      "teleport": 3
+     },
+     "level": 10,
+     "npc": "Hard Kalgolem",
+     "region": "Verteron",
+     "spawns": 84,
+     "zones": [
+      "Western Cantas Valley"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 193,
+      "name": "Altamia Highland Ruins",
+      "teleport": 43
+     },
+     "level": 34,
+     "npc": "Ashen Kalgolem",
+     "region": "Verteron",
+     "spawns": 30,
+     "zones": [
+      "Destroyed Temple Site"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 182,
+      "name": "Faded Stump",
+      "teleport": 31
+     },
+     "level": 29,
+     "npc": "Angry Kalgolem",
+     "region": "Altgard",
+     "spawns": 27,
+     "zones": [
+      "Purifying Forest"
+     ]
+    },
+    {
+     "bySide": {
+      "asmodian": {
+       "m": 749,
+       "name": "Latesran Eastern Root",
+       "teleport": 1
+      },
+      "elyos": {
+       "m": 785,
+       "name": "Latesran Western Root",
+       "teleport": 1
+      }
+     },
+     "chance": "100%",
+     "kibelisk": {
+      "m": 749,
+      "name": "Latesran Eastern Root",
+      "teleport": 1
+     },
+     "level": 48,
+     "npc": "Root Kalgolem",
+     "region": "Chaotic Lower Reshanta",
+     "spawns": 9,
+     "zones": [
+      "Reshanta's Root"
+     ]
+    }
+   ],
+   "genus": "varian",
+   "name": "Kalgolem",
+   "unreleased": false
+  },
+  "1086": {
+   "chests": [
+    {
+     "chance": "2.08%",
+     "name": "Pet Soul Chest: Natura (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 78,
+      "name": "Eastern Cantas Valley Campsite",
+      "teleport": 5
+     },
+     "level": 12,
+     "npc": "Red Cap Fungen",
+     "region": "Verteron",
+     "spawns": 56,
+     "zones": [
+      "Eastern Cantas Valley"
+     ]
+    }
+   ],
+   "genus": "natura",
+   "name": "Fungen",
+   "unreleased": false
+  },
+  "1087": {
+   "chests": [
+    {
+     "chance": "2.17%",
+     "name": "Pet Soul Chest: Varian (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 153,
+      "name": "Aullaeu Village Border",
+      "teleport": 29
+     },
+     "level": 27,
+     "npc": "Pino Worker",
+     "region": "Verteron",
+     "spawns": 6,
+     "zones": [
+      "Aullaeu Village"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 186,
+      "name": "Aullaeu Village Border",
+      "teleport": 29
+     },
+     "level": 27,
+     "npc": "Pino Laborer",
+     "region": "Verteron",
+     "spawns": 6,
+     "zones": [
+      "Aullaeu Village"
+     ]
+    }
+   ],
+   "genus": "varian",
+   "name": "Pino",
+   "unreleased": false
+  },
+  "1088": {
+   "chests": [
+    {
+     "chance": "2.17%",
+     "name": "Pet Soul Chest: Varian (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 267,
+      "name": "Zumion Temple Pilgrimage Path",
+      "teleport": 23
+     },
+     "level": 28,
+     "npc": "Harsh Pino Worker",
+     "region": "Verteron",
+     "spawns": 22,
+     "zones": [
+      "Aullaeu Village"
+     ]
+    }
+   ],
+   "genus": "varian",
+   "name": "Pino Worker",
+   "unreleased": false
+  },
+  "1089": {
+   "chests": [
+    {
+     "chance": "1.54%",
+     "name": "Pet Soul Chestt: Fera (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 145,
+      "name": "Hill of Purification",
+      "teleport": 42
+     },
+     "level": 36,
+     "npc": "Yellow-Tailed Skama",
+     "region": "Verteron",
+     "spawns": 30,
+     "zones": [
+      "Contaminated Sanctum"
+     ]
+    },
+    {
+     "bySide": {
+      "asmodian": {
+       "m": 943,
+       "name": "Latesran Eastern Root",
+       "teleport": 1
+      },
+      "elyos": {
+       "m": 773,
+       "name": "Latesran Western Root",
+       "teleport": 1
+      }
+     },
+     "chance": "100%",
+     "kibelisk": {
+      "m": 773,
+      "name": "Latesran Western Root",
+      "teleport": 1
+     },
+     "level": 46,
+     "npc": "Abyss Sulfur Skama",
+     "region": "Chaotic Lower Reshanta",
+     "spawns": 37,
+     "zones": [
+      "Sulfur Tree Island - River of Rotten Sap",
+      "Sulfur Tree Island - Branding Island"
+     ]
+    }
+   ],
+   "genus": "fera",
+   "name": "Aberrant Skama",
+   "unreleased": false
+  },
+  "1090": {
+   "chests": [
+    {
+     "chance": "2.08%",
+     "name": "Pet Soul Chest: Natura (Bound)"
+    }
+   ],
+   "drops": [],
+   "genus": "natura",
+   "name": "Ultimate Water Spirit",
+   "unreleased": false
+  },
+  "1091": {
+   "chests": [
+    {
+     "chance": "2.08%",
+     "name": "Pet Soul Chest: Natura (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "level": 63,
+     "npc": "Red Spark Ignus",
+     "region": "Fire Temple",
+     "spawns": 1,
+     "zones": [
+      "Burning Temple"
+     ]
+    },
+    {
+     "chance": "100%",
+     "level": 37,
+     "npc": "Red Spark Ignus",
+     "region": "Fire Temple",
+     "spawns": 1,
+     "zones": [
+      "Burning Temple"
+     ]
+    },
+    {
+     "chance": "100%",
+     "level": 74,
+     "npc": "Red Spark Ignus",
+     "region": "Fire Temple",
+     "spawns": 1,
+     "zones": [
+      "Burning Temple"
+     ]
+    }
+   ],
+   "genus": "natura",
+   "name": "Red Spark Ignus",
+   "unreleased": false
+  },
+  "1092": {
+   "chests": [
+    {
+     "chance": "2.08%",
+     "name": "Pet Soul Chest: Natura (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 125,
+      "name": "Canyon Campsite",
+      "teleport": 38
+     },
+     "level": 33,
+     "npc": "Air Spirit",
+     "region": "Verteron",
+     "spawns": 6,
+     "zones": [
+      "Altamia Canyon"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 1799,
+      "name": "Aullaeu Village Sky Island",
+      "teleport": 35
+     },
+     "level": 51,
+     "npc": "Eternal Wind Spirit",
+     "region": "Verteron",
+     "spawns": 10,
+     "zones": [
+      "Eternal Isle"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 118,
+      "name": "Guide Rest Stop",
+      "teleport": 30
+     },
+     "level": 26,
+     "npc": "Soft Breeze Spirit",
+     "region": "Altgard",
+     "spawns": 95,
+     "zones": [
+      "Purifying Forest"
+     ]
+    }
+   ],
+   "genus": "natura",
+   "name": "Lesser Wind Spirit",
+   "unreleased": false
+  },
+  "1093": {
+   "chests": [
+    {
+     "chance": "2.44%",
+     "name": "Pet Soul Chest: Cogni (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "level": 45,
+     "npc": "Phantasmal Lakshmi",
+     "region": "Draupnir",
+     "spawns": 1,
+     "zones": [
+      "Phantasmal Sky"
+     ]
+    },
+    {
+     "chance": "100%",
+     "level": 45,
+     "npc": "Phantasmal Lakshmi",
+     "region": "Draupnir",
+     "spawns": 1,
+     "zones": [
+      "Phantasmal Sky"
+     ]
+    },
+    {
+     "chance": "100%",
+     "level": 70,
+     "npc": "Phantasmal Lakshmi",
+     "region": "Draupnir",
+     "spawns": 1,
+     "zones": [
+      "Phantasmal Sky"
+     ]
+    }
+   ],
+   "genus": "cogni",
+   "name": "Phantasmal Lakshmi",
+   "unreleased": false
+  },
+  "1094": {
+   "chests": [
+    {
+     "chance": "2.08%",
+     "name": "Pet Soul Chest: Natura (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 209,
+      "name": "Garden of the Illusion God West Observatory",
+      "teleport": 59
+     },
+     "level": 44,
+     "npc": "Wandering Wind Spirit",
+     "region": "Verteron",
+     "spawns": 17,
+     "zones": [
+      "Garden of the Illusion God"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 1797,
+      "name": "Aullaeu Village Sky Island",
+      "teleport": 35
+     },
+     "level": 51,
+     "npc": "Violent Wind Spirit",
+     "region": "Verteron",
+     "spawns": 1,
+     "zones": [
+      "Eternal Isle"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 1550,
+      "name": "Remote Island",
+      "teleport": 15
+     },
+     "level": 51,
+     "npc": "Immortal Wind Spirit",
+     "region": "Altgard",
+     "spawns": 10,
+     "zones": [
+      "Immortal Isle"
+     ]
+    }
+   ],
+   "genus": "natura",
+   "name": "Intermediate Wind Spirit",
+   "unreleased": false
+  },
+  "1095": {
+   "chests": [
+    {
+     "chance": "2.08%",
+     "name": "Pet Soul Chest: Natura (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 194,
+      "name": "Garden of the Illusion God West Observatory",
+      "teleport": 59
+     },
+     "level": 45,
+     "npc": "Brisk Spirit",
+     "region": "Verteron",
+     "spawns": 5,
+     "zones": [
+      "Garden of the Illusion God"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 118,
+      "name": "Guide Rest Stop",
+      "teleport": 30
+     },
+     "level": 26,
+     "npc": "Whirlwind Spirit",
+     "region": "Altgard",
+     "spawns": 87,
+     "zones": [
+      "Purifying Forest"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 1458,
+      "name": "Remote Island",
+      "teleport": 15
+     },
+     "level": 51,
+     "npc": "Immortal Wind Spirit Guardian",
+     "region": "Altgard",
+     "spawns": 6,
+     "zones": [
+      "Immortal Isle"
+     ]
+    }
+   ],
+   "genus": "natura",
+   "name": "Superior Wind Spirit",
+   "unreleased": false
+  },
+  "1096": {
+   "chests": [
+    {
+     "chance": "2.08%",
+     "name": "Pet Soul Chest: Natura (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 180,
+      "name": "Garden of the Illusion God East Observatory",
+      "teleport": 60
+     },
+     "level": 45,
+     "npc": "Hellfire Spirit",
+     "region": "Verteron",
+     "spawns": 5,
+     "zones": [
+      "Garden of the Illusion God"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 163,
+      "name": "Purifying Forest Sunny Hill",
+      "teleport": 33
+     },
+     "level": 27,
+     "npc": "Flame Spirit",
+     "region": "Altgard",
+     "spawns": 45,
+     "zones": [
+      "Purifying Forest"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 240,
+      "name": "Guide's Dwelling",
+      "teleport": 61
+     },
+     "level": 48,
+     "npc": "Unstable Superior Fire Spirit",
+     "region": "Altgard",
+     "spawns": 16,
+     "zones": [
+      "Spirit Isle"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 1569,
+      "name": "Remote Island",
+      "teleport": 15
+     },
+     "level": 51,
+     "npc": "Immortal Fire Spirit Guardian",
+     "region": "Altgard",
+     "spawns": 4,
+     "zones": [
+      "Immortal Isle"
+     ]
+    }
+   ],
+   "genus": "natura",
+   "name": "Superior Fire Spirit",
+   "unreleased": false
+  },
+  "1097": {
+   "chests": [
+    {
+     "chance": "1.54%",
+     "name": "Pet Soul Chestt: Fera (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 118,
+      "name": "Astin Mercenaries Base",
+      "teleport": 27
+     },
+     "level": 25,
+     "npc": "Ferocious Karnif",
+     "region": "Verteron",
+     "spawns": 6,
+     "zones": [
+      "Southern Tolbas Forest"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 214,
+      "name": "Wind Breeze Merchants HQ",
+      "teleport": 25
+     },
+     "level": 24,
+     "npc": "Tolbas Karnif",
+     "region": "Verteron",
+     "spawns": 8,
+     "zones": [
+      "Northern Tolbas Forest"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 189,
+      "name": "Eastern Shugo Station",
+      "teleport": 28
+     },
+     "level": 24,
+     "npc": "Ferocious Tolbas Karnif",
+     "region": "Verteron",
+     "spawns": 9,
+     "zones": [
+      "Northern Tolbas Forest"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 159,
+      "name": "Rock Hill Outpost",
+      "teleport": 37
+     },
+     "level": 32,
+     "npc": "Toughmane Highland Karnif",
+     "region": "Verteron",
+     "spawns": 64,
+     "zones": [
+      "Western Altamia Highland",
+      "Rock Tomb Hill"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 293,
+      "name": "Alert Observation Post",
+      "teleport": 41
+     },
+     "level": 34,
+     "npc": "Highland Karnif",
+     "region": "Verteron",
+     "spawns": 46,
+     "zones": [
+      "Eastern Altamia Highland"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 65,
+      "name": "Notos Legion Outpost",
+      "teleport": 52
+     },
+     "level": 40,
+     "npc": "Tamed Karnif",
+     "region": "Verteron",
+     "spawns": 74,
+     "zones": [
+      "Kraka Footpath"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 186,
+      "name": "Laborer's Rest Stop",
+      "teleport": 53
+     },
+     "level": 40,
+     "npc": "Tamed Karnif",
+     "region": "Verteron",
+     "spawns": 10,
+     "zones": [
+      "Kraka Footpath"
+     ]
+    }
+   ],
+   "genus": "fera",
+   "name": "Karnif",
+   "unreleased": false
+  },
+  "1098": {
+   "chests": [
+    {
+     "chance": "1.54%",
+     "name": "Pet Soul Chestt: Fera (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 125,
+      "name": "Illusion Oratory Entrance",
+      "teleport": 20
+     },
+     "level": 21,
+     "npc": "Scouting Karnif",
+     "region": "Verteron",
+     "spawns": 10,
+     "zones": [
+      "Verteron Fortress Ruins"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 195,
+      "name": "Collapsed Pillar",
+      "teleport": 19
+     },
+     "level": 19,
+     "npc": "Unruly Karnif",
+     "region": "Verteron",
+     "spawns": 10,
+     "zones": [
+      "Verteron Fortress Ruins"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 129,
+      "name": "Collapsed Pillar",
+      "teleport": 19
+     },
+     "level": 20,
+     "npc": "Trained Karnif",
+     "region": "Verteron",
+     "spawns": 12,
+     "zones": [
+      "Verteron Fortress Ruins"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 96,
+      "name": "Verteron Fortress Valley",
+      "teleport": 21
+     },
+     "level": 21,
+     "npc": "Sensitive Karnif",
+     "region": "Verteron",
+     "spawns": 6,
+     "zones": [
+      "Destroyed Abyss Gate"
+     ]
+    },
+    {
+     "bySide": {
+      "asmodian": {
+       "m": 1146,
+       "name": "Latesran Eastern Root",
+       "teleport": 1
+      },
+      "elyos": {
+       "m": 383,
+       "name": "Latesran Western Root",
+       "teleport": 1
+      }
+     },
+     "chance": "100%",
+     "kibelisk": {
+      "m": 383,
+      "name": "Latesran Western Root",
+      "teleport": 1
+     },
+     "level": 46,
+     "npc": "Abyss Karnif",
+     "region": "Chaotic Lower Reshanta",
+     "spawns": 42,
+     "zones": [
+      "Devastated Remnants - Dusk Battlefield",
+      "Devastated Remnants - Weathered Outcrop",
+      "Devastated Remnants - Exile Island"
+     ]
+    },
+    {
+     "bySide": {
+      "asmodian": {
+       "m": 394,
+       "name": "Latesran Eastern Root",
+       "teleport": 1
+      },
+      "elyos": {
+       "m": 1138,
+       "name": "Latesran Western Root",
+       "teleport": 1
+      }
+     },
+     "chance": "100%",
+     "kibelisk": {
+      "m": 394,
+      "name": "Latesran Eastern Root",
+      "teleport": 1
+     },
+     "level": 46,
+     "npc": "Abyss Search Party Karnif",
+     "region": "Chaotic Lower Reshanta",
+     "spawns": 42,
+     "zones": [
+      "Black Fragments Area - Kration Conflict Zone",
+      "Black Fragments Area - Kibelium Fragment",
+      "Black Fragments Area - Abandoned Island"
+     ]
+    }
+   ],
+   "genus": "fera",
+   "name": "Modified Karnif",
+   "unreleased": false
+  },
+  "1099": {
+   "chests": [
+    {
+     "chance": "1.54%",
+     "name": "Pet Soul Chestt: Fera (Bound)"
+    }
+   ],
+   "drops": [],
+   "genus": "fera",
+   "name": "Elite Karnif",
+   "unreleased": true
+  },
+  "1100": {
+   "chests": [
+    {
+     "chance": "2.08%",
+     "name": "Pet Soul Chest: Natura (Bound)"
+    }
+   ],
+   "drops": [],
+   "genus": "natura",
+   "name": "Ultimate Earth Spirit",
+   "unreleased": false
+  },
+  "1101": {
+   "chests": [
+    {
+     "chance": "2.08%",
+     "name": "Pet Soul Chest: Natura (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 188,
+      "name": "Pilgrim's Rest",
+      "teleport": 58
+     },
+     "level": 45,
+     "npc": "Garden Guardian",
+     "region": "Verteron",
+     "spawns": 10,
+     "zones": [
+      "Garden of the Illusion God"
+     ]
+    }
+   ],
+   "genus": "natura",
+   "name": "Forest Guardian",
+   "unreleased": false
+  },
+  "1102": {
+   "chests": [
+    {
+     "chance": "2.08%",
+     "name": "Pet Soul Chest: Natura (Bound)"
+    }
+   ],
+   "drops": [],
+   "genus": "natura",
+   "name": "Dried Up Forest Guardian",
+   "unreleased": false
+  },
+  "1103": {
+   "chests": [
+    {
+     "chance": "2.44%",
+     "name": "Pet Soul Chest: Cogni (Bound)"
+    }
+   ],
+   "drops": [],
+   "genus": "cogni",
+   "name": "Pretor Veil Administrator",
+   "unreleased": true
+  },
+  "1104": {
+   "chests": [
+    {
+     "chance": "2.44%",
+     "name": "Pet Soul Chest: Cogni (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 96,
+      "name": "Kraka Uphill Path",
+      "teleport": 49
+     },
+     "level": 39,
+     "npc": "Hill Manduri",
+     "region": "Verteron",
+     "spawns": 59,
+     "zones": [
+      "Kraka Footpath",
+      "Romlon's Hideout"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 239,
+      "name": "Crimson Isle Outpost",
+      "teleport": 61
+     },
+     "level": 48,
+     "npc": "Crimson Manduri Slinger",
+     "region": "Verteron",
+     "spawns": 46,
+     "zones": [
+      "Crimson Isle"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 177,
+      "name": "Kumrica's Cellar",
+      "teleport": 57
+     },
+     "level": 41,
+     "npc": "Black Claw Manduri Scout",
+     "region": "Altgard",
+     "spawns": 83,
+     "zones": [
+      "Black Claw Village"
+     ]
+    }
+   ],
+   "genus": "cogni",
+   "name": "Manduri Trebuchet Worker",
+   "unreleased": false
+  },
+  "1105": {
+   "chests": [
+    {
+     "chance": "2.44%",
+     "name": "Pet Soul Chest: Cogni (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 161,
+      "name": "Gravekeeper Camp",
+      "teleport": 7
+     },
+     "level": 17,
+     "npc": "Biruta Herbalist",
+     "region": "Altgard",
+     "spawns": 4,
+     "zones": [
+      "Nameless Cemetery"
+     ]
+    }
+   ],
+   "genus": "cogni",
+   "name": "Biruta Herbalist",
+   "unreleased": false
+  },
+  "1106": {
+   "chests": [
+    {
+     "chance": "1.54%",
+     "name": "Pet Soul Chestt: Fera (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 192,
+      "name": "Amunta's Hideout",
+      "teleport": 50
+     },
+     "level": 40,
+     "npc": "Search Party Tayga",
+     "region": "Altgard",
+     "spawns": 26,
+     "zones": [
+      "Eastern Gribade Highland"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 201,
+      "name": "Amunta's Hideout",
+      "teleport": 50
+     },
+     "level": 40,
+     "npc": "Guard Troopers Tayga",
+     "region": "Altgard",
+     "spawns": 24,
+     "zones": [
+      "Eastern Gribade Highland"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 229,
+      "name": "Kumrica's Cellar",
+      "teleport": 57
+     },
+     "level": 41,
+     "npc": "Tamed Tayga",
+     "region": "Altgard",
+     "spawns": 65,
+     "zones": [
+      "Black Claw Village"
+     ]
+    }
+   ],
+   "genus": "fera",
+   "name": "Tayga",
+   "unreleased": false
+  },
+  "1107": {
+   "chests": [
+    {
+     "chance": "2.17%",
+     "name": "Pet Soul Chest: Varian (Bound)"
+    }
+   ],
+   "drops": [],
+   "genus": "varian",
+   "name": "Krao Seal Guardian",
+   "unreleased": false
+  },
+  "1108": {
+   "chests": [
+    {
+     "chance": "2.44%",
+     "name": "Pet Soul Chest: Cogni (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 78,
+      "name": "Illusion Oratory Entrance",
+      "teleport": 20
+     },
+     "level": 22,
+     "npc": "Enhanced Krall Combatant",
+     "region": "Verteron",
+     "spawns": 27,
+     "zones": [
+      "Verteron Fortress Ruins"
+     ]
+    }
+   ],
+   "genus": "cogni",
+   "name": "Enhanced Krall Combatant",
+   "unreleased": false
+  },
+  "1109": {
+   "chests": [
+    {
+     "chance": "2.44%",
+     "name": "Pet Soul Chest: Cogni (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 70,
+      "name": "Illusion Oratory Entrance",
+      "teleport": 20
+     },
+     "level": 22,
+     "npc": "Enhanced Krall Sentry",
+     "region": "Verteron",
+     "spawns": 22,
+     "zones": [
+      "Verteron Fortress Ruins"
+     ]
+    }
+   ],
+   "genus": "cogni",
+   "name": "Enhanced Krall Sentry",
+   "unreleased": false
+  },
+  "1110": {
+   "chests": [
+    {
+     "chance": "2.17%",
+     "name": "Pet Soul Chest: Varian (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 129,
+      "name": "Cantas Valley Mushroom Tree Peak",
+      "teleport": 6
+     },
+     "level": 12,
+     "npc": "Splendent Kalgolem",
+     "region": "Verteron",
+     "spawns": 54,
+     "zones": [
+      "Eastern Cantas Valley"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 206,
+      "name": "Steel Hammer Workcamp",
+      "teleport": 48
+     },
+     "level": 36,
+     "npc": "Blue Kalgolem",
+     "region": "Altgard",
+     "spawns": 24,
+     "zones": [
+      "Fafnite Deposit"
+     ]
+    },
+    {
+     "bySide": {
+      "asmodian": {
+       "m": 792,
+       "name": "Latesran Eastern Root",
+       "teleport": 1
+      },
+      "elyos": {
+       "m": 988,
+       "name": "Latesran Western Root",
+       "teleport": 1
+      }
+     },
+     "chance": "100%",
+     "kibelisk": {
+      "m": 792,
+      "name": "Latesran Eastern Root",
+      "teleport": 1
+     },
+     "level": 47,
+     "npc": "Abyssal Kalgolem",
+     "region": "Chaotic Lower Reshanta",
+     "spawns": 79,
+     "zones": [
+      "Archipelago of Siel's Wings - Siel's Left Wing",
+      "Archipelago of Siel's Wings - Grave of Steel",
+      "Archipelago of Siel's Wings - Siel's Right Wing"
+     ]
+    }
+   ],
+   "genus": "varian",
+   "name": "Blue Kalgolem",
+   "unreleased": false
+  },
+  "1111": {
+   "chests": [],
+   "drops": [],
+   "genus": "special",
+   "name": "Swift Lugi",
+   "unreleased": false
+  },
+  "1112": {
+   "chests": [],
+   "drops": [],
+   "genus": "special",
+   "name": "Wandering Merchant Lugi",
+   "unreleased": false
+  },
+  "1114": {
+   "chests": [
+    {
+     "chance": "1.54%",
+     "name": "Pet Soul Chestt: Fera (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 210,
+      "name": "Ellun River Midstream Pond",
+      "teleport": 18
+     },
+     "level": 18,
+     "npc": "White Shell Octaside",
+     "region": "Verteron",
+     "spawns": 14,
+     "zones": [
+      "Anguish Hill"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 120,
+      "name": "Moslan Forest Dry Shade",
+      "teleport": 22
+     },
+     "level": 21,
+     "npc": "Ashen Spider",
+     "region": "Altgard",
+     "spawns": 48,
+     "zones": [
+      "Moslan Forest"
+     ]
+    }
+   ],
+   "genus": "fera",
+   "name": "Ashen Spider",
+   "unreleased": false
+  },
+  "1115": {
+   "chests": [
+    {
+     "chance": "2.44%",
+     "name": "Pet Soul Chest: Cogni (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 1640,
+      "name": "Aullaeu Village Sky Island",
+      "teleport": 35
+     },
+     "level": 50,
+     "npc": "Eternal Kuru Overseer",
+     "region": "Verteron",
+     "spawns": 30,
+     "zones": [
+      "Eternal Isle"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 1247,
+      "name": "Remote Island",
+      "teleport": 15
+     },
+     "level": 50,
+     "npc": "Kuru Overseer",
+     "region": "Altgard",
+     "spawns": 12,
+     "zones": [
+      "Immortal Isle"
+     ]
+    }
+   ],
+   "genus": "cogni",
+   "name": "Kuru Overseer",
+   "unreleased": false
+  },
+  "1116": {
+   "chests": [
+    {
+     "chance": "1.54%",
+     "name": "Pet Soul Chestt: Fera (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 135,
+      "name": "Neglected Crematorium",
+      "teleport": 8
+     },
+     "level": 13,
+     "npc": "Withered Branch Spider",
+     "region": "Altgard",
+     "spawns": 69,
+     "zones": [
+      "Nameless Cemetery"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 239,
+      "name": "Galorik's Inspection Area",
+      "teleport": 3
+     },
+     "level": 11,
+     "npc": "Withered Branch Spider",
+     "region": "Altgard",
+     "spawns": 44,
+     "zones": [
+      "Nameless Cemetery",
+      "Safe Haven",
+      "Calderon Canyon"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 123,
+      "name": "Quai Campsite",
+      "teleport": 6
+     },
+     "level": 13,
+     "npc": "Withered Branch Spider",
+     "region": "Altgard",
+     "spawns": 41,
+     "zones": [
+      "Silent Hill",
+      "Calderon Canyon",
+      "Tranein Highland",
+      "Quai Campsite"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 88,
+      "name": "Faded Stump",
+      "teleport": 31
+     },
+     "level": 27,
+     "npc": "Withered Branch Spider",
+     "region": "Altgard",
+     "spawns": 53,
+     "zones": [
+      "Purifying Forest"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 123,
+      "name": "Graverobber Campsite",
+      "teleport": 40
+     },
+     "level": 33,
+     "npc": "Withered Branch Spider",
+     "region": "Altgard",
+     "spawns": 75,
+     "zones": [
+      "Basfelt Ruins",
+      "Battlescar Mound"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 55,
+      "name": "Mahindel Cliff",
+      "teleport": 45
+     },
+     "level": 34,
+     "npc": "Withered Branch Spider",
+     "region": "Altgard",
+     "spawns": 9,
+     "zones": [
+      "Mahindel Cliff",
+      "Mahindel River"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 143,
+      "name": "Idun's Lake",
+      "teleport": 54
+     },
+     "level": 40,
+     "npc": "Withered Branch Spider",
+     "region": "Altgard",
+     "spawns": 15,
+     "zones": [
+      "Southern Gribade Highland",
+      "Idun's Lake"
+     ]
+    }
+   ],
+   "genus": "fera",
+   "name": "Withered Branch Spider",
+   "unreleased": false
+  },
+  "1117": {
+   "chests": [
+    {
+     "chance": "1.54%",
+     "name": "Pet Soul Chestt: Fera (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 53,
+      "name": "Forest of Exiles",
+      "teleport": 34
+     },
+     "level": 30,
+     "npc": "Aullaeu Forest Odyle Spider",
+     "region": "Verteron",
+     "spawns": 44,
+     "zones": [
+      "Forest of Exiles"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 246,
+      "name": "Crimson Isle Outpost",
+      "teleport": 61
+     },
+     "level": 48,
+     "npc": "Crimson Spider",
+     "region": "Verteron",
+     "spawns": 33,
+     "zones": [
+      "Crimson Isle"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 184,
+      "name": "Faded Stump",
+      "teleport": 31
+     },
+     "level": 27,
+     "npc": "Flame Rock Spider",
+     "region": "Altgard",
+     "spawns": 93,
+     "zones": [
+      "Purifying Forest"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 235,
+      "name": "Guide's Dwelling",
+      "teleport": 61
+     },
+     "level": 47,
+     "npc": "Unstable Poison Blood Spider",
+     "region": "Altgard",
+     "spawns": 24,
+     "zones": [
+      "Spirit Isle"
+     ]
+    },
+    {
+     "bySide": {
+      "asmodian": {
+       "m": 735,
+       "name": "Latesran Eastern Root",
+       "teleport": 1
+      },
+      "elyos": {
+       "m": 990,
+       "name": "Latesran Western Root",
+       "teleport": 1
+      }
+     },
+     "chance": "100%",
+     "kibelisk": {
+      "m": 735,
+      "name": "Latesran Eastern Root",
+      "teleport": 1
+     },
+     "level": 46,
+     "npc": "Abyss Red Mutated Insectoid",
+     "region": "Chaotic Lower Reshanta",
+     "spawns": 22,
+     "zones": [
+      "Archipelago of Siel's Wings - Grave of Steel"
+     ]
+    }
+   ],
+   "genus": "fera",
+   "name": "Unstable Spider",
+   "unreleased": false
+  },
+  "1118": {
+   "chests": [
+    {
+     "chance": "1.54%",
+     "name": "Pet Soul Chestt: Fera (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 142,
+      "name": "Shulak Street Stall",
+      "teleport": 42
+     },
+     "level": 33,
+     "npc": "Black Armor Bee",
+     "region": "Altgard",
+     "spawns": 14,
+     "zones": [
+      "Basfelt Ruins"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 51,
+      "name": "Pamos Farm",
+      "teleport": 15
+     },
+     "level": 18,
+     "npc": "Black Pattern Bee",
+     "region": "Verteron",
+     "spawns": 16,
+     "zones": [
+      "Pamos Farm",
+      "Ellun River Midstream"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 232,
+      "name": "Verteron Fortress Valley",
+      "teleport": 21
+     },
+     "level": 27,
+     "npc": "Stripe Bee",
+     "region": "Verteron",
+     "spawns": 22,
+     "zones": [
+      "Pilgrim's Ridge"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 166,
+      "name": "Neglected Crematorium",
+      "teleport": 8
+     },
+     "level": 13,
+     "npc": "Black Armor Bee",
+     "region": "Altgard",
+     "spawns": 112,
+     "zones": [
+      "Nameless Cemetery",
+      "Silent Hill",
+      "Calderon Canyon",
+      "Graverobber Den",
+      "Quai Campsite"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 104,
+      "name": "Gravekeeper Camp",
+      "teleport": 7
+     },
+     "level": 17,
+     "npc": "Black Armor Bee",
+     "region": "Altgard",
+     "spawns": 34,
+     "zones": [
+      "Nameless Cemetery",
+      "Silent Hill"
+     ]
+    }
+   ],
+   "genus": "fera",
+   "name": "Aberrant Bee",
+   "unreleased": false
+  },
+  "1119": {
+   "chests": [
+    {
+     "chance": "1.54%",
+     "name": "Pet Soul Chestt: Fera (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 128,
+      "name": "Purifying Forest Sunny Hill",
+      "teleport": 33
+     },
+     "level": 33,
+     "npc": "Aberrant Coradon",
+     "region": "Altgard",
+     "spawns": 12,
+     "zones": [
+      "Basfelt Ruins",
+      "Flauke Legion Outpost"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 197,
+      "name": "Garden of the Illusion God East Observatory",
+      "teleport": 60
+     },
+     "level": 44,
+     "npc": "Garden Coradon",
+     "region": "Verteron",
+     "spawns": 16,
+     "zones": [
+      "Garden of the Illusion God"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 192,
+      "name": "Notos Legion Outpost",
+      "teleport": 52
+     },
+     "level": 39,
+     "npc": "Hill Coradon",
+     "region": "Verteron",
+     "spawns": 91,
+     "zones": [
+      "Kraka Footpath",
+      "Romlon's Hideout"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 130,
+      "name": "Laborer's Rest Stop",
+      "teleport": 53
+     },
+     "level": 39,
+     "npc": "Hill Coradon",
+     "region": "Verteron",
+     "spawns": 34,
+     "zones": [
+      "Kraka Footpath"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 243,
+      "name": "Watcher's Tent",
+      "teleport": 16
+     },
+     "level": 20,
+     "npc": "Aberrant Coradon",
+     "region": "Altgard",
+     "spawns": 9,
+     "zones": [
+      "Tranein Highland"
+     ]
+    }
+   ],
+   "genus": "fera",
+   "name": "Aberrant Coradon",
+   "unreleased": false
+  },
+  "1120": {
+   "chests": [
+    {
+     "chance": "1.54%",
+     "name": "Pet Soul Chestt: Fera (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 105,
+      "name": "Hideout in Front of the Ruins",
+      "teleport": 14
+     },
+     "level": 18,
+     "npc": "Ellun River Young Kailin",
+     "region": "Verteron",
+     "spawns": 62,
+     "zones": [
+      "Ellun River Midstream"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 187,
+      "name": "Guide's Dwelling",
+      "teleport": 61
+     },
+     "level": 46,
+     "npc": "Unstable Young Kailin",
+     "region": "Altgard",
+     "spawns": 22,
+     "zones": [
+      "Spirit Isle"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 162,
+      "name": "Watcher's Tent",
+      "teleport": 16
+     },
+     "level": 20,
+     "npc": "Young Kailin",
+     "region": "Altgard",
+     "spawns": 108,
+     "zones": [
+      "Tranein Highland",
+      "Sanctum Outpost",
+      "Tranein Pond"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 312,
+      "name": "Briskwind Shelter",
+      "teleport": 35
+     },
+     "level": 32,
+     "npc": "Young Kailin",
+     "region": "Altgard",
+     "spawns": 56,
+     "zones": [
+      "Battlescar Mound",
+      "Purifying Forest"
+     ]
+    }
+   ],
+   "genus": "fera",
+   "name": "Young Kailin",
+   "unreleased": false
+  },
+  "1121": {
+   "chests": [
+    {
+     "chance": "1.54%",
+     "name": "Pet Soul Chestt: Fera (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 120,
+      "name": "Ruin Exploration Campsite",
+      "teleport": 16
+     },
+     "level": 18,
+     "npc": "Young Wetland Slink",
+     "region": "Verteron",
+     "spawns": 52,
+     "zones": [
+      "Ellun River Midstream"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 128,
+      "name": "Tolbas Forest Outskirts",
+      "teleport": 30
+     },
+     "level": 23,
+     "npc": "Tolbas Young Slink",
+     "region": "Verteron",
+     "spawns": 24,
+     "zones": [
+      "Southern Tolbas Forest"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 211,
+      "name": "Watcher's Tent",
+      "teleport": 16
+     },
+     "level": 20,
+     "npc": "Young Slink",
+     "region": "Altgard",
+     "spawns": 12,
+     "zones": [
+      "Tranein Pond",
+      "Tranein Highland"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 134,
+      "name": "Idun's Lake",
+      "teleport": 54
+     },
+     "level": 40,
+     "npc": "Young Slink",
+     "region": "Altgard",
+     "spawns": 28,
+     "zones": [
+      "Idun's Lake",
+      "Southern Gribade Highland"
+     ]
+    },
+    {
+     "bySide": {
+      "asmodian": {
+       "m": 1064,
+       "name": "Latesran Eastern Root",
+       "teleport": 1
+      },
+      "elyos": {
+       "m": 664,
+       "name": "Latesran Western Root",
+       "teleport": 1
+      }
+     },
+     "chance": "100%",
+     "kibelisk": {
+      "m": 664,
+      "name": "Latesran Western Root",
+      "teleport": 1
+     },
+     "level": 46,
+     "npc": "Abyss Young Slink",
+     "region": "Chaotic Lower Reshanta",
+     "spawns": 6,
+     "zones": [
+      "Archipelago of Siel's Wings - Siel's Left Wing",
+      "Archipelago of Siel's Wings - Siel's Right Wing"
+     ]
+    }
+   ],
+   "genus": "fera",
+   "name": "Young Slink",
+   "unreleased": false
+  },
+  "1122": {
+   "chests": [
+    {
+     "chance": "1.54%",
+     "name": "Pet Soul Chestt: Fera (Bound)"
+    }
+   ],
+   "drops": [],
+   "genus": "fera",
+   "name": "Young Tog",
+   "unreleased": false
+  },
+  "1123": {
+   "chests": [
+    {
+     "chance": "1.54%",
+     "name": "Pet Soul Chestt: Fera (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 139,
+      "name": "Astin Mercenaries Base",
+      "teleport": 27
+     },
+     "level": 25,
+     "npc": "Baby Horn Ursus",
+     "region": "Verteron",
+     "spawns": 22,
+     "zones": [
+      "Southern Tolbas Forest"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 201,
+      "name": "Kraka Uphill Path",
+      "teleport": 49
+     },
+     "level": 39,
+     "npc": "Hill Young Ursus",
+     "region": "Verteron",
+     "spawns": 50,
+     "zones": [
+      "Kraka Footpath"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 181,
+      "name": "Briskwind Shelter",
+      "teleport": 35
+     },
+     "level": 32,
+     "npc": "Young Ursus",
+     "region": "Altgard",
+     "spawns": 12,
+     "zones": [
+      "Battlescar Mound"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 131,
+      "name": "Gravekeeper Camp",
+      "teleport": 7
+     },
+     "level": 17,
+     "npc": "Young Ursus",
+     "region": "Altgard",
+     "spawns": 32,
+     "zones": [
+      "Silent Hill"
+     ]
+    }
+   ],
+   "genus": "fera",
+   "name": "Young Ursus",
+   "unreleased": false
+  },
+  "1124": {
+   "chests": [
+    {
+     "chance": "1.54%",
+     "name": "Pet Soul Chestt: Fera (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 238,
+      "name": "Beast Hunter Campsite",
+      "teleport": 45
+     },
+     "level": 32,
+     "npc": "Rock Hill Zaif",
+     "region": "Verteron",
+     "spawns": 8,
+     "zones": [
+      "Rock Tomb Hill"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 202,
+      "name": "Ancient Zumion Temple Site",
+      "teleport": 44
+     },
+     "level": 35,
+     "npc": "Highland Forest Zaif",
+     "region": "Verteron",
+     "spawns": 42,
+     "zones": [
+      "Eastern Altamia Highland"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 261,
+      "name": "Southern Altamia Coastal Cliffs",
+      "teleport": 47
+     },
+     "level": 33,
+     "npc": "Highland Zaif",
+     "region": "Verteron",
+     "spawns": 77,
+     "zones": [
+      "Southern Altamia Highland"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 237,
+      "name": "Nahid Brigade Fortress Hill",
+      "teleport": 51
+     },
+     "level": 40,
+     "npc": "Hill Zaif",
+     "region": "Verteron",
+     "spawns": 60,
+     "zones": [
+      "Kraka Footpath"
+     ]
+    }
+   ],
+   "genus": "fera",
+   "name": "Zaif",
+   "unreleased": false
+  },
+  "1125": {
+   "chests": [
+    {
+     "chance": "1.54%",
+     "name": "Pet Soul Chestt: Fera (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 268,
+      "name": "Rock Hill Outpost",
+      "teleport": 37
+     },
+     "level": 27,
+     "npc": "Yellow-Maned Zaif",
+     "region": "Verteron",
+     "spawns": 27,
+     "zones": [
+      "Pilgrim's Ridge"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 218,
+      "name": "Steel Hammer Merchants HQ",
+      "teleport": 46
+     },
+     "level": 40,
+     "npc": "Golden Zaif",
+     "region": "Altgard",
+     "spawns": 19,
+     "zones": [
+      "Eastern Gribade Highland"
+     ]
+    }
+   ],
+   "genus": "fera",
+   "name": "Aberrant Zaif",
+   "unreleased": false
+  },
+  "1126": {
+   "chests": [
+    {
+     "chance": "1.54%",
+     "name": "Pet Soul Chestt: Fera (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 167,
+      "name": "Cantas Valley Mushroom Tree Peak",
+      "teleport": 7
+     },
+     "level": 13,
+     "npc": "Cairn Tog",
+     "region": "Verteron",
+     "spawns": 105,
+     "zones": [
+      "Eastern Cantas Valley"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 57,
+      "name": "Pamos Farm",
+      "teleport": 15
+     },
+     "level": 18,
+     "npc": "Hungry Tog",
+     "region": "Verteron",
+     "spawns": 35,
+     "zones": [
+      "Pamos Farm",
+      "Ellun River Midstream"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 166,
+      "name": "Illusion Cavaliers' Campsite",
+      "teleport": 13
+     },
+     "level": 18,
+     "npc": "Field Tog",
+     "region": "Verteron",
+     "spawns": 46,
+     "zones": [
+      "Ellun River Midstream"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 260,
+      "name": "Beast Hunter Campsite",
+      "teleport": 45
+     },
+     "level": 33,
+     "npc": "Wild Stripe Tog",
+     "region": "Verteron",
+     "spawns": 47,
+     "zones": [
+      "Southern Altamia Highland"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 277,
+      "name": "Laborer's Rest Stop",
+      "teleport": 53
+     },
+     "level": 39,
+     "npc": "Hill Tog",
+     "region": "Verteron",
+     "spawns": 144,
+     "zones": [
+      "Kraka Footpath"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 300,
+      "name": "Battlescar Mound Clifftop",
+      "teleport": 38
+     },
+     "level": 32,
+     "npc": "Aberrant Tog",
+     "region": "Altgard",
+     "spawns": 69,
+     "zones": [
+      "Battlescar Mound",
+      "Purifying Forest"
+     ]
+    }
+   ],
+   "genus": "fera",
+   "name": "Aberrant Tog",
+   "unreleased": false
+  },
+  "1127": {
+   "chests": [
+    {
+     "chance": "2.08%",
+     "name": "Pet Soul Chest: Natura (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 102,
+      "name": "Guide's Dwelling",
+      "teleport": 61
+     },
+     "level": 46,
+     "npc": "Faded Odyle Spirit",
+     "region": "Altgard",
+     "spawns": 10,
+     "zones": [
+      "Spirit Isle"
+     ]
+    }
+   ],
+   "genus": "natura",
+   "name": "Odyle Stone Spirit",
+   "unreleased": false
+  },
+  "1128": {
+   "chests": [
+    {
+     "chance": "2.17%",
+     "name": "Pet Soul Chest: Varian (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 176,
+      "name": "Temporary Investigation Base",
+      "teleport": 4
+     },
+     "level": 11,
+     "npc": "Drana Slime",
+     "region": "Altgard",
+     "spawns": 21,
+     "zones": [
+      "Dredgion Crash Site"
+     ]
+    }
+   ],
+   "genus": "varian",
+   "name": "Drana Slime",
+   "unreleased": false
+  },
+  "1129": {
+   "chests": [
+    {
+     "chance": "2.17%",
+     "name": "Pet Soul Chest: Varian (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 97,
+      "name": "Crimson Isle Outpost",
+      "teleport": 61
+     },
+     "level": 46,
+     "npc": "Crimson Drana Swarm",
+     "region": "Verteron",
+     "spawns": 30,
+     "zones": [
+      "Crimson Isle"
+     ]
+    }
+   ],
+   "genus": "varian",
+   "name": "Drana Swarm",
+   "unreleased": false
+  },
+  "1130": {
+   "chests": [
+    {
+     "chance": "1.54%",
+     "name": "Pet Soul Chestt: Fera (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 233,
+      "name": "Illusion Oratory Entrance",
+      "teleport": 20
+     },
+     "level": 27,
+     "npc": "Ridge Spider",
+     "region": "Verteron",
+     "spawns": 35,
+     "zones": [
+      "Pilgrim's Ridge"
+     ]
+    }
+   ],
+   "genus": "fera",
+   "name": "Mutated Cadaver Insectoid",
+   "unreleased": false
+  },
+  "1131": {
+   "chests": [
+    {
+     "chance": "2.08%",
+     "name": "Pet Soul Chest: Natura (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 278,
+      "name": "Crimson Isle Outpost",
+      "teleport": 61
+     },
+     "level": 47,
+     "npc": "Crimson Mutated Spore",
+     "region": "Verteron",
+     "spawns": 60,
+     "zones": [
+      "Crimson Isle"
+     ]
+    }
+   ],
+   "genus": "natura",
+   "name": "Drana Spore",
+   "unreleased": false
+  },
+  "1132": {
+   "chests": [
+    {
+     "chance": "1.54%",
+     "name": "Pet Soul Chestt: Fera (Bound)"
+    }
+   ],
+   "drops": [],
+   "genus": "fera",
+   "name": "Ashen Lupyllini",
+   "unreleased": false
+  },
+  "1133": {
+   "chests": [
+    {
+     "chance": "2.08%",
+     "name": "Pet Soul Chest: Natura (Bound)"
+    }
+   ],
+   "drops": [],
+   "genus": "natura",
+   "name": "Forest Dionae",
+   "unreleased": false
+  },
+  "1134": {
+   "chests": [
+    {
+     "chance": "1.54%",
+     "name": "Pet Soul Chestt: Fera (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 106,
+      "name": "Idun's Lake",
+      "teleport": 54
+     },
+     "level": 40,
+     "npc": "Eternal Coradon",
+     "region": "Altgard",
+     "spawns": 32,
+     "zones": [
+      "Southern Gribade Highland"
+     ]
+    },
+    {
+     "bySide": {
+      "asmodian": {
+       "m": 754,
+       "name": "Latesran Eastern Root",
+       "teleport": 1
+      },
+      "elyos": {
+       "m": 1200,
+       "name": "Latesran Western Root",
+       "teleport": 1
+      }
+     },
+     "chance": "100%",
+     "kibelisk": {
+      "m": 754,
+      "name": "Latesran Eastern Root",
+      "teleport": 1
+     },
+     "level": 48,
+     "npc": "Abyss Coradon",
+     "region": "Chaotic Lower Reshanta",
+     "spawns": 16,
+     "zones": [
+      "Archipelago of Siel's Wings - Siel's Right Wing"
+     ]
+    }
+   ],
+   "genus": "fera",
+   "name": "Eternal Coradon",
+   "unreleased": false
+  },
+  "1135": {
+   "chests": [
+    {
+     "chance": "2.08%",
+     "name": "Pet Soul Chest: Natura (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 157,
+      "name": "Collapsed Chasm",
+      "teleport": 19
+     },
+     "level": 21,
+     "npc": "Ashen Dionae",
+     "region": "Altgard",
+     "spawns": 14,
+     "zones": [
+      "Moslan Forest"
+     ]
+    }
+   ],
+   "genus": "natura",
+   "name": "Ashen Dionae",
+   "unreleased": false
+  },
+  "1136": {
+   "chests": [
+    {
+     "chance": "2.08%",
+     "name": "Pet Soul Chest: Natura (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 412,
+      "name": "Sanctum Outpost Sky Island",
+      "teleport": 14
+     },
+     "level": 20,
+     "npc": "Rafflesia",
+     "region": "Altgard",
+     "spawns": 23,
+     "zones": [
+      "Sanctum Outpost"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 247,
+      "name": "Crimson Isle Outpost",
+      "teleport": 61
+     },
+     "level": 47,
+     "npc": "Crimson Rafflesia",
+     "region": "Verteron",
+     "spawns": 21,
+     "zones": [
+      "Crimson Isle"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 181,
+      "name": "Gravekeeper Camp",
+      "teleport": 7
+     },
+     "level": 14,
+     "npc": "Rafflesia",
+     "region": "Altgard",
+     "spawns": 36,
+     "zones": [
+      "Nameless Cemetery"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 132,
+      "name": "Guide's Dwelling",
+      "teleport": 61
+     },
+     "level": 46,
+     "npc": "Unstable Rafflesia",
+     "region": "Altgard",
+     "spawns": 33,
+     "zones": [
+      "Spirit Isle"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 1440,
+      "name": "Remote Island",
+      "teleport": 15
+     },
+     "level": 49,
+     "npc": "Rafflesia",
+     "region": "Altgard",
+     "spawns": 48,
+     "zones": [
+      "Immortal Isle"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 135,
+      "name": "Steel Hammer Temporary Trading Post",
+      "teleport": 51
+     },
+     "level": 40,
+     "npc": "Rafflesia",
+     "region": "Altgard",
+     "spawns": 10,
+     "zones": [
+      "Southern Gribade Highland"
+     ]
+    }
+   ],
+   "genus": "natura",
+   "name": "Rafflesia",
+   "unreleased": false
+  },
+  "1137": {
+   "chests": [
+    {
+     "chance": "2.44%",
+     "name": "Pet Soul Chest: Cogni (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 243,
+      "name": "Briskwind Shelter",
+      "teleport": 35
+     },
+     "level": 32,
+     "npc": "Mumu Worker",
+     "region": "Altgard",
+     "spawns": 83,
+     "zones": [
+      "Dranactus"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 300,
+      "name": "Battlescar Mound Clifftop",
+      "teleport": 38
+     },
+     "level": 33,
+     "npc": "Escaped Mumu Worker",
+     "region": "Altgard",
+     "spawns": 33,
+     "zones": [
+      "Battlescar Mound"
+     ]
+    }
+   ],
+   "genus": "cogni",
+   "name": "Mumu Worker",
+   "unreleased": false
+  },
+  "1138": {
+   "chests": [
+    {
+     "chance": "2.44%",
+     "name": "Pet Soul Chest: Cogni (Bound)"
+    }
+   ],
+   "drops": [],
+   "genus": "cogni",
+   "name": "Mumu Overseer",
+   "unreleased": false
+  },
+  "1139": {
+   "chests": [
+    {
+     "chance": "2.17%",
+     "name": "Pet Soul Chest: Varian (Bound)"
+    }
+   ],
+   "drops": [],
+   "genus": "varian",
+   "name": "Swamp Monster",
+   "unreleased": false
+  },
+  "1140": {
+   "chests": [
+    {
+     "chance": "2.17%",
+     "name": "Pet Soul Chest: Varian (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 196,
+      "name": "Southern Shugo Station",
+      "teleport": 26
+     },
+     "level": 24,
+     "npc": "Tolbas Forest Targon",
+     "region": "Verteron",
+     "spawns": 19,
+     "zones": [
+      "Northern Tolbas Forest"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 205,
+      "name": "Collapsed Chasm",
+      "teleport": 19
+     },
+     "level": 21,
+     "npc": "Burned Forester",
+     "region": "Altgard",
+     "spawns": 12,
+     "zones": [
+      "Moslan Forest"
+     ]
+    }
+   ],
+   "genus": "varian",
+   "name": "Forest Monster",
+   "unreleased": false
+  },
+  "1141": {
+   "chests": [
+    {
+     "chance": "2.17%",
+     "name": "Pet Soul Chest: Varian (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 209,
+      "name": "Collapsed Verteron Barrier Tower",
+      "teleport": 10
+     },
+     "level": 14,
+     "npc": "Marsh Targon",
+     "region": "Verteron",
+     "spawns": 89,
+     "zones": [
+      "Ellun River Marsh",
+      "Contaminated Marsh"
+     ]
+    }
+   ],
+   "genus": "varian",
+   "name": "Marsh Targon",
+   "unreleased": false
+  },
+  "1142": {
+   "chests": [
+    {
+     "chance": "2.17%",
+     "name": "Pet Soul Chest: Varian (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 264,
+      "name": "Healing Spring",
+      "teleport": 32
+     },
+     "level": 30,
+     "npc": "Consumed Spirit Guardian",
+     "region": "Altgard",
+     "spawns": 20,
+     "zones": [
+      "Purifying Forest"
+     ]
+    }
+   ],
+   "genus": "varian",
+   "name": "Distorted Mutant",
+   "unreleased": false
+  },
+  "1143": {
+   "chests": [
+    {
+     "chance": "1.54%",
+     "name": "Pet Soul Chestt: Fera (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 188,
+      "name": "Collapsed Chasm",
+      "teleport": 19
+     },
+     "level": 21,
+     "npc": "Ashen Ursus",
+     "region": "Altgard",
+     "spawns": 18,
+     "zones": [
+      "Moslan Forest"
+     ]
+    }
+   ],
+   "genus": "fera",
+   "name": "Mutated Ursus",
+   "unreleased": false
+  },
+  "1144": {
+   "chests": [
+    {
+     "chance": "2.08%",
+     "name": "Pet Soul Chest: Natura (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 232,
+      "name": "Forest Hideout",
+      "teleport": 21
+     },
+     "level": 22,
+     "npc": "Mutated Forest Guardian",
+     "region": "Altgard",
+     "spawns": 18,
+     "zones": [
+      "Moslan Forest"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 219,
+      "name": "Guide's Dwelling",
+      "teleport": 61
+     },
+     "level": 48,
+     "npc": "Unstable Forest Guardian",
+     "region": "Altgard",
+     "spawns": 25,
+     "zones": [
+      "Spirit Isle"
+     ]
+    }
+   ],
+   "genus": "natura",
+   "name": "Mutated Forest Guardian",
+   "unreleased": false
+  },
+  "1145": {
+   "chests": [
+    {
+     "chance": "1.54%",
+     "name": "Pet Soul Chestt: Fera (Bound)"
+    }
+   ],
+   "drops": [],
+   "genus": "fera",
+   "name": "Mutated Insectoid Valka",
+   "unreleased": false
+  },
+  "1146": {
+   "chests": [
+    {
+     "chance": "2.17%",
+     "name": "Pet Soul Chest: Varian (Bound)"
+    }
+   ],
+   "drops": [],
+   "genus": "varian",
+   "name": "Gatekeeper Pinopi",
+   "unreleased": false
+  },
+  "1147": {
+   "chests": [
+    {
+     "chance": "2.44%",
+     "name": "Pet Soul Chest: Cogni (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 154,
+      "name": "Red Maple Forest",
+      "teleport": 56
+     },
+     "level": 41,
+     "npc": "Scarlet Forest Dratona",
+     "region": "Verteron",
+     "spawns": 32,
+     "zones": [
+      "Scarlet Forest"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 141,
+      "name": "Temporary Retreat",
+      "teleport": 13
+     },
+     "level": 19,
+     "npc": "Dratona Tinkerer",
+     "region": "Altgard",
+     "spawns": 104,
+     "zones": [
+      "Sanctum Outpost"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 164,
+      "name": "Watcher's Tent",
+      "teleport": 16
+     },
+     "level": 20,
+     "npc": "Dratona Supporter",
+     "region": "Altgard",
+     "spawns": 25,
+     "zones": [
+      "Tranein Pond",
+      "Tranein Highland"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 323,
+      "name": "Battlescar Mound Clifftop",
+      "teleport": 38
+     },
+     "level": 32,
+     "npc": "Dratona",
+     "region": "Altgard",
+     "spawns": 38,
+     "zones": [
+      "Dranactus"
+     ]
+    }
+   ],
+   "genus": "cogni",
+   "name": "Dratona",
+   "unreleased": false
+  },
+  "1148": {
+   "chests": [
+    {
+     "chance": "2.17%",
+     "name": "Pet Soul Chest: Varian (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 188,
+      "name": "Temporary Investigation Base",
+      "teleport": 4
+     },
+     "level": 11,
+     "npc": "Crash Site Kalgolem",
+     "region": "Altgard",
+     "spawns": 13,
+     "zones": [
+      "Dredgion Crash Site"
+     ]
+    }
+   ],
+   "genus": "varian",
+   "name": "Drakana Kalgolem",
+   "unreleased": false
+  },
+  "1153": {
+   "chests": [
+    {
+     "chance": "2.17%",
+     "name": "Pet Soul Chest: Varian (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 1651,
+      "name": "Aullaeu Village Sky Island",
+      "teleport": 35
+     },
+     "level": 50,
+     "npc": "Eternal Drana Mutant",
+     "region": "Verteron",
+     "spawns": 25,
+     "zones": [
+      "Eternal Isle"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 273,
+      "name": "Crimson Isle Outpost",
+      "teleport": 61
+     },
+     "level": 47,
+     "npc": "Crimson Drana Mutant",
+     "region": "Verteron",
+     "spawns": 23,
+     "zones": [
+      "Crimson Isle"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 1256,
+      "name": "Remote Island",
+      "teleport": 15
+     },
+     "level": 50,
+     "npc": "Drana Mutant",
+     "region": "Altgard",
+     "spawns": 28,
+     "zones": [
+      "Immortal Isle"
+     ]
+    }
+   ],
+   "genus": "varian",
+   "name": "Drana Mutant Brute",
+   "unreleased": false
+  },
+  "1154": {
+   "chests": [
+    {
+     "chance": "2.17%",
+     "name": "Pet Soul Chest: Varian (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 160,
+      "name": "Abandoned Campsite",
+      "teleport": 49
+     },
+     "level": 35,
+     "npc": "Faded Mutant Brute",
+     "region": "Altgard",
+     "spawns": 7,
+     "zones": [
+      "Fafnite Deposit"
+     ]
+    }
+   ],
+   "genus": "varian",
+   "name": "Faded Mutant Brute",
+   "unreleased": false
+  },
+  "1155": {
+   "chests": [
+    {
+     "chance": "2.08%",
+     "name": "Pet Soul Chest: Natura (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 151,
+      "name": "Pilgrim's Rest",
+      "teleport": 58
+     },
+     "level": 45,
+     "npc": "Torrent Spirit",
+     "region": "Verteron",
+     "spawns": 5,
+     "zones": [
+      "Garden of the Illusion God"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 148,
+      "name": "Healing Spring",
+      "teleport": 32
+     },
+     "level": 29,
+     "npc": "Water Mist Spirit",
+     "region": "Altgard",
+     "spawns": 30,
+     "zones": [
+      "Purifying Forest"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 202,
+      "name": "Guide's Dwelling",
+      "teleport": 61
+     },
+     "level": 46,
+     "npc": "Unstable Superior Water Spirit",
+     "region": "Altgard",
+     "spawns": 20,
+     "zones": [
+      "Spirit Isle"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 1482,
+      "name": "Remote Island",
+      "teleport": 15
+     },
+     "level": 51,
+     "npc": "Immortal Water Spirit Guardian",
+     "region": "Altgard",
+     "spawns": 7,
+     "zones": [
+      "Immortal Isle"
+     ]
+    }
+   ],
+   "genus": "natura",
+   "name": "Superior Water Spirit",
+   "unreleased": false
+  },
+  "1156": {
+   "chests": [
+    {
+     "chance": "2.44%",
+     "name": "Pet Soul Chest: Cogni (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 89,
+      "name": "Verteron Fortress Valley",
+      "teleport": 21
+     },
+     "level": 45,
+     "npc": "Bodyguard Teegant",
+     "region": "Verteron",
+     "spawns": 1,
+     "zones": [
+      "Destroyed Abyss Gate"
+     ]
+    }
+   ],
+   "genus": "cogni",
+   "name": "Elite Klaw",
+   "unreleased": false
+  },
+  "1157": {
+   "chests": [
+    {
+     "chance": "2.17%",
+     "name": "Pet Soul Chest: Varian (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 120,
+      "name": "Victorious Daeva's Statue",
+      "teleport": 27
+     },
+     "level": 24,
+     "npc": "Ruins Corpse Cleaner",
+     "region": "Altgard",
+     "spawns": 17,
+     "zones": [
+      "Uruthumheim"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 248,
+      "name": "Graverobber Campsite",
+      "teleport": 40
+     },
+     "level": 34,
+     "npc": "Ferocious Cadaver Cleaner",
+     "region": "Altgard",
+     "spawns": 21,
+     "zones": [
+      "Basfelt Ruins"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 217,
+      "name": "Basfelt Ruins Cliff",
+      "teleport": 44
+     },
+     "level": 34,
+     "npc": "Ferocious Cadaver Cleaner",
+     "region": "Altgard",
+     "spawns": 40,
+     "zones": [
+      "Basfelt Ruins"
+     ]
+    }
+   ],
+   "genus": "varian",
+   "name": "Cadaver Cleaner",
+   "unreleased": false
+  },
+  "1158": {
+   "chests": [
+    {
+     "chance": "1.54%",
+     "name": "Pet Soul Chestt: Fera (Bound)"
+    }
+   ],
+   "drops": [],
+   "genus": "fera",
+   "name": "Venomous Insect Sram",
+   "unreleased": false
+  },
+  "1159": {
+   "chests": [
+    {
+     "chance": "2.17%",
+     "name": "Pet Soul Chest: Varian (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 241,
+      "name": "Steel Hammer Workcamp",
+      "teleport": 48
+     },
+     "level": 36,
+     "npc": "Giant Ore Insectoid Adult",
+     "region": "Altgard",
+     "spawns": 11,
+     "zones": [
+      "Fafnite Deposit"
+     ]
+    }
+   ],
+   "genus": "varian",
+   "name": "Parasite Swarm",
+   "unreleased": false
+  },
+  "1160": {
+   "chests": [
+    {
+     "chance": "2.17%",
+     "name": "Pet Soul Chest: Varian (Bound)"
+    }
+   ],
+   "drops": [],
+   "genus": "varian",
+   "name": "Drana Contaminant",
+   "unreleased": false
+  },
+  "1161": {
+   "chests": [
+    {
+     "chance": "2.17%",
+     "name": "Pet Soul Chest: Varian (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 170,
+      "name": "Steel Hammer Workcamp",
+      "teleport": 48
+     },
+     "level": 35,
+     "npc": "Faded Floater",
+     "region": "Altgard",
+     "spawns": 20,
+     "zones": [
+      "Fafnite Deposit"
+     ]
+    }
+   ],
+   "genus": "varian",
+   "name": "Faded Floater",
+   "unreleased": false
+  },
+  "1162": {
+   "chests": [
+    {
+     "chance": "2.44%",
+     "name": "Pet Soul Chest: Cogni (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 1842,
+      "name": "Aullaeu Village Sky Island",
+      "teleport": 35
+     },
+     "level": 49,
+     "npc": "Eternal Kerubar",
+     "region": "Verteron",
+     "spawns": 31,
+     "zones": [
+      "Eternal Isle"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 1886,
+      "name": "Aullaeu Village Sky Island",
+      "teleport": 35
+     },
+     "level": 49,
+     "npc": "Eternal Kerubar",
+     "region": "Verteron",
+     "spawns": 111,
+     "zones": [
+      "Eternal Isle"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 1699,
+      "name": "Remote Island",
+      "teleport": 15
+     },
+     "level": 49,
+     "npc": "Kerubar",
+     "region": "Altgard",
+     "spawns": 94,
+     "zones": [
+      "Immortal Isle"
+     ]
+    }
+   ],
+   "genus": "cogni",
+   "name": "Kerubar",
+   "unreleased": false
+  },
+  "1163": {
+   "chests": [
+    {
+     "chance": "1.54%",
+     "name": "Pet Soul Chestt: Fera (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 162,
+      "name": "Collapsed Chasm",
+      "teleport": 19
+     },
+     "level": 21,
+     "npc": "Black Ash Basilisk",
+     "region": "Altgard",
+     "spawns": 16,
+     "zones": [
+      "Moslan Forest"
+     ]
+    }
+   ],
+   "genus": "fera",
+   "name": "Basilisk",
+   "unreleased": false
+  },
+  "1164": {
+   "chests": [
+    {
+     "chance": "2.08%",
+     "name": "Pet Soul Chest: Natura (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 1703,
+      "name": "Aullaeu Village Sky Island",
+      "teleport": 35
+     },
+     "level": 51,
+     "npc": "Eternal Earth Spirit",
+     "region": "Verteron",
+     "spawns": 13,
+     "zones": [
+      "Eternal Isle"
+     ]
+    }
+   ],
+   "genus": "natura",
+   "name": "Lesser Earth Spirit",
+   "unreleased": false
+  },
+  "1165": {
+   "chests": [
+    {
+     "chance": "2.08%",
+     "name": "Pet Soul Chest: Natura (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 147,
+      "name": "Garden of the Illusion God West Observatory",
+      "teleport": 59
+     },
+     "level": 44,
+     "npc": "Wandering Earth Spirit",
+     "region": "Verteron",
+     "spawns": 15,
+     "zones": [
+      "Garden of the Illusion God"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 1709,
+      "name": "Aullaeu Village Sky Island",
+      "teleport": 35
+     },
+     "level": 51,
+     "npc": "Violent Earth Spirit",
+     "region": "Verteron",
+     "spawns": 4,
+     "zones": [
+      "Eternal Isle"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 1556,
+      "name": "Remote Island",
+      "teleport": 15
+     },
+     "level": 51,
+     "npc": "Immortal Earth Spirit",
+     "region": "Altgard",
+     "spawns": 7,
+     "zones": [
+      "Immortal Isle"
+     ]
+    }
+   ],
+   "genus": "natura",
+   "name": "Intermediate Earth Spirit",
+   "unreleased": false
+  },
+  "1166": {
+   "chests": [
+    {
+     "chance": "2.08%",
+     "name": "Pet Soul Chest: Natura (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 106,
+      "name": "Garden of the Illusion God West Observatory",
+      "teleport": 59
+     },
+     "level": 45,
+     "npc": "Peculiar Rock Spirit",
+     "region": "Verteron",
+     "spawns": 5,
+     "zones": [
+      "Garden of the Illusion God"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 164,
+      "name": "Faded Stump",
+      "teleport": 31
+     },
+     "level": 28,
+     "npc": "Corroded Soil Spirit",
+     "region": "Altgard",
+     "spawns": 49,
+     "zones": [
+      "Purifying Forest"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 1558,
+      "name": "Remote Island",
+      "teleport": 15
+     },
+     "level": 51,
+     "npc": "Immortal Earth Spirit Guardian",
+     "region": "Altgard",
+     "spawns": 6,
+     "zones": [
+      "Immortal Isle"
+     ]
+    }
+   ],
+   "genus": "natura",
+   "name": "Superior Earth Spirit",
+   "unreleased": false
+  },
+  "1167": {
+   "chests": [
+    {
+     "chance": "2.17%",
+     "name": "Pet Soul Chest: Varian (Bound)"
+    }
+   ],
+   "drops": [],
+   "genus": "varian",
+   "name": "Flame Stone Guardian Statue",
+   "unreleased": false
+  },
+  "1168": {
+   "chests": [
+    {
+     "chance": "2.08%",
+     "name": "Pet Soul Chest: Natura (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 26,
+      "name": "Spirit's Rest",
+      "teleport": 11
+     },
+     "level": 16,
+     "npc": "Water Spirit",
+     "region": "Verteron",
+     "spawns": 34,
+     "zones": [
+      "Spirit's Rest"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 1709,
+      "name": "Aullaeu Village Sky Island",
+      "teleport": 35
+     },
+     "level": 51,
+     "npc": "Eternal Water Spirit",
+     "region": "Verteron",
+     "spawns": 10,
+     "zones": [
+      "Eternal Isle"
+     ]
+    }
+   ],
+   "genus": "natura",
+   "name": "Lesser Water Spirit",
+   "unreleased": false
+  },
+  "1169": {
+   "chests": [
+    {
+     "chance": "2.08%",
+     "name": "Pet Soul Chest: Natura (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 174,
+      "name": "Pilgrim's Rest",
+      "teleport": 58
+     },
+     "level": 45,
+     "npc": "Wandering Water Spirit",
+     "region": "Verteron",
+     "spawns": 20,
+     "zones": [
+      "Garden of the Illusion God"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 1690,
+      "name": "Aullaeu Village Sky Island",
+      "teleport": 35
+     },
+     "level": 51,
+     "npc": "Violent Water Spirit",
+     "region": "Verteron",
+     "spawns": 1,
+     "zones": [
+      "Eternal Isle"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 103,
+      "name": "Guide's Dwelling",
+      "teleport": 61
+     },
+     "level": 46,
+     "npc": "Unstable Intermediate Water Spirit",
+     "region": "Altgard",
+     "spawns": 21,
+     "zones": [
+      "Spirit Isle"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 1456,
+      "name": "Remote Island",
+      "teleport": 15
+     },
+     "level": 51,
+     "npc": "Immortal Water Spirit",
+     "region": "Altgard",
+     "spawns": 11,
+     "zones": [
+      "Immortal Isle"
+     ]
+    }
+   ],
+   "genus": "natura",
+   "name": "Intermediate Water Spirit",
+   "unreleased": false
+  },
+  "1170": {
+   "chests": [
+    {
+     "chance": "2.44%",
+     "name": "Pet Soul Chest: Cogni (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 1872,
+      "name": "Aullaeu Village Sky Island",
+      "teleport": 35
+     },
+     "level": 49,
+     "npc": "Eternal Kerubian",
+     "region": "Verteron",
+     "spawns": 28,
+     "zones": [
+      "Eternal Isle"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 1886,
+      "name": "Aullaeu Village Sky Island",
+      "teleport": 35
+     },
+     "level": 49,
+     "npc": "Eternal Kerubian",
+     "region": "Verteron",
+     "spawns": 111,
+     "zones": [
+      "Eternal Isle"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 1663,
+      "name": "Remote Island",
+      "teleport": 15
+     },
+     "level": 49,
+     "npc": "Kerubian",
+     "region": "Altgard",
+     "spawns": 28,
+     "zones": [
+      "Immortal Isle"
+     ]
+    }
+   ],
+   "genus": "cogni",
+   "name": "Kerubian",
+   "unreleased": false
+  },
+  "1171": {
+   "chests": [
+    {
+     "chance": "2.44%",
+     "name": "Pet Soul Chest: Cogni (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 1870,
+      "name": "Aullaeu Village Sky Island",
+      "teleport": 35
+     },
+     "level": 49,
+     "npc": "Eternal Kerubiel",
+     "region": "Verteron",
+     "spawns": 55,
+     "zones": [
+      "Eternal Isle"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 1693,
+      "name": "Remote Island",
+      "teleport": 15
+     },
+     "level": 49,
+     "npc": "Kerubiel",
+     "region": "Altgard",
+     "spawns": 39,
+     "zones": [
+      "Immortal Isle"
+     ]
+    }
+   ],
+   "genus": "cogni",
+   "name": "Kerubiel",
+   "unreleased": false
+  },
+  "1172": {
+   "chests": [
+    {
+     "chance": "2.17%",
+     "name": "Pet Soul Chest: Varian (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 145,
+      "name": "Secret Rendezvous Point",
+      "teleport": 56
+     },
+     "level": 41,
+     "npc": "Duduka Worker",
+     "region": "Altgard",
+     "spawns": 75,
+     "zones": [
+      "Black Claw Village"
+     ]
+    }
+   ],
+   "genus": "varian",
+   "name": "Duduka Worker",
+   "unreleased": false
+  },
+  "1173": {
+   "chests": [
+    {
+     "chance": "2.17%",
+     "name": "Pet Soul Chest: Varian (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 180,
+      "name": "Secret Rendezvous Point",
+      "teleport": 56
+     },
+     "level": 42,
+     "npc": "Duduka Slinger",
+     "region": "Altgard",
+     "spawns": 44,
+     "zones": [
+      "Black Claw Village"
+     ]
+    }
+   ],
+   "genus": "varian",
+   "name": "Duduka Trebuchet Worker",
+   "unreleased": false
+  },
+  "1174": {
+   "chests": [
+    {
+     "chance": "2.17%",
+     "name": "Pet Soul Chest: Varian (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 234,
+      "name": "Crimson Isle Outpost",
+      "teleport": 61
+     },
+     "level": 48,
+     "npc": "Crimson Drana Predator",
+     "region": "Verteron",
+     "spawns": 41,
+     "zones": [
+      "Crimson Isle"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 112,
+      "name": "Creion Campsite",
+      "teleport": 5
+     },
+     "level": 12,
+     "npc": "Drana Predator",
+     "region": "Altgard",
+     "spawns": 20,
+     "zones": [
+      "Dredgion Crash Site"
+     ]
+    }
+   ],
+   "genus": "varian",
+   "name": "Drana Predator",
+   "unreleased": false
+  },
+  "1175": {
+   "chests": [
+    {
+     "chance": "2.17%",
+     "name": "Pet Soul Chest: Varian (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 150,
+      "name": "Abandoned Campsite",
+      "teleport": 49
+     },
+     "level": 35,
+     "npc": "Faded Predator",
+     "region": "Altgard",
+     "spawns": 15,
+     "zones": [
+      "Fafnite Deposit"
+     ]
+    }
+   ],
+   "genus": "varian",
+   "name": "Faded Predator",
+   "unreleased": false
+  },
+  "1176": {
+   "chests": [
+    {
+     "chance": "2.17%",
+     "name": "Pet Soul Chest: Varian (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 220,
+      "name": "Steel Hammer Workcamp",
+      "teleport": 48
+     },
+     "level": 36,
+     "npc": "Addicted Mudthorn",
+     "region": "Altgard",
+     "spawns": 11,
+     "zones": [
+      "Fafnite Deposit"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 258,
+      "name": "Collapsed Hall of Fame",
+      "teleport": 58
+     },
+     "level": 44,
+     "npc": "Remnant of Subspace",
+     "region": "Altgard",
+     "spawns": 26,
+     "zones": [
+      "Impetusium Square"
+     ]
+    }
+   ],
+   "genus": "varian",
+   "name": "Mudthorn",
+   "unreleased": false
+  },
+  "1177": {
+   "chests": [
+    {
+     "chance": "2.08%",
+     "name": "Pet Soul Chest: Natura (Bound)"
+    }
+   ],
+   "drops": [],
+   "genus": "natura",
+   "name": "Ancient Spirit",
+   "unreleased": false
+  },
+  "1178": {
+   "chests": [
+    {
+     "chance": "2.08%",
+     "name": "Pet Soul Chest: Natura (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "bySide": {
+      "asmodian": {
+       "m": 798,
+       "name": "Latesran Eastern Root",
+       "teleport": 1
+      },
+      "elyos": {
+       "m": 1176,
+       "name": "Latesran Western Root",
+       "teleport": 1
+      }
+     },
+     "chance": "100%",
+     "kibelisk": {
+      "m": 798,
+      "name": "Latesran Eastern Root",
+      "teleport": 1
+     },
+     "level": 49,
+     "npc": "Old Tree Spirit Warrior",
+     "region": "Chaotic Lower Reshanta",
+     "spawns": 18,
+     "zones": [
+      "Archipelago of Siel's Wings - Siel's Right Wing"
+     ]
+    }
+   ],
+   "genus": "natura",
+   "name": "Spirit King's Bodyguard Warrior",
+   "unreleased": false
+  },
+  "1179": {
+   "chests": [
+    {
+     "chance": "2.17%",
+     "name": "Pet Soul Chest: Varian (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 226,
+      "name": "Temporary Investigation Base",
+      "teleport": 4
+     },
+     "level": 10,
+     "npc": "Twisted Mutant",
+     "region": "Altgard",
+     "spawns": 50,
+     "zones": [
+      "Dredgion Crash Site"
+     ]
+    }
+   ],
+   "genus": "varian",
+   "name": "Drana Mutant",
+   "unreleased": false
+  },
+  "1180": {
+   "chests": [
+    {
+     "chance": "2.17%",
+     "name": "Pet Soul Chest: Varian (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 155,
+      "name": "Steel Hammer Workcamp",
+      "teleport": 48
+     },
+     "level": 35,
+     "npc": "Faded Mutant",
+     "region": "Altgard",
+     "spawns": 43,
+     "zones": [
+      "Fafnite Deposit"
+     ]
+    }
+   ],
+   "genus": "varian",
+   "name": "Faded Mutant",
+   "unreleased": false
+  },
+  "1181": {
+   "chests": [
+    {
+     "chance": "1.54%",
+     "name": "Pet Soul Chestt: Fera (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 84,
+      "name": "Purifying Forest Sunny Hill",
+      "teleport": 33
+     },
+     "level": 33,
+     "npc": "Brax",
+     "region": "Altgard",
+     "spawns": 11,
+     "zones": [
+      "Basfelt Ruins"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 212,
+      "name": "Dawn Legion Temporary Outpost",
+      "teleport": 22
+     },
+     "level": 18,
+     "npc": "Field Brax",
+     "region": "Verteron",
+     "spawns": 34,
+     "zones": [
+      "Ellun River Midstream"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 128,
+      "name": "Illusion Cavaliers' Campsite",
+      "teleport": 13
+     },
+     "level": 18,
+     "npc": "Hungry Brax",
+     "region": "Verteron",
+     "spawns": 39,
+     "zones": [
+      "Ellun River Meadow",
+      "Ellun River Midstream"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 205,
+      "name": "Rock Hill Outpost",
+      "teleport": 37
+     },
+     "level": 32,
+     "npc": "Docile Highland Brax",
+     "region": "Verteron",
+     "spawns": 51,
+     "zones": [
+      "Western Altamia Highland",
+      "Eastern Altamia Highland"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 206,
+      "name": "Battlescar Mound Clifftop",
+      "teleport": 38
+     },
+     "level": 32,
+     "npc": "Brax",
+     "region": "Altgard",
+     "spawns": 8,
+     "zones": [
+      "Battlescar Mound"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 124,
+      "name": "Temporary Retreat",
+      "teleport": 13
+     },
+     "level": 20,
+     "npc": "Brax",
+     "region": "Altgard",
+     "spawns": 21,
+     "zones": [
+      "Sanctum Outpost",
+      "Tranein Highland"
+     ]
+    }
+   ],
+   "genus": "fera",
+   "name": "Brax",
+   "unreleased": false
+  },
+  "1182": {
+   "chests": [
+    {
+     "chance": "2.17%",
+     "name": "Pet Soul Chest: Varian (Bound)"
+    }
+   ],
+   "drops": [],
+   "genus": "varian",
+   "name": "Elite Soulless Corpse Gnat",
+   "unreleased": false
+  },
+  "1183": {
+   "chests": [
+    {
+     "chance": "2.17%",
+     "name": "Pet Soul Chest: Varian (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 217,
+      "name": "Fissure Cave",
+      "teleport": 41
+     },
+     "level": 33,
+     "npc": "Soulless Corpse Gnat",
+     "region": "Altgard",
+     "spawns": 22,
+     "zones": [
+      "Basfelt Ruins"
+     ]
+    }
+   ],
+   "genus": "varian",
+   "name": "Soulless Corpse Gnat",
+   "unreleased": false
+  },
+  "1184": {
+   "chests": [
+    {
+     "chance": "2.44%",
+     "name": "Pet Soul Chest: Cogni (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 339,
+      "name": "Drana Transport Hub",
+      "teleport": 54
+     },
+     "level": 42,
+     "npc": "Processing Facility Drakan Scout",
+     "region": "Verteron",
+     "spawns": 23,
+     "zones": [
+      "Drana Processing Area"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 261,
+      "name": "Briskwind Shelter",
+      "teleport": 35
+     },
+     "level": 32,
+     "npc": "Drakan Manager",
+     "region": "Altgard",
+     "spawns": 8,
+     "zones": [
+      "Dranactus"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 114,
+      "name": "Eastern Gribade Highland Cliff",
+      "teleport": 52
+     },
+     "level": 40,
+     "npc": "Drakan Patrol Watcher",
+     "region": "Altgard",
+     "spawns": 24,
+     "zones": [
+      "Eastern Gribade Highland"
+     ]
+    }
+   ],
+   "genus": "cogni",
+   "name": "Drakan Watcher",
+   "unreleased": false
+  },
+  "1185": {
+   "chests": [
+    {
+     "chance": "2.44%",
+     "name": "Pet Soul Chest: Cogni (Bound)"
+    }
+   ],
+   "drops": [],
+   "genus": "cogni",
+   "name": "Dratona Tinkerer",
+   "unreleased": false
+  },
+  "1186": {
+   "chests": [
+    {
+     "chance": "2.17%",
+     "name": "Pet Soul Chest: Varian (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 245,
+      "name": "Healing Spring",
+      "teleport": 32
+     },
+     "level": 29,
+     "npc": "Cursed Poison Blood",
+     "region": "Altgard",
+     "spawns": 28,
+     "zones": [
+      "Purifying Forest"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 228,
+      "name": "Guide's Dwelling",
+      "teleport": 61
+     },
+     "level": 47,
+     "npc": "Unstable Poison Blood",
+     "region": "Altgard",
+     "spawns": 25,
+     "zones": [
+      "Spirit Isle"
+     ]
+    }
+   ],
+   "genus": "varian",
+   "name": "Poison Blood",
+   "unreleased": false
+  },
+  "1187": {
+   "chests": [
+    {
+     "chance": "2.08%",
+     "name": "Pet Soul Chest: Natura (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 1737,
+      "name": "Aullaeu Village Sky Island",
+      "teleport": 35
+     },
+     "level": 51,
+     "npc": "Violent Fire Spirit",
+     "region": "Verteron",
+     "spawns": 4,
+     "zones": [
+      "Eternal Isle"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 133,
+      "name": "Guide's Dwelling",
+      "teleport": 61
+     },
+     "level": 48,
+     "npc": "Unstable Intermediate Fire Spirit",
+     "region": "Altgard",
+     "spawns": 14,
+     "zones": [
+      "Spirit Isle"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 1523,
+      "name": "Remote Island",
+      "teleport": 15
+     },
+     "level": 51,
+     "npc": "Immortal Fire Spirit",
+     "region": "Altgard",
+     "spawns": 11,
+     "zones": [
+      "Immortal Isle"
+     ]
+    }
+   ],
+   "genus": "natura",
+   "name": "Intermediate Fire Spirit",
+   "unreleased": false
+  },
+  "1188": {
+   "chests": [
+    {
+     "chance": "1.54%",
+     "name": "Pet Soul Chestt: Fera (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 170,
+      "name": "Rock Hill Outpost",
+      "teleport": 37
+     },
+     "level": 32,
+     "npc": "Highland Vivel",
+     "region": "Verteron",
+     "spawns": 50,
+     "zones": [
+      "Western Altamia Highland",
+      "Rock Tomb Hill"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 182,
+      "name": "Gravekeeper Camp",
+      "teleport": 7
+     },
+     "level": 14,
+     "npc": "Vampire Vivel",
+     "region": "Altgard",
+     "spawns": 71,
+     "zones": [
+      "Nameless Cemetery"
+     ]
+    }
+   ],
+   "genus": "fera",
+   "name": "Vivel",
+   "unreleased": false
+  },
+  "1189": {
+   "chests": [
+    {
+     "chance": "1.54%",
+     "name": "Pet Soul Chestt: Fera (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 271,
+      "name": "Zumion Temple Pilgrimage Path",
+      "teleport": 23
+     },
+     "level": 27,
+     "npc": "Marauders Zaif",
+     "region": "Verteron",
+     "spawns": 6,
+     "zones": [
+      "Pilgrim's Ridge"
+     ]
+    }
+   ],
+   "genus": "fera",
+   "name": "Tamed Zaif",
+   "unreleased": false
+  },
+  "1190": {
+   "chests": [
+    {
+     "chance": "2.08%",
+     "name": "Pet Soul Chest: Natura (Bound)"
+    }
+   ],
+   "drops": [],
+   "genus": "natura",
+   "name": "Elite Poisonous Spore Fungen",
+   "unreleased": false
+  },
+  "1191": {
+   "chests": [
+    {
+     "chance": "2.44%",
+     "name": "Pet Soul Chest: Cogni (Bound)"
+    }
+   ],
+   "drops": [],
+   "genus": "cogni",
+   "name": "Furious Feruk",
+   "unreleased": false
+  },
+  "1192": {
+   "chests": [
+    {
+     "chance": "2.17%",
+     "name": "Pet Soul Chest: Varian (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "level": 63,
+     "npc": "Silver Blade Rotan",
+     "region": "Fire Temple",
+     "spawns": 1,
+     "zones": [
+      "Burning Temple"
+     ]
+    },
+    {
+     "chance": "100%",
+     "level": 37,
+     "npc": "Silver Blade Rotan",
+     "region": "Fire Temple",
+     "spawns": 1,
+     "zones": [
+      "Burning Temple"
+     ]
+    },
+    {
+     "chance": "100%",
+     "level": 74,
+     "npc": "Silver Blade Rotan",
+     "region": "Fire Temple",
+     "spawns": 1,
+     "zones": [
+      "Burning Temple"
+     ]
+    },
+    {
+     "bySide": {
+      "asmodian": {
+       "m": 1163,
+       "name": "Latesran Eastern Root",
+       "teleport": 1
+      },
+      "elyos": {
+       "m": 381,
+       "name": "Latesran Western Root",
+       "teleport": 1
+      }
+     },
+     "chance": "100%",
+     "kibelisk": {
+      "m": 381,
+      "name": "Latesran Western Root",
+      "teleport": 1
+     },
+     "level": 46,
+     "npc": "Abyss Rusty Rotan",
+     "region": "Chaotic Lower Reshanta",
+     "spawns": 13,
+     "zones": [
+      "Devastated Remnants - Weathered Outcrop",
+      "Devastated Remnants - Shade Island"
+     ]
+    },
+    {
+     "bySide": {
+      "asmodian": {
+       "m": 373,
+       "name": "Latesran Eastern Root",
+       "teleport": 1
+      },
+      "elyos": {
+       "m": 1170,
+       "name": "Latesran Western Root",
+       "teleport": 1
+      }
+     },
+     "chance": "100%",
+     "kibelisk": {
+      "m": 373,
+      "name": "Latesran Eastern Root",
+      "teleport": 1
+     },
+     "level": 46,
+     "npc": "Abyss Old Blade Rotan",
+     "region": "Chaotic Lower Reshanta",
+     "spawns": 13,
+     "zones": [
+      "Black Fragments Area - Kibelium Fragment",
+      "Black Fragments Area - Lonely Island"
+     ]
+    }
+   ],
+   "genus": "varian",
+   "name": "Silver Blade Rotan",
+   "unreleased": false
+  },
+  "1193": {
+   "chests": [
+    {
+     "chance": "2.44%",
+     "name": "Pet Soul Chest: Cogni (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 167,
+      "name": "Steel Hammer Workcamp",
+      "teleport": 48
+     },
+     "level": 36,
+     "npc": "Rampaging Shulak Cart Worker",
+     "region": "Altgard",
+     "spawns": 29,
+     "zones": [
+      "Fafnite Deposit"
+     ]
+    }
+   ],
+   "genus": "cogni",
+   "name": "Addicted Shulak Cart Worker",
+   "unreleased": false
+  },
+  "1194": {
+   "chests": [
+    {
+     "chance": "2.17%",
+     "name": "Pet Soul Chest: Varian (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 108,
+      "name": "Hill of Purification",
+      "teleport": 42
+     },
+     "level": 36,
+     "npc": "Uncontrollable Guardite",
+     "region": "Verteron",
+     "spawns": 33,
+     "zones": [
+      "Contaminated Sanctum"
+     ]
+    }
+   ],
+   "genus": "varian",
+   "name": "Guardite",
+   "unreleased": false
+  },
+  "1195": {
+   "chests": [
+    {
+     "chance": "2.44%",
+     "name": "Pet Soul Chest: Cogni (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 192,
+      "name": "Drana Transport Hub",
+      "teleport": 54
+     },
+     "level": 41,
+     "npc": "Dracuni Processing Laborer",
+     "region": "Verteron",
+     "spawns": 44,
+     "zones": [
+      "Drana Processing Area"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 217,
+      "name": "Guide's Dwelling",
+      "teleport": 61
+     },
+     "level": 47,
+     "npc": "Poison Blood Gatherer",
+     "region": "Altgard",
+     "spawns": 33,
+     "zones": [
+      "Spirit Isle"
+     ]
+    }
+   ],
+   "genus": "cogni",
+   "name": "Dracuni Herbalist",
+   "unreleased": false
+  },
+  "1196": {
+   "chests": [
+    {
+     "chance": "2.44%",
+     "name": "Pet Soul Chest: Cogni (Bound)"
+    }
+   ],
+   "drops": [],
+   "genus": "cogni",
+   "name": "Elite Dratona",
+   "unreleased": true
+  },
+  "1197": {
+   "chests": [
+    {
+     "chance": "2.17%",
+     "name": "Pet Soul Chest: Varian (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 165,
+      "name": "Hill of Purification",
+      "teleport": 42
+     },
+     "level": 37,
+     "npc": "Contaminated Guardite",
+     "region": "Verteron",
+     "spawns": 44,
+     "zones": [
+      "Contaminated Sanctum"
+     ]
+    }
+   ],
+   "genus": "varian",
+   "name": "Watcher Guardite",
+   "unreleased": false
+  },
+  "1198": {
+   "chests": [
+    {
+     "chance": "1.54%",
+     "name": "Pet Soul Chestt: Fera (Bound)"
+    }
+   ],
+   "drops": [],
+   "genus": "fera",
+   "name": "Ashen Basilisk",
+   "unreleased": false
+  },
+  "1199": {
+   "chests": [
+    {
+     "chance": "1.54%",
+     "name": "Pet Soul Chestt: Fera (Bound)"
+    }
+   ],
+   "drops": [],
+   "genus": "fera",
+   "name": "Flame Barghest",
+   "unreleased": false
+  },
+  "1200": {
+   "chests": [
+    {
+     "chance": "2.44%",
+     "name": "Pet Soul Chest: Cogni (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "bySide": {
+      "asmodian": {
+       "m": 1190,
+       "name": "Latesran Eastern Root",
+       "teleport": 1
+      },
+      "elyos": {
+       "m": 775,
+       "name": "Latesran Western Root",
+       "teleport": 1
+      }
+     },
+     "chance": "100%",
+     "kibelisk": {
+      "m": 775,
+      "name": "Latesran Western Root",
+      "teleport": 1
+     },
+     "level": 48,
+     "npc": "Abyss Naga Dark Mage",
+     "region": "Chaotic Lower Reshanta",
+     "spawns": 7,
+     "zones": [
+      "Sulfur Tree Island - River of Rotten Sap"
+     ]
+    }
+   ],
+   "genus": "cogni",
+   "name": "Naga Elite Priest",
+   "unreleased": false
+  },
+  "1201": {
+   "chests": [
+    {
+     "chance": "2.44%",
+     "name": "Pet Soul Chest: Cogni (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 248,
+      "name": "Nahid Brigade Fortress Hill",
+      "teleport": 51
+     },
+     "level": 40,
+     "npc": "Lupyllini Test Subject",
+     "region": "Verteron",
+     "spawns": 30,
+     "zones": [
+      "Kraka Footpath"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 1793,
+      "name": "Aullaeu Village Sky Island",
+      "teleport": 35
+     },
+     "level": 49,
+     "npc": "Eternal Lupyllini",
+     "region": "Verteron",
+     "spawns": 22,
+     "zones": [
+      "Eternal Isle"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 1382,
+      "name": "Remote Island",
+      "teleport": 15
+     },
+     "level": 49,
+     "npc": "Modified Lupyllini",
+     "region": "Altgard",
+     "spawns": 71,
+     "zones": [
+      "Immortal Isle"
+     ]
+    }
+   ],
+   "genus": "cogni",
+   "name": "Modified Lupyllini",
+   "unreleased": false
+  },
+  "1202": {
+   "chests": [
+    {
+     "chance": "2.44%",
+     "name": "Pet Soul Chest: Cogni (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 208,
+      "name": "Altamia Highland Ruins",
+      "teleport": 43
+     },
+     "level": 35,
+     "npc": "Contaminated Highland Lupyllini",
+     "region": "Verteron",
+     "spawns": 8,
+     "zones": [
+      "Eastern Altamia Highland"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 199,
+      "name": "Galorik's Inspection Area",
+      "teleport": 3
+     },
+     "level": 10,
+     "npc": "Decomposed Lupyllini",
+     "region": "Altgard",
+     "spawns": 17,
+     "zones": [
+      "Dredgion Crash Site",
+      "Galorik's Inspection Area"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 306,
+      "name": "Battlescar Mound Clifftop",
+      "teleport": 38
+     },
+     "level": 32,
+     "npc": "Decomposed Lupyllini",
+     "region": "Altgard",
+     "spawns": 34,
+     "zones": [
+      "Battlescar Mound"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 108,
+      "name": "Purifying Forest Sunny Hill",
+      "teleport": 33
+     },
+     "level": 33,
+     "npc": "Ferocious Lupyllini",
+     "region": "Altgard",
+     "spawns": 16,
+     "zones": [
+      "Basfelt Ruins"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 125,
+      "name": "Watcher's Tent",
+      "teleport": 16
+     },
+     "level": 20,
+     "npc": "Decomposed Lupyllini",
+     "region": "Altgard",
+     "spawns": 16,
+     "zones": [
+      "Tranein Highland",
+      "Moslan Forest",
+      "Munin's Bridge"
+     ]
+    }
+   ],
+   "genus": "cogni",
+   "name": "Decomposed Lupyllini",
+   "unreleased": false
+  },
+  "1203": {
+   "chests": [
+    {
+     "chance": "1.54%",
+     "name": "Pet Soul Chestt: Fera (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 186,
+      "name": "Victorious Daeva's Statue",
+      "teleport": 27
+     },
+     "level": 24,
+     "npc": "Blades Karnif",
+     "region": "Altgard",
+     "spawns": 8,
+     "zones": [
+      "Uruthumheim"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 180,
+      "name": "Abandoned Campsite",
+      "teleport": 49
+     },
+     "level": 37,
+     "npc": "Tamed Blades Beast",
+     "region": "Altgard",
+     "spawns": 56,
+     "zones": [
+      "Western Gribade Highland"
+     ]
+    }
+   ],
+   "genus": "fera",
+   "name": "Tamed Karnif",
+   "unreleased": false
+  },
+  "1204": {
+   "chests": [],
+   "drops": [],
+   "genus": "special",
+   "name": "Pagati",
+   "unreleased": false
+  },
+  "1206": {
+   "chests": [
+    {
+     "chance": "2.17%",
+     "name": "Pet Soul Chest: Varian (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 146,
+      "name": "Altamia Highland Ruins",
+      "teleport": 43
+     },
+     "level": 45,
+     "npc": "Divine Ansas",
+     "region": "Verteron",
+     "spawns": 1,
+     "zones": [
+      "Contaminated Sanctum"
+     ]
+    }
+   ],
+   "genus": "varian",
+   "name": "Elite Guardite",
+   "unreleased": false
+  },
+  "1207": {
+   "chests": [
+    {
+     "chance": "2.08%",
+     "name": "Pet Soul Chest: Natura (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 237,
+      "name": "Illusion Oratory Entrance",
+      "teleport": 20
+     },
+     "level": 18,
+     "npc": "Decaying Agrint",
+     "region": "Verteron",
+     "spawns": 19,
+     "zones": [
+      "Ellun River Midstream"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 241,
+      "name": "Pilgrim's Rest",
+      "teleport": 58
+     },
+     "level": 44,
+     "npc": "Old Agrint",
+     "region": "Verteron",
+     "spawns": 33,
+     "zones": [
+      "Garden of the Illusion God"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 166,
+      "name": "Altamia Highland Ruins",
+      "teleport": 43
+     },
+     "level": 37,
+     "npc": "Contaminated Agrint",
+     "region": "Verteron",
+     "spawns": 16,
+     "zones": [
+      "Contaminated Sanctum"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 1699,
+      "name": "Aullaeu Village Sky Island",
+      "teleport": 35
+     },
+     "level": 49,
+     "npc": "Eternal Agrint",
+     "region": "Verteron",
+     "spawns": 10,
+     "zones": [
+      "Eternal Isle"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 223,
+      "name": "Forest Hideout",
+      "teleport": 21
+     },
+     "level": 22,
+     "npc": "Mutated Elim",
+     "region": "Altgard",
+     "spawns": 20,
+     "zones": [
+      "Moslan Forest"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 217,
+      "name": "Graverobber Campsite",
+      "teleport": 40
+     },
+     "level": 33,
+     "npc": "Ruin Agrint",
+     "region": "Altgard",
+     "spawns": 22,
+     "zones": [
+      "Basfelt Ruins"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 1439,
+      "name": "Remote Island",
+      "teleport": 15
+     },
+     "level": 49,
+     "npc": "Island Agrint",
+     "region": "Altgard",
+     "spawns": 11,
+     "zones": [
+      "Immortal Isle"
+     ]
+    },
+    {
+     "bySide": {
+      "asmodian": {
+       "m": 1121,
+       "name": "Latesran Eastern Root",
+       "teleport": 1
+      },
+      "elyos": {
+       "m": 656,
+       "name": "Latesran Western Root",
+       "teleport": 1
+      }
+     },
+     "chance": "100%",
+     "kibelisk": {
+      "m": 656,
+      "name": "Latesran Western Root",
+      "teleport": 1
+     },
+     "level": 47,
+     "npc": "Sulfur Agrint",
+     "region": "Chaotic Lower Reshanta",
+     "spawns": 2,
+     "zones": [
+      "Sulfur Tree Island - River of Rotten Sap"
+     ]
+    },
+    {
+     "bySide": {
+      "asmodian": {
+       "m": 706,
+       "name": "Latesran Eastern Root",
+       "teleport": 1
+      },
+      "elyos": {
+       "m": 821,
+       "name": "Latesran Western Root",
+       "teleport": 1
+      }
+     },
+     "chance": "100%",
+     "kibelisk": {
+      "m": 706,
+      "name": "Latesran Eastern Root",
+      "teleport": 1
+     },
+     "level": 48,
+     "npc": "Root Agrint",
+     "region": "Chaotic Lower Reshanta",
+     "spawns": 10,
+     "zones": [
+      "Reshanta's Root"
+     ]
+    }
+   ],
+   "genus": "natura",
+   "name": "Agrint",
+   "unreleased": false
+  },
+  "1208": {
+   "chests": [
+    {
+     "chance": "2.08%",
+     "name": "Pet Soul Chest: Natura (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 149,
+      "name": "Guide's Dwelling",
+      "teleport": 61
+     },
+     "level": 48,
+     "npc": "Unstable Agrint",
+     "region": "Altgard",
+     "spawns": 8,
+     "zones": [
+      "Spirit Isle"
+     ]
+    }
+   ],
+   "genus": "natura",
+   "name": "Ashen Agrint",
+   "unreleased": false
+  },
+  "1209": {
+   "chests": [
+    {
+     "chance": "2.08%",
+     "name": "Pet Soul Chest: Natura (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 116,
+      "name": "Crimson Isle Outpost",
+      "teleport": 61
+     },
+     "level": 46,
+     "npc": "Crimson Agrint",
+     "region": "Verteron",
+     "spawns": 15,
+     "zones": [
+      "Crimson Isle"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 98,
+      "name": "Gravekeeper Camp",
+      "teleport": 7
+     },
+     "level": 13,
+     "npc": "Red Eye Agrint",
+     "region": "Altgard",
+     "spawns": 5,
+     "zones": [
+      "Nameless Cemetery"
+     ]
+    },
+    {
+     "bySide": {
+      "asmodian": {
+       "m": 898,
+       "name": "Latesran Eastern Root",
+       "teleport": 1
+      },
+      "elyos": {
+       "m": 907,
+       "name": "Latesran Western Root",
+       "teleport": 1
+      }
+     },
+     "chance": "100%",
+     "kibelisk": {
+      "m": 898,
+      "name": "Latesran Eastern Root",
+      "teleport": 1
+     },
+     "level": 47,
+     "npc": "Thin Sulfur Agrint",
+     "region": "Chaotic Lower Reshanta",
+     "spawns": 30,
+     "zones": [
+      "Sulfur Tree Island - Branding Island",
+      "Sulfur Tree Island - Sulfur Swamp",
+      "Sulfur Tree Island - River of Rotten Sap"
+     ]
+    }
+   ],
+   "genus": "natura",
+   "name": "Thin Agrint",
+   "unreleased": false
+  },
+  "1210": {
+   "chests": [
+    {
+     "chance": "2.08%",
+     "name": "Pet Soul Chest: Natura (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 147,
+      "name": "Astin Mercenaries Base",
+      "teleport": 27
+     },
+     "level": 25,
+     "npc": "Forest Agrint",
+     "region": "Verteron",
+     "spawns": 32,
+     "zones": [
+      "Southern Tolbas Forest"
+     ]
+    }
+   ],
+   "genus": "natura",
+   "name": "Dry Leaf Agrint",
+   "unreleased": false
+  },
+  "1213": {
+   "chests": [
+    {
+     "chance": "2.08%",
+     "name": "Pet Soul Chest: Natura (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 1738,
+      "name": "Aullaeu Village Sky Island",
+      "teleport": 35
+     },
+     "level": 51,
+     "npc": "Eternal Fire Spirit",
+     "region": "Verteron",
+     "spawns": 15,
+     "zones": [
+      "Eternal Isle"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 178,
+      "name": "Purifying Forest Sunny Hill",
+      "teleport": 33
+     },
+     "level": 27,
+     "npc": "Burning Ember Spirit",
+     "region": "Altgard",
+     "spawns": 25,
+     "zones": [
+      "Purifying Forest"
+     ]
+    }
+   ],
+   "genus": "natura",
+   "name": "Lesser Fire Spirit",
+   "unreleased": false
+  },
+  "1214": {
+   "chests": [
+    {
+     "chance": "2.08%",
+     "name": "Pet Soul Chest: Natura (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 212,
+      "name": "Collapsed Verteron Barrier Tower",
+      "teleport": 10
+     },
+     "level": 15,
+     "npc": "Contaminated Spirit",
+     "region": "Verteron",
+     "spawns": 40,
+     "zones": [
+      "Contaminated Marsh"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 162,
+      "name": "Laborer's Rest Stop",
+      "teleport": 53
+     },
+     "level": 39,
+     "npc": "Distorted Spirit",
+     "region": "Verteron",
+     "spawns": 93,
+     "zones": [
+      "Kraka Footpath",
+      "Romlon's Hideout"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 270,
+      "name": "Collapsed Hall of Fame",
+      "teleport": 58
+     },
+     "level": 44,
+     "npc": "Black Spirit",
+     "region": "Altgard",
+     "spawns": 18,
+     "zones": [
+      "Impetusium Square"
+     ]
+    },
+    {
+     "bySide": {
+      "asmodian": {
+       "m": 720,
+       "name": "Latesran Eastern Root",
+       "teleport": 1
+      },
+      "elyos": {
+       "m": 808,
+       "name": "Latesran Western Root",
+       "teleport": 1
+      }
+     },
+     "chance": "100%",
+     "kibelisk": {
+      "m": 720,
+      "name": "Latesran Eastern Root",
+      "teleport": 1
+     },
+     "level": 48,
+     "npc": "Abyss Corrupted Spirit",
+     "region": "Chaotic Lower Reshanta",
+     "spawns": 17,
+     "zones": [
+      "Reshanta's Root"
+     ]
+    }
+   ],
+   "genus": "natura",
+   "name": "Black Spirit",
+   "unreleased": false
+  },
+  "1215": {
+   "chests": [
+    {
+     "chance": "2.44%",
+     "name": "Pet Soul Chest: Cogni (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "level": 45,
+     "npc": "Predator Saraswati",
+     "region": "Draupnir",
+     "spawns": 1,
+     "zones": [
+      "Unknown Abyss"
+     ]
+    },
+    {
+     "chance": "100%",
+     "level": 45,
+     "npc": "Predator Saraswati",
+     "region": "Draupnir",
+     "spawns": 1,
+     "zones": [
+      "Unknown Abyss"
+     ]
+    },
+    {
+     "chance": "100%",
+     "level": 70,
+     "npc": "Predator Saraswati",
+     "region": "Draupnir",
+     "spawns": 1,
+     "zones": [
+      "Unknown Abyss"
+     ]
+    }
+   ],
+   "genus": "cogni",
+   "name": "Predator Saraswati",
+   "unreleased": false
+  },
+  "1216": {
+   "chests": [
+    {
+     "chance": "2.17%",
+     "name": "Pet Soul Chest: Varian (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 173,
+      "name": "Canyon Campsite",
+      "teleport": 38
+     },
+     "level": 33,
+     "npc": "Corrupted Spirit",
+     "region": "Verteron",
+     "spawns": 34,
+     "zones": [
+      "Altamia Canyon"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 177,
+      "name": "Pilgrim's Rest",
+      "teleport": 58
+     },
+     "level": 45,
+     "npc": "Wandering Dark Spirit",
+     "region": "Verteron",
+     "spawns": 20,
+     "zones": [
+      "Garden of the Illusion God"
+     ]
+    }
+   ],
+   "genus": "varian",
+   "name": "Dark Spirit",
+   "unreleased": false
+  },
+  "1217": {
+   "chests": [
+    {
+     "chance": "2.17%",
+     "name": "Pet Soul Chest: Varian (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 124,
+      "name": "Creion Campsite",
+      "teleport": 5
+     },
+     "level": 12,
+     "npc": "Congealed Drana",
+     "region": "Altgard",
+     "spawns": 26,
+     "zones": [
+      "Dredgion Crash Site"
+     ]
+    }
+   ],
+   "genus": "varian",
+   "name": "Congealed Drana",
+   "unreleased": false
+  },
+  "1218": {
+   "chests": [
+    {
+     "chance": "2.17%",
+     "name": "Pet Soul Chest: Varian (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 173,
+      "name": "Steel Hammer Workcamp",
+      "teleport": 48
+     },
+     "level": 35,
+     "npc": "Faded Chunk",
+     "region": "Altgard",
+     "spawns": 13,
+     "zones": [
+      "Fafnite Deposit"
+     ]
+    }
+   ],
+   "genus": "varian",
+   "name": "Faded Drana",
+   "unreleased": false
+  },
+  "1219": {
+   "chests": [
+    {
+     "chance": "2.08%",
+     "name": "Pet Soul Chest: Natura (Bound)"
+    }
+   ],
+   "drops": [
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 159,
+      "name": "Collapsed Verteron Barrier Tower",
+      "teleport": 10
+     },
+     "level": 14,
+     "npc": "Coastal Zelophi",
+     "region": "Verteron",
+     "spawns": 42,
+     "zones": [
+      "Ellun River Marsh"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 1685,
+      "name": "Aullaeu Village Sky Island",
+      "teleport": 35
+     },
+     "level": 49,
+     "npc": "Eternal Zelophi",
+     "region": "Verteron",
+     "spawns": 14,
+     "zones": [
+      "Eternal Isle"
+     ]
+    },
+    {
+     "chance": "100%",
+     "kibelisk": {
+      "m": 1462,
+      "name": "Remote Island",
+      "teleport": 15
+     },
+     "level": 49,
+     "npc": "Zelophi",
+     "region": "Altgard",
+     "spawns": 31,
+     "zones": [
+      "Immortal Isle"
+     ]
+    },
+    {
+     "bySide": {
+      "asmodian": {
+       "m": 814,
+       "name": "Latesran Eastern Root",
+       "teleport": 1
+      },
+      "elyos": {
+       "m": 1073,
+       "name": "Latesran Western Root",
+       "teleport": 1
+      }
+     },
+     "chance": "100%",
+     "kibelisk": {
+      "m": 814,
+      "name": "Latesran Eastern Root",
+      "teleport": 1
+     },
+     "level": 46,
+     "npc": "Abyss Zelophi",
+     "region": "Chaotic Lower Reshanta",
+     "spawns": 60,
+     "zones": [
+      "Archipelago of Siel's Wings - Siel's Right Wing",
+      "Archipelago of Siel's Wings - Siel's Left Wing"
+     ]
+    }
+   ],
+   "genus": "natura",
+   "name": "Zelophi",
+   "unreleased": false
+  },
+  "1240": {
+   "chests": [],
+   "drops": [],
+   "genus": "special",
+   "name": "White Bunny",
+   "unreleased": false
+  },
+  "1278": {
+   "chests": [],
+   "drops": [],
+   "genus": "special",
+   "name": "Chonky Hamster",
+   "unreleased": false
+  },
+  "1299": {
+   "chests": [],
+   "drops": [],
+   "genus": "special",
+   "name": "Two",
+   "unreleased": false
+  }
+ },
+ "source": "A2Tools Pet Soul Tracker 0.4.3 (GPL-3.0), https://github.com/taengu/A2Tools-Plugins/tree/main/plugins/pet-souls"
+}

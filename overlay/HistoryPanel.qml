@@ -109,9 +109,16 @@ OverlayWidget {
         }
 
         // ── list ──
-        Repeater {
+        ListView {
+            visible: !hist.selected && count > 0
+            width: hist.width_ - Theme.pad * 2
+            // Capped at ~14 rows; the rest scrolls.
+            height: Math.min(contentHeight, Math.round(520 * Theme.scale))
+            clip: true
+            spacing: Math.round(3 * Theme.scale)
+            boundsBehavior: Flickable.StopAtBounds
             model: hist.selected ? [] : hist.client.history
-            Rectangle {
+            delegate: Rectangle {
                 id: item
                 required property var modelData
                 width: hist.width_ - Theme.pad * 2

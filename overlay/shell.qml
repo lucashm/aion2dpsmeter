@@ -153,6 +153,26 @@ ShellRoot {
         screen: root.gameScreen
         editMode: root.editMode
     }
+    // The app window: pets, analytics.
+    App {
+        id: appWindow
+        client: client
+        settings: settings
+        onOpenFight: id => {
+            historyWidget.open = true;
+            historyWidget.openFight(id);
+        }
+    }
+
+    PetFarm {
+        id: petFarmWidget
+        widgetId: "petFarm"
+        client: client
+        settings: settings
+        screen: root.gameScreen
+        editMode: root.editMode
+        wanted: root.showWidgets && recent
+    }
 
     EditorLayer {
         id: editor
@@ -161,7 +181,7 @@ ShellRoot {
         screen: root.gameScreen
         active: root.editMode
         // History isn't laid out: it opens on demand, centred.
-        widgets: [meterWidget, skillsWidget, bossWidget, statusWidget]
+        widgets: [meterWidget, skillsWidget, bossWidget, statusWidget, petFarmWidget]
         onDone: root.editMode = false
     }
 
@@ -182,6 +202,18 @@ ShellRoot {
                 name: "history"
                 description: "Open or close the fight history"
                 onPressed: historyWidget.open = !historyWidget.open
+            }
+            GlobalShortcut {
+                appid: "aion2meter"
+                name: "analytics"
+                description: "Open the app's analytics"
+                onPressed: appWindow.show("analytics")
+            }
+            GlobalShortcut {
+                appid: "aion2meter"
+                name: "app"
+                description: "Open the app"
+                onPressed: appWindow.show("")
             }
             GlobalShortcut {
                 appid: "aion2meter"
@@ -257,6 +289,8 @@ ShellRoot {
         target: "meter"
         function edit(): void { root.editMode = !root.editMode; }
         function history(): void { historyWidget.open = !historyWidget.open; }
+        function analytics(): void { appWindow.show("analytics"); }
+        function app(): void { appWindow.show(""); }
         function reset(): void { client.reset(); }
         function toggle(): void { settings.setHideWidgets(!settings.hideWidgets); }
         function nextPlayer(): void { root.focusNextPlayer(); }

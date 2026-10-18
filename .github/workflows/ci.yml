@@ -20,3 +20,5 @@ jobs:
       - run: cargo test -p aion2-meterd -p aion2-meter-tray
       - run: for f in scripts/*.sh scripts/aion2-meter; do bash -n "$f"; done
       - run: node scripts/test-editor-guides.js
+      - run: node scripts/test-pets-page.js
+      - run: bash -n overlay/fetch-map.sh

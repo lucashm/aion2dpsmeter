@@ -14,6 +14,7 @@ It shows live combat numbers as small widgets on top of the game.
 - **Boss HP:** HP bar, damage dealt, fight timer and estimated time to kill.
 - **Ping:** latency to the game server.
 - **History:** every boss fight is saved, so you can look at it later.
+- **App window** (tray → Open app): a full **Pets** tracker, a **Map** of where the pets you still need spawn, and **Analytics**, your past runs in one table by player, class, boss or single run, with averages, bests and trends.
 
 It reads a copy of the game's network traffic, like other AION 2 meters do.
 It never touches the game's memory or files.
@@ -34,14 +35,7 @@ It needs a Wayland session with layer-shell (what panels and docks use), on x86_
 
 ### From a release (easiest)
 
-1. Install **Quickshell** (it draws the widgets) and **setcap**:
-
-   | Distribution | Command |
-   | --- | --- |
-   | Arch, CachyOS, Manjaro | `sudo pacman -S quickshell libcap` |
-   | Fedora | `sudo dnf copr enable errornointernet/quickshell && sudo dnf install quickshell libcap` |
-   | Others | Quickshell: see [quickshell.org](https://quickshell.org). setcap is in `libcap2-bin` (Debian/Ubuntu) or `libcap` |
-
+1. Except on Arch, CachyOS, Manjaro and Fedora (where the installer takes care of everything in step 3), install **Quickshell** first: see [quickshell.org](https://quickshell.org).
 2. Download `aion2-meter-…-x86_64-linux.tar.gz` from the [Releases page](https://github.com/lucashm/aion2dpsmeter/releases).
 3. Extract it and run the installer:
 
@@ -53,12 +47,23 @@ tar xzf aion2-meter-*-x86_64-linux.tar.gz
 cd aion2-meter-*-x86_64-linux && ./install.sh
 ```
 
-The installer asks for your password once, for `setcap`: it lets the capture daemon read network traffic without running as root.
+The installer checks what's missing and offers to install it with your package manager, showing the command first. It asks for your password for that and for `setcap`, which lets the capture daemon read network traffic without running as root.
+
+What it needs, if you'd rather install it yourself:
+
+| | Arch, CachyOS, Manjaro | Fedora | Debian, Ubuntu |
+| --- | --- | --- | --- |
+| Quickshell (draws everything) | `quickshell` | `quickshell` (COPR `errornointernet/quickshell`) | [quickshell.org](https://quickshell.org) |
+| setcap | `libcap` | `libcap` | `libcap2-bin` |
+| Qt image formats (the app's map and pet portraits) | `qt6-imageformats` | `qt6-qtimageformats` | `qt6-image-formats-plugins` |
+| curl (downloads the pet map) | `curl` | `curl` | `curl` |
+
+Only Quickshell and setcap are required; without the others the meter runs, minus the feature in parentheses.
 Everything installs into your home directory (`~/.local/bin`, `~/.config`, `~/.local/share`) and runs as systemd user services, started now and at every login.
 
 ### From source
 
-You need Quickshell and setcap as above, plus Rust, git, pkg-config and libpcap headers (`libpcap` on Arch, `libpcap-devel` on Fedora, `libpcap-dev` on Debian/Ubuntu).
+You need git, plus what's above and Rust, pkg-config and libpcap headers; the installer offers to install those too (`rust pkgconf libpcap` on Arch, `cargo pkgconf libpcap-devel` on Fedora, `cargo pkgconf libpcap-dev` on Debian/Ubuntu).
 
 ```bash
 git clone --recursive https://github.com/lucashm/aion2dpsmeter
@@ -73,13 +78,18 @@ cd aion2dpsmeter && ./scripts/install.sh
 Start the game. The widgets appear while the game window is focused.
 
 - **Tray icon:** green means it's capturing, amber means it's waiting for the game, red means an error, grey means the widgets are hidden (or the meter is stopped).
-  Left click shows or hides the widgets. Right click has Customize, history, reset and more.
+  Left click shows or hides the widgets. Right click has Customize, history, Open app, reset and more.
   The icon follows your character's faction (Elyos or Asmodian), from the last character you logged in with.
 - **Customize** (tray menu or Ctrl+`): drag widgets to move them. They snap to a grid, and pink guides show when a widget lines up with the screen centre or another widget. Hold Shift to place freely. Esc or Done to finish.
   It also has settings: which widgets to show, which monitor, which target to track, damage or DPS columns, shortcuts, size and opacity.
   Click a player in the meter to see their skills.
 - **Layouts:** three slots in Customize. Save stores where the widgets are and which are shown; Layout 1–3 puts them back, and the one on screen is highlighted. Reset layout goes back to the default, which fits any 16:9 or 21:9 screen.
 - **Drag widgets in game:** an option in Customize, off by default. With it on, hold Alt (the game's free cursor) and drag a widget to move it, or click a player in the meter for their skills. It's off by default because the widgets then take clicks meant for the game under them, which gets in the way if you play with a free mouse.
+- **App:** tray → Open app, or `aion2-meter app`. An ordinary window, so it works with the game closed too.
+  - **Pets:** every pet with your level and souls, grouped into what's still needed for the level you're farming toward (Lv. 3 unless you pick Lv. 1 or 2), what's done, and what you don't farm. Pick the level, the genuses and the areas you farm on the left; it also shows each genus's collection and insight level, and your next collection reward. Levels the meter worked out from souls show "Est." until the game confirms them. Pet levels come from the game at login and on every Kibelisk teleport, so if the meter started after you logged in, teleport once.
+  - **Map:** where pets spawn on Verteron, Altgard and the Abyss (Chaotic Lower Reshanta): each spawn area shows the pet's portrait in a ring of its genus's colour. The Abyss has no exact spawn points, so its pets sit in the middle of the zones their monsters are in. The panel on the left picks the map, the pets still needed or all pets, the genuses, and lists the pets with their souls left: untick one to hide it, click one to zoom to its spawns. A pet row's map icon on the Pets page opens the map on just that pet (✕ in the panel clears it). Scroll to zoom, drag to move, and hover a portrait for a card with the pet's level and souls, its spawns there, and the monsters that drop it on that map with their zone and nearest teleport. The map downloads once (about 10 MB) the first time you open the app.
+  - **Analytics:** your past runs, as above. Clicking a run opens it in the fight history over the game.
+- **Pet souls widget:** while you pick up souls for pets that aren't full, it shows up to 5 of them, the last farmed first: each pet's portrait, level, souls to the next level and to level 3, souls per minute, and how long both take at that rate. Each pet goes away 5 minutes after its last soul.
 - **App menu:** "AION 2 Meter" starts or stops it. So does `aion2-meter toggle`.
 
 ### Shortcuts
@@ -102,6 +112,8 @@ Everything the meter does is also an `aion2-meter` command. Run it from a termin
 | `aion2-meter edit` | Open Customize (move widgets, settings) |
 | `aion2-meter hide` | Hide or show the widgets |
 | `aion2-meter history` | Open or close the fight history |
+| `aion2-meter app` | Open the app |
+| `aion2-meter analytics` | Open the app on Analytics |
 | `aion2-meter reset` | Save the current fight and clear the meter |
 | `aion2-meter next-player` | Show the next player's skills |
 | `aion2-meter start`, `stop`, `restart` | Start, stop or restart the meter |
@@ -161,7 +173,7 @@ That file contains your IP address and the names of players around you, so only 
 
 ## Credits and license
 
-App icon by lucashm. The game protocol parser is [A2Tools DPS Meter](https://github.com/taengu/A2Tools-DPS-Meter) by taengu, used as a library (`third_party/a2tools`).
+App icon by lucashm. The game protocol parser is [A2Tools DPS Meter](https://github.com/taengu/A2Tools-DPS-Meter) by taengu, used as a library (`third_party/a2tools`). Pet names, soul drops and the pet soul packets come from its [Pet Soul Tracker](https://github.com/taengu/A2Tools-Plugins/tree/main/plugins/pet-souls) plugin (GPL-3.0); `scripts/update-pet-data.py` refreshes `overlay/data/pets.json` from it. The pet map's tiles, spawn points and pet portraits come from [Arkive](https://github.com/arkive-games/arkive) by tc-imba (data CC BY-NC 4.0), downloaded by `overlay/fetch-map.sh`. Collection rewards are from [wikily.gg](https://wikily.gg/aion-2/genus-insight).
 
 Copyright (C) 2026 lucashm. Licensed under the [GNU GPL v3.0](LICENSE).
 

@@ -35,6 +35,17 @@ Item {
     // Edit mode: snap dragged widgets to a grid of this many pixels.
     readonly property bool snapToGrid: adapter.snapToGrid
     readonly property int gridSize: adapter.gridSize
+    // Every name seen as the local player: "you" in analytics.
+    readonly property var myNames: adapter.myNames
+    // The app window's page: "pets", "map" or "analytics".
+    readonly property string appPage: adapter.appPage
+    // The Pets page: its help card closed; the phase (the level farmed toward, 1-3); the
+    // genuses and areas farmed; the sort.
+    readonly property bool petsHelpHidden: adapter.petsHelpHidden
+    readonly property string petsPhase: adapter.petsPhase
+    readonly property var petsGenus: adapter.petsGenus
+    readonly property var petsFarmIn: adapter.petsFarmIn
+    readonly property string petsSort: adapter.petsSort
 
     function widgetPos(id) {
         const w = widgets[id];
@@ -84,7 +95,16 @@ Item {
     function setGridSize(px) { adapter.gridSize = Math.max(4, Math.min(64, px)); }
     function setMeterMetric(m) { adapter.meterMetric = m; }
     function setHistoryMetric(m) { adapter.historyMetric = m; }
+    function addMyName(name) {
+        if (!adapter.myNames.includes(name)) adapter.myNames = adapter.myNames.concat([name]);
+    }
     function setHideWidgets(on) { adapter.hideWidgets = on; }
+    function setAppPage(page) { adapter.appPage = page; }
+    function setPetsHelpHidden(on) { adapter.petsHelpHidden = on; }
+    function setPetsPhase(phase) { adapter.petsPhase = String(phase); }
+    function setPetsGenus(list) { adapter.petsGenus = list; }
+    function setPetsFarmIn(list) { adapter.petsFarmIn = list; }
+    function setPetsSort(key) { adapter.petsSort = key; }
     function setPinnedMonitor(name) { adapter.pinnedMonitor = name; }
     function setGameMonitor(name) {
         if (name && name !== adapter.gameMonitor) adapter.gameMonitor = name;
@@ -122,6 +142,13 @@ Item {
             // id -> { x, y, visible }
             property var widgets: ({})
             property var layouts: []
+            property var myNames: []
+            property string appPage: "pets"
+            property bool petsHelpHidden: false
+            property string petsPhase: "3"
+            property var petsGenus: ["cogni", "fera", "natura", "varian", "special"]
+            property var petsFarmIn: ["elyos", "asmodian", "abyss"]
+            property string petsSort: "closest"
         }
     }
 }

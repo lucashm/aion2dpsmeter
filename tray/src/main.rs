@@ -193,6 +193,14 @@ impl ksni::Tray for MeterTray {
                 ..Default::default()
             }
             .into(),
+            StandardItem {
+                label: "Open app".into(),
+                icon_name: "applications-games".into(),
+                enabled: status.running,
+                activate: Box::new(|_| overlay_ipc("app", None)),
+                ..Default::default()
+            }
+            .into(),
             // A tray menu can't ask "are you sure": the submenu item is the confirmation.
             SubMenu {
                 label: "Reset meter ▸".into(),

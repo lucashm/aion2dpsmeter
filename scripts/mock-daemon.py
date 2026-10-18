@@ -30,6 +30,32 @@ focus = {"id": None}
 start = time.time()
 MAX_HP = 48_000_000
 history = []
+# Pet levels and souls (daemon/src/pets.rs): two pets farmed in turn, a soul every 4 s.
+pets = {"levels": {"1002": 1, "1003": 3, "1004": 2}, "points": {"1002": 3, "1004": 40}, "estimated": [1004], "farming": [],
+        "genus": {"cogni": {"level": 5, "exp": 4550}, "fera": {"level": 6, "exp": 5000}, "natura": {"level": 5, "exp": 9450},
+                  "varian": {"level": 5, "exp": 6450}, "special": {"level": 1, "exp": 200}}}
+NEEDED = [5, 25, 75]
+
+
+def pets_msg():
+    return {"type": "pets", "server": 1001, **pets}
+
+
+def farm():
+    for n in iter(int, 1):
+        time.sleep(4)
+        now = int(time.time() * 1000)
+        pet = 1002 if n % 3 else 1004
+        key = str(pet)
+        level, points = pets["levels"].get(key, 0), pets["points"].get(key, 0) + 1
+        while level < len(NEEDED) and points >= NEEDED[level]:
+            points -= NEEDED[level]
+            level += 1
+        pets["levels"][key], pets["points"][key] = level, points
+        f = next((f for f in pets["farming"] if f["pet"] == pet), {"pet": pet, "startedMs": now, "gained": 0})
+        rest = [x for x in pets["farming"] if x["pet"] != pet]
+        pets["farming"] = [{**f, "lastMs": now, "gained": f["gained"] + 1}] + rest[:4]
+        send_all(pets_msg())
 
 
 def state():
@@ -59,7 +85,8 @@ def state():
             "capture": {"gameRunning": True, "locked": True, "error": None},
             "pingMs": int(48 + 10 * math.sin(t)), "targetMode": "bossTargets",
             "target": {"id": 9001, "name": "Guardian General Kromede", "isBoss": True, "maxHp": MAX_HP, "currentHp": int(hp), "damageTaken": int(total)},
-            "battleTimeMs": elapsed_ms, "players": players, "skillsOf": who, "skills": skills}
+            "battleTimeMs": elapsed_ms, "players": players, "skillsOf": who, "skills": skills,
+            "faction": "elyos", "character": "Asmo"}
 
 
 def send_all(msg):
@@ -93,11 +120,16 @@ def reader(conn):
 
 
 def main():
-    for i in range(4):
-        players = [{"id": pid, "name": n, "job": j, "jobKey": k, "damage": int(9e6 * m), "dps": 40_000 * m} for pid, n, k, j, m in PLAYERS]
-        history.append({"id": f"mock-{i}", "bossName": ["Kromede", "Taloc", "Padmarashka", "Beritra"][i],
-                        "startTimeMs": int((time.time() - 3600 * (i + 1)) * 1000), "durationMs": 140_000 + 20_000 * i,
-                        "totalDamage": sum(p["damage"] for p in players), "killed": i != 2, "players": players})
+    for i in range(24):
+        luck = [random.uniform(0.8, 1.2) for _ in PLAYERS]
+        players = [{"id": pid, "name": n, "job": j, "jobKey": k, "damage": int(9e6 * m * l), "dps": 40_000 * m * l,
+                    "critRate": random.uniform(0.2, 0.4), "backRate": random.uniform(0.05, 0.3),
+                    "heal": int(3e5 * l) if k in ("CLERIC", "CHANTER") else 0, "damageTaken": int(2e5 * l),
+                    "deaths": random.choice([0, 0, 0, 1]), "gearScore": 1600 + pid, "combatPower": 78_000 + pid * 10}
+                   for (pid, n, k, j, m), l in zip(PLAYERS, luck)]
+        history.append({"id": f"mock-{i}", "bossName": ["Kromede", "Taloc", "Padmarashka", "Beritra"][i % 4],
+                        "startTimeMs": int((time.time() - 3600 * 9 * (i + 1)) * 1000), "durationMs": 140_000 + 20_000 * (i % 4),
+                        "totalDamage": sum(p["damage"] for p in players), "killed": i % 4 != 2, "players": players})
     try:
         os.unlink(PATH)
     except FileNotFoundError:
@@ -107,10 +139,12 @@ def main():
     srv.listen()
     print("mock daemon on", PATH, flush=True)
     threading.Thread(target=lambda: [send_all(state()) or time.sleep(0.2) for _ in iter(int, 1)], daemon=True).start()
+    threading.Thread(target=farm, daemon=True).start()
     while True:
         conn, _ = srv.accept()
         with lock:
             clients.append(conn)
+            conn.sendall((json.dumps(pets_msg()) + "\n").encode())
         threading.Thread(target=reader, args=(conn,), daemon=True).start()
 
 
