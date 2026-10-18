@@ -32,14 +32,17 @@ fi
 
 step "Checking dependencies"
 # What's missing, by what it is: quickshell, setcap, webp (Qt's image formats
-# plugin, for the app's map and pet portraits), curl, and for a source build
-# rust, libpcap, pkg-config.
+# plugin, for the app's map and pet portraits), curl, font (Noto Sans, the
+# app's text), and for a source build rust, libpcap, pkg-config.
 has_webp() { ls /usr/lib*/qt6/plugins/imageformats/libqwebp.so /usr/lib/*/qt6/plugins/imageformats/libqwebp.so >/dev/null 2>&1; }
 missing=()
 command -v qs >/dev/null || missing+=(quickshell)
 command -v setcap >/dev/null || missing+=(setcap)
 has_webp || missing+=(webp)
 command -v curl >/dev/null || missing+=(curl)
+# fc-list -q fails when nothing matches; without fontconfig, don't guess.
+has_font() { ! command -v fc-list >/dev/null || fc-list -q "Noto Sans"; }
+has_font || missing+=(font)
 if [[ "$built" == "$root/target/release" ]]; then
     command -v cargo >/dev/null || missing+=(rust)
     command -v pkg-config >/dev/null || missing+=(pkg-config)
@@ -60,6 +63,10 @@ package() {
         zypper:webp) echo qt6-imageformats ;;
         apt-get:webp) echo qt6-image-formats-plugins ;;
         *:curl) [[ -n $pm ]] && echo curl ;;
+        pacman:font) echo noto-fonts ;;
+        dnf:font) echo google-noto-sans-fonts ;;
+        zypper:font) echo noto-sans-fonts ;;
+        apt-get:font) echo fonts-noto-core ;;
         pacman:rust | zypper:rust) echo rust ;;
         dnf:rust) echo cargo ;;
         apt-get:rust) echo cargo ;;
@@ -108,6 +115,7 @@ if ((${#missing[@]})); then
     fi
     has_webp || echo "Without Qt's image formats plugin the app's map and pet portraits won't show."
     command -v curl >/dev/null || echo "Without curl the app can't download the pet map."
+    has_font || echo "Without Noto Sans the app's text uses your default font."
 fi
 
 if [[ "$built" == "$root/target/release" ]]; then

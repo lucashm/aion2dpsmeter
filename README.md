@@ -57,6 +57,7 @@ What it needs, if you'd rather install it yourself:
 | setcap | `libcap` | `libcap` | `libcap2-bin` |
 | Qt image formats (the app's map and pet portraits) | `qt6-imageformats` | `qt6-qtimageformats` | `qt6-image-formats-plugins` |
 | curl (downloads the pet map) | `curl` | `curl` | `curl` |
+| Noto Sans (the app's text) | `noto-fonts` | `google-noto-sans-fonts` | `fonts-noto-core` |
 
 Only Quickshell and setcap are required; without the others the meter runs, minus the feature in parentheses.
 Everything installs into your home directory (`~/.local/bin`, `~/.config`, `~/.local/share`) and runs as systemd user services, started now and at every login.

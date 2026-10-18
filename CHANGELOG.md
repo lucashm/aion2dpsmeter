@@ -7,6 +7,7 @@
   - Pets: every pet with your level and souls, by phase (collect, level 2, level 3), genus and the areas you farm, with collection progress, genus insight levels (read from the game), the next reward, and estimated levels marked
   - Map: where pets spawn, as their portraits on Verteron, Altgard and the Abyss (tiles, spawns and zones from Arkive), with a panel to pick the map and the pets and a card on hover; a pet's map icon on the Pets page opens it on that pet, ticking its genus if needed; when the filters hide everything, the filter that would show pets blinks; only the tiles on screen load, and closing the map lets them go
   - Analytics: past runs grouped by player, class, boss or run, with filters, sorting, a DPS-per-run chart and best runs
+- The installer finds missing dependencies (Quickshell, setcap, Qt's image formats, curl, Noto Sans) and offers to install them with your package manager
 
 ## 0.1.0
 
