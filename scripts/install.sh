@@ -125,14 +125,22 @@ if [[ "$built" == "$root/target/release" ]]; then
 fi
 
 step "Installing programs to $bin_dir"
+# An unchanged daemon that already has its capture permission stays: replacing
+# the file drops the permission, and setting it again needs sudo.
+keep_daemon=""
+cmp -s "$built/aion2-meterd" "$bin_dir/aion2-meterd" && getcap "$bin_dir/aion2-meterd" 2>/dev/null | grep -q cap_net_raw && keep_daemon=1
 # 700: a binary that can capture network traffic is for you only.
-install -Dm700 "$built/aion2-meterd" "$bin_dir/aion2-meterd"
+[[ -n "$keep_daemon" ]] || install -Dm700 "$built/aion2-meterd" "$bin_dir/aion2-meterd"
 install -Dm755 "$built/aion2-meter-tray" "$bin_dir/aion2-meter-tray"
 install -Dm755 "$launcher" "$bin_dir/aion2-meter"
 
-step "Allowing the daemon to capture packets (sudo setcap)"
-echo "Only aion2-meterd gets this permission; the overlay and tray run as you, unprivileged."
-sudo setcap cap_net_raw,cap_net_admin=eip "$bin_dir/aion2-meterd"
+if [[ -n "$keep_daemon" ]]; then
+    echo "The daemon is unchanged and can already capture packets: no sudo needed."
+else
+    step "Allowing the daemon to capture packets (sudo setcap)"
+    echo "Only aion2-meterd gets this permission; the overlay and tray run as you, unprivileged."
+    sudo setcap cap_net_raw,cap_net_admin=eip "$bin_dir/aion2-meterd"
+fi
 
 step "Installing game data"
 mkdir -p "$share/aion2-meter/data/i18n"

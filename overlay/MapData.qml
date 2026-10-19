@@ -14,15 +14,21 @@ Singleton {
     readonly property string dir: (Quickshell.env("XDG_DATA_HOME") || Quickshell.env("HOME") + "/.local/share") + "/aion2-meter/map"
     readonly property string resources: "https://resource-aion2.tc-imba.com/"
     // The maps: tiles of 1024 px per side, the coarsest tile level there is
-    // (2 = quarter size), and the region name the pet data uses for it.
+    // (2 = quarter size), the region name the pet data uses for it, and the
+    // game's id for it (its map loads name it; the meter's cube spots are by it).
     readonly property var maps: [
-        { id: "World_L_A", name: "Verteron", region: "Verteron", tiles: 8, levels: 2 },
-        { id: "World_D_A", name: "Altgard", region: "Altgard", tiles: 8, levels: 2 },
+        { id: "World_L_A", name: "Verteron", region: "Verteron", tiles: 8, levels: 2, game: 1010 },
+        { id: "World_D_A", name: "Altgard", region: "Altgard", tiles: 8, levels: 2, game: 1110 },
         { id: "Abyss_Reshanta_A", name: "Abyss", region: "Chaotic Lower Reshanta", tiles: 4, levels: 1 }
     ]
     readonly property int tileSize: 1024
     function mapOf(id) {
         return maps.find(m => m.id === id) || maps[0];
+    }
+    // A world x or y (game units, cm) to map pixels: the map is centred on 0, 99.61 units a pixel.
+    // Fitted on Altgard (27 recorded objects on Arkive's markers within 0.04 px); Verteron is assumed the same.
+    function worldPx(v) {
+        return 4096 + v / 99.612;
     }
 
     // "idle" until asked, "fetching", "ready" or "failed".
@@ -31,6 +37,8 @@ Singleton {
     property var spawns: ({})
     // Pet name -> portrait file URL.
     property var portraits: ({})
+    // Hidden cubes: [{ map, x, y, n }], n being Arkive's number for it.
+    property var cubes: []
 
     // Download (or check) the data, then read it. Cheap when it's current.
     function fetch() {
@@ -62,12 +70,14 @@ Singleton {
     function read() {
         const spawns = {};
         const portraits = {};
+        const cubes = [];
         const add = (n, s) => (spawns[n] || (spawns[n] = [])).push(s);
         for (let i = 0; i < files.count; i++) {
             const f = files.objectAt(i);
             if (!f || !f.markers || !f.names) continue;
             let creatures = 0;
             for (const m of f.markers) {
+                if (m.subtype === "hiddenCube") cubes.push({ map: f.map, x: m.x, y: m.y, n: m.indexInSubtype + 1 });
                 if (m.category !== "creature") continue;
                 const n = f.names[m.id] && f.names[m.id].name;
                 if (!n) continue;
@@ -107,6 +117,7 @@ Singleton {
         }
         mapData.spawns = spawns;
         mapData.portraits = portraits;
+        mapData.cubes = cubes;
     }
     // The zone dots come from the pet data, which may load after the maps.
     Connections {

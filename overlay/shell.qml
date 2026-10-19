@@ -162,6 +162,28 @@ ShellRoot {
             historyWidget.open = true;
             historyWidget.openFight(id);
         }
+        onTestNotification: e => e.reminder ? eventAlertWidget.test(e.reminder) : cubeAlertWidget.push(e)
+    }
+
+    CubeAlert {
+        id: cubeAlertWidget
+        widgetId: "cubeAlert"
+        client: client
+        settings: settings
+        screen: root.gameScreen
+        editMode: root.editMode
+        // Only while the overlay's widgets are on; a test from the app shows
+        // even while the game isn't focused.
+        wanted: active && !settings.hideWidgets && (root.showWidgets || appWindow.visible)
+    }
+    EventAlert {
+        id: eventAlertWidget
+        widgetId: "eventAlert"
+        settings: settings
+        gameRunning: !!(client.capture && client.capture.gameRunning)
+        screen: root.gameScreen
+        editMode: root.editMode
+        wanted: active && !settings.hideWidgets && (root.showWidgets || appWindow.visible)
     }
 
     PetFarm {
@@ -181,7 +203,7 @@ ShellRoot {
         screen: root.gameScreen
         active: root.editMode
         // History isn't laid out: it opens on demand, centred.
-        widgets: [meterWidget, skillsWidget, bossWidget, statusWidget, petFarmWidget]
+        widgets: [meterWidget, skillsWidget, bossWidget, statusWidget, petFarmWidget, cubeAlertWidget, eventAlertWidget]
         onDone: root.editMode = false
     }
 

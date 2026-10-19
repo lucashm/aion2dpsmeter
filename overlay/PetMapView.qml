@@ -1,5 +1,7 @@
 import QtQuick
 import QtQuick.Effects
+import Quickshell
+import Quickshell.Io
 
 // Where pets spawn: a field map (tiles and spawn clusters from Arkive, see
 // MapData.qml) with the pet's portrait on each spawn cluster, ringed in its
@@ -25,8 +27,31 @@ Item {
     property var genus: genuses
     // Pet name -> true for pets unticked in the list.
     property var hidden: ({})
+    property bool showCubes: false
+    property bool showSeen: true
+    readonly property int gameId: MapData.mapOf(map).game || 0
+    readonly property var seen: gameId ? client.cubeSpots[gameId] || [] : []
+    // Every cube mark on this map: Arkive's spots ("spot"), the ones the meter
+    // saw ("seen"), and the cubes in range lately ("live", always shown).
+    readonly property var cubes: {
+        const out = [];
+        if (showCubes) for (const c of MapData.cubes) if (c.map === map) out.push({ x: c.x, y: c.y, kind: "spot" });
+        if (showSeen) for (const s of seen) out.push({ x: MapData.worldPx(s[0]), y: MapData.worldPx(s[1]), kind: "seen" });
+        for (const c of client.liveCubes) if (gameId && c.map === gameId) out.push({ x: MapData.worldPx(c.x), y: MapData.worldPx(c.y), kind: "live" });
+        return out;
+    }
 
     property string map: ""
+    // Your side's field map: the map to open on. The faction is the game's, or
+    // the last logged-in character's (saved by the tray) until the game names it.
+    readonly property string homeMap: ({ elyos: "World_L_A", asmodian: "World_D_A" })[(client.state && client.state.faction) || savedFaction] || ""
+    property string savedFaction: ""
+    FileView {
+        path: (Quickshell.env("XDG_DATA_HOME") || Quickshell.env("HOME") + "/.local/share") + "/aion2-meter/faction"
+        onLoaded: view.savedFaction = text().trim()
+    }
+    // Set once you pick a map, or a pet takes you to one: your faction no longer moves it.
+    property bool mapPicked: false
     property real zoom: 0.1
     // The tile level for the zoom: 2 = quarter size, 1 = half, 0 = full, as
     // coarse as the map goes.
@@ -113,13 +138,15 @@ Item {
         flick.contentX = Math.max(0, Math.min(full * z - flick.width, px * z - mx));
         flick.contentY = Math.max(0, Math.min(full * z - flick.height, py * z - my));
     }
-    // Show one pet's spawns: on the map with most of them, zoomed to fit them.
+    // Show one pet's spawns, zoomed to fit them: on your faction's map if it has
+    // any, else the map with most of them.
     function focusOn(name) {
         const spots = MapData.spawns[name] || [];
         if (!spots.length) return;
+        mapPicked = true;
         const counts = {};
         for (const s of spots) counts[s.map] = (counts[s.map] || 0) + 1;
-        const best = Object.keys(counts).sort((a, b) => counts[b] - counts[a])[0];
+        const best = counts[homeMap] ? homeMap : Object.keys(counts).sort((a, b) => counts[b] - counts[a])[0];
         if (best !== map) map = best;
         Qt.callLater(() => {
             const here = spots.filter(s => s.map === best);
@@ -167,7 +194,8 @@ Item {
     }
 
     // The map changes only when you pick one, a pet in the list, or a pet's
-    // map button on the Pets page; the first open picks the busiest one.
+    // map button on the Pets page; until then it's your faction's home map,
+    // or the busiest one while the game hasn't said your faction.
     onQueryChanged: {
         hidden = {};
         search = "";
@@ -175,9 +203,13 @@ Item {
         if (query) genus = genus.concat(genuses.filter(g => !genus.includes(g) && query.names.some(n => genusOf[n] === g)));
         if (query && query.names.length === 1) focusOn(query.names[0]);
     }
+    onHomeMapChanged: if (homeMap && !mapPicked) map = homeMap
     onAllDotsChanged: if (!map && allDots.length) pickMap()
     onMapChanged: Qt.callLater(fit)
-    Component.onCompleted: if (MapData.status === "idle") MapData.fetch()
+    Component.onCompleted: {
+        if (homeMap) map = homeMap;
+        if (MapData.status === "idle") MapData.fetch();
+    }
 
     component Label: Text {
         color: AppTheme.text
@@ -346,9 +378,32 @@ Item {
                         note: String(view.allDots.filter(d => d.map === modelData.id).length)
                         checked: view.map === modelData.id
                         hint: view.hints.includes("map:" + modelData.id)
-                        onClicked: view.map = modelData.id
+                        onClicked: {
+                            view.mapPicked = true;
+                            view.map = modelData.id;
+                        }
                     }
                 }
+            }
+
+            Section { text: "LAYERS" }
+            Pill {
+                width: parent.width
+                // Arkive lists only some of the spots a cube can spawn on.
+                label: "Cube spots (partial)"
+                note: String(MapData.cubes.filter(c => c.map === view.map).length)
+                tint: AppTheme.cube
+                checked: view.showCubes
+                onClicked: view.showCubes = !view.showCubes
+            }
+            Pill {
+                width: parent.width
+                // Saved by the meter as you play (cube-spots.json); a live cube shows either way.
+                label: "Cubes seen by the meter"
+                note: String(view.seen.length)
+                tint: AppTheme.cube
+                checked: view.showSeen
+                onClicked: view.showSeen = !view.showSeen
             }
 
             // Which pets.
@@ -567,6 +622,78 @@ Item {
                         retainWhileLoading: true
                         cache: true
                         smooth: true
+                    }
+                }
+            }
+
+            // Hidden cubes: a small diamond each, named on hover; Arkive's faint,
+            // a live one pulsing.
+            Repeater {
+                model: view.cubes
+                Item {
+                    id: cube
+                    required property var modelData
+                    readonly property bool live: modelData.kind === "live"
+                    readonly property real size: (live ? 22 : 16) * Math.max(0.6, Math.min(1, view.zoom * 2))
+                    x: modelData.x * view.zoom - size / 2
+                    y: modelData.y * view.zoom - size / 2
+                    z: cubeArea.containsMouse ? 3 : live ? 2 : 0
+                    width: size
+                    height: size
+                    Rectangle {
+                        visible: cube.live
+                        anchors.centerIn: parent
+                        width: parent.width * 2
+                        height: width
+                        radius: width / 2
+                        color: "transparent"
+                        border.color: AppTheme.cube
+                        border.width: 2
+                        SequentialAnimation on scale {
+                            running: cube.live
+                            loops: Animation.Infinite
+                            NumberAnimation { from: 0.4; to: 1.2; duration: 900 }
+                            PauseAnimation { duration: 300 }
+                        }
+                        SequentialAnimation on opacity {
+                            running: cube.live
+                            loops: Animation.Infinite
+                            NumberAnimation { from: 1; to: 0; duration: 900 }
+                            PauseAnimation { duration: 300 }
+                        }
+                    }
+                    Rectangle {
+                        anchors.centerIn: parent
+                        width: parent.width * 0.75
+                        height: width
+                        rotation: 45
+                        opacity: cube.modelData.kind === "spot" ? 0.5 : 1
+                        color: cube.live ? "white" : AppTheme.cube
+                        border.color: cubeArea.containsMouse ? "white" : Qt.darker(AppTheme.cube, 2)
+                        border.width: cubeArea.containsMouse ? 2 : 1
+                    }
+                    MouseArea {
+                        id: cubeArea
+                        anchors.fill: parent
+                        anchors.margins: -3
+                        hoverEnabled: true
+                    }
+                    Rectangle {
+                        visible: cubeArea.containsMouse
+                        anchors.bottom: parent.top
+                        anchors.bottomMargin: 4
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        width: cubeName.implicitWidth + 16
+                        height: cubeName.implicitHeight + 8
+                        radius: 4
+                        color: AppTheme.card
+                        border.color: AppTheme.cube
+                        Label {
+                            id: cubeName
+                            anchors.centerIn: parent
+                            text: cube.live ? "Hidden cube here now" : cube.modelData.kind === "seen" ? "A cube was seen here" : "Possible cube spot (Arkive)"
+                            font.pixelSize: AppTheme.small
+                        }
                     }
                 }
             }

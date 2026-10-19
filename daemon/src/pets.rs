@@ -8,7 +8,7 @@
 //! 00 90  pet list, at login and on each teleport: skip 4, <count varint> x (pet u32, skip 4, level u32),
 //!                                    <count varint> x (pet u32, points u32),
 //!        then each genus's insight (see `insights`)
-//! 0D 90  soul gained:        skip 1, pet u32, amount u32
+//! 0D 90  souls gained:       <count u8> x (pet u32, amount u32), several pets at once in one pickup
 //! 14 90  level up:           skip 2, pet u32, level u32
 //! ```
 //!
@@ -204,20 +204,25 @@ impl Pets {
                 self.list_ms = now_ms;
             }
             [0x0D, 0x90] => {
-                let Some((pet, amount)) = pair_at(body, 1) else {
-                    return;
-                };
-                let was_full = self.level(pet) >= NEEDED.len() as u32;
-                *self.now.points.entry(pet).or_default() += amount;
-                self.level_up(pet);
-                self.farmed(pet, amount, was_full, now_ms);
+                let count = body.first().copied().unwrap_or(0) as usize;
+                let souls: Option<Vec<_>> = (0..count).map(|i| pair_at(body, 1 + 8 * i)).collect();
+                let Some(souls) = souls else { return };
+                for (pet, amount) in souls {
+                    let was_full = self.level(pet) >= NEEDED.len() as u32;
+                    *self.now.points.entry(pet).or_default() += amount;
+                    self.level_up(pet);
+                    self.farmed(pet, amount, was_full, now_ms);
+                }
             }
             [0x14, 0x90] => {
                 let Some((pet, level)) = pair_at(body, 2) else {
                     return;
                 };
-                self.now.levels.insert(pet, level);
-                self.now.points.insert(pet, 0);
+                // Already levelled from its souls: the extra picked up past the level stays.
+                if self.level(pet) < level {
+                    self.now.levels.insert(pet, level);
+                    self.now.points.insert(pet, 0);
+                }
                 self.now.estimated.remove(&pet);
             }
             _ => return,
@@ -334,7 +339,7 @@ mod tests {
     }
 
     fn soul(pet: u32, amount: u32) -> Vec<u8> {
-        let mut b = vec![0];
+        let mut b = vec![1];
         b.extend(pet.to_le_bytes());
         b.extend(amount.to_le_bytes());
         frame([0x0D, 0x90], &b)
@@ -401,6 +406,28 @@ mod tests {
         assert_eq!((p.level(1002), p.now.points[&1002]), (1, 2));
         p.frame(&soul(1002, 200), 2_000);
         assert_eq!((p.level(1002), p.now.points[&1002]), (3, 102));
+    }
+
+    #[test]
+    fn one_pickup_can_carry_several_pets() {
+        // From a capture (2026-10-18): Pet 1126 +1 and pet 1137 +9 in one frame.
+        let b = [2, 0x66, 4, 0, 0, 1, 0, 0, 0, 0x71, 4, 0, 0, 9, 0, 0, 0];
+        let mut p = Pets::default();
+        p.frame(&frame([0x0D, 0x90], &b), 1_000);
+        assert_eq!(p.now.points, BTreeMap::from([(1126, 1), (1137, 4)]));
+        assert_eq!(p.level(1137), 1);
+    }
+
+    #[test]
+    fn a_level_up_after_souls_keeps_the_extra() {
+        let mut p = Pets::default();
+        p.now.points.insert(1002, 4);
+        p.frame(&soul(1002, 3), 1_000);
+        let mut b = vec![0, 0];
+        b.extend(1002u32.to_le_bytes());
+        b.extend(1u32.to_le_bytes());
+        p.frame(&frame([0x14, 0x90], &b), 1_000);
+        assert_eq!((p.level(1002), p.now.points[&1002]), (1, 2));
     }
 
     #[test]

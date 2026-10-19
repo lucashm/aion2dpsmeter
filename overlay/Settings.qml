@@ -37,7 +37,7 @@ Item {
     readonly property int gridSize: adapter.gridSize
     // Every name seen as the local player: "you" in analytics.
     readonly property var myNames: adapter.myNames
-    // The app window's page: "pets", "map" or "analytics".
+    // The app window's page: "pets", "map", "analytics" or "notifications".
     readonly property string appPage: adapter.appPage
     // The Pets page: its help card closed; the phase (the level farmed toward, 1-3); the
     // genuses and areas farmed; the sort.
@@ -46,6 +46,18 @@ Item {
     readonly property var petsGenus: adapter.petsGenus
     readonly property var petsFarmIn: adapter.petsFarmIn
     readonly property string petsSort: adapter.petsSort
+    // Notifications page: hidden cube alerts on.
+    readonly property bool notifyCubes: adapter.notifyCubes
+    // ...only while you have a Hidden Cube Key.
+    readonly property bool cubesNeedKey: adapter.cubesNeedKey
+    // ...with a chime for a cube nearby.
+    readonly property bool cubeSound: adapter.cubeSound
+    // Hourly event reminders: the Shugo Festival, the Dimensional Invasion,
+    // how many minutes before, and a chime.
+    readonly property bool notifyShugo: adapter.notifyShugo
+    readonly property bool notifyInvasion: adapter.notifyInvasion
+    readonly property int eventLead: adapter.eventLead
+    readonly property bool eventSound: adapter.eventSound
 
     function widgetPos(id) {
         const w = widgets[id];
@@ -105,6 +117,13 @@ Item {
     function setPetsGenus(list) { adapter.petsGenus = list; }
     function setPetsFarmIn(list) { adapter.petsFarmIn = list; }
     function setPetsSort(key) { adapter.petsSort = key; }
+    function setNotifyCubes(on) { adapter.notifyCubes = on; }
+    function setCubesNeedKey(on) { adapter.cubesNeedKey = on; }
+    function setCubeSound(on) { adapter.cubeSound = on; }
+    function setNotifyShugo(on) { adapter.notifyShugo = on; }
+    function setNotifyInvasion(on) { adapter.notifyInvasion = on; }
+    function setEventLead(min) { adapter.eventLead = min; }
+    function setEventSound(on) { adapter.eventSound = on; }
     function setPinnedMonitor(name) { adapter.pinnedMonitor = name; }
     function setGameMonitor(name) {
         if (name && name !== adapter.gameMonitor) adapter.gameMonitor = name;
@@ -149,6 +168,13 @@ Item {
             property var petsGenus: ["cogni", "fera", "natura", "varian", "special"]
             property var petsFarmIn: ["elyos", "asmodian", "abyss"]
             property string petsSort: "closest"
+            property bool notifyCubes: true
+            property bool cubesNeedKey: true
+            property bool cubeSound: true
+            property bool notifyShugo: true
+            property bool notifyInvasion: true
+            property int eventLead: 3
+            property bool eventSound: true
         }
     }
 }

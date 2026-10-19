@@ -19,6 +19,7 @@ Singleton {
     readonly property color accentSoft: Qt.rgba(0.24, 0.55, 1, 0.14)
     readonly property color good: "#34C77B"
     readonly property color warn: "#F2C15A"
+    readonly property color cube: "#4FD1E8"
 
     // One family: Qt takes the whole string as a name, not a CSS fallback list.
     readonly property string font: "Noto Sans"

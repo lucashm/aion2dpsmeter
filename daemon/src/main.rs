@@ -3,6 +3,7 @@
 //! Unix socket.
 
 mod capture;
+mod cubes;
 mod dispatch;
 mod game;
 mod history;
@@ -26,6 +27,7 @@ use anyhow::{Context, Result};
 use parking_lot::Mutex;
 use tracing::{error, info, warn};
 
+use crate::cubes::Cubes;
 use crate::dispatch::{CaptureStatus, Dispatcher};
 use crate::history::History;
 use crate::ipc::{Clients, Command};
@@ -167,11 +169,14 @@ fn main() -> Result<()> {
     let status = Arc::new(Mutex::new(CaptureStatus::default()));
     let clients = Clients::default();
     let pets = Arc::new(Mutex::new(Pets::load(data_home().join("pets.json"))));
+    let cubes = Arc::new(Mutex::new(Cubes::load(data_home().join("cube-spots.json"))));
     {
-        let pets = pets.clone();
+        let (pets, cubes) = (pets.clone(), cubes.clone());
         // shortcut: stamped with the wall clock, so a replayed capture's farming rate is off; fine for live use.
         a2tools::capture::frame_tap::set(Some(Arc::new(move |packet: &[u8]| {
-            pets.lock().frame(packet, now_ms())
+            let now = now_ms();
+            pets.lock().frame(packet, now);
+            cubes.lock().frame(packet, now);
         })));
     }
 
@@ -337,9 +342,50 @@ fn main() -> Result<()> {
                 clients.broadcast(&serde_json::to_string(&p.message())?);
             }
         }
+        {
+            let me = storage.local_player_id();
+            let my_name = storage.local_character_name();
+            let (events, keys) = {
+                let mut c = cubes.lock();
+                c.self_id = me;
+                if forced || c.spots_changed {
+                    c.spots_changed = false;
+                    let spots = serde_json::json!({ "type": "cubeSpots", "spots": c.spots });
+                    clients.broadcast(&spots.to_string());
+                }
+                (std::mem::take(&mut c.events), c.keys)
+            };
+            for e in events {
+                let by = e.actor.and_then(|a| storage.get_nickname(a));
+                let message = serde_json::json!({
+                    "type": "cube",
+                    "event": match e.event {
+                        cubes::Event::Near => "near",
+                        cubes::Event::Opening => "opening",
+                        cubes::Event::Opened => "opened",
+                        cubes::Event::Distance => "distance",
+                        cubes::Event::Left => "left",
+                    },
+                    "id": e.id,
+                    "by": by,
+                    // By your id, or by your name when the id isn't the one the game used.
+                    "mine": e.actor.is_some() && (e.actor.map(i64::from) == me
+                        || by.as_deref().is_some_and(|b| my_name.as_deref().map(str::trim) == Some(b.trim()))),
+                    "distance": e.distance,
+                    // A cube in range: its map and world x y, for the app's map.
+                    "map": e.at.map(|a| a.0),
+                    "x": e.at.map(|a| a.1),
+                    "y": e.at.map(|a| a.2),
+                    // Your Hidden Cube Keys, once the login bag is seen.
+                    "keys": keys,
+                });
+                clients.broadcast(&message.to_string());
+            }
+        }
         if last_save.elapsed() >= Duration::from_secs(5) {
             last_save = Instant::now();
             pets.lock().save();
+            cubes.lock().save();
             let records = meter.lock().calc.snapshot_boss_fights();
             save_fights(&history, &clients, &storage, records);
         }

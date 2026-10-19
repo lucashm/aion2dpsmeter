@@ -16,6 +16,16 @@ Item {
     property var fight: null
     // Pet levels, soul points and the pet being farmed (daemon/src/pets.rs).
     property var pets: null
+    // Hidden cube spots the meter has seen, by the game's map id: [[x, y, z], ...].
+    property var cubeSpots: ({})
+    // Cubes in range lately, not seen opened: [{ id, map, x, y, at }]; each goes after 5 minutes.
+    property var liveCubes: []
+    Timer {
+        interval: 30000
+        repeat: true
+        running: client.liveCubes.length > 0
+        onTriggered: client.liveCubes = client.liveCubes.filter(c => Date.now() - c.at < 300000)
+    }
 
     readonly property var players: state ? state.players : []
     readonly property var skills: state ? state.skills : []
@@ -34,6 +44,8 @@ Item {
     }
 
     signal fightSaved(var summary)
+    // A hidden cube came in range, or is being / was opened: { event, id, by, mine, distance }.
+    signal cubeEvent(var e)
 
     function send(cmd) {
         if (!sock.connected) return;
@@ -70,6 +82,16 @@ Item {
             break;
         case "fightSaved":
             client.fightSaved(msg.fight);
+            break;
+        case "cube": {
+            const others = client.liveCubes.filter(c => c.id !== msg.id);
+            if (msg.event === "near" && msg.map) client.liveCubes = others.concat([{ id: msg.id, map: msg.map, x: msg.x, y: msg.y, at: Date.now() }]);
+            else if (msg.event === "opened") client.liveCubes = others;
+            client.cubeEvent(msg);
+            break;
+        }
+        case "cubeSpots":
+            client.cubeSpots = msg.spots;
             break;
         }
     }

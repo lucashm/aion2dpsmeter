@@ -11,6 +11,8 @@ FloatingWindow {
     required property var settings
     // A run picked in Analytics: the shell opens it in the history widget.
     signal openFight(string id)
+    // A sample alert from the Notifications page, for the shell to show in game.
+    signal testNotification(var e)
 
     title: "AION 2 Meter"
     visible: false
@@ -18,7 +20,7 @@ FloatingWindow {
     implicitHeight: 940
     color: AppTheme.bg
 
-    readonly property string page: ["pets", "map", "analytics"].includes(settings.appPage) ? settings.appPage : "pets"
+    readonly property string page: ["pets", "map", "analytics", "notifications"].includes(settings.appPage) ? settings.appPage : "pets"
     // What the Map page shows when opened from a pet: { names, title }; null
     // shows every pet still needed under the Pets page's filters.
     property var mapQuery: null
@@ -36,7 +38,8 @@ FloatingWindow {
 
     readonly property var sections: [
         { title: "IN GAME", pages: [{ id: "pets", label: "Pets", icon: "🐾" }, { id: "map", label: "Map", icon: "🗺" }] },
-        { title: "RECORDS", pages: [{ id: "analytics", label: "Analytics", icon: "📈" }] }
+        { title: "RECORDS", pages: [{ id: "analytics", label: "Analytics", icon: "📈" }] },
+        { title: "SETTINGS", pages: [{ id: "notifications", label: "Notifications", icon: "🔔" }] }
     ]
 
     // ── sidebar ──
@@ -145,7 +148,7 @@ FloatingWindow {
                 x: Math.max(32, (area.width - area.pageW) / 2)
                 y: 32
                 width: area.pageW
-                height: app.page === "pets" ? pets.implicitHeight : analytics.implicitHeight
+                height: app.page === "pets" ? pets.implicitHeight : app.page === "notifications" ? notifications.implicitHeight : analytics.implicitHeight
 
                 PetsPage {
                     id: pets
@@ -163,6 +166,13 @@ FloatingWindow {
                     client: app.client
                     settings: app.settings
                     onOpenFight: id => app.openFight(id)
+                }
+                NotificationsPage {
+                    id: notifications
+                    width: parent.width
+                    visible: app.page === "notifications"
+                    settings: app.settings
+                    onTest: e => app.testNotification(e)
                 }
             }
         }
