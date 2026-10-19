@@ -3,9 +3,9 @@ name = "aion2-meterd"
 version = "0.1.0"
 edition = "2024"
 license = "GPL-3.0-only"
-repository = "https://github.com/lucashm/aion2dpsmeter"
-homepage = "https://github.com/lucashm/aion2dpsmeter"
-description = "Aion 2 combat capture daemon for Linux and Windows"
+repository = "https://github.com/lucashm/daevalog"
+homepage = "https://github.com/lucashm/daevalog"
+description = "Daevalog combat capture daemon for Linux and Windows"
 
 [dependencies]
 # The parser core (packet framing, combat aggregation), without its Tauri app.

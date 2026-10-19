@@ -3,8 +3,9 @@ name = "aion2-meter-windows"
 version = "0.1.0"
 edition = "2024"
 license = "GPL-3.0-only"
-repository = "https://github.com/lucashm/aion2dpsmeter"
-description = "Native Windows desktop and overlay for AION 2 Meter"
+repository = "https://github.com/lucashm/daevalog"
+homepage = "https://github.com/lucashm/daevalog"
+description = "Native Windows desktop and overlay for Daevalog"
 
 [features]
 # Opt-in renderer capture for local visual QA; excluded from release packages.

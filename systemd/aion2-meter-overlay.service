@@ -1,5 +1,5 @@
 [Unit]
-Description=AION 2 meter overlay (Quickshell)
+Description=Daevalog overlay (Quickshell)
 PartOf=graphical-session.target
 After=graphical-session.target aion2-meterd.service
 Wants=aion2-meterd.service

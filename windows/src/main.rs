@@ -14,12 +14,15 @@ fn main() -> eframe::Result {
         eframe::icon_data::from_png_bytes(include_bytes!("../../desktop/aion2-meter-elyos.png"))
             .ok();
     let mut viewport = egui::ViewportBuilder::default()
+        .with_title("Daevalog")
         .with_inner_size([760.0, 620.0])
         .with_min_inner_size([380.0, 260.0]);
     if let Some(icon) = icon {
         viewport = viewport.with_icon(icon);
     }
     eframe::run_native(
+        // Keep eframe's storage ID so the display-name change preserves
+        // existing window preferences and settings, just as it does on Linux.
         "AION 2 Meter",
         eframe::NativeOptions {
             viewport,

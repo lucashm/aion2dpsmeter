@@ -119,7 +119,7 @@ impl ksni::Tray for MeterTray {
     }
 
     fn title(&self) -> String {
-        "AION 2 Meter".into()
+        "Daevalog".into()
     }
 
     fn icon_pixmap(&self) -> Vec<Icon> {
@@ -148,7 +148,7 @@ impl ksni::Tray for MeterTray {
 
     fn tool_tip(&self) -> ToolTip {
         ToolTip {
-            title: "AION 2 Meter".into(),
+            title: "Daevalog".into(),
             description: self.status().summary(),
             ..Default::default()
         }

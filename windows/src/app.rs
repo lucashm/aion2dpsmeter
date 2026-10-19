@@ -156,7 +156,7 @@ impl App {
 
     fn controls(&mut self, ui: &mut egui::Ui, ctx: &egui::Context) {
         ui.horizontal_wrapped(|ui| {
-            ui.heading("AION 2 Meter");
+            ui.heading("Daevalog");
             if ui
                 .checkbox(&mut self.settings.always_on_top, "Always on top")
                 .changed()

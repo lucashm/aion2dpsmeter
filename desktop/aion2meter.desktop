@@ -1,13 +1,13 @@
 [Desktop Entry]
 Type=Application
-Name=AION 2 Meter
-GenericName=DPS Meter
-Comment=Start or stop the AION 2 DPS meter overlay
+Name=Daevalog
+GenericName=AION 2 Companion
+Comment=Start or stop the Daevalog overlay for AION 2
 Exec=aion2-meter toggle
 Icon=aion2-meter
 Terminal=false
 Categories=Game;
-Keywords=aion;dps;meter;overlay;combat;
+Keywords=daevalog;aion;dps;meter;overlay;combat;
 Actions=start;stop;edit;history;
 
 [Desktop Action start]

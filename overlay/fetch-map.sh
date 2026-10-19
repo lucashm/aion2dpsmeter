@@ -14,7 +14,7 @@ dir=${1:-${XDG_DATA_HOME:-$HOME/.local/share}/aion2-meter/map}
 maps=(World_L_A World_D_A Abyss_Reshanta_A)
 declare -A tiles=([World_L_A]=8 [World_D_A]=8 [Abyss_Reshanta_A]=4) levels=([World_L_A]=2 [World_D_A]=2 [Abyss_Reshanta_A]=1)
 
-fetch() { curl -fsSL --retry 2 -A aion2dpsmeter "$@"; }
+fetch() { curl -fsSL --retry 2 -A daevalog "$@"; }
 
 # Arkive's data version and this script's maps: either changing fetches again.
 version="$(fetch "$DATA/version.json") ${maps[*]}"
@@ -32,7 +32,7 @@ for m in "${maps[@]}"; do
     echo "$DATA/locales/en-US/regions/$m.json $dir/region-names/$m.json" >>"$list"
 done
 # Markers first: the portraits are listed in them.
-xargs -P 8 -n 2 sh -c 'mkdir -p "$(dirname "$2")" && curl -fsSL --retry 2 -A aion2dpsmeter -o "$2.part" "$1" && mv "$2.part" "$2"' _ <"$list"
+xargs -P 8 -n 2 sh -c 'mkdir -p "$(dirname "$2")" && curl -fsSL --retry 2 -A daevalog -o "$2.part" "$1" && mv "$2.part" "$2"' _ <"$list"
 
 : >"$list"
 for m in "${maps[@]}"; do
@@ -50,6 +50,6 @@ grep -oh '"icon": *"UI/Resource/Texture/Portrait/Portrait_Vehicle/[^"]*"' "$dir"
     | sed 's/.*"\(UI[^"]*\)"/\1/' | sort -u | while read -r f; do
     [ -f "$dir/$f" ] || echo "$RES/$f $dir/$f" >>"$list"
 done
-xargs -P 8 -n 2 sh -c 'mkdir -p "$(dirname "$2")" && curl -fsSL --retry 2 -A aion2dpsmeter -o "$2.part" "$1" && mv "$2.part" "$2"' _ <"$list"
+xargs -P 8 -n 2 sh -c 'mkdir -p "$(dirname "$2")" && curl -fsSL --retry 2 -A daevalog -o "$2.part" "$1" && mv "$2.part" "$2"' _ <"$list"
 
 printf '%s' "$version" >"$dir/version.json"

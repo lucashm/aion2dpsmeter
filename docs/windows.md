@@ -1,6 +1,6 @@
-# Windows desktop app
+# Daevalog for Windows
 
-Windows 10/11 **x64** is supported by a native Rust/egui desktop frontend.
+Windows 10/11 **x64** is supported by Daevalog's native Rust/egui desktop frontend.
 It uses the same capture decoding, TCP reassembly, A2Tools parser, DPS
 calculation and fight/pet persistence as the Linux daemon. No browser,
 Quickshell, WSL, systemd or Rust installation is needed to run a release.
@@ -12,7 +12,7 @@ Quickshell, WSL, systemd or Rust installation is needed to run a release.
    mode is not needed for Ethernet or normal Wi-Fi capture. If another meter
    already installed Npcap with compatible mode enabled, reuse it.
 2. Download `aion2-meter-<version>-x86_64-windows.zip` from
-   [Releases](https://github.com/lucashm/aion2dpsmeter/releases), or download the
+   [Releases](https://github.com/lucashm/daevalog/releases), or download the
    `aion2-meter-windows` artifact from a successful Windows CI run on this PR.
    GitHub wraps CI artifacts in another ZIP: extract both ZIPs.
 3. Extract the **whole** package to a writable folder and open
@@ -23,6 +23,11 @@ Quickshell, WSL, systemd or Rust installation is needed to run a release.
 5. Enable **Always on top** and optionally **Compact** to keep the meter above
    the game. Use the game's **borderless/windowed** mode; an ordinary desktop
    window cannot overlay exclusive fullscreen.
+
+The display name is **Daevalog**. Binary, archive and data-directory names keep
+`aion2-meter`, matching upstream's compatibility policy. Window preferences
+retain the existing `AION 2 Meter` storage ID, so renaming the app preserves
+your settings and saved data.
 
 The app normally runs without elevation. If Npcap was installed with capture
 restricted to Administrators, either run the meter as Administrator or change
@@ -120,8 +125,8 @@ Install current stable Rust (MSVC toolchain) and Visual Studio
 Npcap is only needed to *run* the daemon, not to build or run unit tests.
 
 ```powershell
-git clone --recursive https://github.com/lucashm/aion2dpsmeter
-cd aion2dpsmeter
+git clone --recursive https://github.com/lucashm/daevalog
+cd daevalog
 ./scripts/prepare-windows.ps1
 cargo fmt --check -p aion2-meterd -p aion2-meter-windows
 cargo clippy --locked --all-targets --no-deps -p aion2-meterd -p aion2-meter-windows -- -D warnings

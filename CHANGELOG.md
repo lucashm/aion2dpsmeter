@@ -2,7 +2,7 @@
 
 ## Unreleased
 
-- Native Windows x64 desktop app with shared capture/parser/DPS engine,
+- Native Windows x64 Daevalog desktop app with shared capture/parser/DPS engine,
   Npcap support, compact always-on-top and click-through modes, fight history,
   pet collection data, adapter selection and pcap replay.
 - Portable Windows ZIPs/checksums in CI and tagged releases, plus Windows

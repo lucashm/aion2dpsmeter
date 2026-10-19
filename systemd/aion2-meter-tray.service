@@ -1,5 +1,5 @@
 [Unit]
-Description=AION 2 meter tray icon
+Description=Daevalog tray icon
 PartOf=graphical-session.target
 After=graphical-session.target
 
