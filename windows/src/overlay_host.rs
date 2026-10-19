@@ -26,6 +26,7 @@ struct Host {
     closed: Arc<AtomicBool>,
     hotkey: Receiver<backend::Hotkey>,
     last_status: (usize, bool),
+    last_zoom: f32,
 }
 
 impl Host {
@@ -55,6 +56,7 @@ impl Host {
             closed,
             hotkey: backend::hotkey(cc.egui_ctx.clone()),
             last_status: (0, false),
+            last_zoom: cc.egui_ctx.zoom_factor(),
         }
     }
 }
@@ -78,6 +80,13 @@ impl eframe::App for Host {
             }
         }
         let frame = self.frame.lock().unwrap_or_else(|e| e.into_inner()).clone();
+        let scale = f32::from(frame.preferences.scale) / 100.0;
+        // Zoom is shared by every viewport. Native window dimensions stay in
+        // unscaled egui points, so existing and recreated widgets scale once.
+        ctx.set_zoom_factor(scale);
+        let zoom = ctx.zoom_factor();
+        let resize = zoom != self.last_zoom;
+        self.last_zoom = zoom;
         let status = native_status(frame.locked);
         if status != self.last_status {
             println!(
@@ -100,13 +109,12 @@ impl eframe::App for Host {
             .unwrap_or(egui::vec2(1920.0, 1080.0));
         for widget in frame.preferences.widgets.iter().filter(|w| w.enabled) {
             let id = widget.id.clone();
-            let scale = f32::from(frame.preferences.scale) / 100.0;
             let size = match id.as_str() {
                 "meter" => egui::vec2(360.0, 220.0),
                 "boss" => egui::vec2(400.0, 86.0),
                 "ping" => egui::vec2(120.0, 48.0),
                 _ => egui::vec2(360.0, 80.0),
-            } * scale;
+            };
             let pos = egui::pos2(
                 widget.x * (monitor.x - size.x).max(0.0),
                 widget.y * (monitor.y - size.y).max(0.0),
@@ -123,8 +131,13 @@ impl eframe::App for Host {
                 .with_mouse_passthrough(frame.locked)
                 .with_window_level(WindowLevel::AlwaysOnTop);
             let data = frame.clone();
-            ctx.show_viewport_deferred(ViewportId::from_hash_of(&id), builder, move |ctx, _| {
-                ctx.set_pixels_per_point(ctx.native_pixels_per_point().unwrap_or(1.0) * scale);
+            let viewport = ViewportId::from_hash_of(&id);
+            if resize {
+                // A zoom change doesn't change the builder's logical size,
+                // but existing HWNDs still need their physical size updated.
+                ctx.send_viewport_cmd_to(viewport, ViewportCommand::InnerSize(size));
+            }
+            ctx.show_viewport_deferred(viewport, builder, move |ctx, _| {
                 let alpha = (f32::from(data.preferences.opacity) * 2.55) as u8;
                 let panel = egui::Frame::NONE
                     .fill(Color32::from_rgba_unmultiplied(19, 29, 36, alpha))

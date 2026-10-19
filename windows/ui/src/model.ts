@@ -18,7 +18,7 @@ export interface Fight {
   totalDamage: number; killed: boolean; players: Player[];
 }
 export interface PetCollection {
-  server: number; levels: Record<string, number>; points: Record<string, number>; estimated: number[];
+  server: number; ready: boolean; levels: Record<string, number>; points: Record<string, number>; estimated: number[];
 }
 export type WidgetId = 'meter' | 'boss' | 'ping' | 'alert';
 export interface Widget { id: WidgetId; enabled: boolean; x: number; y: number }
@@ -74,11 +74,12 @@ export interface PetDefinition {
 }
 export function collectionRows(all: Record<string, PetDefinition>, collection: PetCollection | null, phase: number) {
   const thresholds = [5, 25, 75];
+  const known = collection?.ready ? collection : null;
   return Object.entries(all).filter(([, p]) => !p.unreleased).map(([id, p]) => {
-    const level = collection?.levels[id] ?? 0, points = collection?.points[id] ?? 0;
+    const level = known?.levels[id] ?? 0, points = known?.points[id] ?? 0;
     const drop = [...p.drops].sort((a, b) => a.level - b.level || b.spawns - a.spawns)[0];
-    return { ...p, id, level, points, drop, estimated: collection?.estimated.includes(Number(id)) ?? false,
+    return { ...p, id, level, points, drop, estimated: known?.estimated.includes(Number(id)) ?? false,
       remaining: Math.max(0, thresholds.slice(level, phase).reduce((n, x) => n + x, 0) - points),
-      needed: collection ? level < phase : false, next: thresholds[level] ?? 0 };
+      needed: known ? level < phase : false, next: thresholds[level] ?? 0 };
   });
 }

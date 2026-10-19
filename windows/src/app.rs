@@ -6,7 +6,7 @@ use serde::{Deserialize, Serialize};
 use serde_json::{Value, json};
 
 use crate::backend::{self, Adapter, Backend};
-use crate::model::{Fight, Player, Skill, State, number, read_fight};
+use crate::model::{Fight, Player, Skill, State, number, read_fight, read_pets};
 
 #[derive(Default, Deserialize, Serialize)]
 #[serde(default)]
@@ -139,7 +139,7 @@ impl App {
                     .and_then(|f| f.players.first().map(|p| p.id));
             }
             Some("fightSaved") => self.send(json!({"cmd":"history", "limit":100})),
-            Some("pets") => self.pets = value,
+            Some("pets") => self.pets = read_pets(value),
             Some("cube") => {
                 self.cube = match value["event"].as_str() {
                     Some("near" | "distance") => Some(format!(

@@ -28,9 +28,11 @@ export async function runSmoke() {
     await act({ action: 'start', replay: window.__DAEVALOG_SMOKE__.replay });
     await act({ action: 'target', mode: 'allTargets' });
     await act({ action: 'focus', id: 1395 });
+    const initial = await waitFor(s => (s.state.players ?? []).some(p => p.damage > 0));
+    check('Collection stays unknown before the pet list', initial.pets === null);
     const live = await waitFor(s => (s.state.players ?? []).reduce((n, p) => n + p.damage, 0) === 27200);
     check('Real daemon replay damage', live.state.players![0].damage === 27200);
-    check('Real pet event', !!live.pets?.levels);
+    check('Real pet event', live.pets?.ready === true && live.pets.points['1002'] === 2);
     await act({ action: 'preferences', preferences: { ...live.preferences, overlayVisible: true } });
     const overlay = await waitFor(s => s.overlayHotkey && s.overlayWindows === 4);
     check('Four native overlay HWNDs', overlay.overlayWindows === 4);

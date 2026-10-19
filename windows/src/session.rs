@@ -1,5 +1,6 @@
 //! One actor owns capture and overlays. Webview polling only reads its coalesced cache.
 use crate::backend::{self, Backend};
+use crate::model::read_pets;
 use crate::preferences::Preferences;
 use serde::{Deserialize, Serialize};
 use serde_json::{Value, json};
@@ -277,7 +278,7 @@ impl Actor {
         match value["type"].as_str() {
             Some("state") => self.snapshot.state = value,
             Some("replayFinished") => self.snapshot.replay_complete = true,
-            Some("pets") => self.snapshot.pets = value,
+            Some("pets") => self.snapshot.pets = read_pets(value),
             Some("history") => self.snapshot.fights = value["fights"].clone(),
             Some("fight") => self.snapshot.fight = value,
             Some("fightSaved") => {

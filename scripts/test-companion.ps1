@@ -13,6 +13,10 @@ $oldSmoke = $env:VITE_UI_SMOKE
 $oldHold = $env:AION2_COMPANION_SMOKE_HOLD_MS
 Push-Location $root
 try {
+    # Resolve the interpreter before isolating LOCALAPPDATA; version-manager
+    # shims otherwise try to install tools inside the test's data directory.
+    $pythonExe = & python -c "import sys; print(sys.executable)"
+    if ($LASTEXITCODE -ne 0) { throw 'Could not locate Python.' }
     if (-not $SkipBuild) {
         $env:VITE_UI_SMOKE = '1'
         npm --prefix windows/ui run build
@@ -24,7 +28,7 @@ try {
         if ($LASTEXITCODE -ne 0) { throw 'Smoke native build failed.' }
     }
     $pcap = Join-Path $runRoot 'fixture.pcap'
-    python -c "import importlib.util,pathlib,sys;s=importlib.util.spec_from_file_location('fixture','scripts/test-daemon.py');m=importlib.util.module_from_spec(s);s.loader.exec_module(m);m.write_capture(pathlib.Path(sys.argv[1]))" $pcap
+    & $pythonExe -c "import importlib.util,pathlib,sys;s=importlib.util.spec_from_file_location('fixture','scripts/test-daemon.py');m=importlib.util.module_from_spec(s);s.loader.exec_module(m);m.write_capture(pathlib.Path(sys.argv[1]))" $pcap
     if ($LASTEXITCODE -ne 0) { throw 'Could not generate the replay fixture.' }
     @{ autoStart = $false; sound = $false; overlayVisible = [bool]$MeasureIdle } | ConvertTo-Json | Set-Content -LiteralPath "$runRoot/aion2-meter/companion.json" -Encoding utf8
     New-Item -ItemType Directory -Force -Path "$runRoot/aion2-meter/fights" | Out-Null
@@ -75,6 +79,8 @@ try {
     $saved = Get-Content -LiteralPath "$runRoot/aion2-meter/companion.json" -Raw | ConvertFrom-Json
     if ($saved.petPhase -ne 2 -or $saved.overlayVisible -ne $false) { throw 'Preferences were not saved.' }
     if ($saved.PSObject.Properties.Name -contains 'locked') { throw 'Click-through must not persist.' }
+    & $pythonExe "$PSScriptRoot/test-overlay-scale.py" --app "$binaryDir/aion2-meter-windows.exe"
+    if ($LASTEXITCODE -ne 0) { throw 'Native widget scaling regression failed.' }
     Write-Output ($report.checks -join "`n")
     Write-Output "Native smoke passed. Report: $runRoot/report.json"
 } finally {

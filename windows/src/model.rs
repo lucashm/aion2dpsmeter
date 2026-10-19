@@ -75,6 +75,15 @@ pub fn number(n: f64) -> String {
     }
 }
 
+/// Partial pet updates cannot establish the rest of a player's collection.
+pub fn read_pets(value: serde_json::Value) -> serde_json::Value {
+    if value["ready"].as_bool() == Some(true) {
+        value
+    } else {
+        serde_json::Value::Null
+    }
+}
+
 /// Saved fights carry hit counts; live skills carry precomputed rates.
 pub fn read_fight(value: &serde_json::Value) -> Option<(Fight, Vec<Skill>)> {
     let mut fight: Fight = serde_json::from_value(value["summary"].clone()).ok()?;
@@ -109,6 +118,23 @@ pub fn read_fight(value: &serde_json::Value) -> Option<(Fight, Vec<Skill>)> {
 #[cfg(test)]
 mod tests {
     use super::*;
+    #[test]
+    fn unknown_pet_data_stays_unknown_even_with_a_server_or_partial_counts() {
+        for value in [
+            serde_json::json!({"server":0,"ready":false,"levels":{},"points":{}}),
+            serde_json::json!({"server":1001,"ready":false,"levels":{},"points":{}}),
+            serde_json::json!({"server":1001,"ready":false,"levels":{"1002":1},"points":{"1002":2}}),
+        ] {
+            assert!(read_pets(value).is_null());
+        }
+    }
+
+    #[test]
+    fn observed_empty_pet_collection_is_known() {
+        let collection = serde_json::json!({"server":1001,"ready":true,"levels":{},"points":{}});
+        assert_eq!(read_pets(collection.clone()), collection);
+    }
+
     #[test]
     fn reads_existing_camel_case_state_and_extra_fields() {
         let state: State = serde_json::from_value(serde_json::json!({

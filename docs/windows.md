@@ -38,6 +38,8 @@ font's SIL Open Font License is included in `licenses/NotoSansCJK-OFL.txt`.
   and phase filters, souls remaining, estimated levels and locally saved pins.
   Log in or teleport at a Kibelisk if capture began after login. Unknown progress
   is shown as unknown rather than treated as a collected or missing pet.
+  Counts saved by older versions are retained; log in or teleport once to
+  confirm that collection before missing entries are treated as zero.
 - **Overlay studio:** four detached native widgets (damage, boss HP, latency,
   event/cube reminders), visibility, saved primary-display anchors, opacity,
   scale and guarded click-through.

@@ -33,6 +33,11 @@ def write_capture(path):
             record = bytes.fromhex("b1ea013600f30a40c0f4007a038000010b199b5f01000000ac52a40d021818")
             data = game_frame((0x04, 0x38), record)
             data += game_frame((0x00, 0x36), bytes(8))
+            if i == 13:
+                # A complete collection, before the subsequent soul pickup.
+                pets = bytes(4) + bytes([1]) + struct.pack("<III", 1002, 0, 0)
+                pets += bytes([1]) + struct.pack("<II", 1002, 0)
+                data += game_frame((0x00, 0x90), pets)
             if i == 14:
                 data += game_frame((0x0D, 0x90), struct.pack("<BII", 1, 1002, 7))
             ethernet = bytes(12) + b"\x08\x00"
@@ -143,6 +148,7 @@ def main():
             assert sum(p["damage"] for p in state["players"]) > 0
             pet = daemon.wait_for(lambda e: e.get("type") == "pets" and e.get("points", {}).get("1002", 0) > 0)
             assert pet["points"]["1002"] == 2 and pet["levels"]["1002"] == 1, pet
+            assert pet["ready"], pet
             daemon.process.wait(timeout=5)
             assert daemon.process.returncode == 0
             daemon.thread.join(timeout=1)

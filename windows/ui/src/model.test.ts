@@ -16,9 +16,15 @@ describe('engine presentation boundary', () => {
   it('keeps unknown collection state distinct from zero progress and carries souls across levels', () => {
     const all = { '1002': { name: 'Pet', genus: 'cogni', unreleased: false, drops: [] } };
     expect(collectionRows(all, null, 3)[0].needed).toBe(false);
-    const c = { server: 1, levels: { '1002': 1 }, points: { '1002': 7 }, estimated: [1002] };
+    const c = { server: 1, ready: true, levels: { '1002': 1 }, points: { '1002': 7 }, estimated: [1002] };
     expect(collectionRows(all, c, 3)[0]).toMatchObject({ remaining: 93, estimated: true });
     expect(collectionRows(all, c, 1)[0].remaining).toBe(0);
+  });
+  it('does not treat an uncached server as a known empty collection', () => {
+    const all = { '1002': { name: 'Pet', genus: 'cogni', unreleased: false, drops: [] } };
+    const collection = { server: 1001, ready: false, levels: {}, points: {}, estimated: [] };
+    expect(collectionRows(all, collection, 3)[0].needed).toBe(false);
+    expect(collectionRows(all, { ...collection, ready: true }, 3)[0].needed).toBe(true);
   });
   it('suppresses saved DoT crit and back rates like the live meter', () => {
     const skills = savedSkills([{ actorId: 7, name: 'DoT', damage: 100, hits: 4,
