@@ -115,7 +115,7 @@ include IP addresses and player names, so review them before sharing.
 
 ## Build and validate
 
-Install current stable Rust (MSVC toolchain, **Rust 1.89+**) and Visual Studio
+Install current stable Rust (MSVC toolchain) and Visual Studio
 2022 Build Tools with **Desktop development with C++** and the Windows SDK.
 Npcap is only needed to *run* the daemon, not to build or run unit tests.
 

@@ -16,13 +16,14 @@ try {
     $distPrefix = [IO.Path]::GetFullPath($dist) + [IO.Path]::DirectorySeparatorChar
     if (-not $expected.StartsWith($distPrefix, [StringComparison]::OrdinalIgnoreCase)) { throw 'Package destination is outside dist.' }
     if (Test-Path -LiteralPath $expected) { Remove-Item -LiteralPath $expected -Recurse -Force }
-    New-Item -ItemType Directory -Force -Path "$out/data/i18n" | Out-Null
+    New-Item -ItemType Directory -Force -Path "$out/data/i18n", "$out/docs" | Out-Null
     Copy-Item -LiteralPath 'target/x86_64-pc-windows-msvc/release/aion2-meterd.exe', 'target/x86_64-pc-windows-msvc/release/aion2-meter-windows.exe' -Destination $out
     $data = 'third_party/a2tools/src/data'
     Copy-Item -LiteralPath "$data/i18n/skills", "$data/i18n/npcs" -Destination "$out/data/i18n" -Recurse
     Copy-Item -LiteralPath "$data/dot_skill_ids.json", "$data/skill_icons.json", "$data/abnormals.json" -Destination "$out/data"
     Copy-Item -LiteralPath 'LICENSE', 'README.md', 'CHANGELOG.md' -Destination $out
     Copy-Item -LiteralPath 'docs/windows.md' -Destination "$out/WINDOWS.md"
+    Copy-Item -LiteralPath 'docs/windows.md' -Destination "$out/docs/windows.md"
     $zip = Join-Path $dist "$name.zip"
     Compress-Archive -Path $out -DestinationPath $zip -Force
     $hash = (Get-FileHash -LiteralPath $zip -Algorithm SHA256).Hash.ToLowerInvariant()
