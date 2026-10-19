@@ -1,6 +1,6 @@
 import { invoke } from '@tauri-apps/api/core';
 import type { Snapshot } from './model';
-declare global { interface Window { __DAEVALOG_SMOKE__?: { replay: string } } }
+declare global { interface Window { __DAEVALOG_SMOKE__?: { replay: string; holdMs: number } } }
 
 export async function runSmoke() {
   if (!window.__DAEVALOG_SMOKE__) return;
@@ -16,7 +16,15 @@ export async function runSmoke() {
   try {
     await waitFor(s => s.revision > 0);
     check('React shell rendered', !!document.querySelector('.sidebar'));
-    check('Command palette', getComputedStyle(document.querySelector('.app')!).getPropertyValue('--accent').trim() === '#78dbcc');
+    check('Selected mint theme', getComputedStyle(document.querySelector('.app')!).getPropertyValue('--accent').trim() === '#78dbcc');
+    document.dispatchEvent(new KeyboardEvent('keydown', { key: 'k', ctrlKey: true, bubbles: true }));
+    check('Keyboard command palette focuses search', document.activeElement?.getAttribute('aria-label') === 'Search pages');
+    document.querySelector('dialog')?.close();
+    if (window.__DAEVALOG_SMOKE__.holdMs) {
+      await waitFor(s => s.overlayWindows === 4);
+      await invoke('smoke_report', { report: { phase: 'idle', overlays: 4 }, complete: false });
+      await new Promise(resolve => setTimeout(resolve, window.__DAEVALOG_SMOKE__!.holdMs));
+    }
     await act({ action: 'start', replay: window.__DAEVALOG_SMOKE__.replay });
     await act({ action: 'target', mode: 'allTargets' });
     await act({ action: 'focus', id: 1395 });
@@ -29,7 +37,7 @@ export async function runSmoke() {
     check('Click-through starts unlocked', !overlay.overlayLocked && !overlay.overlayPassthrough);
     await act({ action: 'lockOverlay', locked: true });
     await waitFor(s => s.overlayLocked && s.overlayPassthrough);
-    checks.push('All native windows pass through clicks');
+    checks.push('All native windows set WS_EX_TRANSPARENT');
     await act({ action: 'lockOverlay', locked: false });
     await waitFor(s => !s.overlayLocked && !s.overlayPassthrough);
     checks.push('All native windows unlock');

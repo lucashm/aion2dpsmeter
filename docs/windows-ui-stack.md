@@ -85,9 +85,10 @@ The migration seam should be presentation and supervision:
    [Linux overlay window](../overlay/OverlayWidget.qml)
 
 The screenshots are design references, not a feature contract already supplied
-by Windows. The current port supports live meter, fight history, pets and
-settings; independent layouts, game-focus visibility, map, analytics and timers
-need implementation work. Prototype data must be identified as sample data.
+by Windows. The implemented port supports the live meter, fight history, pets,
+settings, four native widget anchors and hourly/cube reminders. Game-focus
+visibility, maps and additional analytics remain outside this integration.
+Prototype data must be identified as sample data.
 [Current support boundary](windows.md)
 
 ## Windows overlay requirements
@@ -191,8 +192,14 @@ native reminders independent of WebView2 throttling. The overlay writer holds
 one replaceable snapshot rather than a growing event queue.
 
 The opt-in native smoke checks real replay data, four overlay HWNDs, native
-passthrough/unlock, history and shutdown. Primary-display studio anchors are
+WS_EX_TRANSPARENT lock/unlock styles, history and shutdown. It does not verify
+mouse delivery into AION 2; that requires a live-game test. Primary-display studio anchors are
 implemented; arbitrary monitor selection and persisted native free-drag
 positions remain open. Mixed-DPI correctness, a two-hour soak, weakest-PC
 budgets and actual game FPS still require validation. The budgets above remain
 targets rather than achieved results.
+
+A short release idle sample on the development PC measured 274.9 MiB combined
+private committed memory and 0.52% total machine CPU with the companion and four
+native widgets. This is not the 60-second weakest-PC budget test, and committed
+memory differs from private working set. See [validation details](windows-ui-validation.md).

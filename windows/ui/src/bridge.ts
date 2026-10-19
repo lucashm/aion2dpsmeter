@@ -10,9 +10,9 @@ export function useCompanion() {
   const [snapshot, setSnapshot] = useState<Snapshot>(emptySnapshot);
   const [preferences, setPreferences] = useState<Preferences>(emptySnapshot.preferences);
   const [error, setError] = useState('');
-  const pending = useRef(0);
+  const writing = useRef(false);
+  const queued = useRef<Preferences | null>(null);
   const prefs = useRef(preferences);
-  const queue = useRef(Promise.resolve());
   const revision = useRef(-1);
   const command = useCallback(async (action: Record<string, unknown>) => {
     if (!native) throw new Error('Capture and native overlays are available in the Windows application.');
@@ -21,16 +21,27 @@ export function useCompanion() {
   }, []);
   const updatePreferences = useCallback((patch: Partial<Preferences>) => {
     const next = { ...prefs.current, ...patch };
-    prefs.current = next; setPreferences(next); pending.current++;
-    queue.current = queue.current.then(() => command({ action: 'preferences', preferences: next }))
-      .catch(async () => {
-        if (native && pending.current === 1) {
-          try {
-            const actual = await invoke<Snapshot>('snapshot');
-            prefs.current = actual.preferences; setPreferences(actual.preferences);
-          } catch { /* The original native command error stays visible. */ }
+    prefs.current = next; setPreferences(next); queued.current = next;
+    if (writing.current) return;
+    writing.current = true;
+    // One active write plus the latest pending value, even during key repeat.
+    void (async () => {
+      try {
+        while (queued.current) {
+          const value = queued.current;
+          queued.current = null;
+          try { await command({ action: 'preferences', preferences: value }); }
+          catch {
+            if (native && !queued.current) {
+              try {
+                const actual = await invoke<Snapshot>('snapshot');
+                if (!queued.current) { prefs.current = actual.preferences; setPreferences(actual.preferences); }
+              } catch { /* The original native command error stays visible. */ }
+            }
+          }
         }
-      }).finally(() => { pending.current--; });
+      } finally { writing.current = false; }
+    })();
   }, [command]);
   useEffect(() => {
     if (!native) return;
@@ -42,7 +53,7 @@ export function useCompanion() {
         const next = await invoke<Snapshot>('snapshot');
         if (!disposed && next.revision !== revision.current) {
           revision.current = next.revision; setSnapshot(next);
-          if (!pending.current) { prefs.current = next.preferences; setPreferences(next.preferences); }
+          if (!writing.current) { prefs.current = next.preferences; setPreferences(next.preferences); }
         }
       } catch (e) { if (!disposed) setError(String(e)); }
       finally { inFlight = false; }

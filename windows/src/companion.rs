@@ -41,11 +41,27 @@ fn window_action(window: tauri::WebviewWindow, action: &str) -> Result<(), Strin
 
 #[cfg(feature = "ui-smoke")]
 #[tauri::command]
-fn smoke_report(app: tauri::AppHandle, report: serde_json::Value) -> Result<(), String> {
+fn smoke_report(
+    app: tauri::AppHandle,
+    report: serde_json::Value,
+    complete: Option<bool>,
+) -> Result<(), String> {
     let path =
         std::env::var_os("AION2_COMPANION_SMOKE_REPORT").ok_or("Smoke output is not configured")?;
-    std::fs::write(path, report.to_string()).map_err(|e| e.to_string())?;
-    app.exit(0);
+    let complete = complete.unwrap_or(true);
+    let path = std::path::PathBuf::from(path);
+    std::fs::write(
+        if complete {
+            path
+        } else {
+            path.with_extension("ready.json")
+        },
+        report.to_string(),
+    )
+    .map_err(|e| e.to_string())?;
+    if complete {
+        app.exit(0);
+    }
     Ok(())
 }
 
@@ -72,7 +88,7 @@ pub fn run() -> tauri::Result<()> {
             let window = if let Ok(replay) = std::env::var("AION2_COMPANION_SMOKE_REPLAY") {
                 window.initialization_script(format!(
                     "window.__DAEVALOG_SMOKE__={};",
-                    serde_json::json!({"replay":replay})
+                    serde_json::json!({"replay":replay, "holdMs":std::env::var("AION2_COMPANION_SMOKE_HOLD_MS").ok().and_then(|s| s.parse::<u64>().ok()).unwrap_or(0).min(30_000)})
                 ))
             } else {
                 window

@@ -27,7 +27,7 @@ the original alternatives remain accessible in Git history.
 The technology recommendation remains Tauri 2 + React + TypeScript + Vite for
 the companion shell, the Rust daemon for capture, and an egui overlay host.
 The [stack evaluation](windows-ui-stack.md) records migration boundaries and
-the measurements required before replacing the current Windows frontend.
+the measurements required for production hardening.
 
 The Windows executable now implements this composition using Tauri/React for
 the companion and one Rust/egui child hosting four native widgets. The original

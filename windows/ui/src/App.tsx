@@ -65,7 +65,7 @@ export default function App() {
   const go = (next: Page) => { setPage(next); const url = new URL(location.href); url.searchParams.set('page', next); history.replaceState(null, '', url); };
   const { snapshot: s, preferences: p, error } = companion;
   const status = connection(s.state, s.running, s.replay, s.replayComplete);
-  const openSearch = () => { setQuery(''); search.current?.showModal(); };
+  const openSearch = () => { setQuery(''); search.current?.showModal(); search.current?.querySelector('input')?.focus(); };
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => { if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') { e.preventDefault(); openSearch(); } };
     document.addEventListener('keydown', onKey); return () => document.removeEventListener('keydown', onKey);
@@ -116,7 +116,7 @@ function Party({ players, select, focused }: { players: Player[]; select?: (id: 
   </button>) : <p className="inline-note">Your party appears here when the game sends combat data.</p>}</Card>;
 }
 function SkillTable({ skills }: { skills: Skill[] }) {
-  return skills.length ? <div className="table-wrap"><table className="table skill-table"><thead><tr><th>Skill</th><th>Damage</th><th>Hits</th><th>Crit</th><th>Back</th></tr></thead><tbody>{skills.map((s, i) => <tr key={s.code ?? i}><td title={s.name}>{s.name}</td><td>{number(s.damage)}</td><td>{s.hits}</td><td>{((s.critRate ?? 0) * 100).toFixed(1)}%</td><td>{((s.backRate ?? 0) * 100).toFixed(1)}%</td></tr>)}</tbody></table></div> : <p className="inline-note">Select a player or deal damage to see the skill breakdown.</p>;
+  return skills.length ? <div className="table-wrap"><table className="table skill-table"><thead><tr><th>Skill</th><th>Damage</th><th>Hits</th><th>Crit</th><th>Back</th></tr></thead><tbody>{skills.map((s, i) => <tr key={(s.code ?? 'skill') + ':' + i}><td title={s.name}>{s.name}</td><td>{number(s.damage)}</td><td>{s.hits}</td><td>{((s.critRate ?? 0) * 100).toFixed(1)}%</td><td>{((s.backRate ?? 0) * 100).toFixed(1)}%</td></tr>)}</tbody></table></div> : <p className="inline-note">Select a player or deal damage to see the skill breakdown.</p>;
 }
 const events = [{ name: 'Shugo Festival', minute: 0, key: 'notifyShugo' as const, icon: Sparkles, note: 'Hourly · community schedule' },
   { name: 'Dimensional Invasion', minute: 30, key: 'notifyInvasion' as const, icon: Wind, note: 'Hourly · community schedule' }];
@@ -126,8 +126,8 @@ function Events({ compact = false }: { compact?: boolean }) {
 }
 function Overview() {
   const { snapshot: s, preferences: p, go } = useApp(), players = s.state.players ?? [], me = players.find(p => p.isLocal);
-  const allPets = Object.values(petData.pets).filter(p => !p.unreleased);
-  const collected = s.pets ? Object.values(s.pets.levels).filter(l => l >= 1).length : null;
+  const allPets = Object.entries(petData.pets).filter(([, p]) => !p.unreleased);
+  const collected = s.pets ? allPets.filter(([id]) => s.pets!.levels[id] >= 1).length : null;
   return <>
     <Heading title={s.state.character ? 'Welcome back, ' + s.state.character + '.' : 'Your companion in Atreia.'} note="A little clarity for your time in Atreia." eyebrow="YOUR COMPANION, IN SYNC" action={<Button onClick={() => go('overlays')}><Layers size={14} />Overlay studio</Button>} />
     <div className="stats"><Stat label="Your DPS" value={number(me?.dps)} note="Your current encounter" icon={Activity} /><Stat label="Party damage" value={number(players.reduce((n, p) => n + p.damage, 0))} note={players.length + ' players · damage dealt'} icon={Swords} /><Stat label="Pets collected" value={<>{collected ?? '—'} <em>/ {allPets.length}</em></>} note={s.pets ? 'Server ' + s.pets.server : 'Awaiting your collection'} icon={PawPrint} /><Stat label="Saved encounters" value={s.fights.length} note="Most recent 200 fights" icon={History} /></div>
@@ -178,7 +178,8 @@ function OverlayPage() {
   const { snapshot: s, preferences: p, updatePreferences, command } = useApp();
   const canvas = useRef<HTMLDivElement>(null);
   const [drag, setDrag] = useState<Widget | null>(null);
-  const [opacity, setOpacity] = useState(p.opacity), [scale, setScale] = useState(p.scale);
+  const [opacityDraft, setOpacity] = useState<number | null>(null), [scaleDraft, setScale] = useState<number | null>(null);
+  const opacity = opacityDraft ?? p.opacity, scale = scaleDraft ?? p.scale;
   const move = (widget: Widget, clientX: number, clientY: number) => {
     const rect = canvas.current!.getBoundingClientRect(), info = widgetInfo[widget.id];
     return { ...widget, x: Math.max(0, Math.min(1, (clientX - rect.left) / (rect.width * (1 - info.width / 100)))), y: Math.max(0, Math.min(1, (clientY - rect.top) / (rect.height * (1 - info.height / 100)))) };
@@ -200,8 +201,8 @@ function OverlayPage() {
         </div>;
       })}<span className="canvas-hint">Primary display anchors · layout saved on this PC</span>
     </div><aside className="card overlay-settings"><div className="card-head"><h2>On this layout</h2><Layers size={14} /></div>{p.widgets.map(w => <div className="setting-row" key={w.id}><span>{widgetInfo[w.id].label}</span><Switch label={widgetInfo[w.id].label} on={w.enabled} change={enabled => saveWidget({ ...w, enabled })} /></div>)}
-      <div className="range-row">Opacity<div className="row"><input aria-label="Overlay opacity" type="range" min="30" max="100" value={opacity} onChange={e => setOpacity(Number(e.target.value))} onPointerUp={() => updatePreferences({ opacity })} onKeyUp={() => updatePreferences({ opacity })} /><output>{opacity}%</output></div></div>
-      <div className="range-row">Widget scale<div className="row"><input aria-label="Widget scale" type="range" min="75" max="150" step="5" value={scale} onChange={e => setScale(Number(e.target.value))} onPointerUp={() => updatePreferences({ scale })} onKeyUp={() => updatePreferences({ scale })} /><output>{scale}%</output></div></div>
+      <div className="range-row">Opacity<div className="row"><input aria-label="Overlay opacity" type="range" min="30" max="100" value={opacity} onChange={e => setOpacity(Number(e.target.value))} onPointerUp={() => { updatePreferences({ opacity }); setOpacity(null); }} onKeyUp={() => { updatePreferences({ opacity }); setOpacity(null); }} /><output>{opacity}%</output></div></div>
+      <div className="range-row">Widget scale<div className="row"><input aria-label="Widget scale" type="range" min="75" max="150" step="5" value={scale} onChange={e => setScale(Number(e.target.value))} onPointerUp={() => { updatePreferences({ scale }); setScale(null); }} onKeyUp={() => { updatePreferences({ scale }); setScale(null); }} /><output>{scale}%</output></div></div>
       <p className="inline-note"><kbd className="kbd">Ctrl+Alt+M</kbd> unlocks click-through. {p.overlayVisible && !s.overlayHotkey ? 'Waiting for the overlay shortcut to register.' : 'Click-through starts unlocked every launch.'}</p>
     </aside></div><p className="inline-note">Use borderless or windowed game mode. Drag native widget headers while unlocked; use this studio to save anchors on the main display.</p>
   </>;
@@ -214,7 +215,7 @@ function HistoryPage() {
   return <>
     <Heading title="Every encounter tells a story." note="Saved on your PC. Ready when you want a closer look." eyebrow="FIGHT HISTORY" action={<Button disabled={!s.running} onClick={() => send(command, { action: 'history' })}><RotateCcw size={13} />Refresh</Button>} />
     {selected ? <><button className="history-back" onClick={() => setSelected(null)}><ArrowLeft size={14} />All encounters</button>{fight ? <><Heading title={fight.summary.bossName || 'Encounter'} eyebrow={fight.summary.killed ? 'CLEARED' : 'ENCOUNTER'} note={new Date(fight.summary.startTimeMs).toLocaleString() + ' · ' + duration(fight.summary.durationMs)} /><div className="grid combat-grid"><Party players={playerShares(fight.summary.players)} select={setActor} focused={focused} /><Card title="Skill breakdown"><SkillTable skills={savedSkills(fight.skills, focused, fight.summary.durationMs)} /></Card></div></> : <Empty title="Loading encounter…" note="Reading the saved fight from the capture daemon." />}</> :
-      s.fights.length ? <Card title="Recent encounters" action={<small>Your DPS</small>}>{s.fights.map(f => <button className="history-row" key={f.id} disabled={!s.running} onClick={() => { setSelected(f.id); setActor(null); send(command, { action: 'fight', id: f.id }); }}><span className="event-icon"><Swords size={15} /></span><span><b>{f.bossName || 'Encounter'}</b><small>{new Date(f.startTimeMs).toLocaleString()} · {f.players.length} players</small></span><span className={'tag ' + (f.killed ? 'green' : '')}>{f.killed ? 'Cleared' : 'Not cleared'}</span><span className="duration muted">{duration(f.durationMs)}</span><span className="right">{number(f.players.find(p => p.isLocal || p.name === s.state.character)?.dps ?? f.players[0]?.dps)}</span></button>)}</Card> :
+      s.fights.length ? <Card title="Recent encounters" action={<small>Top DPS</small>}>{s.fights.map(f => <button className="history-row" key={f.id} disabled={!s.running} onClick={() => { setSelected(f.id); setActor(null); send(command, { action: 'fight', id: f.id }); }}><span className="event-icon"><Swords size={15} /></span><span><b>{f.bossName || 'Encounter'}</b><small>{new Date(f.startTimeMs).toLocaleString()} · {f.players.length} players</small></span><span className={'tag ' + (f.killed ? 'green' : '')}>{f.killed ? 'Cleared' : 'Not cleared'}</span><span className="duration muted">{duration(f.durationMs)}</span><span className="right">{number(f.players.length ? Math.max(...f.players.map(p => p.dps)) : null)}</span></button>)}</Card> :
       <Empty title="Your story starts here." note="Boss encounters are saved automatically as they end. Start capture to load your saved history." />}
   </>;
 }
@@ -229,7 +230,8 @@ function AlertsPage() {
 }
 function SettingsPage() {
   const { snapshot: s, preferences: p, updatePreferences, command } = useApp();
-  const [iface, setIface] = useState(p.iface), [replay, setReplay] = useState('');
+  const [ifaceDraft, setIface] = useState<string | null>(null), [replay, setReplay] = useState('');
+  const iface = ifaceDraft ?? p.iface;
   return <>
     <Heading title="A companion that fits." note="A few thoughtful controls, right where you need them." eyebrow="PREFERENCES" />
     <div className="grid settings-grid"><Card title="Game & capture" action={<Signal size={16} />}><span className={'tag ' + (s.running ? 'green' : '')}>{connection(s.state, s.running, s.replay, s.replayComplete)}</span><p>Network adapter</p><select className="input" aria-label="Capture network adapter" value={iface} onChange={e => setIface(e.target.value)}><option value="">Automatic · default IPv4 route</option>{s.adapters.map(a => <option key={a.name} value={a.name}>{a.description || a.name} {a.addresses.join(', ')}</option>)}</select><p>For a VPN, choose the adapter carrying your game traffic. Npcap must be installed separately in WinPcap API-compatible mode.</p><div className="row wrap"><Button disabled={!native} onClick={() => send(command, { action: 'refreshAdapters' })}>Refresh adapters</Button><Button primary disabled={!native} onClick={() => { updatePreferences({ iface }); }}><Check size={13} />Save adapter</Button><Button primary disabled={!native} onClick={() => send(command, { action: 'start', replay: null })}><Play size={13} />{s.running ? 'Restart capture' : 'Start capture'}</Button>{s.running && <Button onClick={() => send(command, { action: 'stop' })}>Stop capture</Button>}</div><p>Save a changed adapter before starting capture.</p></Card>

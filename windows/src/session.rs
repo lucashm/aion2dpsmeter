@@ -62,6 +62,13 @@ impl Default for Snapshot {
     }
 }
 
+impl Snapshot {
+    fn clear_live_state(&mut self) {
+        self.running = false;
+        self.state = json!({});
+    }
+}
+
 pub fn now_ms() -> u64 {
     SystemTime::now()
         .duration_since(UNIX_EPOCH)
@@ -195,8 +202,7 @@ impl Actor {
             Action::Start { replay } => self.start(replay)?,
             Action::Stop {} => {
                 self.backend.take();
-                self.snapshot.running = false;
-                self.snapshot.state = json!({});
+                self.snapshot.clear_live_state();
             }
             Action::Reset {} => self.send(json!({"cmd":"reset"}))?,
             Action::Target { mode } => {
@@ -332,7 +338,8 @@ impl Actor {
             }
             if let Some(result) = self.backend.as_mut().and_then(Backend::exited) {
                 self.backend.take();
-                self.snapshot.running = false;
+                // A dead capture process cannot provide live combat, HP or latency.
+                self.snapshot.clear_live_state();
                 if let Err(e) = result {
                     self.snapshot.error = Some(e);
                 }
@@ -501,6 +508,22 @@ impl Drop for Overlay {
 #[cfg(test)]
 mod tests {
     use super::*;
+    #[test]
+    fn capture_exit_invalidates_live_widgets_but_retains_saved_data() {
+        let mut snapshot = Snapshot {
+            running: true,
+            state: json!({"capture":{"locked":true,"gameRunning":true},"pingMs":40,
+                "players":[{"damage":1000}],"target":{"currentHp":50}}),
+            fights: json!([{"id":"saved"}]),
+            pets: json!({"levels":{"1002":1}}),
+            ..Snapshot::default()
+        };
+        snapshot.clear_live_state();
+        assert!(!snapshot.running);
+        assert_eq!(snapshot.state, json!({}));
+        assert_eq!(snapshot.fights[0]["id"], "saved");
+        assert_eq!(snapshot.pets["levels"]["1002"], 1);
+    }
     #[test]
     fn hourly_reminders_advance_once_and_cross_midnight() {
         assert_eq!(next_event(0, 0), 3_600_000);

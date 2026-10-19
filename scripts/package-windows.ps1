@@ -33,7 +33,8 @@ try {
     Copy-Item -LiteralPath 'LICENSE', 'README.md', 'CHANGELOG.md' -Destination $out
     Copy-Item -LiteralPath 'docs/windows.md' -Destination "$out/WINDOWS.md"
     Copy-Item -LiteralPath 'docs/windows.md' -Destination "$out/docs/windows.md"
-    Copy-Item -LiteralPath 'docs/windows-ui-stack.md', 'docs/windows-ui-design.md' -Destination "$out/docs"
+    Copy-Item -LiteralPath 'docs/windows-ui-stack.md', 'docs/windows-ui-design.md', 'docs/windows-ui-validation.md' -Destination "$out/docs"
+    Copy-Item -LiteralPath 'docs/windows-ui' -Destination "$out/docs/windows-ui" -Recurse
     $zip = Join-Path $dist "$name.zip"
     Compress-Archive -Path $out -DestinationPath $zip -Force
     $hash = (Get-FileHash -LiteralPath $zip -Algorithm SHA256).Hash.ToLowerInvariant()

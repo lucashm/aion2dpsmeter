@@ -133,11 +133,15 @@ embeds it in the native executable and creates a ZIP plus SHA-256 checksum in
 its native build plugin. The executables use static CRT linking.
 
 `test-companion.ps1` builds an opt-in `ui-smoke` executable, runs a real pcap
-through WebView2/Rust/daemon, checks four native widget HWNDs, mouse passthrough,
+through WebView2/Rust/daemon, checks four native widget HWNDs, click-through window styles,
 unlock, history and persistence, then exits. It uses isolated storage and an
 alternate Ctrl+Alt+Shift+M QA shortcut to avoid taking a running meter's hotkey.
 The test report command and QA shortcut are excluded from normal packages.
 The old renderer screenshot hook also requires `ui-smoke` and `--legacy`.
+Add `-Release -MeasureIdle` to collect a short CPU/private-commit sample across
+the app, native overlay host and WebView2 descendants before replay begins.
+This does not measure game FPS or mouse delivery into a separate game process.
+See the [recorded validation](windows-ui-validation.md) for results and limits.
 
 For browser-only layout development, run `npm --prefix windows/ui run dev`.
 It shows disconnected states and the reference catalog; capture, native
