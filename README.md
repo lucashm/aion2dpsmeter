@@ -1,7 +1,12 @@
-# AION 2 DPS Meter for Linux
+# AION 2 DPS Meter for Linux and Windows
 
 A damage meter for AION 2 that runs natively on Linux while the game runs through Steam/Proton.
 It shows live combat numbers as small widgets on top of the game.
+
+**Windows 10/11 x64:** a native desktop app is also available, with live DPS,
+skills, boss HP, ping, saved fights and pet collection data. Install Npcap
+separately and extract the Windows ZIP. See the [Windows setup, features and
+build guide](docs/windows.md). The instructions below describe the Linux app.
 
 <!-- Screenshot: add docs/screenshot.png and uncomment the next line.
 ![The meter over the game](docs/screenshot.png)

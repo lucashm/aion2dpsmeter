@@ -1,0 +1,4 @@
+# Self-contained Windows executables, with no VC++ redistributable to install.
+# This target-specific flag does not affect Linux builds.
+[target.x86_64-pc-windows-msvc]
+rustflags = ["-C", "target-feature=+crt-static"]

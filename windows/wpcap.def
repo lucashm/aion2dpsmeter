@@ -1,0 +1,46 @@
+; Public libpcap/Npcap function imports used by this daemon and pcap-rs.
+; This is an import definition, not a capture library or driver implementation.
+; See https://npcap.com/guide/wpcap/ for the API contracts.
+LIBRARY wpcap
+EXPORTS
+    pcap_activate
+    pcap_breakloop
+    pcap_close
+    pcap_compile
+    pcap_create
+    pcap_datalink
+    pcap_datalink_name_to_val
+    pcap_datalink_val_to_description
+    pcap_datalink_val_to_name
+    pcap_dump
+    pcap_dump_close
+    pcap_dump_flush
+    pcap_dump_open
+    pcap_findalldevs
+    pcap_freealldevs
+    pcap_freecode
+    pcap_geterr
+    pcap_getnonblock
+    pcap_hopen_offline
+    pcap_hopen_offline_with_tstamp_precision
+    pcap_lib_version
+    pcap_next_ex
+    pcap_major_version
+    pcap_minor_version
+    pcap_offline_filter
+    pcap_open_dead
+    pcap_open_dead_with_tstamp_precision
+    pcap_open_offline
+    pcap_set_buffer_size
+    pcap_set_immediate_mode
+    pcap_set_promisc
+    pcap_set_snaplen
+    pcap_set_timeout
+    pcap_set_tstamp_precision
+    pcap_set_tstamp_type
+    pcap_setfilter
+    pcap_setnonblock
+    pcap_sendqueue_alloc
+    pcap_sendqueue_destroy
+    pcap_sendqueue_queue
+    pcap_sendqueue_transmit

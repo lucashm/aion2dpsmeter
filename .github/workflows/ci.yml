@@ -4,6 +4,7 @@ on:
   push:
     branches: [main]
   pull_request:
+  workflow_dispatch:
 
 jobs:
   check:
@@ -18,9 +19,48 @@ jobs:
       # --no-deps: lint our crates only, not the A2Tools parser.
       - run: cargo clippy --no-deps -p aion2-meterd -p aion2-meter-tray -- -D warnings
       - run: cargo test -p aion2-meterd -p aion2-meter-tray
+      - run: cargo build --locked -p aion2-meterd
+      - run: python3 scripts/test-daemon.py --daemon target/debug/aion2-meterd
       - run: for f in scripts/*.sh scripts/aion2-meter; do bash -n "$f"; done
       - run: node scripts/test-editor-guides.js
       - run: node scripts/test-pets-page.js
       - run: node scripts/test-cube-alert.js
       - run: node scripts/test-event-alert.js
       - run: bash -n overlay/fetch-map.sh
+
+  windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - run: rustup update stable && rustup default stable && rustup component add rustfmt clippy
+      - run: cargo fmt --check -p aion2-meterd -p aion2-meter-windows
+      - name: Lint and unit tests
+        shell: pwsh
+        run: |
+          ./scripts/prepare-windows.ps1
+          cargo clippy --locked --all-targets --all-features --no-deps -p aion2-meterd -p aion2-meter-windows -- -D warnings
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          cargo test --locked -p aion2-meterd -p aion2-meter-windows
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Build portable desktop app
+        run: ./scripts/package-windows.ps1 -Version pr-${{ github.event.number || github.sha }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: aion2-meter-windows
+          path: |
+            dist/*-x86_64-windows.zip
+            dist/*-x86_64-windows.zip.sha256
+          if-no-files-found: error
+
+  linux-package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - name: Verify the existing static Linux release package
+        run: >
+          docker run --rm -v "$PWD":/src -w /src -e OWNER="$(id -u):$(id -g)"
+          rust:alpine sh scripts/package.sh ci

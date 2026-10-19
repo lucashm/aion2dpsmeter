@@ -5,7 +5,7 @@ edition = "2024"
 license = "GPL-3.0-only"
 repository = "https://github.com/lucashm/aion2dpsmeter"
 homepage = "https://github.com/lucashm/aion2dpsmeter"
-description = "Aion 2 combat capture daemon for Linux: sniffs the game's traffic and serves live DPS state to the overlay"
+description = "Aion 2 combat capture daemon for Linux and Windows"
 
 [dependencies]
 # The parser core (packet framing, combat aggregation), without its Tauri app.
@@ -17,3 +17,6 @@ parking_lot = "0.12"
 tracing = "0.1"
 tracing-subscriber = { version = "0.3", features = ["env-filter"] }
 anyhow = "1"
+
+[target.'cfg(windows)'.dependencies]
+windows-sys = { version = "0.59", features = ["Win32_Foundation", "Win32_System_Diagnostics_ToolHelp", "Win32_NetworkManagement_IpHelper", "Win32_Networking_WinSock"] }

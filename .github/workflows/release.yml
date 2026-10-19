@@ -19,11 +19,43 @@ jobs:
         run: >
           docker run --rm -v "$PWD":/src -w /src -e OWNER="$(id -u):$(id -g)"
           rust:alpine sh scripts/package.sh "$GITHUB_REF_NAME"
-      - name: Publish the release
+      - uses: actions/upload-artifact@v4
+        with:
+          name: linux-release
+          path: |
+            dist/*-x86_64-linux.tar.gz
+            dist/*-x86_64-linux.tar.gz.sha256
+          if-no-files-found: error
+
+  windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - run: rustup update stable && rustup default stable
+      - name: Build portable Windows desktop app
+        shell: pwsh
+        run: ./scripts/package-windows.ps1 -Version $env:GITHUB_REF_NAME
+      - uses: actions/upload-artifact@v4
+        with:
+          name: windows-release
+          path: |
+            dist/*-x86_64-windows.zip
+            dist/*-x86_64-windows.zip.sha256
+          if-no-files-found: error
+
+  publish:
+    needs: [release, windows]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: '*-release'
+          merge-multiple: true
+          path: dist
+      - name: Publish both platforms together
         env:
           GH_TOKEN: ${{ github.token }}
-        run: >
-          gh release create "$GITHUB_REF_NAME"
-          dist/aion2-meter-$GITHUB_REF_NAME-x86_64-linux.tar.gz
-          dist/aion2-meter-$GITHUB_REF_NAME-x86_64-linux.tar.gz.sha256
-          --title "$GITHUB_REF_NAME" --notes-file CHANGELOG.md
+        run: gh release create "$GITHUB_REF_NAME" dist/* --title "$GITHUB_REF_NAME" --notes-file CHANGELOG.md
