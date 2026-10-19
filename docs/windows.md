@@ -7,13 +7,14 @@ Quickshell, WSL, systemd or Rust installation is needed to run a release.
 
 ## Desktop UI design preview
 
-Three interactive Questlog-inspired directions are available in the
-[desktop design lab](../windows/prototype/README.md). Start it with
-`node scripts/preview-desktop.mjs` and choose Obsidian, Aether or Command.
+The selected Questlog-inspired composition is available in the
+[desktop design preview](../windows/prototype/README.md): Command's visuals
+with Obsidian's content and labeled navigation. Start it with
+`node scripts/preview-desktop.mjs`.
 The preview uses fictional in-memory data and does not replace the native app.
 The [technology evaluation](windows-ui-stack.md) compares Windows UI stacks
 and proposes a rich Tauri companion with lightweight Rust overlays, subject to
-design selection and native performance validation.
+native performance validation.
 
 ## Install and play
 

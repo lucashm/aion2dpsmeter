@@ -1,8 +1,9 @@
 # Windows UI technology decision
 
 Research date: 2026-10-19. Baseline: PR #1, local commit `6344bb8`.
-Status: recommendation for the design prototypes; production migration awaits
-selection of a visual direction and a Windows performance spike. No framework
+Status: [visual direction selected](windows-ui-design.md): C's visuals with
+A's Questlog-like content. Production migration awaits a Windows performance
+spike. No framework
 comparison has been benchmarked in this repository.
 
 ## Recommendation
@@ -181,10 +182,10 @@ Keep Npcap separately installed as in PR #1. A UI toolkit change does not
 grant permission to redistribute its driver/runtime.
 [Npcap redistribution terms](https://npcap.com/oem/redist)
 
-## Decision still required
+## Next implementation step
 
-Choose among the three visual prototypes first. Then build one real native
-slice: live data, a single detached meter, layout edit/unlock, mixed-DPI moves,
+The selected design is C's visuals with A's content and navigation. Build one
+real native slice: live data, a single detached meter, layout edit/unlock, mixed-DPI moves,
 minimize-to-tray and shutdown. That experiment resolves the largest remaining
 uncertainties: transparent-window behavior on the target GPU, WebView2 memory
 when the shell is hidden, overlay-host complexity, and measured game impact.

@@ -1,4 +1,4 @@
-// Throwaway desktop design lab. Node core only; no package installation.
+// Selected desktop design preview. Node core only; no package installation.
 import { createServer } from 'node:http';
 import { readFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
@@ -26,5 +26,5 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === resolve(process.argv[1
       res.writeHead(500); res.end(String(error));
     }
   });
-  server.listen(port, '127.0.0.1', () => console.log('Desktop prototypes: http://localhost:' + port + '/?variant=A\nCtrl+C to stop. Sample data only.'));
+  server.listen(port, '127.0.0.1', () => console.log('Selected desktop preview: http://localhost:' + port + '/\nCtrl+C to stop. Sample data only.'));
 }
