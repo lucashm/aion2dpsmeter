@@ -39,6 +39,7 @@ pub struct App {
 impl App {
     pub fn new(cc: &eframe::CreationContext<'_>) -> Self {
         cc.egui_ctx.set_visuals(egui::Visuals::dark());
+        crate::fonts::install(&cc.egui_ctx);
         let settings = cc
             .storage
             .and_then(|s| eframe::get_value(s, "settings"))
@@ -495,10 +496,7 @@ impl eframe::App for App {
             }
         }
         for _ in 0..256 {
-            let message = self
-                .backend
-                .as_ref()
-                .and_then(|b| b.messages.try_recv().ok());
+            let message = self.backend.as_mut().and_then(Backend::next_message);
             let Some(message) = message else { break };
             self.message(message);
         }
@@ -590,8 +588,15 @@ fn skill_table(ui: &mut egui::Ui, skills: &[Skill]) {
                 ui.label(number(skill.damage));
                 ui.label(number(skill.dps));
                 ui.label(skill.hits.to_string());
-                ui.label(format!("{:.1}%", skill.crit_rate * 100.0));
-                ui.label(format!("{:.1}%", skill.back_rate * 100.0));
+                let rate = |value: f64| {
+                    if skill.is_dot {
+                        "–".into()
+                    } else {
+                        format!("{:.1}%", value * 100.0)
+                    }
+                };
+                ui.label(rate(skill.crit_rate));
+                ui.label(rate(skill.back_rate));
                 ui.end_row();
             }
         });

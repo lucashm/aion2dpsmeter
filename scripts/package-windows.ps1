@@ -25,7 +25,7 @@ try {
     $distPrefix = [IO.Path]::GetFullPath($dist) + [IO.Path]::DirectorySeparatorChar
     if (-not $expected.StartsWith($distPrefix, [StringComparison]::OrdinalIgnoreCase)) { throw 'Package destination is outside dist.' }
     if (Test-Path -LiteralPath $expected) { Remove-Item -LiteralPath $expected -Recurse -Force }
-    New-Item -ItemType Directory -Force -Path "$out/data/i18n", "$out/docs" | Out-Null
+    New-Item -ItemType Directory -Force -Path "$out/data/i18n", "$out/docs", "$out/licenses" | Out-Null
     Copy-Item -LiteralPath 'target/x86_64-pc-windows-msvc/release/aion2-meterd.exe', 'target/x86_64-pc-windows-msvc/release/aion2-meter-windows.exe' -Destination $out
     $data = 'third_party/a2tools/src/data'
     Copy-Item -LiteralPath "$data/i18n/skills", "$data/i18n/npcs" -Destination "$out/data/i18n" -Recurse
@@ -35,6 +35,7 @@ try {
     Copy-Item -LiteralPath 'docs/windows.md' -Destination "$out/docs/windows.md"
     Copy-Item -LiteralPath 'docs/windows-ui-stack.md', 'docs/windows-ui-design.md', 'docs/windows-ui-validation.md' -Destination "$out/docs"
     Copy-Item -LiteralPath 'docs/windows-ui' -Destination "$out/docs/windows-ui" -Recurse
+    Copy-Item -LiteralPath 'windows/fonts/OFL.txt' -Destination "$out/licenses/NotoSansCJK-OFL.txt"
     $zip = Join-Path $dist "$name.zip"
     Compress-Archive -Path $out -DestinationPath $zip -Force
     $hash = (Get-FileHash -LiteralPath $zip -Algorithm SHA256).Hash.ToLowerInvariant()

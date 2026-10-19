@@ -5,6 +5,7 @@ export interface Player {
 export interface Skill {
   actorId?: number; code?: number; name: string; damage: number; hits: number;
   dps?: number; critRate?: number; backRate?: number; crit?: number; back?: number;
+  isDot?: boolean;
 }
 export interface Combat {
   capture?: { gameRunning?: boolean; locked?: boolean; error?: string | null };
@@ -63,8 +64,8 @@ export function playerShares(players: Player[]): Player[] {
 export function savedSkills(skills: Skill[], actor: number, ms: number): Skill[] {
   return skills.filter(s => s.actorId === actor).map(s => ({
     ...s, dps: s.damage / Math.max(ms / 1000, 1),
-    critRate: s.hits ? (s.crit ?? 0) / s.hits : 0,
-    backRate: s.hits ? (s.back ?? 0) / s.hits : 0,
+    critRate: !s.isDot && s.hits > 0 ? (s.crit ?? 0) / s.hits : 0,
+    backRate: !s.isDot && s.hits > 0 ? (s.back ?? 0) / s.hits : 0,
   })).sort((a, b) => b.damage - a.damage);
 }
 export interface PetDefinition {

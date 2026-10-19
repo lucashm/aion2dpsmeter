@@ -1,5 +1,6 @@
 
-:root{color-scheme:dark;font-family:"Segoe UI Variable","Segoe UI",sans-serif;color:#edf0f7;--accent:#78dbcc;--surface:#131d24;--line:#ffffff12;--dim:#929bab;--radius:12px}
+@font-face{font-family:"Daevalog CJK";src:url("../../fonts/NotoSansCJKkr-Regular.otf") format("opentype");font-style:normal;font-weight:400;font-display:swap}
+:root{color-scheme:dark;font-family:"Segoe UI Variable","Segoe UI","Daevalog CJK",sans-serif;color:#edf0f7;--accent:#78dbcc;--surface:#131d24;--line:#ffffff12;--dim:#929bab;--radius:12px}
 *{box-sizing:border-box}
 body{margin:0;background:transparent}
 button,input,select{font:inherit}

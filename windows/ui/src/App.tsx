@@ -116,7 +116,7 @@ function Party({ players, select, focused }: { players: Player[]; select?: (id: 
   </button>) : <p className="inline-note">Your party appears here when the game sends combat data.</p>}</Card>;
 }
 function SkillTable({ skills }: { skills: Skill[] }) {
-  return skills.length ? <div className="table-wrap"><table className="table skill-table"><thead><tr><th>Skill</th><th>Damage</th><th>Hits</th><th>Crit</th><th>Back</th></tr></thead><tbody>{skills.map((s, i) => <tr key={(s.code ?? 'skill') + ':' + i}><td title={s.name}>{s.name}</td><td>{number(s.damage)}</td><td>{s.hits}</td><td>{((s.critRate ?? 0) * 100).toFixed(1)}%</td><td>{((s.backRate ?? 0) * 100).toFixed(1)}%</td></tr>)}</tbody></table></div> : <p className="inline-note">Select a player or deal damage to see the skill breakdown.</p>;
+  return skills.length ? <div className="table-wrap"><table className="table skill-table"><thead><tr><th>Skill</th><th>Damage</th><th>Hits</th><th>Crit</th><th>Back</th></tr></thead><tbody>{skills.map((s, i) => <tr key={(s.code ?? 'skill') + ':' + i}><td title={s.name}>{s.name}</td><td>{number(s.damage)}</td><td>{s.hits}</td><td>{s.isDot ? '–' : ((s.critRate ?? 0) * 100).toFixed(1) + '%'}</td><td>{s.isDot ? '–' : ((s.backRate ?? 0) * 100).toFixed(1) + '%'}</td></tr>)}</tbody></table></div> : <p className="inline-note">Select a player or deal damage to see the skill breakdown.</p>;
 }
 const events = [{ name: 'Shugo Festival', minute: 0, key: 'notifyShugo' as const, icon: Sparkles, note: 'Hourly · community schedule' },
   { name: 'Dimensional Invasion', minute: 30, key: 'notifyInvasion' as const, icon: Wind, note: 'Hourly · community schedule' }];

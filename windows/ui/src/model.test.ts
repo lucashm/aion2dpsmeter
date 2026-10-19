@@ -20,6 +20,11 @@ describe('engine presentation boundary', () => {
     expect(collectionRows(all, c, 3)[0]).toMatchObject({ remaining: 93, estimated: true });
     expect(collectionRows(all, c, 1)[0].remaining).toBe(0);
   });
+  it('suppresses saved DoT crit and back rates like the live meter', () => {
+    const skills = savedSkills([{ actorId: 7, name: 'DoT', damage: 100, hits: 4,
+      crit: 4, back: 2, isDot: true }], 7, 2000);
+    expect(skills[0]).toMatchObject({ isDot: true, dps: 50, critRate: 0, backRate: 0 });
+  });
   it('rolls the hourly schedule forward at the boundary', () => {
     expect(nextEvent(0, 0)).toBe(3600000);
     expect(nextEvent(1700000, 30)).toBe(1800000);

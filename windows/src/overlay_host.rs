@@ -33,6 +33,7 @@ impl Host {
         let mut visuals = egui::Visuals::dark();
         visuals.panel_fill = Color32::TRANSPARENT;
         cc.egui_ctx.set_visuals(visuals);
+        crate::fonts::install(&cc.egui_ctx);
         let frame = Arc::new(Mutex::new(Frame::default()));
         let shared = frame.clone();
         let closed = Arc::new(AtomicBool::new(false));

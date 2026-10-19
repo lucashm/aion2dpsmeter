@@ -66,7 +66,8 @@ pub struct Backend {
     _lock: std::fs::File,
     child: Child,
     input: Option<ChildStdin>,
-    pub messages: Receiver<Value>,
+    messages: Receiver<Value>,
+    output_closed: bool,
 }
 
 impl Backend {
@@ -120,6 +121,7 @@ impl Backend {
                     wake();
                 }
             }
+            drop(tx);
             wake();
         });
         Ok(Self {
@@ -127,6 +129,7 @@ impl Backend {
             child,
             input,
             messages,
+            output_closed: false,
         })
     }
 
@@ -136,7 +139,23 @@ impl Backend {
         }
     }
 
+    pub fn next_message(&mut self) -> Option<Value> {
+        match self.messages.try_recv() {
+            Ok(message) => Some(message),
+            Err(mpsc::TryRecvError::Empty) => None,
+            Err(mpsc::TryRecvError::Disconnected) => {
+                self.output_closed = true;
+                None
+            }
+        }
+    }
+
     pub fn exited(&mut self) -> Option<Result<(), String>> {
+        // A process can exit before its reader forwards the last stdout line.
+        // Disconnection is observed only after all queued messages are consumed.
+        if !self.output_closed {
+            return None;
+        }
         match self.child.try_wait() {
             Ok(Some(status)) if status.success() => Some(Ok(())),
             Ok(Some(status)) => Some(Err(format!(
@@ -209,4 +228,61 @@ pub fn hotkey(ctx: egui::Context) -> Receiver<Hotkey> {
         }
     });
     rx
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use serde_json::json;
+
+    fn finished_backend() -> (Backend, mpsc::SyncSender<Value>) {
+        let mut child = Command::new("cmd.exe")
+            .args(["/C", "exit 0"])
+            .creation_flags(CREATE_NO_WINDOW)
+            .spawn()
+            .unwrap();
+        assert!(child.wait().unwrap().success());
+        let (tx, messages) = mpsc::sync_channel(4);
+        (
+            Backend {
+                _lock: std::fs::File::open("NUL").unwrap(),
+                child,
+                input: None,
+                messages,
+                output_closed: false,
+            },
+            tx,
+        )
+    }
+
+    #[test]
+    fn process_exit_waits_for_delayed_stdout_reader() {
+        let (mut backend, reader) = finished_backend();
+        assert!(backend.next_message().is_none());
+        assert!(backend.exited().is_none());
+
+        let final_state = json!({"type":"state", "players":[{"id":1,"damage":27200}]});
+        reader.send(final_state.clone()).unwrap();
+        drop(reader);
+        assert_eq!(backend.next_message(), Some(final_state));
+        assert!(backend.next_message().is_none());
+        assert!(backend.exited().unwrap().is_ok());
+    }
+
+    #[test]
+    fn process_exit_waits_for_all_queued_messages() {
+        let (mut backend, reader) = finished_backend();
+        let state = json!({"type":"state"});
+        let pets = json!({"type":"pets"});
+        reader.send(state.clone()).unwrap();
+        reader.send(pets.clone()).unwrap();
+        drop(reader);
+
+        assert!(backend.exited().is_none());
+        assert_eq!(backend.next_message(), Some(state));
+        assert!(backend.exited().is_none());
+        assert_eq!(backend.next_message(), Some(pets));
+        assert!(backend.next_message().is_none());
+        assert!(backend.exited().unwrap().is_ok());
+    }
 }

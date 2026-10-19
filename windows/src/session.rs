@@ -328,10 +328,7 @@ impl Actor {
                 Err(mpsc::RecvTimeoutError::Timeout) => {}
             }
             for _ in 0..256 {
-                let message = self
-                    .backend
-                    .as_ref()
-                    .and_then(|b| b.messages.try_recv().ok());
+                let message = self.backend.as_mut().and_then(Backend::next_message);
                 let Some(message) = message else { break };
                 self.message(message);
                 changed = true;

@@ -24,6 +24,10 @@ No Node.js, Rust, Quickshell or WSL installation is needed to run the package.
 The unsigned executable can show a Windows publisher/SmartScreen prompt.
 Npcap's administrator-only installation option may require an elevated meter.
 
+The app embeds Noto Sans CJK for Korean, Chinese and Japanese player names;
+no additional Windows language packs or font installation are needed. The
+font's SIL Open Font License is included in `licenses/NotoSansCJK-OFL.txt`.
+
 ## Companion pages
 
 - **Overview:** character and connection status, your DPS, party damage, actual

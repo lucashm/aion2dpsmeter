@@ -32,6 +32,7 @@ pub struct Skill {
     pub dps: f64,
     pub crit_rate: f64,
     pub back_rate: f64,
+    pub is_dot: bool,
 }
 
 #[derive(Clone, Default, Deserialize)]
@@ -92,9 +93,12 @@ pub fn read_fight(value: &serde_json::Value) -> Option<(Fight, Vec<Skill>)> {
         .filter_map(|value| {
             let mut skill: Skill = serde_json::from_value(value.clone()).ok()?;
             skill.dps = skill.damage / seconds;
-            if skill.hits > 0 {
+            if !skill.is_dot && skill.hits > 0 {
                 skill.crit_rate = value["crit"].as_f64().unwrap_or(0.0) / f64::from(skill.hits);
                 skill.back_rate = value["back"].as_f64().unwrap_or(0.0) / f64::from(skill.hits);
+            } else {
+                skill.crit_rate = 0.0;
+                skill.back_rate = 0.0;
             }
             Some(skill)
         })
@@ -130,5 +134,17 @@ mod tests {
         assert_eq!(skills[0].dps, 375.0);
         assert_eq!(skills[0].crit_rate, 0.5);
         assert_eq!(skills[0].back_rate, 0.25);
+    }
+
+    #[test]
+    fn saved_dot_rates_match_the_live_meter() {
+        let (_, skills) = read_fight(&serde_json::json!({
+            "summary":{"id":"dot", "durationMs":2000, "players":[]},
+            "skills":[{"actorId":1,"name":"DoT","damage":100,"hits":4,"crit":4,"back":2,"isDot":true}]
+        })).unwrap();
+        assert!(skills[0].is_dot);
+        assert_eq!(skills[0].dps, 50.0);
+        assert_eq!(skills[0].crit_rate, 0.0);
+        assert_eq!(skills[0].back_rate, 0.0);
     }
 }
