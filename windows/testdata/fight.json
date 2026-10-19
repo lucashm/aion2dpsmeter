@@ -1,0 +1,23 @@
+{
+  "id": "desktop_fixture",
+  "bossName": "Desktop integration fixture",
+  "targetId": 1,
+  "startTimeMs": 1790000000000,
+  "durationMs": 10000,
+  "totalDamage": 1300,
+  "jobs": [],
+  "details": {
+    "targetId": 1,
+    "maxHp": 1000,
+    "totalTargetDamage": 1300,
+    "battleTime": 10000,
+    "skills": [{
+      "actorId": 7, "code": 1, "name": "Fixture hit", "time": 10, "dmg": 1300,
+      "multiHitCount": 0, "multiHitDamage": 0, "crit": 4, "parry": 0, "back": 2,
+      "perfect": 0, "double": 0, "regen": 0, "isDot": false
+    }],
+    "healSkills": [],
+    "deaths": []
+  },
+  "actors": [{ "actorId": 7, "nickname": "Fixture player" }]
+}

@@ -34,6 +34,9 @@ jobs:
         with:
           submodules: recursive
       - run: rustup update stable && rustup default stable
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
       - name: Build portable Windows desktop app
         shell: pwsh
         run: ./scripts/package-windows.ps1 -Version $env:GITHUB_REF_NAME

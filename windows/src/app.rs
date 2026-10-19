@@ -96,7 +96,10 @@ impl App {
         self.backend.take();
         self.state = State::default();
         self.cube = None;
-        match Backend::start(&self.settings.iface, &self.replay, ctx.clone()) {
+        let wake = ctx.clone();
+        match Backend::start(&self.settings.iface, &self.replay, false, move || {
+            wake.request_repaint()
+        }) {
             Ok(mut backend) => {
                 backend.send(json!({"cmd":"history", "limit":100}));
                 self.backend = Some(backend);

@@ -5,6 +5,15 @@ if ($Version -notmatch '^[A-Za-z0-9][A-Za-z0-9._-]*$') { throw 'Version must be 
 $root = Split-Path $PSScriptRoot -Parent
 Push-Location $root
 try {
+    npm --prefix windows/ui ci
+    if ($LASTEXITCODE -ne 0) { throw 'Companion dependency install failed.' }
+    # A normal production build excludes the opt-in smoke controller.
+    $previousSmoke = $env:VITE_UI_SMOKE
+    try {
+        $env:VITE_UI_SMOKE = ''
+        npm --prefix windows/ui run build
+        if ($LASTEXITCODE -ne 0) { throw 'Companion UI build failed.' }
+    } finally { $env:VITE_UI_SMOKE = $previousSmoke }
     & "$PSScriptRoot/prepare-windows.ps1"
     cargo build --locked --release --target x86_64-pc-windows-msvc -p aion2-meterd -p aion2-meter-windows
     if ($LASTEXITCODE -ne 0) { throw 'Windows build failed.' }
@@ -24,6 +33,7 @@ try {
     Copy-Item -LiteralPath 'LICENSE', 'README.md', 'CHANGELOG.md' -Destination $out
     Copy-Item -LiteralPath 'docs/windows.md' -Destination "$out/WINDOWS.md"
     Copy-Item -LiteralPath 'docs/windows.md' -Destination "$out/docs/windows.md"
+    Copy-Item -LiteralPath 'docs/windows-ui-stack.md', 'docs/windows-ui-design.md' -Destination "$out/docs"
     $zip = Join-Path $dist "$name.zip"
     Compress-Archive -Path $out -DestinationPath $zip -Force
     $hash = (Get-FileHash -LiteralPath $zip -Algorithm SHA256).Hash.ToLowerInvariant()

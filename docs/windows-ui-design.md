@@ -29,8 +29,14 @@ the companion shell, the Rust daemon for capture, and an egui overlay host.
 The [stack evaluation](windows-ui-stack.md) records migration boundaries and
 the measurements required before replacing the current Windows frontend.
 
-This selection update changes the preview and documentation. The current
-Windows executable remains the existing Rust/egui implementation. Native
-integration should carry this composition into the application and verify a
-working live meter and detached overlay before expanding to the remaining
-Questlog-like feature areas.
+The Windows executable now implements this composition using Tauri/React for
+the companion and one Rust/egui child hosting four native widgets. The original
+egui desktop remains available with `--legacy`. The selected prototype remains
+a design reference; production views consume real daemon data and persisted
+preferences.
+
+The initial native integration covers overview, combat, pets, layout anchors,
+history, hourly/cube reminders and tray lifecycle. Spawn maps, character gear,
+PvP-specific records, boss databases and other Questlog features require
+separate game-data support. Real-game FPS and mixed-DPI validation remain
+required before treating the build as field-tested.

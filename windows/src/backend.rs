@@ -7,7 +7,7 @@ use std::sync::mpsc::{self, Receiver};
 use std::time::{Duration, Instant};
 
 use eframe::egui;
-use serde::Deserialize;
+use serde::{Deserialize, Serialize};
 use serde_json::Value;
 
 const CREATE_NO_WINDOW: u32 = 0x0800_0000;
@@ -39,7 +39,7 @@ fn command() -> Result<Command, String> {
     Ok(command)
 }
 
-#[derive(Clone, Deserialize)]
+#[derive(Clone, Deserialize, Serialize)]
 pub struct Adapter {
     pub name: String,
     pub description: Option<String>,
@@ -70,7 +70,12 @@ pub struct Backend {
 }
 
 impl Backend {
-    pub fn start(iface: &str, replay: &str, ctx: egui::Context) -> Result<Self, String> {
+    pub fn start(
+        iface: &str,
+        replay: &str,
+        stay_open: bool,
+        wake: impl Fn() + Send + 'static,
+    ) -> Result<Self, String> {
         let mut command = command()?;
         std::fs::create_dir_all(data_dir()).map_err(|e| e.to_string())?;
         let lock = std::fs::OpenOptions::new()
@@ -90,6 +95,9 @@ impl Backend {
         command.arg("--stdio");
         if !replay.is_empty() {
             command.args(["--pcap", replay, "--realtime"]);
+            if stay_open {
+                command.arg("--stay-open");
+            }
         } else if !iface.is_empty() {
             command.args(["--iface", iface]);
         }
@@ -109,10 +117,10 @@ impl Backend {
                     if tx.send(value).is_err() {
                         break;
                     }
-                    ctx.request_repaint();
+                    wake();
                 }
             }
-            ctx.request_repaint();
+            wake();
         });
         Ok(Self {
             _lock: lock,
@@ -174,13 +182,15 @@ pub fn hotkey(ctx: egui::Context) -> Receiver<Hotkey> {
     std::thread::spawn(move || {
         // SAFETY: hotkey belongs to this thread's message queue, with no HWND.
         unsafe {
-            if RegisterHotKey(
-                std::ptr::null_mut(),
-                1,
-                MOD_CONTROL | MOD_ALT | MOD_NOREPEAT,
-                u32::from(b'M'),
-            ) == 0
-            {
+            let modifiers = MOD_CONTROL | MOD_ALT | MOD_NOREPEAT;
+            // Isolated native QA does not compete with an already running user's meter.
+            #[cfg(feature = "ui-smoke")]
+            let modifiers = if std::env::var_os("AION2_COMPANION_SMOKE_REPORT").is_some() {
+                modifiers | windows_sys::Win32::UI::Input::KeyboardAndMouse::MOD_SHIFT
+            } else {
+                modifiers
+            };
+            if RegisterHotKey(std::ptr::null_mut(), 1, modifiers, u32::from(b'M')) == 0 {
                 let _ = tx.send(Hotkey::Error("Ctrl+Alt+M is in use. Click-through is disabled; close the other hotkey app and restart to enable it.".into()));
                 ctx.request_repaint();
                 return;

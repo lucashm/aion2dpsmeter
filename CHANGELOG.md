@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+- Windows companion rebuilt with the selected Command visuals and Questlog-like
+  navigation using Tauri 2, React and TypeScript. Includes real-data overview,
+  combat, pet filters/pins, saved-fight drill-down, four native egui overlays,
+  layout anchors, guarded click-through, event/cube reminders and tray lifecycle.
+- Preserve existing capture formats and add opt-in Windows replay keep-open for
+  companion history inspection; Linux and default replay EOF behavior remain.
 - Native Windows x64 Daevalog desktop app with shared capture/parser/DPS engine,
   Npcap support, compact always-on-top and click-through modes, fight history,
   pet collection data, adapter selection and pcap replay.

@@ -3,3 +3,6 @@
 *.pcapng
 /dist
 __pycache__/
+node_modules/
+/windows/ui/dist/
+/windows/gen/

@@ -35,6 +35,16 @@ jobs:
         with:
           submodules: recursive
       - run: rustup update stable && rustup default stable && rustup component add rustfmt clippy
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: windows/ui/package-lock.json
+      - name: Build and test companion UI
+        run: |
+          npm --prefix windows/ui ci
+          npm --prefix windows/ui run build
+          npm --prefix windows/ui test
       - run: cargo fmt --check -p aion2-meterd -p aion2-meter-windows
       - name: Lint and unit tests
         shell: pwsh

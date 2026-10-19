@@ -60,6 +60,7 @@ USAGE: aion2-meterd [OPTIONS]
 const WINDOWS_USAGE: &str = "\
 Windows: --stdio is required (JSON commands on stdin, events on stdout).
          --list-interfaces prints Npcap adapters as JSON and exits.
+         --stay-open keeps replay history available until the parent closes stdin.
          --socket is unavailable. Install Npcap in WinPcap API-compatible mode.
 ";
 
@@ -76,6 +77,8 @@ struct Args {
     stdio: bool,
     #[cfg(windows)]
     list_interfaces: bool,
+    #[cfg(windows)]
+    stay_open: bool,
 }
 
 fn parse_args() -> Result<Args> {
@@ -92,6 +95,8 @@ fn parse_args() -> Result<Args> {
         stdio: false,
         #[cfg(windows)]
         list_interfaces: false,
+        #[cfg(windows)]
+        stay_open: false,
     };
     let mut it = std::env::args().skip(1);
     while let Some(arg) = it.next() {
@@ -109,6 +114,8 @@ fn parse_args() -> Result<Args> {
             "--stdio" => a.stdio = true,
             #[cfg(windows)]
             "--list-interfaces" => a.list_interfaces = true,
+            #[cfg(windows)]
+            "--stay-open" => a.stay_open = true,
             "--print" => a.print = true,
             "-h" | "--help" => {
                 print!("{USAGE}");
@@ -119,6 +126,11 @@ fn parse_args() -> Result<Args> {
             other => anyhow::bail!("unknown option {other}\n\n{USAGE}"),
         }
     }
+    #[cfg(windows)]
+    anyhow::ensure!(
+        !a.stay_open || (a.stdio && a.pcap.is_some()),
+        "--stay-open requires --stdio and --pcap"
+    );
     Ok(a)
 }
 
@@ -374,6 +386,8 @@ fn main() -> Result<()> {
     // ── meter: state to the overlay, fights to disk ────────────────────────
     let mut last_sent: Option<meter::OverlayState> = None;
     let mut last_save = Instant::now();
+    #[cfg(windows)]
+    let mut replay_finished = false;
     loop {
         std::thread::sleep(Duration::from_millis(200));
         while let Ok(cmd) = cmd_rx.try_recv() {
@@ -454,13 +468,22 @@ fn main() -> Result<()> {
             let records = meter.lock().calc.snapshot_boss_fights();
             save_fights(&history, &clients, &storage, records);
         }
-        if replay && parse_done.load(std::sync::atomic::Ordering::Relaxed) {
+        let replay_done = replay && parse_done.load(std::sync::atomic::Ordering::Relaxed);
+        #[cfg(windows)]
+        let replay_done = replay_done && !replay_finished;
+        if replay_done {
             let records = meter.lock().calc.snapshot_boss_fights_force();
             save_fights(&history, &clients, &storage, records);
             info!("Replay finished");
             if args.print {
                 let state = meter.lock().state(status.lock().clone());
                 println!("{}", serde_json::to_string_pretty(&state)?);
+            }
+            #[cfg(windows)]
+            if args.stay_open {
+                replay_finished = true;
+                clients.broadcast("{\"type\":\"replayFinished\"}");
+                continue;
             }
             return Ok(());
         }

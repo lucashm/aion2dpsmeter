@@ -1,10 +1,9 @@
 # Windows UI technology decision
 
 Research date: 2026-10-19. Baseline: PR #1, local commit `6344bb8`.
-Status: [visual direction selected](windows-ui-design.md): C's visuals with
-A's Questlog-like content. Production migration awaits a Windows performance
-spike. No framework
-comparison has been benchmarked in this repository.
+Status: [selected design](windows-ui-design.md) implemented as a native
+Tauri/React companion with an egui overlay child. No comparative framework
+benchmark or real-game FPS measurement has been performed.
 
 ## Recommendation
 
@@ -182,11 +181,18 @@ Keep Npcap separately installed as in PR #1. A UI toolkit change does not
 grant permission to redistribute its driver/runtime.
 [Npcap redistribution terms](https://npcap.com/oem/redist)
 
-## Next implementation step
+## Native implementation and remaining validation
 
-The selected design is C's visuals with A's content and navigation. Build one
-real native slice: live data, a single detached meter, layout edit/unlock, mixed-DPI moves,
-minimize-to-tray and shutdown. That experiment resolves the largest remaining
-uncertainties: transparent-window behavior on the target GPU, WebView2 memory
-when the shell is hidden, overlay-host complexity, and measured game impact.
-Keep production migration separate from the prototype comparison.
+The selected composition now runs in `windows/ui` and `windows/src/companion.rs`.
+The session actor continuously drains daemon messages into a coalesced cache;
+the webview polls at most once per 200 ms while visible, with one request in
+flight. Hiding the companion stops UI polling. This keeps pipe drainage and
+native reminders independent of WebView2 throttling. The overlay writer holds
+one replaceable snapshot rather than a growing event queue.
+
+The opt-in native smoke checks real replay data, four overlay HWNDs, native
+passthrough/unlock, history and shutdown. Primary-display studio anchors are
+implemented; arbitrary monitor selection and persisted native free-drag
+positions remain open. Mixed-DPI correctness, a two-hour soak, weakest-PC
+budgets and actual game FPS still require validation. The budgets above remain
+targets rather than achieved results.
