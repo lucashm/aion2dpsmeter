@@ -1,7 +1,7 @@
-# AION 2 DPS Meter for Linux
+# Daevalog
 
-A damage meter for AION 2 that runs natively on Linux while the game runs through Steam/Proton.
-It shows live combat numbers as small widgets on top of the game.
+An AION 2 companion app: a damage meter, pet tracker, map and alerts that run natively on Linux while the game runs through Steam/Proton.
+It shows live combat numbers as small widgets on top of the game, plus an app window for everything else.
 
 <!-- Screenshot: add docs/screenshot.png and uncomment the next line.
 ![The meter over the game](docs/screenshot.png)
@@ -26,7 +26,7 @@ It never touches the game's memory or files.
 | Hyprland | Works, tested |
 | Sway, niri, river, Wayfire, labwc | Should work, not tested yet |
 | KDE Plasma 6 | Works, but widgets can't hide on their own when you leave the game (use Alt+` or the tray icon) |
-| GNOME | Not supported: GNOME doesn't implement layer-shell, which the widgets need. Feel free to try, and [let us know how it goes](https://github.com/lucashm/aion2dpsmeter/issues) |
+| GNOME | Not supported: GNOME doesn't implement layer-shell, which the widgets need. Feel free to try, and [let us know how it goes](https://github.com/lucashm/daevalog/issues) |
 | X11 sessions | Not supported |
 
 It needs a Wayland session with layer-shell (what panels and docks use), on x86_64. Running the game inside gamescope is not supported, because nothing can draw on top of it.
@@ -36,7 +36,7 @@ It needs a Wayland session with layer-shell (what panels and docks use), on x86_
 ### From a release (easiest)
 
 1. Except on Arch, CachyOS, Manjaro and Fedora (where the installer takes care of everything in step 3), install **Quickshell** first: see [quickshell.org](https://quickshell.org).
-2. Download `aion2-meter-…-x86_64-linux.tar.gz` from the [Releases page](https://github.com/lucashm/aion2dpsmeter/releases).
+2. Download `aion2-meter-…-x86_64-linux.tar.gz` from the [Releases page](https://github.com/lucashm/daevalog/releases).
 3. Extract it and run the installer:
 
 ```bash
@@ -67,11 +67,11 @@ Everything installs into your home directory (`~/.local/bin`, `~/.config`, `~/.l
 You need git, plus what's above and Rust, pkg-config and libpcap headers; the installer offers to install those too (`rust pkgconf libpcap` on Arch, `cargo pkgconf libpcap-devel` on Fedora, `cargo pkgconf libpcap-dev` on Debian/Ubuntu).
 
 ```bash
-git clone --recursive https://github.com/lucashm/aion2dpsmeter
+git clone --recursive https://github.com/lucashm/daevalog
 ```
 
 ```bash
-cd aion2dpsmeter && ./scripts/install.sh
+cd daevalog && ./scripts/install.sh
 ```
 
 ## Using it
@@ -94,7 +94,7 @@ Start the game. The widgets appear while the game window is focused.
 - **Hidden cube alerts:** a banner at the top of the screen when a hidden cube comes within about 100 m (the game tells nearby players), and when someone else starts opening it or opens it, with their name. The nearby banner stays up while the cube is in range, until it's opened or you move away, and its distance updates whenever the game sends your position: often in fights, every few seconds to half a minute while just walking (it says how old the distance is once it's 5 seconds old). A short chime plays with the nearby alert (through PipeWire's `pw-play` or PulseAudio's `paplay`). By default the nearby alert only shows while you have a Hidden Cube Key: the meter reads your keys from your bag at login and takes off the ones you use (until it has seen your bag, for example when it started after you logged in, it alerts anyway). Move the banner in Customize; turn it off, or the key check, on the app's Notifications page. Every cube the meter sees is also saved with its game position in `~/.local/share/aion2-meter/cube-spots.json`, building up the spots where cubes spawn in the places you play. The Map page shows them under **Cubes seen by the meter**, and a cube that's in range right now pulses on the map for 5 minutes or until it's opened. Positions are exact on Altgard; Verteron uses the same conversion but hasn't been checked.
 - **Event reminders:** a banner with a countdown and a chime 1, 3, 5 or 10 minutes before the Shugo Festival (every hour at :00) and the Dimensional Invasion (every hour at :30: Beritra Air Raid, Accursed Sword or Incursion of the Spirits), staying up for a minute after it starts. The times are the game's server clock (UTC+9, the same for every global region), from community timers like [wikily.gg](https://wikily.gg/aion-2/bosses/timer), since NCSOFT doesn't publish them. Turn each one on or off, pick how early, and turn the sound off on the Notifications page; move the banner in Customize.
 - **Pet souls widget:** while you pick up souls for pets that aren't full, it shows up to 5 of them, the last farmed first: each pet's portrait, level, souls to the next level and to level 3, souls per minute, and how long both take at that rate. Each pet goes away 5 minutes after its last soul.
-- **App menu:** "AION 2 Meter" starts or stops it. So does `aion2-meter toggle`.
+- **App menu:** "Daevalog" starts or stops it. So does `aion2-meter toggle`.
 
 ### Shortcuts
 

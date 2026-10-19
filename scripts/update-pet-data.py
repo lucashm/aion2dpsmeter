@@ -21,7 +21,7 @@ OUT = Path(__file__).resolve().parent.parent / "overlay" / "data" / "pets.json"
 
 def get(url):
     # The CDN refuses Python's default user agent.
-    req = urllib.request.Request(url, headers={"User-Agent": "aion2dpsmeter-update-pet-data"})
+    req = urllib.request.Request(url, headers={"User-Agent": "daevalog-update-pet-data"})
     with urllib.request.urlopen(req, timeout=30) as r:
         return r.read()
 

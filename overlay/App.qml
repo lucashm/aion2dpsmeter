@@ -14,7 +14,7 @@ FloatingWindow {
     // A sample alert from the Notifications page, for the shell to show in game.
     signal testNotification(var e)
 
-    title: "AION 2 Meter"
+    title: "Daevalog"
     visible: false
     implicitWidth: 1480
     implicitHeight: 940
@@ -58,7 +58,7 @@ FloatingWindow {
 
             Text {
                 x: 8
-                text: "AION 2 Meter"
+                text: "Daevalog"
                 color: AppTheme.text
                 font.pixelSize: AppTheme.large
                 font.family: AppTheme.font
