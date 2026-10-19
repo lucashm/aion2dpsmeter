@@ -5,6 +5,16 @@ It uses the same capture decoding, TCP reassembly, A2Tools parser, DPS
 calculation and fight/pet persistence as the Linux daemon. No browser,
 Quickshell, WSL, systemd or Rust installation is needed to run a release.
 
+## Desktop UI design preview
+
+Three interactive Questlog-inspired directions are available in the
+[desktop design lab](../windows/prototype/README.md). Start it with
+`node scripts/preview-desktop.mjs` and choose Obsidian, Aether or Command.
+The preview uses fictional in-memory data and does not replace the native app.
+The [technology evaluation](windows-ui-stack.md) compares Windows UI stacks
+and proposes a rich Tauri companion with lightweight Rust overlays, subject to
+design selection and native performance validation.
+
 ## Install and play
 
 1. Install the current **Npcap** from [npcap.com](https://npcap.com/#download).
