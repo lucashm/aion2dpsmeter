@@ -41,7 +41,10 @@ pub fn run(source: Source, record: Option<PathBuf>, tx: SyncSender<Segment>) -> 
                 .buffer_size(32 << 20)
                 .open()
                 .with_context(|| {
-                    format!("cannot capture on {iface} (does the binary have cap_net_raw? see scripts/install.sh)")
+                    #[cfg(not(windows))]
+                    { format!("cannot capture on {iface} (does the binary have cap_net_raw? see scripts/install.sh)") }
+                    #[cfg(windows)]
+                    { format!("cannot capture on {iface}. Check Npcap installation and adapter selection. If Npcap restricts capture to administrators, run the app as administrator or reinstall Npcap without that restriction.") }
                 })?;
             let mut cap = cap;
             // The game talks on its own port (13328 so far); web traffic
@@ -87,6 +90,10 @@ fn pump<T: pcap::Activated + ?Sized>(
             let _ = s.flush();
         }
         let ts = packet.header.ts;
+        // timeval fields are 32-bit on Windows, even on x64.
+        #[cfg(windows)]
+        let ms = i64::from(ts.tv_sec) * 1000 + i64::from(ts.tv_usec) / 1000;
+        #[cfg(not(windows))]
         let ms = ts.tv_sec * 1000 + ts.tv_usec / 1000;
         if realtime {
             let (t0, wall0) = *first.get_or_insert((ms, std::time::Instant::now()));
@@ -183,18 +190,33 @@ fn decode(link: Linktype, frame: &[u8], captured_at_ms: i64) -> Option<Segment> 
 
 /// The interface that carries the default IPv4 route, from /proc/net/route.
 pub fn default_route_iface() -> Option<String> {
-    let routes = std::fs::read_to_string("/proc/net/route").ok()?;
-    routes
-        .lines()
-        .skip(1)
-        .filter_map(|l| {
-            let f: Vec<&str> = l.split_whitespace().collect();
-            // Destination 00000000 = default; lowest metric wins.
-            (f.len() > 6 && f[1] == "00000000")
-                .then(|| (f[6].parse::<u32>().unwrap_or(u32::MAX), f[0].to_string()))
-        })
-        .min()
-        .map(|(_, iface)| iface)
+    #[cfg(windows)]
+    {
+        // UDP connect selects a local route without sending a packet.
+        let socket = std::net::UdpSocket::bind("0.0.0.0:0").ok()?;
+        socket.connect("1.1.1.1:80").ok()?;
+        let local = socket.local_addr().ok()?.ip();
+        pcap::Device::list()
+            .ok()?
+            .into_iter()
+            .find(|d| d.addresses.iter().any(|a| a.addr == local))
+            .map(|d| d.name)
+    }
+    #[cfg(not(windows))]
+    {
+        let routes = std::fs::read_to_string("/proc/net/route").ok()?;
+        routes
+            .lines()
+            .skip(1)
+            .filter_map(|l| {
+                let f: Vec<&str> = l.split_whitespace().collect();
+                // Destination 00000000 = default; lowest metric wins.
+                (f.len() > 6 && f[1] == "00000000")
+                    .then(|| (f[6].parse::<u32>().unwrap_or(u32::MAX), f[0].to_string()))
+            })
+            .min()
+            .map(|(_, iface)| iface)
+    }
 }
 
 #[cfg(test)]

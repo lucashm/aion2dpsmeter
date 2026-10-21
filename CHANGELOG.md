@@ -5,6 +5,19 @@
 - Renamed to Daevalog (commands, service and paths keep aion2-meter, so existing installs keep working)
 - Live meter: a CP column with each party member's combat power, and your own without a party
 
+- Windows companion rebuilt with the selected Command visuals and Questlog-like
+  navigation using Tauri 2, React and TypeScript. Includes real-data overview,
+  combat, pet filters/pins, saved-fight drill-down, four native egui overlays,
+  layout anchors, guarded click-through, event/cube reminders and tray lifecycle.
+- Preserve existing capture formats and add opt-in Windows replay keep-open for
+  companion history inspection; Linux and default replay EOF behavior remain.
+- Native Windows x64 Daevalog desktop app with shared capture/parser/DPS engine,
+  Npcap support, compact always-on-top and click-through modes, fight history,
+  pet collection data, adapter selection and pcap replay.
+- Portable Windows ZIPs/checksums in CI and tagged releases, plus Windows
+  setup/build/troubleshooting documentation. Npcap remains a separate install.
+- Keep the existing Linux desktop, Unix socket, services and installation path.
+
 - Pet souls widget: up to 5 pets you're picking up souls for, each with its portrait, level, progress, souls per minute and time to the next level and to full; each goes 5 minutes after its last soul
 - App window (tray → Open app, or `aion2-meter app`) with four pages:
   - Pets: every pet with your level and souls, by phase (collect, level 2, level 3), genus and the areas you farm, with collection progress, genus insight levels (read from the game), the next reward, and estimated levels marked

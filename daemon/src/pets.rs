@@ -43,6 +43,9 @@ pub struct Collection {
     /// Genus insight by genus ("cogni", ...), from the pet list.
     #[serde(default)]
     pub genus: BTreeMap<String, Insight>,
+    /// A full list has been observed; partial soul updates alone are not enough.
+    #[serde(default)]
+    ready: bool,
 }
 
 /// A genus's insight: its level and the EXP gained into that level.
@@ -78,6 +81,7 @@ pub struct PetsMessage<'a> {
     #[serde(rename = "type")]
     pub kind: &'static str,
     pub server: u16,
+    pub ready: bool,
     pub levels: &'a BTreeMap<u32, u32>,
     pub points: &'a BTreeMap<u32, u32>,
     pub estimated: &'a BTreeSet<u32>,
@@ -97,7 +101,7 @@ pub struct Pets {
     /// The last farmed first.
     pub farming: Vec<Farming>,
     pub server: u16,
-    list_ms: i64,
+    list_ms: Option<i64>,
     saved: Saved,
     path: Option<PathBuf>,
     /// Changed since the overlay was last sent it.
@@ -133,6 +137,7 @@ fn pet_list(b: &[u8]) -> Option<Collection> {
         c.points.insert(pet, u32_at(b, &mut pos)?);
     }
     c.genus = insights(&b[pos..]);
+    c.ready = true;
     Some(c)
 }
 
@@ -201,7 +206,7 @@ impl Pets {
                 let Some(list) = pet_list(body) else { return };
                 tracing::info!("Pet list: {} pets", list.levels.len());
                 self.now = list;
-                self.list_ms = now_ms;
+                self.list_ms = Some(now_ms);
             }
             [0x0D, 0x90] => {
                 let count = body.first().copied().unwrap_or(0) as usize;
@@ -281,7 +286,11 @@ impl Pets {
         if server == 0 || server == self.server {
             return;
         }
-        if now_ms - self.list_ms > LIST_FRESH_MS {
+        let fresh_list = self
+            .list_ms
+            .take()
+            .is_some_and(|at| (0..=LIST_FRESH_MS).contains(&(now_ms - at)));
+        if !fresh_list {
             self.now = self.saved.servers.get(&server).cloned().unwrap_or_default();
             self.farming.clear();
         }
@@ -317,6 +326,7 @@ impl Pets {
         PetsMessage {
             kind: "pets",
             server: self.server,
+            ready: self.now.ready,
             levels: &self.now.levels,
             points: &self.now.points,
             estimated: &self.now.estimated,
@@ -499,5 +509,68 @@ mod tests {
         assert!(p.now.points.is_empty());
         p.set_server(1001, 300_000);
         assert_eq!(p.now.points[&1002], 1);
+    }
+
+    #[test]
+    fn soul_updates_do_not_establish_a_complete_collection() {
+        let mut p = Pets::default();
+        assert!(!p.message().ready);
+        p.set_server(1001, 0);
+        p.frame(&soul(1002, 7), 1_000);
+        assert_eq!((p.level(1002), p.now.points[&1002]), (1, 2));
+        assert!(!p.message().ready);
+        p.frame(&frame([0x00, 0x90], &[0; 5]), 2_000);
+        assert!(!p.message().ready, "A truncated list is still unknown");
+    }
+
+    #[test]
+    fn empty_observed_collection_and_partial_counts_keep_their_readiness_in_cache() {
+        let mut p = Pets::default();
+        p.frame(&frame([0x00, 0x90], &[0; 6]), 0);
+        p.set_server(1001, 1_000);
+        assert!(p.message().ready);
+        p.save();
+
+        // A list is associated with one server, even during the freshness window.
+        p.set_server(2001, 2_000);
+        assert!(!p.message().ready);
+        p.frame(&soul(1002, 1), 3_000);
+        p.save();
+        let saved: Saved = serde_json::from_slice(&serde_json::to_vec(&p.saved).unwrap()).unwrap();
+        assert!(saved.servers[&1001].ready);
+        assert!(!saved.servers[&2001].ready);
+
+        p.set_server(1001, 4_000);
+        assert!(p.message().ready, "An observed empty cache is valid");
+        assert!(p.now.levels.is_empty());
+        p.set_server(2001, 5_000);
+        assert!(!p.message().ready, "A partial cache stays unknown");
+        assert_eq!(p.now.points[&1002], 1);
+        p.set_server(3001, 6_000);
+        assert!(!p.message().ready, "An uncached server stays unknown");
+    }
+
+    #[test]
+    fn legacy_cache_counts_are_retained_but_require_a_list_to_confirm_readiness() {
+        for (value, expected) in [
+            (
+                serde_json::json!({"levels":{"1002":1},"points":{"1002":2}}),
+                false,
+            ),
+            (serde_json::json!({"levels":{},"points":{}}), false),
+            (
+                serde_json::json!({"ready":false,"levels":{"1002":1},"points":{"1002":2}}),
+                false,
+            ),
+            (
+                serde_json::json!({"ready":true,"levels":{"1002":1},"points":{"1002":2}}),
+                true,
+            ),
+        ] {
+            let points = value["points"].clone();
+            let collection: Collection = serde_json::from_value(value).unwrap();
+            assert_eq!(collection.ready, expected);
+            assert_eq!(serde_json::to_value(collection.points).unwrap(), points);
+        }
     }
 }

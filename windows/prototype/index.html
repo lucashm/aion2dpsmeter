@@ -1,0 +1,623 @@
+<!doctype html>
+<!-- SELECTED UI PROTOTYPE: C visuals with A's Questlog-like content and navigation.
+     All game data is fictional. No native APIs, capture, storage or mutations. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Daevalog — Windows companion preview</title>
+<style>
+:root{color-scheme:dark;font-family:"Segoe UI Variable","Segoe UI",sans-serif;color:#edf0f7;--accent:#78dbcc;--surface:#131d24;--line:#ffffff12;--dim:#929bab;--radius:12px}
+*{box-sizing:border-box}
+body{margin:0;background:transparent}
+button,input,select{font:inherit}
+button{cursor:pointer}
+button,a,input,select{outline-offset:4px}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--accent)}
+button{color:inherit;border:0}
+svg{vertical-align:middle}
+button svg{flex-shrink:0}
+h1,h2,h3,p{margin:0}
+h1{font-size:29px;letter-spacing:-1px;font-weight:650}
+h2{font-size:17px;letter-spacing:-.25px}
+h3{font-size:14px}
+small,.muted{color:var(--dim)}
+small{font-size:11px}
+a{color:var(--accent)}
+.lab{max-width:1600px;margin:auto;padding:20px 0 24px}
+.lab-head{display:flex;justify-content:space-between;gap:16px;align-items:center;margin-bottom:17px}
+.eyebrow{font-size:10px;letter-spacing:1.8px;text-transform:uppercase;font-weight:650;color:var(--accent)}
+.lab-head p{font-size:12px;color:#a5adba;margin-top:6px}
+.lab-head strong{font-size:19px;font-weight:600;letter-spacing:-.4px}
+.sample{font-size:10px;letter-spacing:1px;border:1px solid #ffffff20;border-radius:5px;padding:5px 8px;white-space:nowrap;color:#aab3c2}
+.app{--accent:#78dbcc;--surface:#131d24;--line:#ffffff10;--dim:#7e9aa7;background:#0b141a;border:1px solid #ffffff18;border-radius:12px;overflow:hidden;position:relative;box-shadow:0 24px 65px #0003}
+.titlebar{height:43px;display:flex;align-items:center;justify-content:space-between;gap:15px;padding:0 17px;background:#101b22;border-bottom:1px solid var(--line);font-size:11px}
+.brand{display:flex;align-items:center;gap:9px;letter-spacing:.1px;font-weight:650;font-size:13px}
+.brand-mark{color:var(--accent);width:26px;height:26px;background:#78dbcc0d;border:1px solid #78dbcc30;border-radius:7px;display:grid;place-items:center}
+.title-status{display:flex;align-items:center;gap:14px;color:var(--dim)}
+.dot{display:inline-block;width:6px;height:6px;background:#58d5a2;border-radius:50%;margin-right:6px}
+.dot.off{background:#9a9fa8}
+.window-controls{display:flex;gap:19px;color:#7e8899;font-size:15px}
+.window-controls span{line-height:1}
+.shell{display:flex;min-height:710px}
+.sidebar{width:193px;flex-shrink:0;padding:22px 12px 15px;background:#101b22;border-right:1px solid var(--line);display:flex;flex-direction:column}
+.nav-section{font-size:9px;letter-spacing:1.6px;color:#616e82;padding:21px 13px 8px}
+.nav-item{display:flex;align-items:center;gap:11px;width:100%;background:transparent;padding:10px 12px;color:#9ba5b6;border-radius:7px;font-size:12px;text-align:left;white-space:nowrap}
+.nav-item:hover{background:#ffffff05;color:#fff}
+.nav-item.active{color:var(--accent);background:#78dbcc12}
+.nav-item.active:before{content:"";width:2px;height:14px;background:var(--accent);position:absolute;left:0;border-radius:3px}
+.nav-item .badge{margin-left:auto;font-size:9px;background:#ffffff09;padding:2px 5px;border-radius:4px}
+.sidebar-foot{margin-top:auto;padding-top:28px}
+.profile{display:flex;align-items:center;gap:9px;border-top:1px solid var(--line);padding:15px 9px 0;margin-top:13px}
+.avatar{width:30px;height:30px;border-radius:8px;background:linear-gradient(135deg,#28504e,#15272b);display:grid;place-items:center;color:#b4e5dc;flex-shrink:0}
+.profile b{font-size:11px;display:block}
+.profile small{font-size:9px}
+.workspace{flex:1;min-width:0}
+.toolbar{height:52px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 30px;gap:10px}
+.breadcrumb{font-size:11px;color:#6f7d90}
+.breadcrumb b{color:#bac4d4;font-weight:400}
+.search-trigger{background:#ffffff04;color:#667387;border:1px solid var(--line);border-radius:6px;display:flex;align-items:center;gap:7px;padding:6px 9px;min-width:190px;font-size:10px}
+.search-trigger kbd{margin-left:auto;font:9px "Segoe UI",sans-serif;color:#9aa5b5}
+.main{padding:29px 30px;max-height:658px;overflow:auto;scrollbar-width:thin;scrollbar-color:#2a3443 transparent}
+.page-heading{display:flex;justify-content:space-between;gap:14px;align-items:center;margin-bottom:25px}
+.page-heading p{font-size:12px;color:var(--dim);margin-top:7px;line-height:1.5}
+.page-heading .eyebrow{margin-bottom:7px}
+.button{background:#222a37;border:1px solid #ffffff12;border-radius:6px;padding:8px 12px;display:inline-flex;align-items:center;gap:7px;font-size:11px;white-space:nowrap}
+.button:hover{filter:brightness(1.15)}
+.button.primary{background:var(--accent);color:#0c1728;border-color:transparent;font-weight:650}
+.button.ghost{background:transparent;border-color:var(--line);color:var(--dim)}
+.button.tiny{padding:5px 8px;font-size:10px}
+.row{display:flex;align-items:center;gap:9px}
+.spread{justify-content:space-between}
+.wrap{flex-wrap:wrap}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:19px;min-width:0}
+.card-head{display:flex;justify-content:space-between;align-items:center;gap:9px;margin-bottom:18px}
+.card-head h2{font-size:13px}
+.card-head a,.text-button{font-size:10px;color:var(--accent);background:transparent;padding:0;text-decoration:none}
+.grid{display:grid;gap:15px}
+.two{grid-template-columns:minmax(0,1.8fr) minmax(230px,1fr)}
+.equal{grid-template-columns:1fr 1fr}
+.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:23px}
+.stat{padding:16px 18px;background:var(--surface);border:1px solid var(--line);border-radius:9px}
+.stat-label{font-size:10px;color:var(--dim);display:flex;align-items:center;gap:6px}
+.stat-value{font-size:26px;letter-spacing:-1px;font-weight:600;line-height:1.2;margin-top:9px;font-variant-numeric:tabular-nums}
+.stat-value em{font-style:normal;color:var(--accent);font-size:12px;letter-spacing:0}
+.stat-note{font-size:9px;color:#6e7e93;margin-top:6px}
+.green{color:#65d2a8}
+.gold{color:#d8b978}
+.tag{font-size:9px;padding:4px 7px;border-radius:4px;display:inline-flex;align-items:center;gap:3px;background:#ffffff08;color:#a8b4c5}
+.tag.green{color:#73dbb2;background:#4ce2a112}
+.tag.accent{color:var(--accent);background:#78dbcc15}
+.boss-banner{background:linear-gradient(110deg,#202d42,#172031 60%,#151d29);border:1px solid #769bd41c;border-radius:9px;padding:19px;margin-bottom:20px;position:relative;overflow:hidden}
+.boss-banner:after{content:"";position:absolute;width:130px;height:130px;transform:rotate(45deg);right:20px;top:-30px;border:1px solid #8db8f31c;box-shadow:0 0 0 20px #8db8f305,0 0 0 40px #8db8f303;pointer-events:none}
+.boss-banner h2{font-size:20px;margin:8px 0 5px;letter-spacing:-.5px}
+.boss-banner p{font-size:10px;color:#a0b0c8}
+.boss-banner .row{position:relative;z-index:1}
+.boss-hp{height:4px;background:#ffffff10;margin-top:20px;border-radius:5px;overflow:hidden}
+.boss-hp i{display:block;height:100%;background:linear-gradient(90deg,#74a9f1,#b1d4ff);width:64%}
+.player{display:grid;grid-template-columns:21px minmax(95px,1fr) 1.4fr 63px;gap:9px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line);font-size:11px}
+.player:last-child{border:0}
+.player-rank{color:#68758b;font-size:10px}
+.player-name{font-weight:550;display:flex;align-items:center;gap:8px}
+.job-icon{width:23px;height:23px;padding:3px;background:#ffffff05;border-radius:5px;object-fit:contain}
+.player-bar{height:22px;position:relative;background:#ffffff03;border-radius:3px;overflow:hidden}
+.player-bar i{position:absolute;left:0;top:0;height:100%;opacity:.27;border-right:2px solid currentColor}
+.player-bar span{position:relative;z-index:1;font-size:9px;line-height:22px;padding-left:8px;color:#b9c3d2}
+.player-dps{text-align:right;font-variant-numeric:tabular-nums;font-weight:600}
+.player-dps small{display:block;font-size:8px;font-weight:400;margin-top:3px}
+.event{display:flex;align-items:center;gap:12px;padding:13px 0;border-bottom:1px solid var(--line)}
+.event:last-child{border:0}
+.event-icon{width:31px;height:31px;display:grid;place-items:center;border:1px solid var(--line);border-radius:8px;background:#ffffff03;color:var(--accent);flex-shrink:0}
+.event b{display:block;font-weight:500;font-size:11px}
+.event small{font-size:9px;display:block;margin-top:4px}
+.event .time{margin-left:auto;color:#d5bb85;font-size:11px;white-space:nowrap;font-variant-numeric:tabular-nums}
+.quick-actions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px;margin-top:19px}
+.quick{background:transparent;text-align:left;border:1px solid var(--line);padding:16px;border-radius:9px}
+.quick svg{color:var(--accent);margin-bottom:13px}
+.quick b{display:block;font-size:11px;font-weight:550}
+.quick small{display:block;margin-top:6px;font-size:9px;line-height:1.5}
+.section-label{font-size:9px;letter-spacing:1.6px;color:#68778d;margin-bottom:13px;text-transform:uppercase}
+.status-strip{display:flex;align-items:center;justify-content:space-between;gap:8px;border-top:1px solid var(--line);padding:8px 17px;color:#68768c;font-size:9px;background:#101b22}
+.status-strip span:last-child{color:#8998ab}
+.chart{width:100%;height:122px;display:block;overflow:visible}
+.chart-labels{display:flex;justify-content:space-between;color:#637088;font-size:8px;margin-top:4px}
+.filters{display:flex;align-items:center;gap:9px;margin-bottom:18px;flex-wrap:wrap}
+.segmented{padding:3px;display:flex;background:#ffffff04;border:1px solid var(--line);border-radius:6px;gap:3px}
+.segmented button{background:transparent;color:#8f9bae;padding:5px 11px;border-radius:4px;font-size:10px}
+.segmented button.active{background:#78dbcc1b;color:var(--accent)}
+.combat-grid{grid-template-columns:minmax(0,1.5fr) minmax(220px,1fr)}
+.skill{padding:11px 0;display:flex;justify-content:space-between;border-bottom:1px solid var(--line);font-size:10px;gap:10px}
+.skill b{font-weight:400}
+.skill small{font-size:9px}
+.empty{text-align:center;padding:80px 20px;border:1px dashed #ffffff18;border-radius:10px}
+.empty .event-icon{margin:0 auto 17px;width:44px;height:44px}
+.empty p{font-size:11px;line-height:1.6;color:var(--dim);margin:10px 0 20px}
+.pet-layout{display:grid;grid-template-columns:165px 1fr;gap:17px}
+.pet-filter{padding:16px;height:fit-content}
+.pet-filter h3{font-size:9px;color:#7e8ca1;letter-spacing:1px;text-transform:uppercase;margin:4px 0 12px}
+.pet-filter label{display:flex;align-items:center;gap:7px;font-size:10px;padding:7px 0;color:#adb8c9}
+.pet-filter hr{border:0;border-top:1px solid var(--line);margin:15px 0}
+.pet-filter input{accent-color:var(--accent)}
+.pet-toolbar{display:flex;gap:8px;margin-bottom:13px}
+.input{background:#ffffff04;border:1px solid var(--line);border-radius:6px;padding:8px 10px;color:#d7dfed;font-size:11px;min-width:0}
+.input option{background:#1a202b}
+.pet-toolbar .input:first-child{flex:1}
+.table{width:100%;border-collapse:collapse;font-size:11px}
+.table th{text-align:left;font-size:8px;text-transform:uppercase;letter-spacing:1px;color:#64738b;font-weight:500;padding:10px 9px;border-bottom:1px solid var(--line)}
+.table td{padding:13px 9px;border-bottom:1px solid var(--line)}
+.table tr:last-child td{border:0}
+.table .pet-name{display:flex;align-items:center;gap:9px;font-weight:500}
+.pet-orb{width:28px;height:28px;border-radius:8px;background:radial-gradient(circle at 35% 30%,#8ca566,#253a2a 60%,#17211a);display:grid;place-items:center;color:#c9df95;border:1px solid #adc78224}
+.pet-orb.cogni{background:radial-gradient(circle at 35% 30%,#6c9cd0,#1a2d4d 65%);color:#a4c8ed}
+.pet-orb.varian{background:radial-gradient(circle at 35% 30%,#9b6ca4,#342043 65%);color:#dac2f3}
+.progress{height:3px;background:#ffffff0c;border-radius:4px;margin-top:6px;overflow:hidden}
+.progress i{display:block;height:100%;background:var(--accent);border-radius:4px}
+.icon-button{background:#ffffff04;border:1px solid var(--line);padding:6px;border-radius:5px;color:#667a93}
+.icon-button.selected{color:var(--accent);background:#78dbcc18}
+.overlay-layout{display:grid;grid-template-columns:minmax(0,1fr) 218px;gap:16px}
+.canvas{height:394px;position:relative;border:1px solid var(--line);border-radius:8px;overflow:hidden;background-color:#0a0e14;background-image:linear-gradient(#ffffff04 1px,transparent 1px),linear-gradient(90deg,#ffffff04 1px,transparent 1px);background-size:20px 20px;touch-action:none}
+.canvas:before,.canvas:after{content:"";position:absolute;background:#ffffff0b;pointer-events:none}
+.canvas:before{width:1px;height:100%;left:50%}
+.canvas:after{height:1px;width:100%;top:50%}
+.canvas-hint{position:absolute;bottom:13px;left:12px;color:#596b86;font-size:9px}
+.widget{position:absolute;background:#112328ed;border:1px solid #78dbcc65;border-radius:5px;padding:10px;color:#c9ddf8;font-size:9px;min-width:100px;touch-action:none;cursor:grab;user-select:none;z-index:1}
+.widget:active{cursor:grabbing}
+.widget strong{font-size:10px;font-weight:600;display:block;margin-bottom:8px}
+.widget small{font-size:8px}
+.widget .mini-bar{height:6px;background:#78dbcc65;margin-top:5px}
+.widget .mini-bar:nth-child(3){width:76%;background:#a68bf373}
+.widget[data-widget=target]{width:44%;left:29%;top:12%}
+.widget[data-widget=meter]{width:39%;left:6%;top:45%}
+.widget[data-widget=event]{left:59%;top:64%;border-color:#b9a77066;color:#e4d59d}
+.widget[data-widget=ping]{left:75%;top:85%;min-width:55px}
+.overlay-settings{padding:16px}
+.setting-row{display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:10px;padding:12px 0;border-bottom:1px solid var(--line)}
+.switch{width:28px;height:16px;border-radius:12px;background:#343c4a;padding:2px;display:inline-flex;align-items:center;flex-shrink:0;border:0}
+.switch:before{content:"";width:12px;height:12px;border-radius:50%;background:#b8c2d1}
+.switch[aria-checked=true]{background:var(--accent)}
+.switch[aria-checked=true]:before{margin-left:auto;background:#fff}
+.range-row{font-size:10px;color:#8e9db2;margin-top:19px}
+.range-row .row{margin-top:10px}
+.range-row input{width:100%;accent-color:var(--accent);height:3px}
+.range-row output{min-width:30px;text-align:right;color:#c6d2e3}
+.inline-note{font-size:10px;color:#72839b;line-height:1.6;margin-top:14px}
+.history-row{display:grid;grid-template-columns:32px 1fr 70px 64px 50px;align-items:center;gap:10px;padding:15px 0;border-bottom:1px solid var(--line);font-size:11px;width:100%;text-align:left;background:transparent}
+.history-row:hover{background:#ffffff03}
+.history-row:last-child{border:0}
+.history-row b{display:block;font-size:11px;font-weight:500}
+.history-row small{display:block;margin-top:5px;font-size:9px}
+.history-row .right{text-align:right}
+.alert-table .event{gap:12px}
+.alert-table .event>div:nth-child(2){flex:1}
+.alert-table .time{margin:0 25px}
+.settings-grid{grid-template-columns:1fr 1fr}
+.settings-grid p{font-size:10px;color:#8e9eb4;line-height:1.7;margin-top:12px}
+.settings-grid .input{width:100%;margin-top:12px}
+.settings-grid .setting-row{padding:16px 0}
+.prototype-state{font-size:10px;color:#8693a5;line-height:1.7;margin:13px 0 0;display:flex;justify-content:space-between;gap:12px}
+.prototype-state b{font-weight:500;color:#c2cbd8}
+.design-note{max-width:850px;font-size:12px;color:#a1acbd;line-height:1.7;margin-top:17px}
+.design-note b{color:#dde3ed;font-weight:500}
+.toast{position:absolute;left:50%;bottom:42px;transform:translateX(-50%);background:#263d52;border:1px solid #78dbcc50;box-shadow:0 8px 25px #0007;color:#d0e7ff;padding:12px 18px;border-radius:8px;font-size:11px;z-index:8;max-width:90%;text-align:center}
+.toast:empty{display:none}
+.command-dialog{color:#e5edfa;background:#141c2a;border:1px solid #5b7da4;border-radius:12px;width:min(480px,90%);padding:18px;box-shadow:0 20px 80px #000a}
+.command-dialog::backdrop{background:#050a13aa}
+.command-dialog input{width:100%;margin:12px 0}
+.command-results button{display:flex;gap:12px;width:100%;background:transparent;padding:12px;border-radius:5px;color:#b7c8e1;text-align:left}
+.command-results button:hover{background:#ffffff0b}
+.command-dialog .close-dialog{float:right;background:transparent;color:#9aa9bc}
+.selected-layout{--accent:#78dbcc;--surface:#131d24;--dim:#7e9aa7;background:#0b141a}
+.selected-layout .titlebar{background:#101b22}
+.selected-layout .toolbar{padding:0 24px;height:48px;background:#0e1920}
+.selected-layout .main{padding:23px 24px;max-height:662px}
+.selected-layout .card{border-radius:5px}
+.selected-layout .stat{border-radius:5px}
+.selected-layout .button{border-radius:4px}
+.selected-layout .status-strip{background:#101b22}
+.selected-layout .button.primary{background:#78dbcc;color:#0e2928}
+.selected-layout .page-heading h1{font-size:23px}
+.selected-layout .page-heading{margin-bottom:19px}
+.selected-layout .stats{margin-bottom:17px}
+.selected-layout .boss-banner{background:#162b32;border-radius:5px;border-color:#78dbcc20}
+.selected-layout .boss-hp i{background:#78dbcc}
+.selected-layout .player{padding:12px 0}
+.mini-metrics{display:flex;justify-content:space-between;border-top:1px solid var(--line);margin-top:15px;padding-top:15px;font-size:10px}
+.mini-metrics span{color:#7d99a6}
+.mini-metrics b{display:block;color:#d8ecee;margin-top:6px;font-size:17px;font-weight:500}
+.stack-note{margin-top:19px;font-size:11px;color:#93a2b6;line-height:1.8}
+.stack-note strong{color:#d4dfef;font-weight:600}
+.stack-note a{white-space:nowrap}
+.app button,.app input,.app select{transition:background-color .12s,border-color .12s}
+@media(min-width:1200px) {
+  .lab{padding-top:25px}
+  .main{padding:32px 38px}
+  .shell{min-height:730px}
+  .main{max-height:678px}
+  .selected-layout .main{max-height:682px}
+  .quick{padding:19px}
+  .card{padding:22px}
+}
+@media(max-width:1000px) {
+  .sidebar{width:164px}
+  .nav-item{font-size:11px;padding:10px}
+  .toolbar{padding:0 21px}
+  .main{padding:24px 21px}
+  .two{grid-template-columns:1.4fr 1fr}
+  .stats{gap:8px}
+  .stat{padding:14px}
+  .stat-value{font-size:23px}
+  .combat-grid{grid-template-columns:1fr}
+  .overlay-layout{grid-template-columns:minmax(0,1fr) 190px}
+  .table th,.table td{padding:12px 6px}
+  .pet-layout{grid-template-columns:140px 1fr}
+  .pet-filter{padding:12px}
+  .pet-filter label{font-size:9px}
+}
+@media(max-width:760px) {
+  .lab{padding-top:8px}
+  .lab-head p{font-size:11px}
+  .sidebar{width:55px;padding:18px 6px;align-items:center}
+  .nav-item{width:40px;height:40px;padding:11px;justify-content:center;margin-bottom:7px}
+  .nav-item span,.nav-section,.profile{display:none}
+  .sidebar-foot{padding-top:15px}
+  .main{padding:22px 18px}
+  .toolbar{padding:0 18px}
+  .two{grid-template-columns:1fr}
+  .two>.card:last-child{display:none}
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .stat{padding:12px 14px}
+  .stat-value{font-size:23px}
+  .stat-note{font-size:9px}
+  .page-heading{margin-bottom:20px}
+  h1{font-size:24px}
+  .page-heading p{font-size:10px}
+  .search-trigger{min-width:150px}
+  .titlebar{padding:0 13px}
+  .title-status{gap:10px}
+  .title-status>span{font-size:9px}
+  .window-controls{gap:14px}
+  .brand{font-size:12px}
+  .quick-actions{gap:8px}
+  .quick{padding:12px}
+  .quick small{font-size:9px}
+  .card{padding:16px}
+  .player{grid-template-columns:16px minmax(90px,1fr) 1.2fr 50px;font-size:10px}
+  .player-name{gap:6px}
+  .player-bar span{font-size:8px}
+  .pet-layout{grid-template-columns:1fr}
+  .pet-filter{display:none}
+  .pet-toolbar .input{font-size:10px}
+  .table .region-col{display:none}
+  .table{font-size:10px}
+  .table td{padding:13px 6px}
+  .overlay-layout{grid-template-columns:minmax(0,1fr) 166px;gap:10px}
+  .overlay-settings{padding:13px}
+  .canvas{height:382px}
+  .widget{padding:8px;font-size:8px}
+  .widget strong{font-size:9px}
+  .widget[data-widget=event]{left:48%;top:70%}
+  .widget[data-widget=meter]{width:49%}
+  .overlay-settings .setting-row{font-size:9px;gap:5px}
+  .history-row{grid-template-columns:28px 1fr 61px 48px;gap:8px}
+  .history-row>.tag{display:none}
+  .settings-grid{grid-template-columns:1fr}
+  .settings-grid .card{padding:19px}
+  .alert-table .time{margin:0 10px;font-size:10px}
+  .selected-layout .main{padding:22px 18px}
+  .selected-layout .page-heading h1{font-size:22px}
+  .prototype-state{font-size:9px}
+  .design-note{font-size:11px}
+  .sample{font-size:8px}
+  .status-strip{font-size:8px}
+  .status-strip span:last-child{max-width:55%;text-align:right}
+}
+@media(max-width:470px) {
+  .lab-head strong{font-size:16px}
+  .lab-head p{max-width:260px;font-size:10px}
+  .lab-head .sample{display:none}
+  .main{padding:18px 12px}
+  .sidebar{width:46px;padding:14px 3px}
+  .nav-item{width:36px;height:36px;padding:9px}
+  .toolbar{padding:0 12px;height:44px}
+  .breadcrumb{font-size:9px}
+  .search-trigger{min-width:0;padding:5px;font-size:0}
+  .search-trigger kbd{font-size:8px}
+  .titlebar{height:40px;padding:0 10px}
+  .title-status>span{display:none}
+  .window-controls{gap:12px;font-size:12px}
+  .brand{font-size:11px}
+  .brand-mark{width:23px;height:23px}
+  .stats{gap:7px;margin-bottom:15px}
+  .stat{padding:11px}
+  .stat-value{font-size:22px}
+  .stat-label{font-size:9px}
+  .page-heading{align-items:flex-start}
+  .page-heading h1{font-size:22px}
+  .page-heading .button{font-size:9px;padding:7px}
+  .page-heading p{font-size:9px}
+  .page-heading .eyebrow{font-size:8px}
+  .card{padding:12px}
+  .card-head{margin-bottom:11px}
+  .card-head h2{font-size:11px}
+  .card-head .tag{font-size:8px}
+  .boss-banner{padding:14px;margin-bottom:14px}
+  .boss-banner h2{font-size:17px}
+  .boss-banner .button{font-size:9px;padding:7px}
+  .boss-banner .row{gap:7px}
+  .boss-banner .tag{font-size:8px}
+  .boss-banner p{font-size:9px}
+  .player{grid-template-columns:12px minmax(80px,1fr) .9fr 43px;gap:5px;font-size:9px}
+  .job-icon{width:20px;height:20px}
+  .player-bar{height:19px}
+  .player-bar span{font-size:7px;line-height:19px;padding-left:4px}
+  .player-dps small{font-size:7px}
+  .quick-actions{grid-template-columns:1fr;margin-top:12px}
+  .quick{padding:12px;display:grid;grid-template-columns:20px 1fr;gap:0 10px}
+  .quick svg{margin:0;grid-row:span 2}
+  .quick small{margin-top:4px}
+  .quick b{font-size:10px}
+  .card-head .text-button{font-size:9px}
+  .pet-toolbar{flex-wrap:wrap}
+  .pet-toolbar .input:first-child{width:100%;flex-basis:100%}
+  .pet-toolbar .input{padding:7px}
+  .table th{font-size:7px;letter-spacing:.4px}
+  .table td{font-size:9px;padding:12px 4px}
+  .pet-orb{width:23px;height:25px}
+  .table .pet-name{gap:5px}
+  .table .pet-name small{font-size:8px}
+  .table .icon-button{padding:4px}
+  .overlay-layout{grid-template-columns:1fr}
+  .canvas{height:290px}
+  .overlay-settings{padding:12px}
+  .overlay-settings .setting-row{display:inline-flex;width:48%;padding:9px 4px}
+  .overlay-settings .range-row{margin-top:12px}
+  .overlay-settings .button{margin-top:12px!important}
+  .overlay-settings .inline-note{display:none}
+  .history-row{grid-template-columns:25px 1fr 40px;font-size:9px}
+  .history-row .duration{display:none}
+  .history-row b{font-size:10px}
+  .history-row small{font-size:8px}
+  .alert-table .event-icon{width:26px;height:28px}
+  .event b{font-size:10px}
+  .event small{font-size:8px}
+  .alert-table .time{font-size:9px;margin:0 3px}
+  .alert-table .event{gap:7px}
+  .selected-layout .main{padding:18px 12px}
+  .selected-layout .toolbar{padding:0 12px}
+  .mini-metrics{gap:6px;font-size:8px}
+  .mini-metrics b{font-size:14px}
+  .prototype-state{display:block;font-size:9px}
+  .prototype-state>span{display:block}
+  .stack-note{font-size:10px}
+  .shell{min-height:720px}
+  .main{max-height:676px}
+  .selected-layout .main{max-height:676px}
+  .sample{font-size:7px}
+}
+@media(prefers-reduced-motion:reduce) {
+  *,*:before,*:after{transition:none!important;scroll-behavior:auto!important}
+}
+</style>
+</head>
+<body>
+<div class="lab">
+  <header class="lab-head">
+    <div><div class="eyebrow">Daevalog / Selected Windows direction</div><p>Command visuals. Questlog-inspired companion.</p></div>
+    <span class="sample">INTERACTIVE PROTOTYPE · SAMPLE DATA</span>
+  </header>
+  <section id="app" class="app" aria-label="Daevalog desktop prototype"></section>
+  <div class="prototype-state" aria-live="polite" id="prototype-state"></div>
+  <p class="design-note" id="design-note"></p>
+  <p class="stack-note"><strong>Proposed stack:</strong> Tauri 2 + React + TypeScript + Vite for the companion window, existing Rust engine for capture, and a small egui host for game overlays. The selected design is prototyped here before the production migration. <a href="https://v2.tauri.app/reference/webview-versions/" target="_blank" rel="noreferrer">WebView2 architecture ↗</a> · <a href="https://docs.rs/egui/latest/egui/" target="_blank" rel="noreferrer">egui ↗</a></p>
+</div>
+<dialog class="command-dialog" id="command-dialog"><button class="close-dialog" aria-label="Close search">✕</button><h2>Go anywhere</h2><input id="command-input" class="input" placeholder="Search pages…" aria-label="Search pages"><div class="command-results" id="command-results"></div><small>Esc to close · Prototype navigation only</small></dialog>
+<script>
+'use strict';
+const icons = {
+ home:'<path d="m3 10 9-7 9 7v10H3Z"/><path d="M9 20v-7h6v7"/>',
+ combat:'<path d="m4 3 14 14M3 7l4-4m10 11 4 4-3 3-4-4M20 3 6 17m15-10-4-4M7 14l-4 4 3 3 4-4"/>',
+ pets:'<ellipse cx="12" cy="15.5" rx="5" ry="4"/><ellipse cx="4.5" cy="10" rx="2" ry="2.5"/><ellipse cx="9" cy="5" rx="2" ry="2.5"/><ellipse cx="15" cy="5" rx="2" ry="2.5"/><ellipse cx="19.5" cy="10" rx="2" ry="2.5"/>',
+ overlays:'<path d="m12 3 9 5-9 5-9-5Zm-9 9 9 5 9-5m-18 5 9 5 9-5"/>',
+ history:'<path d="M3 11a9 9 0 1 1 2 7M3 4v7h7"/><path d="M12 7v5l4 2"/>',
+ alerts:'<path d="M18 8a6 6 0 0 0-12 0c0 8-3 8-3 10h18c0-2-3-2-3-10M10 21h4"/>',
+ settings:'<path d="m9 3 1-1h4l1 3 3 1 3 2-1 3v3l1 3-3 2-3 1-1 2h-4l-1-3-3-1-3-2 1-3v-3L3 7l3-2Z"/><circle cx="12" cy="12" r="3"/>',
+ arrow:'<path d="M5 12h14m-5-5 5 5-5 5"/>',
+ search:'<circle cx="10" cy="10" r="6"/><path d="m15 15 5 5"/>',
+ chart:'<path d="M4 20V10h4v10m3 0V4h4v16m3 0V8h3v12M2 20h21"/>',
+ clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+ pin:'<path d="m8 3 8 0-1 7 4 4H5l4-4Zm4 11v8"/>',
+ shield:'<path d="m12 2 9 4v6c0 5-9 10-9 10S3 17 3 12V6Z"/><path d="m8 12 3 3 5-6"/>',
+ map:'<path d="m3 5 6-2 6 2 6-2v16l-6 2-6-2-6 2Zm6-2v16m6-14v16"/>',
+ signal:'<path d="M3 20v-3m5 3v-7m5 7V9m5 11V5m5 15V1"/>',
+ target:'<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/>',
+ check:'<path d="m5 12 4 4L20 5"/>',
+ cube:'<path d="m12 2 9 5v10l-9 5-9-5V7Zm0 10 9-5M3 7l9 5v10m-4-17 9 5"/>',
+ bolt:'<path d="m13 2-9 12h7l-1 8 10-12h-8Z"/>',
+ wing:'<path d="M12 20C0 16 1 5 2 3c5 1 8 4 10 8 2-4 5-7 10-8 1 2 2 13-10 17Zm0-9v9M3 8l6 4m12-4-6 4M5 14l5 2m9-2-5 2"/>',
+ play:'<path d="m8 4 12 8-12 8Z"/>',
+ pause:'<path d="M8 4v16M16 4v16"/>',
+ reset:'<path d="M3 11a9 9 0 1 1 2 7M3 4v7h7"/>'
+};
+const icon = (name,size=17) => `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${icons[name]||icons.bolt}</svg>`;
+const pages=[['home','Overview'],['combat','Combat meter'],['pets','Pet collection'],['overlays','Overlay studio'],['history','Fight history'],['alerts','Event alerts'],['settings','Settings']];
+const params=new URLSearchParams(location.search);
+const state={
+ page:pages.some(p=>p[0]===params.get('page'))?params.get('page'):null,
+ live:params.get('state')!=='waiting', target:'Bosses', metric:'Damage', player:0, phase:'3',
+ search:'',genus:'all',pinned:new Set([0,1]),overlay:{meter:true,target:true,event:true,ping:true},
+ positions:{},opacity:85,scale:100,snap:true,alerts:[true,true,false,true],sound:true,alwaysTop:false
+};
+state.page ||= 'home';
+const players=[
+ {name:'Brimbus',job:'CLERIC',title:'Cleric · You',dps:'14.8k',damage:'2.84m',share:38,color:'#79b6ed'},
+ {name:'Nyxara',job:'ASSASSIN',title:'Assassin',dps:'11.2k',damage:'2.15m',share:29,color:'#b29aee'},
+ {name:'Solari',job:'GLADIATOR',title:'Gladiator',dps:'8.6k',damage:'1.65m',share:22,color:'#e8b87c'},
+ {name:'Aelion',job:'CHANTER',title:'Chanter',dps:'4.3k',damage:'825k',share:11,color:'#72c9ac'}
+];
+const pets=[
+ {name:'Agrint',genus:'Natura',souls:58,max:75,region:'Verteron',glyph:'cube'},
+ {name:'Klaw Scout',genus:'Cogni',souls:30,max:75,region:'Lower Reshanta',glyph:'bolt'},
+ {name:'Cadaver Cleaner',genus:'Varian',souls:27,max:75,region:'Altgard',glyph:'wing'},
+ {name:'Lesser Wind Spirit',genus:'Natura',souls:42,max:75,region:'Altgard',glyph:'wing'},
+ {name:'Klaw',genus:'Cogni',souls:17,max:75,region:'Middle Reshanta',glyph:'bolt'},
+ {name:'Blue Kalgolem',genus:'Natura',souls:14,max:75,region:'Middle Reshanta',glyph:'cube'},
+ {name:'Gravi',genus:'Natura',souls:26,max:75,region:'Altgard',glyph:'pets'}
+];
+const eventData=[['bolt','Shugo Festival','Hourly event · Open for 3 minutes','12m 34s'],['wing','Dimensional Invasion','World event · Open for 10 minutes','42m 34s'],['shield','Artifact Siege','Abyss · Party recommended','1h 12m'],['clock','Daily reset','Dungeons and daily activities','18h 12m']];
+function button(label,action,primary=false,ico=''){return `<button class="button ${primary?'primary':''}" data-action="${action}">${ico?icon(ico,14):''}${label}</button>`}
+function stat(label,value,note,ico){return `<div class="stat"><div class="stat-label">${icon(ico,12)}${label}</div><div class="stat-value">${value}</div><div class="stat-note">${note}</div></div>`}
+function heading(title,subtitle,action='',eyebrow=''){return `<div class="page-heading"><div>${eyebrow?`<div class="eyebrow">${eyebrow}</div>`:''}<h1>${title}</h1><p>${subtitle}</p></div>${action}</div>`}
+function nav(){
+ return `<nav class="sidebar" aria-label="App navigation">${pages.map(([key,label],i)=>`${i===1?'<div class="nav-section">In game</div>':''}${i===4?'<div class="nav-section">Your journey</div>':''}<button class="nav-item ${state.page===key?'active':''}" data-page="${key}" title="${label}" aria-label="${label}" ${state.page===key?'aria-current="page"':''}>${icon(key)}<span>${label}</span>${key==='overlays'?`<span class="badge">${Object.values(state.overlay).filter(Boolean).length}</span>`:''}</button>`).join('')}<div class="sidebar-foot"><div class="profile"><div class="avatar">${icon('wing',20)}</div><div><b>Brimbus</b><small>Cleric · Lv. 45</small></div></div></div></nav>`;
+}
+function status(){return state.live?'<span><i class="dot"></i>Sample encounter active</span>':'<span><i class="dot off"></i>Waiting for game · Demo</span>'}
+function render(){
+ const app=document.getElementById('app');
+ app.className='app selected-layout';
+ app.innerHTML=`<div class="titlebar"><div class="brand"><span class="brand-mark">${icon('wing',19)}</span>Daevalog <small>/ AION 2</small></div><div class="title-status">${status()}<div class="window-controls" aria-hidden="true"><span>−</span><span>▢</span><span>×</span></div></div></div><div class="shell">${nav()}<div class="workspace"><div class="toolbar"><span class="breadcrumb">Companion <span class="muted">/</span> <b>${pages.find(p=>p[0]===state.page)[1]}</b></span><button class="search-trigger" data-action="search">${icon('search',13)}Quick navigation <kbd>Ctrl K</kbd></button></div><main class="main" id="main">${content()}</main></div></div><footer class="status-strip"><span>${icon('signal',10)} ${state.live?'48 ms · Sample connection':'Game disconnected · Sample state'}</span><span>Windows concept · local-first · no live capture</span></footer><div class="toast" id="toast" role="status"></div>`;
+ document.getElementById('design-note').innerHTML='<b>Selected direction.</b> C’s teal palette, dark surfaces, compact typography, and sharper panels, with A’s full sidebar, overview, and Questlog-inspired companion pages.';
+ document.getElementById('prototype-state').innerHTML=`<span><b>Selected design</b> · ${pages.find(p=>p[0]===state.page)[1]} · ${state.live?'Active encounter':'Waiting for game'}</span><span>${Object.values(state.overlay).filter(Boolean).length} overlays · ${state.pinned.size} pinned pets · Unsaved sample state</span>`;
+ updateURL();
+ wireDragging();
+ if(state.page==='pets'){
+  document.getElementById('pet-search').value=state.search;
+  document.getElementById('pet-count').textContent=filteredPets().length+' shown · sample collection';
+ }
+ console.info('Prototype state', {...state,pinned:[...state.pinned]});
+}
+function content(){
+ switch(state.page){case 'home':return companionHome();case 'combat':return combat();case 'pets':return petPage();case 'overlays':return overlayPage();case 'history':return historyPage();case 'alerts':return alertsPage();case 'settings':return settingsPage()}
+}
+function updateURL(){
+ const u=new URL(location.href);u.searchParams.delete('variant');u.searchParams.set('page',state.page);u.searchParams.set('state',state.live?'active':'waiting');
+ try{history.replaceState(null,'',u)}catch{/* Inline sandbox may not permit history. */}
+}
+function stats(){return `<div class="stats">${stat('Your DPS',state.live?'14.8<em>k</em>':'—','Your current encounter','chart')}${stat('Party damage',state.live?'7.46<em>m</em>':'—','4 players · damage dealt','combat')}${stat('Pets collected','159 <em>/ 209</em>','76% of your collection','pets')}${stat('Session time','1<em>h</em> 24<em>m</em>','3 encounters saved locally','clock')}</div>`}
+function bossBanner(){
+ return `<div class="boss-banner"><div class="row spread"><div><span class="tag ${state.live?'green':''}">${state.live?'● IN COMBAT':'○ WAITING FOR GAME'}</span><h2>${state.live?'Cruel Sumasili':'Your next encounter awaits'}</h2><p>${state.live?'Fire Temple · Normal · Lv. 45':'Start AION 2 to begin your next session.'}</p></div>${button(state.live?'Open combat':'Try sample encounter',state.live?'combat':'simulate',true,state.live?'arrow':'play')}</div>${state.live?'<div class="boss-hp"><i></i></div><div class="row spread" style="margin-top:7px"><small>Boss health · 64%</small><small>03:12 elapsed</small></div>':''}</div>`;
+}
+function playerRows(){
+ return players.map((p,i)=>`<div class="player"><span class="player-rank">${i+1}</span><span class="player-name"><img class="job-icon" src="${assets[p.job]||''}" alt="">${p.name}${i===0?'<small style="font-size:8px;color:var(--accent)">YOU</small>':''}</span><div class="player-bar" style="color:${p.color}"><i style="width:${p.share/38*100}% ;background:${p.color}"></i><span>${state.metric==='Damage'?p.damage:p.share+'%'} · ${p.title.split(' ·')[0]}</span></div><span class="player-dps">${p.dps}<small>DPS</small></span></div>`).join('');
+}
+function partyCard(){return `<section class="card"><div class="card-head"><h2>Party performance</h2><span class="tag accent">${state.live?'Current encounter':'Sample preview'}</span></div>${playerRows()}</section>`}
+function eventsCard(){return `<section class="card"><div class="card-head"><h2>Coming up in Atreia</h2><button class="text-button" data-page="alerts">Manage ${icon('arrow',12)}</button></div>${eventData.slice(0,3).map(e=>eventRow(e)).join('')}<p class="inline-note">Sample schedule · Latin America</p></section>`}
+function eventRow(e){return `<div class="event"><div class="event-icon">${icon(e[0],16)}</div><div><b>${e[1]}</b><small>${e[2]}</small></div><span class="time">${e[3]}</span></div>`}
+function quickActions(){return `<div class="quick-actions">${[['overlays','Make it your own','Arrange the widgets you see in game.'],['pets','One soul closer','Find the next pet for your collection.'],['history','Know your progress','Revisit your recent encounters.']].map(q=>`<button class="quick" data-page="${q[0]}">${icon(q[0],19)}<b>${q[1]} ${icon('arrow',12)}</b><small>${q[2]}</small></button>`).join('')}</div>`}
+function companionHome(){
+ return heading('Welcome back, Brimbus.','A little clarity for your time in Atreia.',button('Overlay studio','overlays',false,'overlays'),'YOUR COMPANION, IN SYNC')+stats()+bossBanner()+`<div class="grid two">${partyCard()}${eventsCard()}</div>`+quickActions();
+}
+function chart(){
+ return `<svg class="chart" viewBox="0 0 600 120" preserveAspectRatio="none" role="img" aria-label="Sample damage per second over three minutes"><defs><linearGradient id="chart-fill" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="currentColor" stop-opacity=".18"/><stop offset="100%" stop-color="currentColor" stop-opacity="0"/></linearGradient></defs><g stroke="#ffffff08" stroke-width="1"><path d="M0 20H600M0 60H600M0 100H600"/></g><path d="M0 100 25 91 50 95 75 72 100 80 125 51 150 60 175 37 200 67 225 59 250 23 275 44 300 33 325 52 350 29 375 35 400 10 425 39 450 30 475 44 500 25 525 40 550 20 575 31 600 17V120H0Z" fill="url(#chart-fill)" style="color:var(--accent)"/><path d="M0 100 25 91 50 95 75 72 100 80 125 51 150 60 175 37 200 67 225 59 250 23 275 44 300 33 325 52 350 29 375 35 400 10 425 39 450 30 475 44 500 25 525 40 550 20 575 31 600 17" fill="none" stroke="currentColor" stroke-width="2" vector-effect="non-scaling-stroke" style="color:var(--accent)"/></svg><div class="chart-labels"><span>00:00</span><span>00:48</span><span>01:36</span><span>02:24</span><span>03:12</span></div>`;
+}
+function filters(){return `<div class="filters"><div class="segmented" aria-label="Target filter">${['All targets','Bosses','My target'].map(t=>`<button data-target="${t}" class="${state.target===t?'active':''}">${t}</button>`).join('')}</div><span class="muted" style="font-size:9px">Party · 4 players</span><div style="margin-left:auto">${button(state.live?'Waiting state':'Sample encounter','simulate',false,state.live?'pause':'play')}</div></div>`}
+function skillCard(){
+ const names=[['Divine Strike','845k','41.2% crit'],['Judgment','632k','38.7% crit'],['Smite','491k','44.1% crit'],['Punishing Wind','387k','36.3% crit'],['Thunderbolt','284k','40.5% crit']];
+ return `<section class="card"><div class="card-head"><h2>Skill breakdown</h2><select class="input" data-control="player" aria-label="Player skill breakdown" style="font-size:9px;padding:5px">${players.map((p,i)=>`<option value="${i}" ${state.player===i?'selected':''}>${p.name}</option>`).join('')}</select></div><p class="section-label">${players[state.player].title}</p>${names.map((n,i)=>`<div class="skill"><div><b>${state.player===0?n[0]:['Opening Strike','Piercing Blow','Power Slash','Chain Strike','Final Blow'][i]}</b><div class="progress" style="width:95px"><i style="width:${100-i*16}%;background:${players[state.player].color}"></i></div></div><div style="text-align:right">${n[1]}<br><small>${n[2]}</small></div></div>`).join('')}</section>`;
+}
+function waiting(){
+ return `<div class="empty"><div class="event-icon">${icon('target',23)}</div><h2>Ready when you are.</h2><p>Waiting for AION 2 and your character.<br>Your party’s combat numbers will appear here.</p>${button('Try sample encounter','simulate',true,'play')}<p style="margin-bottom:0;font-size:9px">Prototype only · no game connection</p></div>`;
+}
+function combat(){
+ return heading('Combat meter','Every hit, a clearer picture.',button('Overlay studio','overlays',false,'overlays'),'LIVE ENCOUNTER')+filters()+(!state.live?waiting():bossBanner()+`<div class="grid combat-grid"><div class="grid">${partyCard()}<section class="card"><div class="card-head"><h2>Your damage over time</h2><span class="tag">Peak 21.4k DPS</span></div>${chart()}</section></div>${skillCard()}</div>`);
+}
+function filteredPets(){return pets.map((p,i)=>({...p,id:i})).filter(p=>p.name.toLowerCase().includes(state.search.toLowerCase())&&(state.genus==='all'||p.genus.toLowerCase()===state.genus))}
+function petRows(){
+ const list=filteredPets();
+ return list.length?list.map(p=>`<tr><td><div class="pet-name"><span class="pet-orb ${p.genus.toLowerCase()}">${icon(p.glyph,16)}</span><div>${p.name}<small style="display:block;font-size:9px;margin-top:3px">${p.genus}</small></div></div></td><td>Lv. 2</td><td style="min-width:66px">${p.souls}<small> / ${p.max}</small><div class="progress"><i style="width:${p.souls/p.max*100}%"></i></div></td><td class="region-col muted">${p.region}</td><td><button class="icon-button ${state.pinned.has(p.id)?'selected':''}" data-pin="${p.id}" aria-label="${state.pinned.has(p.id)?'Unpin':'Pin'} ${p.name}" aria-pressed="${state.pinned.has(p.id)}">${icon('pin',13)}</button></td></tr>`).join(''):'<tr><td colspan="5" class="muted">No pets match this search.</td></tr>';
+}
+function petPage(){
+ return heading('A growing collection.','Your pets, your progress, your next little victory.',`<span class="tag accent">${state.pinned.size} pinned for farming</span>`,'PET COLLECTION')+`<div class="stats">${stat('Collected','159 <em>/ 209</em>','One more to the next reward','pets')}${stat('Level 1','136 <em>/ 160</em>','A companion for every journey','wing')}${stat('Level 2','53 <em>/ 160</em>','Keep collecting souls','bolt')}${stat('Level 3','28 <em>/ 160</em>','Your collection, perfected','shield')}</div><div class="pet-layout"><aside class="card pet-filter"><h3>Farm toward</h3>${['1','2','3'].map(n=>`<label><input type="radio" name="phase" value="${n}" data-control="phase" ${state.phase===n?'checked':''}>Level ${n}<span style="margin-left:auto;color:#6587b0">${n==='1'?'136':n==='2'?'53':'28'}/160</span></label>`).join('')}<hr><h3>Genus insight</h3>${[['all','All genuses'],['natura','Natura'],['cogni','Cogni'],['varian','Varian']].map(g=>`<label><input type="radio" name="genus" value="${g[0]}" data-control="genus" ${state.genus===g[0]?'checked':''}>${g[1]}</label>`).join('')}<hr><p class="inline-note">Collect every pet first, then work toward the next level.</p></aside><div><div class="pet-toolbar"><input id="pet-search" class="input" type="search" placeholder="Search your pets…" aria-label="Search your pets"><select class="input" data-control="genus" aria-label="Filter by genus">${[['all','All genuses'],['natura','Natura'],['cogni','Cogni'],['varian','Varian']].map(g=>`<option value="${g[0]}" ${g[0]===state.genus?'selected':''}>${g[1]}</option>`).join('')}</select></div><div class="card" style="padding:6px 10px"><table class="table"><thead><tr><th>Pet</th><th>Level</th><th>Souls</th><th class="region-col">Find in</th><th>Pin</th></tr></thead><tbody id="pet-rows">${petRows()}</tbody></table></div><p class="inline-note" id="pet-count">7 shown · sample collection</p><p class="inline-note">Prototype filter target: Lv. ${state.phase}. Rows are fixed Lv. 2 samples; farming projections come after design selection.</p></div></div>`;
+}
+function switchButton(id,on,label){return `<button class="switch" role="switch" aria-checked="${on}" aria-label="${label}" data-toggle="${id}"></button>`}
+function widget(key){
+ const position=state.positions[key];
+ const style=`opacity:${state.opacity/100};transform:scale(${state.scale/100});transform-origin:top left;${position?`left:${position.x}%;top:${position.y}%;`:''}`;
+ const inner={target:'<strong>Cruel Sumasili <span style="float:right">64%</span></strong><div class="mini-bar" style="background:#c4787b;width:100%"></div><small>03:12 · Fire Temple</small>',meter:'<strong>DAEVALOG <span style="float:right;font-size:8px">DPS</span></strong><div class="mini-bar" style="width:100%"></div><div class="mini-bar"></div><div class="mini-bar" style="width:58%;background:#c49b6873"></div><small>Brimbus · 14.8k</small>',event:'<strong>Shugo Festival</strong><small>Starts in 12m 34s</small>',ping:'<span style="color:#80d5b4">● 48 ms</span>'};
+ return state.overlay[key]?`<div class="widget" data-widget="${key}" style="${style}" tabindex="0" role="group" aria-label="${key} widget, drag or use arrow keys to move">${inner[key]}</div>`:'';
+}
+function overlayPage(){
+ return heading('Your game. Your layout.','Drag widgets on the canvas. Use arrow keys for precise placement.',button('Reset layout','reset-layout',false,'reset'),'OVERLAY STUDIO')+`<div class="filters"><span class="tag accent">Default layout</span><span class="muted" style="font-size:10px">${Object.values(state.overlay).filter(Boolean).length} widgets</span><button class="button tiny ghost" data-action="snap" style="margin-left:auto">${state.snap?'✓ ':''}Snap to grid</button></div><div class="overlay-layout"><div class="canvas" id="canvas" aria-label="Overlay positioning canvas">${['target','meter','event','ping'].map(widget).join('')}<span class="canvas-hint">Layout preview · no native overlay</span></div><aside class="card overlay-settings"><div class="card-head"><h2>On this layout</h2>${icon('overlays',14)}</div>${[['meter','Damage meter'],['target','Boss health'],['event','Event reminder'],['ping','Latency']].map(([k,l])=>`<div class="setting-row"><span>${l}</span>${switchButton('overlay-'+k,state.overlay[k],l)}</div>`).join('')}<div class="range-row">Opacity<div class="row"><input type="range" min="30" max="100" value="${state.opacity}" data-control="opacity" aria-label="Overlay opacity"><output>${state.opacity}%</output></div></div><div class="range-row">Widget scale<div class="row"><input type="range" min="75" max="125" value="${state.scale}" step="5" data-control="scale" aria-label="Widget scale"><output>${state.scale}%</output></div></div><p class="inline-note">In-game shortcuts and click-through are native features to implement after selection.</p>${button('Preview saved layout','save-layout',true,'check')}</aside></div><p class="inline-note">This editor keeps its sample layout only while the page is open. It does not move or create Windows overlays.</p>`;
+}
+function historyPage(){
+ const runs=[['Fire Temple','Normal','Today, 22:25','03:19','14.8k',true],['Ferocious Horn Den','Normal','Today, 22:07','13:12','14.3k',true],['Deus Research Base','Hard','Today, 20:37','22:00','10.5k',true],['Ferocious Horn Den','Normal','Today, 19:19','08:43','10.8k',false],['Fire Temple','Normal','Yesterday, 21:13','04:34','16.2k',true],['Urugugu Canyon','Easy','Yesterday, 20:15','04:20','11.1k',true]];
+ return heading('Every encounter tells a story.','Saved on your PC. Ready when you want a closer look.',`<span class="tag">6 sample encounters</span>`,'FIGHT HISTORY')+`<div class="filters"><span class="tag accent">All encounters</span><span class="muted" style="font-size:10px">Select a run to inspect the sample combat view.</span></div><section class="card"><div class="card-head"><h2>Recent encounters</h2><small>Your DPS</small></div>${runs.map(r=>`<button class="history-row" data-action="inspect-fight"><span class="event-icon">${icon('combat',15)}</span><span><b>${r[0]} <span class="muted">· ${r[1]}</span></b><small>${r[2]} · 4 players</small></span><span class="tag ${r[5]?'green':''}">${r[5]?'Cleared':'Not cleared'}</span><span class="duration muted">${r[3]}</span><span class="right">${r[4]}</span></button>`).join('')}</section><p class="inline-note">All rows open a shared sample encounter in this design prototype.</p>`;
+}
+function alertsPage(){
+ return heading('Never miss the moment.','A gentle reminder before your next adventure.',button('Send test alert','test-alert',false,'alerts'),'EVENT ALERTS')+`<div class="filters"><span class="tag accent">Latin America · Sample schedule</span><span class="muted" style="font-size:10px">Remind me 3 minutes before</span></div><section class="card alert-table">${eventData.map((e,i)=>`<div class="event"><span class="event-icon">${icon(e[0],18)}</span><div><b>${e[1]}</b><small>${e[2]}</small></div><span class="time">${e[3]}</span>${switchButton('alert-'+i,state.alerts[i],e[1]+' reminder')}</div>`).join('')}<div class="setting-row"><span>Play reminder sound</span>${switchButton('sound',state.sound,'Play reminder sound')}</div></section><p class="inline-note">Timers are static examples. The test shows an in-app banner; native notifications and sound are not connected.</p>`;
+}
+function settingsPage(){
+ return heading('A companion that fits.','A few thoughtful controls, right where you need them.','','PREFERENCES')+`<div class="grid settings-grid"><section class="card"><div class="card-head"><h2>Game & capture</h2>${icon('signal',16)}</div><span class="tag green">Sample adapter available</span><p>Network adapter</p><select class="input" aria-label="Sample network adapter"><option>Automatic · Ethernet</option><option>Wi-Fi · Sample adapter</option></select><p>The production app uses Npcap and the existing Rust capture engine. This prototype does not access your network.</p>${button(state.live?'Show waiting state':'Show sample encounter','simulate',false,state.live?'pause':'play')}</section><section class="card"><div class="card-head"><h2>Window & reminders</h2>${icon('settings',16)}</div><div class="setting-row"><span>Always on top</span>${switchButton('alwaysTop',state.alwaysTop,'Always on top sample preference')}</div><div class="setting-row"><span>Reminder sound</span>${switchButton('sound',state.sound,'Reminder sound preference')}</div><p>These controls show the proposed settings experience. Native window behavior and audio are part of the selected implementation.</p></section><section class="card"><div class="card-head"><h2>Local by design</h2>${icon('shield',16)}</div><p>Capture stays in the Rust daemon. Encounter history, pet progress, and layouts stay on your PC. A polished app window and small native overlays share the same engine.</p></section><section class="card"><div class="card-head"><h2>About this preview</h2>${icon('wing',16)}</div><p>Daevalog Windows · Design exploration<br>All encounters and character data are samples.<br>Selected: Command visuals with the full companion layout.</p></section></div>`;
+}
+let toastTimer;
+function toast(message){const t=document.getElementById('toast');t.textContent=message;clearTimeout(toastTimer);toastTimer=setTimeout(()=>{t.textContent=''},3500)}
+document.addEventListener('click',e=>{
+ const b=e.target.closest('button');if(!b)return;
+ if(b.dataset.page){state.page=b.dataset.page;state.search='';render();return}
+ if(b.dataset.target){state.target=b.dataset.target;render();toast('Target filter: '+state.target+' · sample numbers unchanged');return}
+ if(b.dataset.metric){state.metric=b.dataset.metric;render();return}
+ if(b.dataset.pin!==undefined){const id=Number(b.dataset.pin);state.pinned.has(id)?state.pinned.delete(id):state.pinned.add(id);render();return}
+ if(b.dataset.toggle){
+  const k=b.dataset.toggle;
+  if(k.startsWith('overlay-'))state.overlay[k.slice(8)]=!state.overlay[k.slice(8)];
+  else if(k.startsWith('alert-'))state.alerts[Number(k.slice(6))]=!state.alerts[Number(k.slice(6))];
+  else state[k]=!state[k];render();return;
+ }
+ switch(b.dataset.action){
+  case 'simulate':state.live=!state.live;render();break;
+  case 'combat':case 'overlays':state.page=b.dataset.action;render();break;
+  case 'inspect-fight':state.live=true;state.page='combat';render();toast('Shared sample encounter · history drill-down preview');break;
+  case 'test-alert':toast('Shugo Festival starts in 3 minutes · Test alert');break;
+  case 'reset-layout':state.positions={};state.opacity=85;state.scale=100;state.overlay={meter:true,target:true,event:true,ping:true};render();break;
+  case 'snap':state.snap=!state.snap;render();break;
+  case 'save-layout':toast('Layout preview ready · kept in memory for this session');break;
+  case 'search':openSearch();break;
+ }
+});
+document.addEventListener('input',e=>{
+ if(e.target.id==='pet-search'){state.search=e.target.value;document.getElementById('pet-rows').innerHTML=petRows();document.getElementById('pet-count').textContent=filteredPets().length+' shown · sample collection'}
+ if(e.target.dataset.control==='opacity'||e.target.dataset.control==='scale'){
+  const k=e.target.dataset.control;state[k]=Number(e.target.value);e.target.nextElementSibling.value=state[k]+'%';
+  document.querySelectorAll('.widget').forEach(w=>{if(k==='opacity')w.style.opacity=state.opacity/100;else w.style.transform='scale('+state.scale/100+')'});
+ }
+ if(e.target.id==='command-input')renderSearch(e.target.value);
+});
+document.addEventListener('change',e=>{
+ const key=e.target.dataset.control;
+ if(key==='genus'||key==='phase'){state[key]=e.target.value;state.search='';render()}
+ if(key==='player'){state.player=Number(e.target.value);render()}
+});
+document.querySelector('.close-dialog').onclick=()=>document.getElementById('command-dialog').close();
+function openSearch(){renderSearch('');const d=document.getElementById('command-dialog');d.showModal();const input=document.getElementById('command-input');input.value='';input.focus()}
+function renderSearch(term){document.getElementById('command-results').innerHTML=pages.filter(p=>p[1].toLowerCase().includes(term.toLowerCase())).map(p=>`<button data-search-page="${p[0]}">${icon(p[0],16)}${p[1]}</button>`).join('')}
+document.getElementById('command-results').onclick=e=>{const b=e.target.closest('[data-search-page]');if(b){state.page=b.dataset.searchPage;document.getElementById('command-dialog').close();render()}};
+document.addEventListener('keydown',e=>{
+ if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='k'){e.preventDefault();if(!document.getElementById('command-dialog').open)openSearch();return}
+ if(e.target.closest('input,textarea,select,[contenteditable],dialog,.widget'))return;
+});
+function wireDragging(){
+ const canvas=document.getElementById('canvas');if(!canvas)return;
+ canvas.querySelectorAll('.widget').forEach(w=>{
+  function place(left,top){
+   const maxX=canvas.clientWidth-w.getBoundingClientRect().width,maxY=canvas.clientHeight-w.getBoundingClientRect().height;
+   const x=Math.max(0,Math.min(maxX,state.snap?Math.round(left/10)*10:left)),y=Math.max(0,Math.min(maxY,state.snap?Math.round(top/10)*10:top));
+   w.style.left=x/canvas.clientWidth*100+'%';w.style.top=y/canvas.clientHeight*100+'%';state.positions[w.dataset.widget]={x:x/canvas.clientWidth*100,y:y/canvas.clientHeight*100};
+  }
+  w.onpointerdown=e=>{
+   const start={x:e.clientX,y:e.clientY,left:w.offsetLeft,top:w.offsetTop};w.setPointerCapture(e.pointerId);w.focus();
+   w.onpointermove=m=>place(start.left+m.clientX-start.x,start.top+m.clientY-start.y);
+   w.onpointerup=()=>{w.onpointermove=null;w.onpointerup=null};
+   w.onpointercancel=()=>{w.onpointermove=null;w.onpointerup=null};
+  };
+  w.onkeydown=e=>{const delta={ArrowLeft:[-10,0],ArrowRight:[10,0],ArrowUp:[0,-10],ArrowDown:[0,10]}[e.key];if(delta){e.preventDefault();place(w.offsetLeft+delta[0],w.offsetTop+delta[1])}};
+ });
+}
+// Class portraits are the repository's existing assets; the preview server embeds them.
+// The fallback is a vector mark, so opening this file directly also works offline.
+const fallback='data:image/svg+xml,'+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="m12 3 6 9-6 9-6-9Z" fill="none" stroke="#a5b9d5"/></svg>');
+const assets=Object.fromEntries(players.map(p=>[p.job,fallback]));
+/* EMBED_CLASS_ASSETS */
+render();
+</script>
+</body>
+</html>

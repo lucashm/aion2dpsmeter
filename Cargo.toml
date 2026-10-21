@@ -1,6 +1,8 @@
 [workspace]
 resolver = "3"
-members = ["daemon", "tray"]
+members = ["daemon", "tray", "windows"]
+# Keep Linux installs/builds on their existing crates and dependency graph.
+default-members = ["daemon", "tray"]
 
 [profile.release]
 lto = "thin"
