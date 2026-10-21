@@ -70,7 +70,18 @@ Item {
             font.family: Theme.fontFamily
             font.bold: row.player && row.player.isLocal
             elide: Text.ElideRight
-            width: row.width - stats.width - Math.round(60 * Theme.scale)
+            width: row.width - stats.width - Math.round(60 * Theme.scale) - (cp.visible ? cp.implicitWidth + parent.spacing : 0)
+        }
+        // Combat power, known only for party members.
+        Text {
+            id: cp
+            visible: !!row.player && row.player.combatPower > 0
+            anchors.verticalCenter: parent.verticalCenter
+            text: visible ? Theme.compact(row.player.combatPower) : ""
+            color: Theme.faint
+            font.pixelSize: Theme.fontSmall
+            font.family: Theme.fontFamily
+            font.features: { "tnum": 1 }
         }
     }
 

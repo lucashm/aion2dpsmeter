@@ -28,6 +28,8 @@ pub struct PlayerRow {
     pub share: f64,
     pub crit_rate: f64,
     pub is_local: bool,
+    /// From the party roster; 0 for players outside your party.
+    pub combat_power: i64,
 }
 
 #[derive(Debug, Clone, Serialize, PartialEq)]
@@ -142,6 +144,7 @@ impl Meter {
                 share: p.damage_contribution,
                 crit_rate: self.crit_by_actor.get(&id).copied().unwrap_or(0.0),
                 is_local: Some(id) == local,
+                combat_power: p.combat_power,
             })
             .collect();
         players.sort_by(|a, b| b.damage.total_cmp(&a.damage).then(a.id.cmp(&b.id)));

@@ -67,7 +67,8 @@ def state():
         dmg = dps * max(t, 1)
         total += dmg
         players.append({"id": pid, "name": name, "job": job, "jobKey": key, "dps": dps, "damage": dmg,
-                        "share": 0, "critRate": 0.35 + 0.1 * math.sin(pid), "isLocal": pid == LOCAL})
+                        "share": 0, "critRate": 0.35 + 0.1 * math.sin(pid), "isLocal": pid == LOCAL,
+                        "combatPower": 78_000 + pid * 10})
     for p in players:
         p["share"] = p["damage"] / total * 100
     players.sort(key=lambda p: -p["damage"])
