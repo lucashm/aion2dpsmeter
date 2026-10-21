@@ -1,6 +1,9 @@
 # Changelog
 
-## Unreleased
+## 0.1.1
+
+- Renamed to Daevalog (commands, service and paths keep aion2-meter, so existing installs keep working)
+- Live meter: a CP column with each party member's combat power, and your own without a party
 
 - Pet souls widget: up to 5 pets you're picking up souls for, each with its portrait, level, progress, souls per minute and time to the next level and to full; each goes 5 minutes after its last soul
 - App window (tray → Open app, or `aion2-meter app`) with four pages:
@@ -10,7 +13,7 @@
   - Analytics: past runs grouped by player, class, boss or run, with filters, sorting, a DPS-per-run chart and best runs
 - Hidden cube alerts: a banner and a chime at the top of the screen when a cube comes within about 100 m, and when someone else opens it (with their name when the game gave it, else just that it's being opened; the distance updates as you move); the nearby alert only shows while you have a Hidden Cube Key, read from your bag at login; every cube seen is saved as a spawn spot and shown on the Map page (Cubes seen by the meter), with the cube in range right now pulsing
 - Event reminders: a countdown banner and a chime 1, 3, 5 or 10 minutes before the Shugo Festival (every hour at :00) and the Dimensional Invasion (every hour at :30), each turned on or off on the Notifications page
-- Cube alerts and event reminders only show (and chime) while the overlay's widgets are on, and reminders only while the game is open; each has a ✕ to close it
+- Cube alerts and event reminders show (and chime) while the game is focused, even with the widgets hidden, and reminders only while the game is open; each has a ✕ to close it
 - The chime is a softer, lower two-note tone
 - Running the installer again to update only asks for sudo when the daemon changed
 - The installer finds missing dependencies (Quickshell, setcap, Qt's image formats, curl, Noto Sans) and offers to install them with your package manager

@@ -66,7 +66,7 @@ dependencies = [
 
 [[package]]
 name = "aion2-meter-tray"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "ksni",
  "serde_json",
@@ -74,7 +74,7 @@ dependencies = [
 
 [[package]]
 name = "aion2-meterd"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "a2tools-dps-meter",
  "anyhow",
