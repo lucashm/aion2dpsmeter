@@ -29,7 +29,8 @@ ShellRoot {
         interval: 2000
         onTriggered: root.windowListSettled = true
     }
-    readonly property bool showWidgets: editMode || (!settings.hideWidgets && (gameFocused || !canDetectFocus || settings.alwaysShow))
+    readonly property bool alertsShown: editMode || gameFocused || !canDetectFocus || settings.alwaysShow
+    readonly property bool showWidgets: alertsShown && (editMode || !settings.hideWidgets)
 
     // The screen the game is on: where it was last focused, else the
     // focused one.
@@ -172,9 +173,9 @@ ShellRoot {
         settings: settings
         screen: root.gameScreen
         editMode: root.editMode
-        // Only while the overlay's widgets are on; a test from the app shows
-        // even while the game isn't focused.
-        wanted: active && !settings.hideWidgets && (root.showWidgets || appWindow.visible)
+        // While the game is focused, even with the widgets hidden; a test from
+        // the app shows even while the game isn't focused.
+        wanted: active && (root.alertsShown || appWindow.visible)
     }
     EventAlert {
         id: eventAlertWidget
@@ -183,7 +184,7 @@ ShellRoot {
         gameRunning: !!(client.capture && client.capture.gameRunning)
         screen: root.gameScreen
         editMode: root.editMode
-        wanted: active && !settings.hideWidgets && (root.showWidgets || appWindow.visible)
+        wanted: active && (root.alertsShown || appWindow.visible)
     }
 
     PetFarm {

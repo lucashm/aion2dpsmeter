@@ -40,8 +40,7 @@ OverlayWidget {
             return;
         }
         if (e.event === "left" || e.event === "opened") shown = shown.filter(a => a.cube !== e.id);
-        // The overlay's widgets are hidden: no new alert, no chime.
-        if (e.event === "left" || settings.hideWidgets) return;
+        if (e.event === "left") return;
         // No key, no use: unless the meter doesn't know your keys yet.
         if (e.event === "near" && settings.cubesNeedKey && e.keys === 0) return;
         let title, note;

@@ -64,7 +64,7 @@ OverlayWidget {
     }
     onShownChanged: {
         const keys = shown.map(a => a.key);
-        if (settings.eventSound && !settings.hideWidgets && keys.some(k => !chimed.includes(k)))
+        if (settings.eventSound && keys.some(k => !chimed.includes(k)))
             Quickshell.execDetached(["sh", "-c", 'pw-play "$0" 2>/dev/null || paplay "$0"', Quickshell.shellDir + "/sounds/cube.wav"]);
         chimed = keys;
     }

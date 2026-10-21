@@ -37,6 +37,6 @@ push({ event: "near", id: 9, keys: 0 });
 eq(alerts.shown.some((a) => a.cube === 9), false, "no keys: no alert");
 alerts.settings.hideWidgets = true;
 push({ event: "near", id: 10, distance: 30, keys: 5 });
-eq(alerts.shown.some((a) => a.cube === 10), false, "widgets hidden: no alert");
+eq(alerts.shown.some((a) => a.cube === 10), true, "widgets hidden: still alerts");
 alerts.settings.hideWidgets = false;
 if (!process.exitCode) console.log("cube alert: ok");
