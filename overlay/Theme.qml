@@ -30,7 +30,8 @@ Singleton {
     readonly property int fontSmall: Math.round(11 * scale)
     readonly property int fontNormal: Math.round(12.5 * scale)
     readonly property int fontLarge: Math.round(15 * scale)
-    // Meter columns: damage, DPS, share, crit (PlayerBar and MeterHeader).
+    // Meter columns: CP, damage, DPS, share, crit (PlayerBar and MeterHeader).
+    readonly property int colCp: Math.round(40 * scale)
     readonly property int colDamage: Math.round(50 * scale)
     readonly property int colDps: Math.round(44 * scale)
     readonly property int colShare: Math.round(32 * scale)

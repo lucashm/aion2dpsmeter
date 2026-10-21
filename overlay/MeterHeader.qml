@@ -12,7 +12,7 @@ Item {
         anchors.verticalCenter: parent.verticalCenter
         spacing: Theme.colSpacing
         Repeater {
-            model: [["Damage", Theme.colDamage], ["DPS", Theme.colDps], ["%", Theme.colShare], ["Crit", Theme.colCrit]]
+            model: [["CP", Theme.colCp], ["Damage", Theme.colDamage], ["DPS", Theme.colDps], ["%", Theme.colShare], ["Crit", Theme.colCrit]]
                 .filter(c => !(header.metric === "dps" && c[0] === "Damage") && !(header.metric === "damage" && c[0] === "DPS"))
             Text {
                 required property var modelData
