@@ -144,7 +144,11 @@ impl Meter {
                 share: p.damage_contribution,
                 crit_rate: self.crit_by_actor.get(&id).copied().unwrap_or(0.0),
                 is_local: Some(id) == local,
-                combat_power: p.combat_power,
+                // Yours as the game last stated it, which needs no party roster.
+                combat_power: match crate::own_cp::get() {
+                    cp if cp > 0 && Some(id) == local => cp,
+                    _ => p.combat_power,
+                },
             })
             .collect();
         players.sort_by(|a, b| b.damage.total_cmp(&a.damage).then(a.id.cmp(&b.id)));

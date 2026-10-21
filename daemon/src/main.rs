@@ -10,6 +10,7 @@ mod history;
 mod icons;
 mod ipc;
 mod meter;
+mod own_cp;
 mod pets;
 mod tcp;
 
@@ -177,6 +178,7 @@ fn main() -> Result<()> {
             let now = now_ms();
             pets.lock().frame(packet, now);
             cubes.lock().frame(packet, now);
+            own_cp::frame(packet);
         })));
     }
 
